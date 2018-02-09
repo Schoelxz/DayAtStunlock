@@ -6,7 +6,7 @@ using UnityEngine;
 //  cause it is not gameobject reliant nor should exist on several places
 public class WaypointManager : MonoBehaviour
 {
-    #region UnityEditorOnly
+    #region UnityEditorOnly Inspector Variable
 #if UNITY_EDITOR
 
 #pragma warning disable 414  // CS0414 Unused variable.

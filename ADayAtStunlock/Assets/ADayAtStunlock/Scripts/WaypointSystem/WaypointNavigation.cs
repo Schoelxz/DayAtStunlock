@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WaypointNavigation : MonoBehaviour
 {
-
     public List<Waypoint> test = new List<Waypoint>();
 
     public List<List<Waypoint>> listListWaypoints = new List<List<Waypoint>>();
@@ -12,7 +11,7 @@ public class WaypointNavigation : MonoBehaviour
     public bool isToFollowWaypoints = true;
 
     private IEnumerator coroutineFollowWaypoint;
-    private bool coroutineRunning = false;
+    public bool coroutineRunning = false;
 
 	// Use this for initialization
 	void Start ()
@@ -27,17 +26,16 @@ public class WaypointNavigation : MonoBehaviour
     {
         if (isToFollowWaypoints && !coroutineRunning)
         {
+            coroutineFollowWaypoint = FollowWaypoints(listListWaypoints[0]);
             StartCoroutine(coroutineFollowWaypoint);
             isToFollowWaypoints = false;
         }
-
-        Debug.Log("3CR.current = " + coroutineFollowWaypoint.Current);
     }
     
     IEnumerator FollowWaypoints(List<Waypoint> waypoints)
     {
         coroutineRunning = true;
-        if (waypoints.Count == 0)
+        if (waypoints.Count != 0 && waypoints[0] != null)
         {
             int currentWaypoint = 0;
             bool destinationReached = false;
