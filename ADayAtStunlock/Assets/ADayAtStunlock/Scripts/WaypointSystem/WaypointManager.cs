@@ -19,41 +19,52 @@ public class WaypointManager : MonoBehaviour
     #region public variables
     public static Dictionary<string, Waypoint> waypointNames = new Dictionary<string, Waypoint>();
     public static List<Waypoint> listOfAllWaypoints = new List<Waypoint>();
+    public static List<Waypoint> testPath = new List<Waypoint>();
     #endregion
+    public PathScriptObject path;
 
-    #region Start
-#if UNITY_EDITOR
+
+/*#if !UNITY_EDITOR
     #region UnityEditorOnly
     void Start ()
     {
         EDITORInspectorList = listOfAllWaypoints;
     }
     #endregion
-#else
+#else*/
+
     // Use this for initialization
-    static void Start()
+    void Start()
     {
-        
+        /*for (int i = 0; i < path.pathWay.Count; i++)
+        {
+
+            testPath.Add(waypointNames[path.pathWay[i]]);
+
+        }*/
     }
-#endif
-    #endregion
+
+//#endif
+
 
     #region Update
     // Update is called once per frame
-    static void Update ()
+    void Update ()
     {
-        Debug.Log("hello");
+
     }
     #endregion
 
     #region Functions
-    static GameObject GetWaypointGameObject(string waypointName)
+    GameObject GetWaypointGameObject(string waypointName)
     {
         return waypointNames[waypointName].gameObject;
     }
-    static Vector3 GetWaypointPosition(string waypointName)
+    Vector3 GetWaypointPosition(string waypointName)
     {
         return waypointNames[waypointName].transform.position;
     }
+
+
     #endregion
 }

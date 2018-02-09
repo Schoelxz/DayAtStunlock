@@ -7,7 +7,6 @@ public class Waypoint : MonoBehaviour
     #region Start
     private void Start()
     {
-        //TODO: Left off from here.... fix destroy on textmesh and mesh renderer....
         Destroy(gameObject.GetComponent<TextMesh>());
         Destroy(gameObject.GetComponent<MeshRenderer>());
         

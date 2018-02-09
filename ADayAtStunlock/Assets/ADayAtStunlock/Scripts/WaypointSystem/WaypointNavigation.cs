@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WaypointNavigation : MonoBehaviour
 {
+
+    public PathScriptObject path;
+
     public List<Waypoint> test = new List<Waypoint>();
 
     public List<List<Waypoint>> listListWaypoints = new List<List<Waypoint>>();
@@ -16,6 +19,10 @@ public class WaypointNavigation : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        for (int i = 0; i < path.pathWay.Count; i++)
+        {
+            test.Add(WaypointManager.waypointNames[path.pathWay[i]]);
+        }
         listListWaypoints.Add(test);
         coroutineFollowWaypoint = FollowWaypoints(listListWaypoints[0]);
 
