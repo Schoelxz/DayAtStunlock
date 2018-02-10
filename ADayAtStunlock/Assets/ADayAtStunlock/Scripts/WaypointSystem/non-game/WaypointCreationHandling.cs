@@ -37,6 +37,7 @@ public class WaypointCreationHandling : MonoBehaviour
     //  List to change names of the waypoints. By chaning the names in this list on the inspector.
     [Tooltip("Change name of waypoint")]
     public List<string> WaypointNames = new List<string>();
+
     //private static List<string> SavedWaypointNames = new List<string>();
     [Space]
 
@@ -58,7 +59,7 @@ public class WaypointCreationHandling : MonoBehaviour
         FindOrCreateFolder();
 
         waypoints.Clear();      //   Potential memory leak but will probably get caught by garbage collection
-        WaypointNames.Clear(); //   Potential memory leak but will probably get caught by garbage collection
+        //WaypointNames.Clear(); //   Potential memory leak but will probably get caught by garbage collection
         if (waypoints.Count == 0)
         {
             
@@ -68,7 +69,8 @@ public class WaypointCreationHandling : MonoBehaviour
                 {
                     waypoints.Add(folder.transform.GetChild(i).GetComponent<Waypoint>());
 
-                    WaypointNames.Add(waypoints[i].gameObject.name);
+                    if(!WaypointNames.Contains(waypoints[i].gameObject.name))
+                        WaypointNames.Add(waypoints[i].gameObject.name);
                 }
             }
 

@@ -7,10 +7,13 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class PathLineDrawer : MonoBehaviour
 {
-
     private List<PathScriptObject> pathList = new List<PathScriptObject>();
     public static List<List<Waypoint>> listOfPathsWithWaypoints = new List<List<Waypoint>>();
     private GameObject folderRef;
+    public int pathsAvailable;
+    public int pathToRender = 0;
+
+    private float dt; //delta timer to control debug.drawline rendering
 
     // Use this for initialization
     void Start ()
@@ -33,8 +36,12 @@ public class PathLineDrawer : MonoBehaviour
 
             for (int j = 0; j < pathList[i].pathWay.Count; j++)
             {
-
-                listOfPathsWithWaypoints[i].Add(folderRef.transform.Find(pathList[i].pathWay[j]).GetComponent<Waypoint>());
+                if(folderRef.transform.Find(pathList[i].pathWay[j]))
+                    listOfPathsWithWaypoints[i].Add(folderRef.transform.Find(pathList[i].pathWay[j]).GetComponent<Waypoint>());
+                else
+                {
+                    Debug.Assert(folderRef.transform.Find(pathList[i].pathWay[j]), "Could not find a waypoint from path: *" + pathList[i].name + "* with waypoint name: *" + pathList[i].pathWay[j] + "*.");
+                }
 
             }
         }
@@ -43,25 +50,41 @@ public class PathLineDrawer : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log(listOfPathsWithWaypoints);
+
 	}
+
+
 
     //  Better update when it comes to rendering visible stuff in the scene
     void OnRenderObject()
     {
+        dt += Time.deltaTime;
+
+        pathsAvailable = listOfPathsWithWaypoints.Count;
         for (int i = 0; i < listOfPathsWithWaypoints.Count; i++)
         {
             for (int j = 0; j < listOfPathsWithWaypoints[i].Count; j++)
             {
-               // int nextPoint = j + 1;
-               // if (nextPoint == listOfPathsWithWaypoints[j].Count - 1)
-                   // nextPoint = 0;
+                int wpIndex = (j+1);
+                if (j == listOfPathsWithWaypoints[i].Count - 1)
+                {
+                    wpIndex = j;
+                }
 
-                //TODO: MAKE NICE LINES HERE. OK?! GOOD!
-                Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position, listOfPathsWithWaypoints[i][j].transform.position);
+                //  Render pathway
+                if (pathToRender == i && dt >= 0.1f)
+                {
+                    Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
+                        listOfPathsWithWaypoints[i][wpIndex].transform.position,
+                        new Color((1f / listOfPathsWithWaypoints[i].Count) * j, 0.2f, 0.2f, 1f), 0.1f);
+                }
             }
         }
 
+        if (dt >= 0.1f)
+            dt = 0f;
+
+        
         
     }
 }
