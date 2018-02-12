@@ -10,8 +10,18 @@ public class PathLineDrawer : MonoBehaviour
     private List<PathScriptObject> pathList = new List<PathScriptObject>();
     public static List<List<Waypoint>> listOfPathsWithWaypoints = new List<List<Waypoint>>();
     private GameObject folderRef;
+
+    [Tooltip("Read only. Cause it does nothing.")]
     public int pathsAvailable;
+
     public int pathToRender = 0;
+
+    [Header("Line Color Control")]
+    [Range(0, 1)]
+    public int useRed, useGreen, useBlue;
+    
+
+
 
     private float dt; //delta timer to control debug.drawline rendering
 
@@ -76,7 +86,7 @@ public class PathLineDrawer : MonoBehaviour
                 {
                     Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position,
-                        new Color((1f / listOfPathsWithWaypoints[i].Count) * j, 0.2f, 0.2f, 1f), 0.1f);
+                        new Color(((1f / listOfPathsWithWaypoints[i].Count) * j) * useRed, (0.2f) * useGreen, (0.2f)* useBlue, 1f), 0.1f);
                 }
             }
         }
