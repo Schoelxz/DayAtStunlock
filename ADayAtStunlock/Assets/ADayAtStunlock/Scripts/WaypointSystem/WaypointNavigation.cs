@@ -16,7 +16,6 @@ public class WaypointNavigation : MonoBehaviour
     private IEnumerator coroutineFollowWaypoint;
     public bool coroutineRunning = false;
 
-	// Use this for initialization
 	void Start ()
     {
         for (int i = 0; i < path.pathWay.Count; i++)
@@ -28,7 +27,6 @@ public class WaypointNavigation : MonoBehaviour
 
     }
     
-    // Update is called once per frame
     void Update ()
     {
         if (isToFollowWaypoints && !coroutineRunning)

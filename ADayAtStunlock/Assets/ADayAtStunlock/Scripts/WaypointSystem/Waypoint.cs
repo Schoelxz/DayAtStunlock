@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+[ExecuteInEditMode]
+#endif
 public class Waypoint : MonoBehaviour
 {
+
+    public string waypointName;
+
     #region Start
     private void Start()
     {
+
+#if !UNITY_EDITOR
+
         Destroy(gameObject.GetComponent<TextMesh>());
         Destroy(gameObject.GetComponent<MeshRenderer>());
         
@@ -15,13 +24,18 @@ public class Waypoint : MonoBehaviour
         
         if (!WaypointManager.waypointNames.ContainsValue(this))
             WaypointManager.waypointNames.Add(gameObject.name, this);
+#else
+
+
+#endif
 
     }
-    #endregion
+#endregion
 
-    #region OnDestroy
+#region OnDestroy
     private void OnDestroy()
     {
+#if !UNITY_EDITOR
 
         if (WaypointManager.listOfAllWaypoints.Contains(this))
             WaypointManager.listOfAllWaypoints.Remove(this);
@@ -30,8 +44,15 @@ public class Waypoint : MonoBehaviour
             WaypointManager.waypointNames.Remove(gameObject.name);
 
 
+#else
+        WaypointCreationHandling.WaypointNames.Remove(this);
+        WaypointCreationHandling.waypoints.Remove(this);
+
+#endif
+
+
     }
-    #endregion
+#endregion
 }
 
 #region OldCodeSaved
@@ -40,12 +61,12 @@ public class Waypoint : MonoBehaviour
 #endif
 public class Waypoint : MonoBehaviour
 {
-    #region UnityEditorOnly
+#region UnityEditorOnly
 #if UNITY_EDITOR
-    #region Editor Variables
+#region Editor Variables
     private TextMesh text;
-    #endregion
-    #region Update
+#endregion
+#region Update
     private void Update()
     {
         if (text != null)
@@ -55,11 +76,11 @@ public class Waypoint : MonoBehaviour
             text.text = gameObject.name;
         }
     }
-    #endregion
+#endregion
 #endif
-    #endregion
+#endregion
 
-    #region Start
+#region Start
     private void Start()
     {
 #if UNITY_EDITOR
@@ -76,7 +97,7 @@ public class Waypoint : MonoBehaviour
 #endif
 
 
-        #region UnityEditorOnly
+#region UnityEditorOnly
 #if UNITY_EDITOR
         transform.parent = GameObject.Find("WaypointsFolder").transform;
         text = gameObject.AddComponent<TextMesh>();
@@ -84,11 +105,11 @@ public class Waypoint : MonoBehaviour
         text.alignment = TextAlignment.Center;
         text.characterSize = 0.2f;
 #endif
-        #endregion
+#endregion
     }
-    #endregion
+#endregion
 
-    #region OnDestroy
+#region OnDestroy
     private void OnDestroy()
     {
         if (WaypointManager.listOfAllWaypoints.Contains(this))

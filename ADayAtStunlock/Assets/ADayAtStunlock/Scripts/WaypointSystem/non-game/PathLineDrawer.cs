@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
 [ExecuteInEditMode]
 public class PathLineDrawer : MonoBehaviour
 {
@@ -11,17 +10,22 @@ public class PathLineDrawer : MonoBehaviour
     public static List<List<Waypoint>> listOfPathsWithWaypoints = new List<List<Waypoint>>();
     private GameObject folderRef;
 
+    [Header("Path Render Control")]
     [Tooltip("Read only. Cause it does nothing.")]
     public int pathsAvailable;
 
+    [Tooltip("First path renders at zero.")]
     public int pathToRender = 0;
+    [Space]
 
     [Header("Line Color Control")]
+    public Color lineColor;
     [Range(0, 1)]
-    public int useRed, useGreen, useBlue;
-    
-
-
+    public int useRed = 1;
+    [Range(0, 1)]
+    public int useGreen = 1;
+    [Range(0, 1)]
+    public int useBlue = 0;
 
     private float dt; //delta timer to control debug.drawline rendering
 
@@ -32,10 +36,11 @@ public class PathLineDrawer : MonoBehaviour
         data = Resources.LoadAll("Waypoint-Paths", typeof(PathScriptObject));
 
         listOfPathsWithWaypoints.Clear();
-        pathList.Clear();
+        // pathList.Clear();
         foreach (PathScriptObject path in data)
         {
-            pathList.Add(path);
+            if(!pathList.Contains(path))
+                pathList.Add(path);
         }
 
         folderRef = GameObject.Find("WaypointsFolder");
@@ -50,7 +55,9 @@ public class PathLineDrawer : MonoBehaviour
                     listOfPathsWithWaypoints[i].Add(folderRef.transform.Find(pathList[i].pathWay[j]).GetComponent<Waypoint>());
                 else
                 {
-                    Debug.Assert(folderRef.transform.Find(pathList[i].pathWay[j]), "Could not find a waypoint from path: *" + pathList[i].name + "* with waypoint name: *" + pathList[i].pathWay[j] + "*.");
+                    Debug.Assert(folderRef.transform.Find(pathList[i].pathWay[j]),
+                        "Could not find a waypoint from path: *" + pathList[i].name +
+                        "* with waypoint name: *" + pathList[i].pathWay[j] + "*.");
                 }
 
             }
@@ -63,8 +70,6 @@ public class PathLineDrawer : MonoBehaviour
 
 	}
 
-
-
     //  Better update when it comes to rendering visible stuff in the scene
     void OnRenderObject()
     {
@@ -75,6 +80,13 @@ public class PathLineDrawer : MonoBehaviour
         {
             for (int j = 0; j < listOfPathsWithWaypoints[i].Count; j++)
             {
+                //  Check if waypoints is null
+                if (listOfPathsWithWaypoints[i][j] == null)
+                {
+                    Debug.LogWarning("Waypoint is null inside listOfPathsWithWaypoints at i = " + i + " and j = " + j);
+                    continue;
+                }
+
                 int wpIndex = (j+1);
                 if (j == listOfPathsWithWaypoints[i].Count - 1)
                 {
@@ -86,15 +98,15 @@ public class PathLineDrawer : MonoBehaviour
                 {
                     Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position,
-                        new Color(((1f / listOfPathsWithWaypoints[i].Count) * j) * useRed, (0.2f) * useGreen, (0.2f)* useBlue, 1f), 0.1f);
-                }
+                        new Color(
+                        ((lineColor.r / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useRed,    0, 1),
+                        ((lineColor.g / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useGreen,  0, 1),
+                        ((lineColor.b / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useBlue,   0, 1), 1f), Mathf.Clamp(lineColor.a, 0.1f, 1f));
+                } 
             }
         }
 
         if (dt >= 0.1f)
             dt = 0f;
-
-        
-        
     }
 }
