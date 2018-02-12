@@ -7,52 +7,51 @@ using UnityEngine;
 #endif
 public class Waypoint : MonoBehaviour
 {
-
-    public string waypointName;
-
     #region Start
     private void Start()
     {
+        //  Not to be happening in edit mode. only playmode and build versions
+        if (Application.isPlaying)
+        {
+            Destroy(gameObject.GetComponent<TextMesh>());
+            Destroy(gameObject.GetComponent<MeshRenderer>());
 
-#if !UNITY_EDITOR
+            if (!WaypointManager.listOfAllWaypoints.Contains(this))
+                WaypointManager.listOfAllWaypoints.Add(this);
 
-        Destroy(gameObject.GetComponent<TextMesh>());
-        Destroy(gameObject.GetComponent<MeshRenderer>());
-        
-        if (!WaypointManager.listOfAllWaypoints.Contains(this))
-            WaypointManager.listOfAllWaypoints.Add(this);
-        
-        if (!WaypointManager.waypointNames.ContainsValue(this))
-            WaypointManager.waypointNames.Add(gameObject.name, this);
-#else
-
-
-#endif
-
+            if (!WaypointManager.waypointNames.ContainsValue(this))
+                WaypointManager.waypointNames.Add(gameObject.name, this);
+        }
     }
-#endregion
+    #endregion
 
-#region OnDestroy
+    #region OnDestroy
     private void OnDestroy()
     {
-#if !UNITY_EDITOR
+        //  Not to be happening in edit mode. only playmode and build versions
+        if (Application.isPlaying)
+        {
+            if (WaypointManager.listOfAllWaypoints.Contains(this))
+                WaypointManager.listOfAllWaypoints.Remove(this);
 
-        if (WaypointManager.listOfAllWaypoints.Contains(this))
-            WaypointManager.listOfAllWaypoints.Remove(this);
+            if (WaypointManager.waypointNames.ContainsValue(this))
+                WaypointManager.waypointNames.Remove(gameObject.name);
+        }
 
-        if (WaypointManager.waypointNames.ContainsValue(this))
-            WaypointManager.waypointNames.Remove(gameObject.name);
+#if UNITY_EDITOR
 
-
-#else
-        WaypointCreationHandling.WaypointNames.Remove(this);
-        WaypointCreationHandling.waypoints.Remove(this);
+        //  Only to happen in edit mode. Not in play mode nor build versions.
+        if(!Application.isPlaying)
+        {
+            WaypointCreationHandling.WaypointNames.Remove(this);
+            WaypointCreationHandling.waypoints.Remove(this);
+        }
 
 #endif
 
 
     }
-#endregion
+    #endregion
 }
 
 #region OldCodeSaved

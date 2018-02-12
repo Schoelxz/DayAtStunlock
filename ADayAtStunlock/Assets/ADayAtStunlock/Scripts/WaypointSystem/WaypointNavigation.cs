@@ -20,7 +20,7 @@ public class WaypointNavigation : MonoBehaviour
     {
         for (int i = 0; i < path.pathWay.Count; i++)
         {
-            test.Add(WaypointManager.waypointNames[path.pathWay[i]]);
+           test.Add(WaypointManager.waypointNames[path.pathWay[i]]);
         }
         listListWaypoints.Add(test);
         coroutineFollowWaypoint = FollowWaypoints(listListWaypoints[0]);

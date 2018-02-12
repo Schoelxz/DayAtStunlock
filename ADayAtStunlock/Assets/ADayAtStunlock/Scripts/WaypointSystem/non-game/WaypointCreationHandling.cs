@@ -13,11 +13,7 @@ public class WaypointCreationHandling : MonoBehaviour
     #region Variables
     //  List of all waypoints in the scene.
     public static List<Waypoint> waypoints = new List<Waypoint>(); //Waypoints are automatically removed from list through waypoints object itself.
-
-    public int waypointNamesCount;
-
-
-    private int numberOfWaypointsChecker = 0;
+    public static Dictionary<Waypoint, string> WaypointNames = new Dictionary<Waypoint, string>();
 
     #region Deprecated Debug
 #pragma warning disable 414  // CS0414 Unused variable.
@@ -39,14 +35,6 @@ public class WaypointCreationHandling : MonoBehaviour
     public bool textOverrideLookUp = false;
     [Tooltip("Default text will look at the current camera")]
     public bool textLookAtMainCamera = false;
-    [Space]
-
-    [Header("Change Waypoint Names")]
-    //  List to change names of the waypoints. By chaning the names in this list on the inspector.
-    [Tooltip("Change name of waypoint")]
-    public static Dictionary<Waypoint, string> WaypointNames = new Dictionary<Waypoint, string>();
-
-    //private static List<string> SavedWaypointNames = new List<string>();
     [Space]
 
     //[SerializeField]
@@ -82,86 +70,12 @@ public class WaypointCreationHandling : MonoBehaviour
     {
         if (!EditorApplication.isPlaying)
         {
-            //  For every waypoint in the scene, we add it to our hierarchy-folder
-            //  Unless it already exits in the waypoint list
-            PutAllWaypointsInsideFolder();
-
-            //waypoints.Clear();
-
-            if(numberOfWaypointsChecker != waypoints.Count)
-            {
-
-            }
-
-            //  Add all the waypoints inside the folder to the waypoints list
-            //  Unless it already exits in the waypoint list
-            AddAllWaypointsToList();
-
-            //  Add the waypoint names to the waypoint names list
-            //  Unless it already exits in the waypoint names list
-            AddNameOfWaypointsToList();
-
-            SetGameobjectsName();
-
-            waypointNamesCount = WaypointNames.Count;
-
-            //  Main update for waypoints
-            WaypointUpdates();
-
-
-            SetTextMeshOptions();
-            
+            FunctionsThatWork();
         }
     }
     #endregion
 
     #region Functions
-
-
-    /// <summary>
-    /// Updates all waypoints in many different ways...
-    /// </summary>
-    void WaypointUpdates()
-    {
-        inspectorWaypoints = waypoints;
-
-
-
-        // Update all waypoints
-        for (int i = 0; i < waypoints.Count; i++)
-        {
-            //  Remove waypoint from list if it has no value.
-            if (waypoints[i] == null)
-            {
-                Debug.LogAssertion("waypoint is null...");
-                continue;
-            }
-
-            // Update rotation. textmesh looking direction
-            if (!textOverrideLookUp)
-            {
-                if (Camera.current != null && !textLookAtMainCamera)
-                {
-                    waypoints[i].transform.LookAt(Camera.current.transform);
-                    waypoints[i].transform.Rotate(0, 180, 0);
-                }
-                else
-                {
-                    if (textLookAtMainCamera)
-                    {
-                        waypoints[i].transform.LookAt(Camera.main.transform);
-                        waypoints[i].transform.Rotate(0, 180, 0);
-                    }
-                }
-            }
-            else
-            {
-                waypoints[i].transform.LookAt(waypoints[i].transform.position - Vector3.up);    
-            }
-            
-
-        }
-    }
 
     /// <summary>
     /// Finds a gameobject in the scene with the name "WaypointsFolder".
@@ -219,32 +133,16 @@ public class WaypointCreationHandling : MonoBehaviour
     /// </summary>
     void AddNameOfWaypointsToList()
     {
+        inspectorWaypoints = waypoints;
+        WaypointNames.Clear();
         if (waypoints != null && waypoints.Count != 0)
         {
             for (int i = 0; i < waypoints.Count; i++)
             {
-                if (!WaypointNames.ContainsKey(waypoints[i]))
+                if (!WaypointNames.ContainsKey(waypoints[i]) && waypoints[i] != null)
                 {
                     WaypointNames.Add(waypoints[i], "Waypoint " + (i + 1));
-                    waypoints[i].waypointName = WaypointNames[waypoints[i]];
-                }
-            }
-
-            //  Check so that no waypoint has the same name
-            for (int i = 0; i < waypoints.Count; i++)
-            {
-                for (int j = 0; j < waypoints.Count; j++)
-                {
-                    // if these two waypoints has the same name
-                    if (waypoints[i].waypointName == waypoints[j].waypointName)
-                    {
-                        // if its not the same waypoint
-                        if (i != j)
-                        {
-                            WaypointNames[waypoints[j]] = WaypointNames[waypoints[j]] + " Copy";
-                            waypoints[j].waypointName = WaypointNames[waypoints[j]];
-                        }
-                    }
+                    waypoints[i].gameObject.name = WaypointNames[waypoints[i]];
                 }
             }
         }
@@ -258,7 +156,8 @@ public class WaypointCreationHandling : MonoBehaviour
     {
         for (int i = 0; i < waypoints.Count; i++)
         {
-            waypoints[i].gameObject.name = waypoints[i].waypointName;
+            if(waypoints[i] != null)
+                waypoints[i].gameObject.name = WaypointNames[waypoints[i]];
         }
     }
 
@@ -268,6 +167,34 @@ public class WaypointCreationHandling : MonoBehaviour
     /// </summary>
     void SetTextMeshOptions()
     {
+        // Update all waypoints rotation
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            if (waypoints[i] == null)
+                continue;
+
+            // Update rotation. textmesh looking direction
+            if (!textOverrideLookUp)
+            {
+                if (Camera.current != null && !textLookAtMainCamera)
+                {
+                    waypoints[i].transform.LookAt(Camera.current.transform);
+                    waypoints[i].transform.Rotate(0, 180, 0);
+                }
+                else
+                {
+                    if (textLookAtMainCamera)
+                    {
+                        waypoints[i].transform.LookAt(Camera.main.transform);
+                        waypoints[i].transform.Rotate(0, 180, 0);
+                    }
+                }
+            }
+            else
+                waypoints[i].transform.LookAt(waypoints[i].transform.position - Vector3.up);
+        }
+
+        // Update every waypoints text info
         for (int i = 0; i < waypoints.Count; i++)
         {
             //  Update waypoint-text editor info.
@@ -295,6 +222,28 @@ public class WaypointCreationHandling : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// FindOrCreateFolder();
+    /// PutAllWaypointsInsideFolder();
+    /// AddAllWaypointsToList();
+    /// 
+    /// More dubious:
+    /// AddNameOfWaypointsToList();
+    /// SetGameobjectsName();
+    /// SetTextMeshOptions();
+    ///
+    /// </summary>
+    void FunctionsThatWork()
+    {
+        FindOrCreateFolder();
+        PutAllWaypointsInsideFolder();
+        AddAllWaypointsToList();
+
+        //More dubious:
+        AddNameOfWaypointsToList();
+        SetGameobjectsName();
+        SetTextMeshOptions();
+    }
 
     #endregion
 }
