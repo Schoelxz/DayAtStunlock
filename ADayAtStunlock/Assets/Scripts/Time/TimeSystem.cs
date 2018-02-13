@@ -13,7 +13,18 @@ public class TimeSystem : MonoBehaviour
     public static float TimeMultiplier
     {
         get { return timeMultiplier; }
-        set { timeMultiplier = Mathf.Clamp(value, 0.1f, 4f); }
+        set
+        {
+            timeMultiplier = Mathf.Clamp(value, 0.1f, 4f);
+
+            //Editor only
+            #if UNITY_EDITOR
+                if(timeMultiplier == value)
+                    Debug.Log("Time Multiplier was set to " + timeMultiplier + " (" + value + ")");
+                else
+                    Debug.Log("Time Multiplier tried to be set to " + value + " but was clamped to " + timeMultiplier);
+            #endif
+        }
     }
 
     private static float deltaTime;
