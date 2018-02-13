@@ -34,7 +34,7 @@ public class TimeSystem : MonoBehaviour
     public static float DeltaTime
     {
         get { return deltaTime; }
-        private set { deltaTime = value; }
+        private set { deltaTime = value; } //DeltaTime should not be changed from outside sources, therefore private.
     }
 
     private static float timePassedSeconds;
