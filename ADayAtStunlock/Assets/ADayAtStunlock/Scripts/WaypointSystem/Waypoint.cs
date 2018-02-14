@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
+//Executed in the editor to help modify and keep track of waypoints
 [ExecuteInEditMode]
 #endif
 public class Waypoint : MonoBehaviour
@@ -13,14 +14,17 @@ public class Waypoint : MonoBehaviour
         //  Not to be happening in edit mode. only playmode and build versions
         if (Application.isPlaying)
         {
+            // Destroy editor only components.
             Destroy(gameObject.GetComponent<TextMesh>());
             Destroy(gameObject.GetComponent<MeshRenderer>());
 
+            //Add waypoint to waypointmanager to keep track of it.
             if (!WaypointManager.listOfAllWaypoints.Contains(this))
                 WaypointManager.listOfAllWaypoints.Add(this);
 
-            if (!WaypointManager.waypointNames.ContainsValue(this))
-                WaypointManager.waypointNames.Add(gameObject.name, this);
+            //Add waypoint to waypointmanager to keep track of it.
+            if (!WaypointManager.allWaypointsMap.ContainsValue(this))
+                WaypointManager.allWaypointsMap.Add(gameObject.name, this);
         }
     }
     #endregion
@@ -31,11 +35,12 @@ public class Waypoint : MonoBehaviour
         //  Not to be happening in edit mode. only playmode and build versions
         if (Application.isPlaying)
         {
+            // This might never actually be needed.
             if (WaypointManager.listOfAllWaypoints.Contains(this))
                 WaypointManager.listOfAllWaypoints.Remove(this);
-
-            if (WaypointManager.waypointNames.ContainsValue(this))
-                WaypointManager.waypointNames.Remove(gameObject.name);
+            // This might never actually be needed.
+            if (WaypointManager.allWaypointsMap.ContainsValue(this))
+                WaypointManager.allWaypointsMap.Remove(gameObject.name);
         }
 
 #if UNITY_EDITOR

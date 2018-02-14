@@ -8,7 +8,7 @@ public class WaypointManager : MonoBehaviour
 {
     #region public variables
     //Variables used by Waypoint
-    public static Dictionary<string, Waypoint> waypointNames = new Dictionary<string, Waypoint>();
+    public static Dictionary<string, Waypoint> allWaypointsMap = new Dictionary<string, Waypoint>();
     public static List<Waypoint> listOfAllWaypoints = new List<Waypoint>();
     #endregion
 }
