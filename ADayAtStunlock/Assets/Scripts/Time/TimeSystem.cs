@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class TimeSystem : MonoBehaviour
 {
+    //Singleton class
+    private static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
+
     #region Time Properties
     private static float timeMultiplier = 1;
     /// <summary>
     /// Changes game speed by multiplying the delta time.
-    /// Value is clamped between 0.1 and 4.
+    /// Value is clamped between 0.1 and 20.
     /// </summary>
     public static float TimeMultiplier
     {
         get { return timeMultiplier; }
         set
         {
-            timeMultiplier = Mathf.Clamp(value, 0.1f, 4f);
+            timeMultiplier = Mathf.Clamp(value, 0.1f, 20f);
 
             //Editor only
             #if UNITY_EDITOR
@@ -44,7 +47,7 @@ public class TimeSystem : MonoBehaviour
     public static float TimePassedSeconds
     {
         get { return timePassedSeconds; }
-        private set { timePassedSeconds = value; } //Time should not be changed from outside sources, therefore private.
+        set { timePassedSeconds = value; }
     }
     /// <summary>
     /// Get total time passed in minutes since game start(affected by time multiplier).
@@ -72,10 +75,22 @@ public class TimeSystem : MonoBehaviour
     }
     #endregion
 
+    private void Awake()
+    {
+        //Singleton behavior
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.LogWarning("Another TimeSystem script already exists, destroying the new one inside of gameobject " + gameObject.name + ". Don't forget to remove me after play!");
+            Destroy(this);
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        //Update our time.
+        //Update our time properties.
         UpdateAllTimeVariables();
     }
 
