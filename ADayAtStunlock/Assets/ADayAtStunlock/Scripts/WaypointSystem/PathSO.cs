@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Path", menuName = "Waypoint/Path", order = 1)]
-public class PathScriptObject : ScriptableObject
+public class PathSO : ScriptableObject
 {
     public List<string> pathWay;
 }

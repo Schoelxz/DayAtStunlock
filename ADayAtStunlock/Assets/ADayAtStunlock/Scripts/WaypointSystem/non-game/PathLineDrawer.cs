@@ -7,7 +7,8 @@ using UnityEditor;
 public class PathLineDrawer : MonoBehaviour
 {
     #region Variables
-    private List<PathScriptObject> pathList = new List<PathScriptObject>();
+    [Header("")]
+    private List<PathSO> pathList = new List<PathSO>();
     public static List<List<Waypoint>> listOfPathsWithWaypoints = new List<List<Waypoint>>();
     private GameObject folderRef;
 
@@ -25,7 +26,7 @@ public class PathLineDrawer : MonoBehaviour
     public Color lineColor;
 
     //  Deprecated from public use.
-    [Range(0, 1)]
+   [Range(0, 1)]
     private int useRed = 1;
     [Range(0, 1)]
     private int useGreen = 1;
@@ -39,12 +40,12 @@ public class PathLineDrawer : MonoBehaviour
     {
         //  Find and load resources
         Object[] data;
-        data = Resources.LoadAll("Waypoint-Paths", typeof(PathScriptObject));
+        data = Resources.LoadAll("Waypoint-Paths", typeof(PathSO));
 
         listOfPathsWithWaypoints.Clear();
 
         //  Get our scriptable objects from data
-        foreach (PathScriptObject path in data)
+        foreach (PathSO path in data)
         {
             if(!pathList.Contains(path))
                 pathList.Add(path);
@@ -87,21 +88,34 @@ public class PathLineDrawer : MonoBehaviour
                     continue;
                 }
 
+                // Next waypoint to know what line to draw TO. FROM we already have in j.
                 int wpIndex = (j+1);
                 if (j == listOfPathsWithWaypoints[i].Count - 1)
-                {
-                    wpIndex = j;
-                }
+                { wpIndex = j; }
 
                 //  Render pathway
                 if (pathToRender == i && dt >= 0.1f && listOfPathsWithWaypoints[i][wpIndex] != null)
                 {
-                    Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
+                    if(j == 0) // Draw a green line at the start of the path
+                    {
+                        Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
+                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(0, 1, 0), 1);
+                    }
+                    else if(j == listOfPathsWithWaypoints[i].Count - 2) // Draw a red line at the end of the path
+                    {
+                        Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
+                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(1, 0, 0), 1);
+                    }
+                    else // Draw every other line in a custom color, starting from dark, going brighter the closer to the end!
+                    {
+                        Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position,
                         new Color(
                         ((lineColor.r / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useRed, 0, 1),
                         ((lineColor.g / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useGreen, 0, 1),
                         ((lineColor.b / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useBlue, 0, 1), 1f), Mathf.Clamp(lineColor.a, 0.1f, 1f));
+                    }
+                    
                 } 
             }
         }
