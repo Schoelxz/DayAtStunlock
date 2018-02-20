@@ -25,11 +25,23 @@ public class PathLineDrawer : MonoBehaviour
     [Header("Line Color Control")]
     public Color lineColor;
 
+    public GameObject start, end;
+
     private float dt; //delta timer to control debug.drawline rendering
     #endregion
 
     void Start ()
     {
+        start.GetComponent<TextMesh>().characterSize = 0.3f;
+        start.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+        start.GetComponent<TextMesh>().alignment = TextAlignment.Center;
+        start.GetComponent<TextMesh>().color = Color.green;
+
+        end.GetComponent<TextMesh>().characterSize = 0.3f;
+        end.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+        end.GetComponent<TextMesh>().alignment = TextAlignment.Center;
+        end.GetComponent<TextMesh>().color = Color.red;
+
         //  Find and load resources
         Object[] data;
         data = Resources.LoadAll("Waypoint-Paths", typeof(PathSO));
@@ -90,13 +102,15 @@ public class PathLineDrawer : MonoBehaviour
                 {
                     if(j == 0) // Draw a green line at the start of the path
                     {
+                        start.transform.position = listOfPathsWithWaypoints[i][j].transform.position;
                         Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
-                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(0, 1, 0), 1);
+                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(0, 1, 0), 0.2f);
                     }
                     else if(j == listOfPathsWithWaypoints[i].Count - 2) // Draw a red line at the end of the path
                     {
+                        end.transform.position = listOfPathsWithWaypoints[i][j+1].transform.position;
                         Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
-                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(1, 0, 0), 1);
+                        listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(1, 0, 0), 0.2f);
                     }
                     else // Draw every other line in a custom color, starting from dark, going brighter the closer to the end!
                     {
@@ -107,7 +121,7 @@ public class PathLineDrawer : MonoBehaviour
                         ((lineColor.r / listOfPathsWithWaypoints[i].Count) * j), //Red
                         ((lineColor.g / listOfPathsWithWaypoints[i].Count) * j), //Green
                         ((lineColor.b / listOfPathsWithWaypoints[i].Count) * j), //Blue
-                        Mathf.Clamp(lineColor.a, 0.1f, 1f)));                    //Alpha
+                        1f), 0.2f);                                                 //Alpha
                     }
                 }
             }
