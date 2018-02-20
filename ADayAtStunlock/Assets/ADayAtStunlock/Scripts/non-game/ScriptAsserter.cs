@@ -5,7 +5,7 @@
 #if UNITY_EDITOR
 using UnityEngine;
 
-class ScriptAsserter
+static class ScriptAsserter
 {
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()

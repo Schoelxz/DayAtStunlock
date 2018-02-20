@@ -7,19 +7,24 @@ using UnityEngine;
  * too many functions?
  * option 1: remove overloaded functions with parameters.
  * option 2: remove SetPathRoute and overloaded functions without parameters.
+ * option 3: let it be.
 */
 
 public class WaypointNavigation : MonoBehaviour
 {
+    [Range(0.1f, 5f)]
+    public float walkSpeed = 3;
+
     [SerializeField]
-    private List<Waypoint> currentRoute = new List<Waypoint>();
+    private List<Waypoint> currentRoute = new List<Waypoint>(); // Debug?
 
     private IEnumerator coroutineFollowWaypoint;
     private IEnumerator coroutineFollowWaypointBackwards;
 
     [SerializeField]
+    private bool isToFollowWaypoints = true;
+    [SerializeField]
     private bool coroutineRunning = false;
-
     /// <summary>
     /// Get if gameobject currently has a coroutine running. Meaning it has not yet reached its' paths' end.
     /// </summary>
@@ -27,9 +32,6 @@ public class WaypointNavigation : MonoBehaviour
     {
         get { return coroutineRunning; }
     }
-
-    [SerializeField]
-    private bool isToFollowWaypoints = true;
 
     /// <summary>
     /// Starts the coroutine to follow the set path.
@@ -146,7 +148,7 @@ public class WaypointNavigation : MonoBehaviour
                     destinationReached = true;
                 else if (!destinationReached)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position, 3 * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position, walkSpeed * Time.deltaTime);
 
                     //  if current waypoint is reached
                     if (Mathf.Approximately(transform.position.x, waypoints[currentWaypoint].transform.position.x) &&
@@ -156,7 +158,6 @@ public class WaypointNavigation : MonoBehaviour
                         currentWaypoint++;
                     }
                 }
-                Debug.Log("Coroutine is running...");
             }
         }
         coroutineRunning = false;
@@ -179,7 +180,7 @@ public class WaypointNavigation : MonoBehaviour
                     destinationReached = true;
                 else if (!destinationReached)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position, 3 * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position, walkSpeed * Time.deltaTime);
 
                     //  if current waypoint is reached
                     if (Mathf.Approximately(transform.position.x, waypoints[currentWaypoint].transform.position.x) &&
@@ -189,7 +190,6 @@ public class WaypointNavigation : MonoBehaviour
                         currentWaypoint--;
                     }
                 }
-                Debug.Log("Coroutine is running...");
             }
         }
         coroutineRunning = false;

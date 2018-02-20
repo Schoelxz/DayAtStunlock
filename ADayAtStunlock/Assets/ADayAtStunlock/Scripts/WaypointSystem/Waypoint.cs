@@ -35,10 +35,10 @@ public class Waypoint : MonoBehaviour
         //  Not to be happening in edit mode. only playmode and build versions
         if (Application.isPlaying)
         {
-            // This might never actually be needed.
+            // This might never actually be needed. But safer to keep it.
             if (WaypointManager.listOfAllWaypoints.Contains(this))
                 WaypointManager.listOfAllWaypoints.Remove(this);
-            // This might never actually be needed.
+            // This might never actually be needed. But safer to keep it.
             if (WaypointManager.allWaypointsMap.ContainsValue(this))
                 WaypointManager.allWaypointsMap.Remove(gameObject.name);
         }

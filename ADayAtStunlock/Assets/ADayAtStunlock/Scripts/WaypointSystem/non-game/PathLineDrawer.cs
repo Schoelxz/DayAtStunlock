@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -12,7 +13,6 @@ public class PathLineDrawer : MonoBehaviour
     public static List<List<Waypoint>> listOfPathsWithWaypoints = new List<List<Waypoint>>();
     private GameObject folderRef;
 
-    
     [Header("Start play mode and end it to update Paths!")]
     [Tooltip("Read only. Cause it does nothing.")]
     public int pathsAvailable;
@@ -24,14 +24,6 @@ public class PathLineDrawer : MonoBehaviour
 
     [Header("Line Color Control")]
     public Color lineColor;
-
-    //  Deprecated from public use.
-   [Range(0, 1)]
-    private int useRed = 1;
-    [Range(0, 1)]
-    private int useGreen = 1;
-    [Range(0, 1)]
-    private int useBlue = 0;
 
     private float dt; //delta timer to control debug.drawline rendering
     #endregion
@@ -108,15 +100,16 @@ public class PathLineDrawer : MonoBehaviour
                     }
                     else // Draw every other line in a custom color, starting from dark, going brighter the closer to the end!
                     {
-                        Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
+                        Debug.DrawLine(
+                        listOfPathsWithWaypoints[i][j].transform.position      ,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position,
                         new Color(
-                        ((lineColor.r / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useRed, 0, 1),
-                        ((lineColor.g / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useGreen, 0, 1),
-                        ((lineColor.b / listOfPathsWithWaypoints[i].Count) * j) * Mathf.Clamp(useBlue, 0, 1), 1f), Mathf.Clamp(lineColor.a, 0.1f, 1f));
+                        ((lineColor.r / listOfPathsWithWaypoints[i].Count) * j), //Red
+                        ((lineColor.g / listOfPathsWithWaypoints[i].Count) * j), //Green
+                        ((lineColor.b / listOfPathsWithWaypoints[i].Count) * j), //Blue
+                        Mathf.Clamp(lineColor.a, 0.1f, 1f)));                    //Alpha
                     }
-                    
-                } 
+                }
             }
         }
 
@@ -124,3 +117,4 @@ public class PathLineDrawer : MonoBehaviour
             dt = 0f;
     }
 }
+#endif
