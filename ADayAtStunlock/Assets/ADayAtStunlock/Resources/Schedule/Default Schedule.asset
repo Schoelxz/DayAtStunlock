@@ -9,5 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Schedule
+  m_Name: Default Schedule
   m_EditorClassIdentifier: Assembly-CSharp::BetterTaskObject
+  TaskTime:
+  - {x: 480, y: 510}
+  - {x: 510, y: 720}
+  - {x: 720, y: 780}
+  - {x: 780, y: 1020}
+  - {x: 1020, y: 1050}
+  TaskName:
+  - Work Starts
+  - Work 1st  Period
+  - Lunch
+  - Work 2nd Period
+  - Work Ends
