@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ScheduleManager : MonoBehaviour
 {
-
     private List<Schedule> AllSchedules = new List<Schedule>();
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //DAS.TimeSystem.TimePassedSeconds % 1440;
-        //DAS.TimeSystem.TimePassedMinutes % 24;
+        //Debug.Log(DAS.TimeSystem.TimePassedSeconds % 1440);
+        //Debug.Log(DAS.TimeSystem.TimePassedMinutes % 24);
     }
 
     public void AddScheduleTask(Schedule schedule, Schedule.Task task)

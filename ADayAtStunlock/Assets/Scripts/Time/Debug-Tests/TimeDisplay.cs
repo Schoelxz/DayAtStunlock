@@ -11,7 +11,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
         public class TimeDisplay : MonoBehaviour
         {
 
-            private Text myText;
+            //private Text myText;
             private int minutes;
             private int hours;
 
@@ -22,7 +22,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             // Use this for initialization
             void Start()
             {
-                myText = GetComponent<Text>();
+                //myText = GetComponent<Text>();
                 TimeSystem.TimeMultiplier = timeSpeed;
                 TimeSystem.TimePassedSeconds = startMinute + (startHour * 60);
             }
@@ -32,7 +32,14 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             {
                 minutes = ((int)TimeSystem.TimePassedSeconds) % 60;
                 hours = ((int)TimeSystem.TimePassedMinutes) % 24;
-                myText.text = hours.ToString("00") + ":" + minutes.ToString("00");
+                //myText.text = hours.ToString("00") + ":" + minutes.ToString("00");
+            }
+
+            void OnGUI()
+            {
+                // Make a background box
+                GUI.Box(new Rect(10, 10, 100, 40), hours.ToString("00") + ":" + minutes.ToString("00"));
+                GUI.TextField(new Rect(10, 50, 100, 40), TimeSystem.TimePassedSeconds.ToString());
             }
         }
     } // Namespace DBUG
