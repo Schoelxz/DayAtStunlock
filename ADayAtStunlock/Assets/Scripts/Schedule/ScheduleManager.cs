@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScheduleManager : MonoBehaviour
 {
-    private List<Schedule> AllSchedules = new List<Schedule>();
+    public static List<Schedule> AllSchedules = new List<Schedule>();
 	
 	// Update is called once per frame
 	void Update ()
@@ -13,33 +13,56 @@ public class ScheduleManager : MonoBehaviour
         //Debug.Log(DAS.TimeSystem.TimePassedMinutes % 24);
     }
 
-    public void AddScheduleTask(Schedule schedule, Schedule.Task task)
+    public void AddTaskToSchedule(Schedule schedule, Schedule.Task task)
     {
-        schedule.myTasks.Add(task);
+        schedule.myScheduleTasks.Add(task);
     }
-    public void AddScheduleTask(Schedule schedule, float startTime, float endTime, string taskName)
+    public void AddTaskToSchedule(Schedule schedule, float startTime, float endTime, string taskName)
     {
-        schedule.myTasks.Add(new Schedule.Task(startTime, endTime, taskName));
+        schedule.myScheduleTasks.Add(new Schedule.Task(startTime, endTime, taskName));
     }
-
-    public void ModifyScheduleTask(Schedule.Task task)
+    public void AddTaskToSchedule(Schedule schedule, Vector2 timeRange, string taskName)
     {
-        
+        schedule.myScheduleTasks.Add(new Schedule.Task(timeRange, taskName));
+    }
+    
+    public void ModifyScheduleTask(Schedule.Task task, float startTime, float endTime, string taskName)
+    {
+        task.StartTime = startTime;
+        task.EndTime = endTime;
+        task.TaskName = taskName;
+    }
+    public void ModifyScheduleTask(Schedule.Task task, Vector2 timeRange, string taskName)
+    {
+        task.TimeRange = timeRange;
+        task.TaskName = taskName;
     }
 
     public void RemoveScheduleTask(Schedule schedule, Schedule.Task task)
     {
-        schedule.myTasks.Remove(task);
+        schedule.myScheduleTasks.Remove(task);
     }
 
-    public void GetSchedule()
+    public static void CheckConflictingSchedule()
     {
+        for (int i = 0; i < AllSchedules.Count; i++)
+        {
+            for (int j = 0; j < AllSchedules[i].myScheduleTasks.Count; j++)
+            {
+                for (int k = 0; k < AllSchedules[i].myScheduleTasks.Count; k++)
+                {
+                    List<Schedule.Task> tasks = AllSchedules[i].myScheduleTasks;
+                    if (j == k)
+                        continue;
 
-    }
+                    if (tasks[j].StartTime == tasks[k].StartTime)
+                    {
+                        Debug.LogAssertion("a tasks' start time is the same as another task.");
+                    }
 
-    private void CheckConflictingSchedule()
-    {
-        
+                }
+            }
+        }
     }
 
 
