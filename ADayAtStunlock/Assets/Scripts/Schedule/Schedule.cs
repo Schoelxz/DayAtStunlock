@@ -81,22 +81,25 @@ public class Schedule : MonoBehaviour
     public Task myCurrentTask;
 
     private Task oldTask;
+    // task index helps using for loop as little as possible.
     private int taskIndex = 0;
 
     private void Start()
     {
         oldTask = myCurrentTask;
         myScheduleTasks = GetDefaultScheduleTasks();
+
+        //Sorts tasks to go from low start time to high start time
+        myScheduleTasks.Sort((st1, st2) => st1.StartTime.CompareTo(st2.StartTime));
+
         StartCoroutine(CorOnCurrentTaskChanges());
-        ScheduleManager.AllSchedules.Add(this);
-        ScheduleManager.CheckConflictingSchedule();
+        ScheduleManager.AllSchedules.Add(this);//
+        ScheduleManager.CheckConflictingSchedule();//
     }
 
     private void Update ()
     {
         SetCurrentTask();
-        
-       // OnCurrentTaskChanges();
 	}
 
     /// <summary>
@@ -176,7 +179,6 @@ public class Schedule : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// Gets a default schedule of: -> arriving to work -> work -> lunch -> work -> leave work ->

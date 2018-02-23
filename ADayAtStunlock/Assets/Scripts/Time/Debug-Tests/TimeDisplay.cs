@@ -37,7 +37,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             {
                 taskIndex = sched.myScheduleTasks.IndexOf(sched.myCurrentTask) + 1;
                 if (sched.myScheduleTasks.IndexOf(sched.myCurrentTask) + 1 == sched.myScheduleTasks.Count)
-                    taskIndex = 1;
+                    taskIndex = 0;
 
                 // Make a background box
                 GUI.Box(new Rect(10, 10, 200, 40), "Time\n" + hours.ToString("00") + ":" + minutes.ToString("00"));
