@@ -23,8 +23,8 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             get { return timeMultiplier; }
             set
             {
-                timeMultiplier = Mathf.Clamp(value, 0.1f, 20f);
-
+                timeMultiplier = Mathf.Clamp(value, 0.1f, 100f);
+                
                 //Editor only
 #if UNITY_EDITOR
                 if (timeMultiplier == value)
