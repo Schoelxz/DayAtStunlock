@@ -113,6 +113,47 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &168913613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 168913615}
+  - component: {fileID: 168913614}
+  m_Layer: 0
+  m_Name: NPC (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &168913614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 168913613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c94ca885a2ffc149ad8d5caad4a9aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specificTaskObject: {fileID: 0}
+--- !u!4 &168913615
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 168913613}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.811968, y: 1.0257205, z: -4.9092245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &467041843
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c94ca885a2ffc149ad8d5caad4a9aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificTaskObject: {fileID: 11400000, guid: 7d795c4eaa0dcf24096f1ca025cb2997, type: 2}
 --- !u!4 &467041845
 Transform:
   m_ObjectHideFlags: 0
@@ -228,7 +270,7 @@ GameObject:
   - component: {fileID: 1315077479}
   - component: {fileID: 1315077478}
   m_Layer: 0
-  m_Name: Help
+  m_Name: Testing Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,9 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8066bbca9dd164b4ab7f9d8447446cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSpeed: 30
+  timeSpeed: 100
   startMinute: 0
   startHour: 7
+  NPCObject: {fileID: 0}
 --- !u!4 &1315077479
 Transform:
   m_ObjectHideFlags: 0
@@ -311,7 +354,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

@@ -20,8 +20,8 @@ public class Schedule : MonoBehaviour
             return !left.Equals(right);
         }
 
-    #pragma warning restore 0660, 0661
-    // Restored warning
+#pragma warning restore 0660, 0661
+        // Restored warning
 
         // Variables
         private float startTime, endTime;
@@ -77,24 +77,36 @@ public class Schedule : MonoBehaviour
     }
     #endregion
 
+    //Inspector-visible public variables
+    public BetterTaskObject specificTaskObject;
+
+    //public variables
     public List<Task> myScheduleTasks = new List<Task>();
     public Task myCurrentTask;
 
+    //private variables
     private Task oldTask;
-    // task index helps using for loop as little as possible.
-    private int taskIndex = 0;
+    private int taskIndex = 0; // task index helps using for loop as little as possible.
 
     private void Start()
     {
         oldTask = myCurrentTask;
-        myScheduleTasks = GetDefaultScheduleTasks();
+        if (GetSpecifiedSchedule() != null)
+        {
+            myScheduleTasks = GetSpecifiedSchedule();
+        }
+        else
+        {
+            myScheduleTasks = GetDefaultScheduleTasks();
+            Debug.Log("Could not find specific schedule, " + gameObject.name + " is assigned a default schedule.");//
+        }
 
         //Sorts tasks to go from low start time to high start time
         myScheduleTasks.Sort((st1, st2) => st1.StartTime.CompareTo(st2.StartTime));
 
         StartCoroutine(CorOnCurrentTaskChanges());
-        ScheduleManager.AllSchedules.Add(this);//
-        ScheduleManager.CheckConflictingSchedule();//
+        ScheduleManager.AllSchedules.Add(this);
+        ScheduleManager.CheckConflictingSchedule();
     }
 
     private void Update ()
@@ -189,7 +201,7 @@ public class Schedule : MonoBehaviour
         List<Task> tempSchedule = new List<Task>();
 
         Object[] taskData;
-        taskData = Resources.LoadAll("Schedule", typeof(BetterTaskObject));
+        taskData = Resources.LoadAll("Schedule/DefaultSchedule", typeof(BetterTaskObject));
 
         //Uncomment this when you want to get thwe data back!.
         Debug.Log(Resources.Load("Schedule/DefaultSchedule"));
@@ -200,7 +212,7 @@ public class Schedule : MonoBehaviour
         {
             defaultTask = item;
         }
-        
+        //
         for (int i = 0; i < defaultTask.TaskTime.Length; i++)
         {
             tempSchedule.Add(new Task(defaultTask.TaskTime[i], defaultTask.TaskName[i]));
@@ -208,5 +220,24 @@ public class Schedule : MonoBehaviour
 
         return tempSchedule;
     }
+    /// <summary>
+    /// Using the scriptable object to set its' tasks. If there is no scriptable object placed on this script or if it's null, this function will return null.
+    /// </summary>
+    /// <returns></returns>
+    private List<Task> GetSpecifiedSchedule()
+    {
+        if (specificTaskObject != null && specificTaskObject.TaskTime.Length != 0)
+        {
+            List<Task> tempSchedule = new List<Task>();
 
+            for (int i = 0; i < specificTaskObject.TaskTime.Length; i++)
+            {
+                tempSchedule.Add(new Task(specificTaskObject.TaskTime[i], specificTaskObject.TaskName[i]));
+            }
+
+            return tempSchedule;
+        }
+
+        return null;
+    }
 }
