@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NPC
+  - Floor
+  - MoneyManager
   layers:
   - Default
   - TransparentFX
@@ -13,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Floor
   - 
   - 
   - 
@@ -40,4 +43,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 3006506129
+    locked: 0
+  - name: Walls
+    uniqueID: 4244029755
+    locked: 0
+  - name: NPC
+    uniqueID: 1274245857
+    locked: 0
+  - name: Player
+    uniqueID: 4177174995
+    locked: 0
+  - name: UI
+    uniqueID: 2645918031
+    locked: 0
+  - name: 
+    uniqueID: 23167235
     locked: 0

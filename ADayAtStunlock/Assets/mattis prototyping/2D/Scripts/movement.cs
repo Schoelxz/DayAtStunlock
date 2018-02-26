@@ -7,27 +7,31 @@ public class movement : MonoBehaviour {
     Vector2 right;
     Vector2 upRight;
     Vector2 downRight;
-    
     Rigidbody2D rb2D;
 
     [Range(0.01f, 2)]
     public float movementSpeed;
 
     dayTransition dayManager;
-	
+    RaycastHit2D hit;
+    
+    RaycastHit rayhit;
     // Use this for initialization
-	void Start () {
+    void Start () {
         dayManager = FindObjectOfType<dayTransition>();
         rb2D = GetComponent<Rigidbody2D>();
         up = new Vector2(0.0f,20.0f);
         right = new Vector2(20.0f, 0.0f);
         upRight = new Vector2(15.0f, 15.0f);
         downRight = new Vector2(15.0f, -15.0f);
+        
         //movementSpeed = 2;
 }
 	
 	// Update is called once per frame
 	void Update () {
+
+
         if(dayManager.timePassing)
         {
             // 1 input **************************************************************
@@ -75,5 +79,23 @@ public class movement : MonoBehaviour {
                 rb2D.MovePosition(rb2D.position - (upRight * movementSpeed) * Time.deltaTime);
             }
         }
+
+        var mousePos = Input.mousePosition;
+        mousePos.z = 5;
+        
+
+        if(Input.GetMouseButton(0))
+        {
+
+            
+            transform.position = Vector3.MoveTowards(transform.position,Camera.main.ScreenToWorldPoint(mousePos), movementSpeed * Time.deltaTime);
+        }
+
+
+        //print(Input.mousePosition);
+
+        
+            
+
     }
 }

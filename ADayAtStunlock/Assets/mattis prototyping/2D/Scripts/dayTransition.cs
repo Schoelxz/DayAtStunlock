@@ -21,12 +21,12 @@ public class dayTransition : MonoBehaviour {
         dayTimer += Time.deltaTime;
 
 
-        if(dayTimer > 30)
-        {
+        //if(dayTimer > 30)
+        //{
 
-            timePassing = false;
-            //bring up ui for end of day interaction
-        }
+        //    timePassing = false;
+        //    //bring up ui for end of day interaction
+        //}
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
