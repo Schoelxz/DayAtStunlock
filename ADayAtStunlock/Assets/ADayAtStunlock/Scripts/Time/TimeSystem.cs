@@ -7,10 +7,11 @@ namespace DAS //  Namespace to sort out our own classes from other default class
     /// <summary>
     /// TimeSystem a Singleton Class, for all your timey needs. Provides properties for deltatime, getting time passed and controlling game speed.
     /// </summary>
+    [System.Serializable]
     public class TimeSystem : MonoBehaviour
     {
         //Singleton class
-        private static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
+        public static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
 
         #region Time Properties
         private static float timeMultiplier = 1;

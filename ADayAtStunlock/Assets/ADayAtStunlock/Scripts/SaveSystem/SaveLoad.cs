@@ -12,9 +12,7 @@ public class SaveLoad
     {
         SaveTimeSystemData(Game.current);
 
-
-
-        savedGames.Add(Game.current);
+        savedGames.Add(ObjectCopier.Clone<Game>(Game.current));
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/savedGames.gd");
@@ -30,6 +28,9 @@ public class SaveLoad
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/savedGames.gd", FileMode.Open);
             SaveLoad.savedGames = (List<Game>)bf.Deserialize(file);
+
+            
+
             file.Close();
         }
     }
