@@ -16,6 +16,8 @@ public class PlayerAbilities : MonoBehaviour {
 
     private float vicinityMoodBoost;
 
+    public static bool usingVicinity;
+
     private Button global;
     private Button section;
     private Button vicinity;
@@ -25,9 +27,9 @@ public class PlayerAbilities : MonoBehaviour {
 
         globalCooldown = 30;
         globalTimer = 30;
-        sectionCooldown = 10;
+        sectionCooldown = 1;
         sectionTimer = 10;
-        vicinityMoodBoost = 10;
+        vicinityMoodBoost = 8;
 
         global = GameObject.Find("Global").GetComponent<Button>();
         section = GameObject.Find("Section").GetComponent<Button>();
@@ -36,9 +38,6 @@ public class PlayerAbilities : MonoBehaviour {
         global.onClick.AddListener(UseGlobal);
         section.onClick.AddListener(UseSection);
         vicinity.onClick.AddListener(UseVicinity);
-        
-        
-
     }
 
     // Update is called once per frame
@@ -47,6 +46,11 @@ public class PlayerAbilities : MonoBehaviour {
 
         globalTimer += Time.deltaTime;
         sectionTimer += Time.deltaTime;
+
+        if(usingVicinity == true)
+        {
+            UseVicinity();
+        }
     }
 
     void UseGlobal()
@@ -76,7 +80,6 @@ public class PlayerAbilities : MonoBehaviour {
         {
             if(sectionTimer > sectionCooldown)
             {
-                print("Trigger section ability");
                 foreach (NpcCharacteristics n in PlayerCharacteristics.currentRoom.npcs)
                 {
                     n.happiness += 30;
@@ -84,20 +87,17 @@ public class PlayerAbilities : MonoBehaviour {
                 }
                 sectionTimer = 0;
             }
-            else
-            {
-                print("Section Ability on cooldown");
-            }
         }
     }
 
     void UseVicinity()
     {
-        print("Trigger vicinity ability");
+        usingVicinity = true;
+
         foreach (NpcCharacteristics n in PlayerCharacteristics.vicinityNPCs)
         {
-            n.motivation += vicinityMoodBoost;
-            n.happiness += vicinityMoodBoost;
+            n.motivation += vicinityMoodBoost * Time.deltaTime;
+            n.happiness += vicinityMoodBoost * Time.deltaTime;
         }
     }
 }

@@ -39,7 +39,7 @@ public class NpcCharacteristics : MonoBehaviour {
         motivationSlider = transform.GetChild(0).GetChild(1).GetComponent<Slider>();
 
         happiness = 100;
-        happinessDecay = Random.Range(0.5f, 2.5f);
+        happinessDecay = Random.Range(0.5f,2.5f);
         happinessSlider = transform.GetChild(0).GetChild(0).GetComponent<Slider>();
 
         manager = FindObjectOfType<EconomyManager>();

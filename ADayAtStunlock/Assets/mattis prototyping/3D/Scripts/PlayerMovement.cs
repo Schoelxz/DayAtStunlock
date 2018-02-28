@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(PlayerRaycast.hit.transform != null && !EventSystem.current.IsPointerOverGameObject())
         {
+            PlayerAbilities.usingVicinity = false;
             transform.position = Vector3.MoveTowards(transform.position, PlayerRaycast.hit.point, movementSpeed * Time.deltaTime);
         }
          
