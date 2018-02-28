@@ -29,7 +29,7 @@ public class SaveLoad
             FileStream file = File.Open(Application.persistentDataPath + "/savedGames.gd", FileMode.Open);
             SaveLoad.savedGames = (List<Game>)bf.Deserialize(file);
 
-            
+            ScriptCaller.ChangeGameCurrent();
 
             file.Close();
         }
