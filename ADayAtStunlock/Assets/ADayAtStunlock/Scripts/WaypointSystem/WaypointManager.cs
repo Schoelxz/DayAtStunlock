@@ -11,7 +11,29 @@ public class WaypointManager : MonoBehaviour
     //Variables used by Waypoint
     public static Dictionary<string, Waypoint> allWaypointsMap = new Dictionary<string, Waypoint>();
     public static List<Waypoint> listOfAllWaypoints = new List<Waypoint>();
+    public static Dictionary<string, PathSO> listOfAllPathsMap = new Dictionary<string, PathSO>();
     #endregion
+
+    private void Start()
+    {
+        GetAllPaths();
+    }
+
+    private void GetAllPaths()
+    {
+        //  Find and load resources
+        Object[] data;
+        data = Resources.LoadAll("Waypoint-Paths", typeof(PathSO));
+
+        listOfAllPathsMap.Clear();
+
+        //  Get our scriptable objects from data
+        foreach (PathSO path in data)
+        {
+            if (!listOfAllPathsMap.ContainsValue(path))
+                listOfAllPathsMap.Add(path.name, path);
+        }
+    }
 
 #if UNITY_EDITOR
     #region DebugTesting

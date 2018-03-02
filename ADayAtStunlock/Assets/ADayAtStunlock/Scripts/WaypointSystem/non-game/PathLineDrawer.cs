@@ -32,15 +32,20 @@ public class PathLineDrawer : MonoBehaviour
 
     void Start ()
     {
-        start.GetComponent<TextMesh>().characterSize = 0.3f;
-        start.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
-        start.GetComponent<TextMesh>().alignment = TextAlignment.Center;
-        start.GetComponent<TextMesh>().color = Color.green;
-
-        end.GetComponent<TextMesh>().characterSize = 0.3f;
-        end.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
-        end.GetComponent<TextMesh>().alignment = TextAlignment.Center;
-        end.GetComponent<TextMesh>().color = Color.red;
+        if (start != null)
+        {
+            start.GetComponent<TextMesh>().characterSize = 1f;
+            start.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+            start.GetComponent<TextMesh>().alignment = TextAlignment.Center;
+            start.GetComponent<TextMesh>().color = Color.green;
+        }
+        if (end != null)
+        {
+            end.GetComponent<TextMesh>().characterSize = 1f;
+            end.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+            end.GetComponent<TextMesh>().alignment = TextAlignment.Center;
+            end.GetComponent<TextMesh>().color = Color.red;
+        }
 
         //  Find and load resources
         Object[] data;
@@ -67,8 +72,7 @@ public class PathLineDrawer : MonoBehaviour
                     listOfPathsWithWaypoints[i].Add(folderRef.transform.Find(pathList[i].pathWay[j]).GetComponent<Waypoint>());
                 else
                 {
-                    Debug.Assert(folderRef.transform.Find(pathList[i].pathWay[j]),
-                        "Could not find a waypoint from path: *" + pathList[i].name +
+                    Debug.LogWarning("Could not find a waypoint from path: *" + pathList[i].name +
                         "* with waypoint name: *" + pathList[i].pathWay[j] + "*.");
                 }
             }
@@ -102,13 +106,15 @@ public class PathLineDrawer : MonoBehaviour
                 {
                     if(j == 0) // Draw a green line at the start of the path
                     {
-                        start.transform.position = listOfPathsWithWaypoints[i][j].transform.position;
+                        if (start != null)
+                            start.transform.position = listOfPathsWithWaypoints[i][j].transform.position;
                         Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(0, 1, 0), 0.2f);
                     }
                     else if(j == listOfPathsWithWaypoints[i].Count - 2) // Draw a red line at the end of the path
                     {
-                        end.transform.position = listOfPathsWithWaypoints[i][j+1].transform.position;
+                        if (end != null)
+                            end.transform.position = listOfPathsWithWaypoints[i][j+1].transform.position;
                         Debug.DrawLine(listOfPathsWithWaypoints[i][j].transform.position,
                         listOfPathsWithWaypoints[i][wpIndex].transform.position, new Color(1, 0, 0), 0.2f);
                     }

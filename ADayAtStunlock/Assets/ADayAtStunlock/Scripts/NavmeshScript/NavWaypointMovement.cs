@@ -13,9 +13,10 @@ using UnityEngine.AI;
 
 public class NavWaypointMovement : MonoBehaviour
 {
-    public NavMeshAgent navAgent;
 
-    [Range(0.1f, 5f)]
+    public PathSO testPath;
+
+    [Range(0.1f, 50f)]
     public float walkSpeed = 3;
 
     [SerializeField]
@@ -23,6 +24,8 @@ public class NavWaypointMovement : MonoBehaviour
 
     private IEnumerator coroutineFollowWaypoint;
     private IEnumerator coroutineFollowWaypointBackwards;
+
+    private NavMeshAgent navAgent;
 
     [SerializeField]
     private bool isToFollowWaypoints = true;
@@ -39,13 +42,19 @@ public class NavWaypointMovement : MonoBehaviour
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
-
+        
+        if(testPath != null)
+        {
+            SetPathRoute(testPath);//
+        }
        
     }
 
     private void Update()
     {
-        StartFollowingCurrentRouteBackwards();
+        navAgent.speed = walkSpeed;
+
+        //StartFollowingCurrentRoute();
     }
 
     /// <summary>
@@ -143,7 +152,8 @@ public class NavWaypointMovement : MonoBehaviour
         currentRoute.Clear();
         for (int i = 0; i < path.pathWay.Count; i++)
         {
-            currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
+            if(WaypointManager.allWaypointsMap.ContainsKey(path.pathWay[i]))
+              currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
         }
     }
 

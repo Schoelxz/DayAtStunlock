@@ -77,6 +77,8 @@ public class Schedule : MonoBehaviour
     }
     #endregion
 
+    public NavWaypointMovement moveRef;
+
     //Inspector-visible public variables
     public BetterTaskObject specificTaskObject;
 
@@ -90,6 +92,7 @@ public class Schedule : MonoBehaviour
 
     private void Start()
     {
+        moveRef = GetComponent<NavWaypointMovement>();
         oldTask = myCurrentTask;
         if (GetSpecifiedSchedule() != null)
         {
@@ -188,6 +191,13 @@ public class Schedule : MonoBehaviour
                 oldTask = myCurrentTask;
                 // Put code under here:...
                 Debug.Log(myCurrentTask.TaskName);
+
+                if (myCurrentTask.TaskName != null && WaypointManager.listOfAllPathsMap.ContainsKey(myCurrentTask.TaskName))
+                {
+                    moveRef.SetPathRoute(WaypointManager.listOfAllPathsMap[myCurrentTask.TaskName]);
+                    moveRef.StopAllCoroutines();
+                    moveRef.StartFollowingCurrentRoute();
+                }
             }
         }
     }
