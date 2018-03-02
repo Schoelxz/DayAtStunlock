@@ -13,12 +13,12 @@ using UnityEngine.AI;
 
 public class NavWaypointMovement : MonoBehaviour
 {
-
     public PathSO testPath;
 
-    [Range(0.1f, 50f)]
+    [Range(0.1f, 300f)]
     public float walkSpeed = 3;
 
+    #region private variables
     [SerializeField]
     private List<Waypoint> currentRoute = new List<Waypoint>(); // Debug?
 
@@ -31,6 +31,9 @@ public class NavWaypointMovement : MonoBehaviour
     private bool isToFollowWaypoints = true;
     [SerializeField]
     private bool coroutineRunning = false;
+    #endregion
+
+    #region properties
     /// <summary>
     /// Get if gameobject currently has a coroutine running. Meaning it has not yet reached its' paths' end.
     /// </summary>
@@ -38,125 +41,30 @@ public class NavWaypointMovement : MonoBehaviour
     {
         get { return coroutineRunning; }
     }
+    #endregion
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
-        
-        if(testPath != null)
+
+        if (testPath != null)
         {
-            SetPathRoute(testPath);//
+            SetPathRoute(testPath);
         }
-       
     }
 
     private void Update()
     {
-        navAgent.speed = walkSpeed;
+        navAgent.speed = walkSpeed * DAS.TimeSystem.DeltaTime;
+        navAgent.acceleration = walkSpeed * 3 * DAS.TimeSystem.DeltaTime;
 
-        //StartFollowingCurrentRoute();
+        if (coroutineRunning == false)
+            navAgent.isStopped = true;
+        else
+            navAgent.isStopped = false;
     }
 
-    /// <summary>
-    /// Starts the coroutine to follow the set path.
-    /// </summary>
-    public void StartFollowingCurrentRoute()
-    {
-        if (currentRoute.Count == 0)
-        {
-            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
-        }
-        else if (isToFollowWaypoints && !coroutineRunning)
-        {
-            coroutineFollowWaypoint = FollowWaypoints(currentRoute);
-
-            StartCoroutine(coroutineFollowWaypoint);
-
-            isToFollowWaypoints = false;
-        }
-
-    }
-    /// <summary>
-    /// Starts the coroutine to follow the set path.
-    /// </summary>
-    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
-    public void StartFollowingCurrentRoute(PathSO path)
-    {
-        currentRoute.Clear();
-        for (int i = 0; i < path.pathWay.Count; i++)
-        {
-            currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
-        }
-        if (currentRoute.Count == 0)
-        {
-            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
-        }
-        else if (isToFollowWaypoints && !coroutineRunning)
-        {
-            coroutineFollowWaypoint = FollowWaypoints(currentRoute);
-
-            StartCoroutine(coroutineFollowWaypoint);
-
-            isToFollowWaypoints = false;
-        }
-
-    }
-    /// <summary>
-    /// Starts the coroutine to follow the set path, backwardly.
-    /// </summary>
-    public void StartFollowingCurrentRouteBackwards()
-    {
-        if (currentRoute.Count == 0)
-        {
-            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
-        }
-        else if (isToFollowWaypoints && !coroutineRunning)
-        {
-            coroutineFollowWaypointBackwards = FollowWaypointsBackwards(currentRoute);
-
-            StartCoroutine(coroutineFollowWaypointBackwards);
-
-            isToFollowWaypoints = false;
-        }
-    }
-    /// <summary>
-    /// Starts the coroutine to follow the set path, backwardly.
-    /// </summary>
-    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
-    public void StartFollowingCurrentRouteBackwards(PathSO path)
-    {
-        currentRoute.Clear();
-        for (int i = 0; i < path.pathWay.Count; i++)
-        {
-            currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
-        }
-        if (currentRoute.Count == 0)
-        {
-            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
-        }
-        else if (isToFollowWaypoints && !coroutineRunning)
-        {
-            coroutineFollowWaypointBackwards = FollowWaypointsBackwards(currentRoute);
-
-            StartCoroutine(coroutineFollowWaypointBackwards);
-
-            isToFollowWaypoints = false;
-        }
-    }
-    /// <summary>
-    /// Sets what path the gameobject will take.
-    /// </summary>
-    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
-    public void SetPathRoute(PathSO path)
-    {
-        currentRoute.Clear();
-        for (int i = 0; i < path.pathWay.Count; i++)
-        {
-            if(WaypointManager.allWaypointsMap.ContainsKey(path.pathWay[i]))
-              currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
-        }
-    }
-
+    #region coroutine functions
     private IEnumerator FollowWaypoints(List<Waypoint> waypoints)
     {
         coroutineRunning = true;
@@ -178,7 +86,7 @@ public class NavWaypointMovement : MonoBehaviour
                     yield return new WaitForSeconds(0);
 
                     //  if current waypoint is reached
-                    if (navAgent.remainingDistance <= 0.3f)
+                    if (navAgent.remainingDistance <= 2f)
                     {
                         currentWaypoint++;
                     }
@@ -220,4 +128,121 @@ public class NavWaypointMovement : MonoBehaviour
         coroutineRunning = false;
         isToFollowWaypoints = true;
     }
+    #endregion
+
+    #region public functions
+    /// <summary>
+    /// Stops all coroutines. Making this object to stop following whatever path it is currently going to.
+    /// </summary>
+    public void StopFollowingWaypoints()
+    {
+        StopAllCoroutines();
+        coroutineRunning = false;
+        isToFollowWaypoints = true;
+    }
+
+    /// <summary>
+    /// Starts the coroutine to follow the set path.
+    /// </summary>
+    public void StartFollowingCurrentRoute()
+    {
+        if (currentRoute.Count == 0)
+        {
+            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
+        }
+        else if (isToFollowWaypoints && !coroutineRunning)
+        {
+            coroutineFollowWaypoint = FollowWaypoints(currentRoute);
+
+            StartCoroutine(coroutineFollowWaypoint);
+
+            isToFollowWaypoints = false;
+        }
+
+    }
+
+    /// <summary>
+    /// Starts the coroutine to follow the set path.
+    /// </summary>
+    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
+    public void StartFollowingCurrentRoute(PathSO path)
+    {
+        currentRoute.Clear();
+        for (int i = 0; i < path.pathWay.Count; i++)
+        {
+            currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
+        }
+        if (currentRoute.Count == 0)
+        {
+            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
+        }
+        else if (isToFollowWaypoints && !coroutineRunning)
+        {
+            coroutineFollowWaypoint = FollowWaypoints(currentRoute);
+
+            StartCoroutine(coroutineFollowWaypoint);
+
+            isToFollowWaypoints = false;
+        }
+
+    }
+
+    /// <summary>
+    /// Starts the coroutine to follow the set path, backwardly.
+    /// </summary>
+    public void StartFollowingCurrentRouteBackwards()
+    {
+        if (currentRoute.Count == 0)
+        {
+            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
+        }
+        else if (isToFollowWaypoints && !coroutineRunning)
+        {
+            coroutineFollowWaypointBackwards = FollowWaypointsBackwards(currentRoute);
+
+            StartCoroutine(coroutineFollowWaypointBackwards);
+
+            isToFollowWaypoints = false;
+        }
+    }
+
+    /// <summary>
+    /// Starts the coroutine to follow the set path, backwardly.
+    /// </summary>
+    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
+    public void StartFollowingCurrentRouteBackwards(PathSO path)
+    {
+        currentRoute.Clear();
+        for (int i = 0; i < path.pathWay.Count; i++)
+        {
+            currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
+        }
+        if (currentRoute.Count == 0)
+        {
+            Debug.LogWarning("WaypointNavigation can't find a route for " + gameObject.name + ". Try SetPathRoute first before trying to follow a route!");
+        }
+        else if (isToFollowWaypoints && !coroutineRunning)
+        {
+            coroutineFollowWaypointBackwards = FollowWaypointsBackwards(currentRoute);
+
+            StartCoroutine(coroutineFollowWaypointBackwards);
+
+            isToFollowWaypoints = false;
+        }
+    }
+
+    /// <summary>
+    /// Sets what path the gameobject will take.
+    /// </summary>
+    /// <param name="path">path is a scriptable object containing a list of waypoint names.</param>
+    public void SetPathRoute(PathSO path)
+    {
+        currentRoute.Clear();
+        for (int i = 0; i < path.pathWay.Count; i++)
+        {
+            if (WaypointManager.allWaypointsMap.ContainsKey(path.pathWay[i]))
+                currentRoute.Add(WaypointManager.allWaypointsMap[path.pathWay[i]]);
+        }
+    }
+    #endregion
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 //  cause it is not gameobject reliant nor should exist on several places
 public class WaypointManager : MonoBehaviour
 {
-
     #region public variables
     //Variables used by Waypoint
     public static Dictionary<string, Waypoint> allWaypointsMap = new Dictionary<string, Waypoint>();
@@ -19,6 +18,9 @@ public class WaypointManager : MonoBehaviour
         GetAllPaths();
     }
 
+    /// <summary>
+    /// Fills our dictionary list with all existing paths.
+    /// </summary>
     private void GetAllPaths()
     {
         //  Find and load resources

@@ -31,7 +31,7 @@ public class NavMovement : MonoBehaviour
             return;
         dt = 0;
 
-        if(navAgent.remainingDistance <= 0.4f && !navAgent.isStopped || isDestinationReached)
+        if(navAgent.remainingDistance <= 2f && !navAgent.isStopped || isDestinationReached)
         {
             isDestinationReached = true;
             navAgent.isStopped = true;

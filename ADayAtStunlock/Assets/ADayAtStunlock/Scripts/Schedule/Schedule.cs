@@ -162,8 +162,9 @@ public class Schedule : MonoBehaviour
         }
     }
 
+    #region Deprecated Function
     /// <summary>
-    /// Sort of a listener when current task is changed. Is called in update to "listen" for change.
+    /// DEPRECATED: Sort of a listener when current task is changed. Is called in update to "listen" for change.
     /// Currently only used for debug logging our current task.
     /// </summary>
     private void OnCurrentTaskChanges()
@@ -176,26 +177,31 @@ public class Schedule : MonoBehaviour
             Debug.Log(myCurrentTask.TaskName);
         }
     }
+    #endregion
+
     /// <summary>
     /// Sort of a listener when current task is changed. Is coroutine started in start to "listen" for change.
-    /// Currently only used for debug logging our current task.
+    /// This is currently checking for a path with the name of the current task, setting that path for follow.
     /// </summary>
     private IEnumerator CorOnCurrentTaskChanges()
     {
         while (true)
         {
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(1f);
             // Runs code once when current task != old task
             if (myCurrentTask != oldTask)
             {
                 oldTask = myCurrentTask;
                 // Put code under here:...
-                Debug.Log(myCurrentTask.TaskName);
+                //Debug.Log(myCurrentTask.TaskName);
 
+                yield return new WaitForSeconds(1f);
+
+                // Set path and follow it. Path of current task name.
                 if (myCurrentTask.TaskName != null && WaypointManager.listOfAllPathsMap.ContainsKey(myCurrentTask.TaskName))
                 {
+                    moveRef.StopFollowingWaypoints();
                     moveRef.SetPathRoute(WaypointManager.listOfAllPathsMap[myCurrentTask.TaskName]);
-                    moveRef.StopAllCoroutines();
                     moveRef.StartFollowingCurrentRoute();
                 }
             }
@@ -230,6 +236,7 @@ public class Schedule : MonoBehaviour
 
         return tempSchedule;
     }
+
     /// <summary>
     /// Using the scriptable object to set its' tasks. If there is no scriptable object placed on this script or if it's null, this function will return null.
     /// </summary>

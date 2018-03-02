@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PathCount : MonoBehaviour {
+public class PathCount : MonoBehaviour
+{
 
     NavMeshAgent navAgent;
     TextMesh textMesh;
