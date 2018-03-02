@@ -10,20 +10,15 @@ public class PlayerMovement : MonoBehaviour {
 
     [Range(2, 10)]
     public float movementSpeed;
-    
    
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(PlayerRaycast.hit.transform != null && !EventSystem.current.IsPointerOverGameObject())
+
+        if (PlayerRaycast.mouseStart == true && Input.GetMouseButton(0))
         {
-            PlayerAbilities.usingVicinity = false;
             transform.position = Vector3.MoveTowards(transform.position, PlayerRaycast.hit.point, movementSpeed * Time.deltaTime);
         }
-         
-                
-
-        
     }
 }
