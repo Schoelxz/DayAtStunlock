@@ -35,7 +35,7 @@ public class MenuNavigator : MonoBehaviour {
         }
     }
 
-    public void GoToScreen(Canvas canvas)
+    public void GoToCanvas(Canvas canvas)
     {
         //go to targetCanvas, hide others
         HideAllCanvases();
@@ -48,7 +48,7 @@ public class MenuNavigator : MonoBehaviour {
         if (canvasList.ContainsKey(m_mainMenu.name))
         {
             HideAllCanvases();
-            GoToScreen(m_mainMenu);
+            GoToCanvas(m_mainMenu);
         }
     }
     public void ExitApplication()
