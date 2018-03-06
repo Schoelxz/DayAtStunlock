@@ -25,6 +25,10 @@ public class CakeTable : MonoBehaviour {
 
     void AddCake()
     {
-        cakesAvailable += 1;
+        if(cakesAvailable < 3)
+        {
+            cakesAvailable += 1;
+        }
+
     }
 }

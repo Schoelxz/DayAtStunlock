@@ -24,15 +24,17 @@ public class NpcIcons : MonoBehaviour {
     
     public void DisplayIcon()
     {
-        hasStatus = true;
-        display.enabled = true;
-        display.sprite = statuses[Random.Range(0, statuses.Length)];
+        if (hasStatus == false)
+        {
+            hasStatus = true;
+            display.enabled = true;
+            display.sprite = statuses[Random.Range(0, statuses.Length)];
+        }
     }
 
     void Clicked()
     {
-        print(display.sprite + display.sprite.name);
-        print("Button clicked");
+        
 
         switch (display.sprite.name)
         {
@@ -52,13 +54,12 @@ public class NpcIcons : MonoBehaviour {
                 }
                 else
                 {
-                    print("Not enough cakes boi");
+                    print("Not enough cake");
                 }
 
                 break;
 
             default:
-                print("Invalid button name");
                 break;
         }
     }

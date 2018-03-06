@@ -12,8 +12,6 @@ public class NpcOutput : MonoBehaviour {
 	void Start () {
 
         working = true;
-        salary = 15000;
-        output = 17500;
 
 	}
 	
