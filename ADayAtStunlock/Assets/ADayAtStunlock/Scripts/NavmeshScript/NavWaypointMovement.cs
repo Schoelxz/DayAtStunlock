@@ -20,12 +20,14 @@ public class NavWaypointMovement : MonoBehaviour
 
     #region private variables
     [SerializeField]
-    private List<Waypoint> currentRoute = new List<Waypoint>(); // Debug?
+    private List<Waypoint> currentRoute = new List<Waypoint>();
 
     private IEnumerator coroutineFollowWaypoint;
     private IEnumerator coroutineFollowWaypointBackwards;
 
     private NavMeshAgent navAgent;
+
+    private const float WAITTIME = 0.1f;
 
     [SerializeField]
     private bool isToFollowWaypoints = true;
@@ -55,14 +57,16 @@ public class NavWaypointMovement : MonoBehaviour
 
     private void Update()
     {
-        navAgent.speed = walkSpeed * DAS.TimeSystem.DeltaTime;
-        navAgent.acceleration = walkSpeed * 3 * DAS.TimeSystem.DeltaTime;
+        navAgent.speed = walkSpeed; //* DAS.TimeSystem.DeltaTime;
+        navAgent.acceleration = walkSpeed * 3; //DAS.TimeSystem.DeltaTime;
 
         if (coroutineRunning == false)
             navAgent.isStopped = true;
         else
             navAgent.isStopped = false;
     }
+
+    
 
     #region coroutine functions
     private IEnumerator FollowWaypoints(List<Waypoint> waypoints)
@@ -75,15 +79,17 @@ public class NavWaypointMovement : MonoBehaviour
 
             while (!destinationReached)
             {
-                yield return new WaitForSeconds(0);
+                yield return new WaitForSeconds(WAITTIME);
 
                 if (currentWaypoint >= waypoints.Count)
                     destinationReached = true;
                 else if (!destinationReached)
                 {
-                    navAgent.destination = waypoints[currentWaypoint].transform.position;
 
-                    yield return new WaitForSeconds(0);
+                    navAgent.destination = waypoints[currentWaypoint].transform.position;
+                   
+
+                    yield return new WaitForSeconds(WAITTIME);
 
                     //  if current waypoint is reached
                     if (navAgent.remainingDistance <= 2f)
@@ -107,7 +113,7 @@ public class NavWaypointMovement : MonoBehaviour
 
             while (!destinationReached)
             {
-                yield return new WaitForSeconds(0);
+                yield return new WaitForSeconds(WAITTIME);
 
                 if (currentWaypoint < 0)
                     destinationReached = true;
@@ -115,7 +121,7 @@ public class NavWaypointMovement : MonoBehaviour
                 {
                     navAgent.destination = waypoints[currentWaypoint].transform.position;
 
-                    yield return new WaitForSeconds(0);
+                    yield return new WaitForSeconds(WAITTIME);
 
                     //  if current waypoint is reached
                     if (navAgent.remainingDistance <= 0.3f)

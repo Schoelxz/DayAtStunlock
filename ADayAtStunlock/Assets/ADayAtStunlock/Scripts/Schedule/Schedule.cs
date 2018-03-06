@@ -179,6 +179,8 @@ public class Schedule : MonoBehaviour
     }
     #endregion
 
+    
+
     /// <summary>
     /// Sort of a listener when current task is changed. Is coroutine started in start to "listen" for change.
     /// This is currently checking for a path with the name of the current task, setting that path for follow.
@@ -187,7 +189,7 @@ public class Schedule : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             // Runs code once when current task != old task
             if (myCurrentTask != oldTask)
             {
@@ -195,12 +197,12 @@ public class Schedule : MonoBehaviour
                 // Put code under here:...
                 //Debug.Log(myCurrentTask.TaskName);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.05f);
 
                 // Set path and follow it. Path of current task name.
                 if (myCurrentTask.TaskName != null && WaypointManager.listOfAllPathsMap.ContainsKey(myCurrentTask.TaskName))
                 {
-                    moveRef.StopFollowingWaypoints();
+                   // moveRef.StopFollowingWaypoints();
                     moveRef.SetPathRoute(WaypointManager.listOfAllPathsMap[myCurrentTask.TaskName]);
                     moveRef.StartFollowingCurrentRoute();
                 }
