@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoneyManager : MonoBehaviour {
 
     NpcIcons[] npcs;
+
+    [SerializeField]
+    GameObject endScreen;
 
     int working;
     public float salary;
@@ -48,5 +52,18 @@ public class MoneyManager : MonoBehaviour {
         salary += Time.deltaTime * 10;
 
         working = 0;
+
+        if(currentMoney < 0)
+        {
+            
+            if(!endScreen.activeInHierarchy)
+            {
+                endScreen.SetActive(true);
+                endScreen.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text = moneyEarned.ToString("n0");
+                moneyEarned = 0;
+            }
+                
+            
+        }
 	}
 }
