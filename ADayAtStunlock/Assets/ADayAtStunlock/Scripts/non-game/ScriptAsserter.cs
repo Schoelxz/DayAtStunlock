@@ -15,7 +15,7 @@ static class ScriptAsserter
         #region GameObjects
         Debug.Assert(GameObject.Find("EditorManager"), "Warning: No EditorManager gameobject found. Please create it and put relevant scripts on it");
 
-        Debug.Assert(GameObject.Find("Game Manager"), "Warning: No Game Manager gameobject found. Please create it and put relevant scripts on it");
+        Debug.Assert(GameObject.Find("GameManager"), "Warning: No GameManager gameobject found. Please create it and put relevant scripts on it");
         #endregion
 
         #region WaypointManager

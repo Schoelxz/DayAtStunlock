@@ -53,13 +53,16 @@ namespace DAS //  Namespace to sort out our own classes from other default class
                     string taskStartTime = string.Format("{0:D2}:{1:D2}", tStart.Hours, tStart.Minutes);
                     ////
                     // Make a background box
-                    GUI.Box(new Rect(10, 10, 240, 40), "Time\n" + hours.ToString("00") + ":" + minutes.ToString("00"));
-                    GUI.Box(new Rect(10, 50, 240, 40), "Game Seconds Passed\n" + TimeSystem.TimePassedSeconds.ToString());
+                    
                     GUI.Box(new Rect(10, 90, 240, 40), "GameObject Name\n" + NPCSchedule.gameObject.name);
                     GUI.Box(new Rect(10, 130, 240, 40), NPCSchedule.myCurrentTask.TaskName +
                         "\nNext task: " + NPCSchedule.myScheduleTasks[taskIndex].TaskName +
                         " at " + taskStartTime);
                 }
+
+                GUI.Box(new Rect(10, 10, 240, 40), "Time\n" + hours.ToString("00") + ":" + minutes.ToString("00"));
+                GUI.Box(new Rect(10, 50, 240, 40), "Game Seconds Passed\n" + TimeSystem.TimePassedSeconds.ToString());
+
                 //GUI.Box(new Rect(10, 170, 200, 40), "Next task: " + sched.myScheduleTasks[taskIndex].TaskName);
             }
         }
