@@ -7,7 +7,7 @@ using UnityEngine;
 
 static class ScriptAsserter
 {
-    [RuntimeInitializeOnLoadMethod]
+    //[RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
         Debug.Log("ScriptAsserter Checking scripts...");
