@@ -90,6 +90,8 @@ public class Schedule : MonoBehaviour
     private Task oldTask;
     private int taskIndex = 0; // task index helps using for loop as little as possible.
 
+    private bool test = false;
+
     private void Start()
     {
         moveRef = GetComponent<NavWaypointMovement>();
@@ -114,8 +116,13 @@ public class Schedule : MonoBehaviour
 
     private void Update ()
     {
+
         SetCurrentTask();
 	}
+    private void OnGUI()
+    {
+            GUI.Box(new Rect(500, 50, 200, 50), "SO IS BAD");
+    }
 
     /// <summary>
     /// Sets myCurrentTask to the current task inside myScheduleTasks.
@@ -222,7 +229,7 @@ public class Schedule : MonoBehaviour
         taskData = Resources.LoadAll("Schedule/DefaultSchedule", typeof(BetterTaskObject));
 
         //Uncomment this when you want to get thwe data back!.
-        Debug.Log(Resources.Load("Schedule/DefaultSchedule"));
+        Debug.Assert(Resources.Load("Schedule/DefaultSchedule"), "Unable to load DefaultSchedule");
 
         BetterTaskObject defaultTask = null;
 
@@ -230,6 +237,10 @@ public class Schedule : MonoBehaviour
         {
             defaultTask = item;
         }
+
+        if (defaultTask == null)
+            return null;
+
         //
         for (int i = 0; i < defaultTask.TaskTime.Length; i++)
         {
