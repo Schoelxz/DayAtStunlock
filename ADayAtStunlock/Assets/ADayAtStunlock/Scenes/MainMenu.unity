@@ -173,7 +173,7 @@ Prefab:
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -260,7 +260,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToScreen
+      value: GoToCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &181323860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToMainMenu
+      value: GoToDefaultCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -1205,7 +1205,7 @@ Prefab:
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -175
       objectReference: {fileID: 0}
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -1249,7 +1249,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1569950783405678, guid: e1d66721cb37b7e4ea914758ba3bb0c7, type: 2}
       propertyPath: m_Name
-      value: ExitButton
+      value: QuitButton
       objectReference: {fileID: 0}
     - target: {fileID: 114688065164592846, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -1292,7 +1292,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExitApplication
+      value: QuitApplication
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -2318,7 +2318,7 @@ Prefab:
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -2390,7 +2390,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -2415,12 +2415,17 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GotoGameScene
+      value: GotoScene
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1d66721cb37b7e4ea914758ba3bb0c7, type: 2}
@@ -2705,7 +2710,7 @@ Prefab:
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 224806835317096750, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -2792,7 +2797,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToScreen
+      value: GoToCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -2932,7 +2937,7 @@ Prefab:
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToMainMenu
+      value: GoToDefaultCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 114245121375607928, guid: e1d66721cb37b7e4ea914758ba3bb0c7,
         type: 2}
@@ -3296,6 +3301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a8f68506d360441a1ec750ca52913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_hasDefaultCanvas: 1
+  m_DefaultCanvas: {fileID: 0}
 --- !u!224 &1326924843 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224659945005300682, guid: 6c3153edd67cf0843a7de9016e397a71,
