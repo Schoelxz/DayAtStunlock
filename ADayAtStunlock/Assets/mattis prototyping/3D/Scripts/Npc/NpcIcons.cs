@@ -60,6 +60,7 @@ public class NpcIcons : MonoBehaviour {
                 break;
 
             default:
+                print("Yolo");
                 break;
         }
     }

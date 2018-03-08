@@ -23,7 +23,7 @@ public class NpcCharacteristics : MonoBehaviour {
     [HideInInspector]
     public float mood;
 
-    EconomyManager manager;
+    //EconomyManager manager;
     bool working;
 
 
@@ -42,7 +42,7 @@ public class NpcCharacteristics : MonoBehaviour {
         happinessDecay = Random.Range(0.5f,2.5f);
         happinessSlider = transform.GetChild(0).GetChild(0).GetComponent<Slider>();
 
-        manager = FindObjectOfType<EconomyManager>();
+        //manager = FindObjectOfType<EconomyManager>();
 
 
         
@@ -64,7 +64,7 @@ public class NpcCharacteristics : MonoBehaviour {
             {
                 if(working)
                 {
-                    manager.currentlyWorking -= 1;
+                    //manager.currentlyWorking -= 1;
                     working = false;
                 }
                 mood = 0;
@@ -76,7 +76,7 @@ public class NpcCharacteristics : MonoBehaviour {
                 if(!working)
                 {
                     working = true;
-                    manager.currentlyWorking += 1;
+                    //manager.currentlyWorking += 1;
                 }
                 mood = (((happiness + motivation) / 2) / 100) + 1; //Makes this a nice number to work with, between 1 and 2, used as a multiplier for output. 
             }

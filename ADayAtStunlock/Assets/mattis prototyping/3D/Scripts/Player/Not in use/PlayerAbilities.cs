@@ -59,13 +59,13 @@ public class PlayerAbilities : MonoBehaviour {
         if(globalTimer > globalCooldown)
         { 
             print("Trigger global ability");
-            foreach (NpcCharacteristics n in Statics.npcs)
-            {
+            //foreach (NpcCharacteristics n in Statics.npcs)
+            //{
             
-                n.motivation += 50;
-                n.happiness += 50;
-            }
-            globalTimer = 0;
+            //    n.motivation += 50;
+            //    n.happiness += 50;
+            //}
+            //globalTimer = 0;
         }
         else
         {
