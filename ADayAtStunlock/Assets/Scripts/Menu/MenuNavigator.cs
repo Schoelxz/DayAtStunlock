@@ -12,10 +12,19 @@ public class MenuNavigator : MonoBehaviour {
     [Header("Assign Default Canvas")]
     [Tooltip("Choose a specific canvas to be the default or leave empty to get the first canvas in the hierarchy")]
     [SerializeField] private Canvas m_DefaultCanvas;
+    [SerializeField] private bool  m_hasInGameMenu;
+    [SerializeField] private Canvas m_InGameMenu;
 
     private void Awake()
     {
         InitializeCanvases();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleInGameMenu();
+        }
     }
 
     //
@@ -44,6 +53,7 @@ public class MenuNavigator : MonoBehaviour {
             }
             m_DefaultCanvas.gameObject.SetActive(true);
         }
+        CheckIfMenuIsActive();
     }
 
     /// <summary>
@@ -73,6 +83,15 @@ public class MenuNavigator : MonoBehaviour {
 
     }
 
+    private void CheckIfMenuIsActive()
+    {
+        //Skriv stuff här Niklas! :D:D:D:D
+        if (m_InGameMenu != null)
+        {
+            m_hasInGameMenu = true;
+        }
+    }
+
     /// <summary>
     /// Go to default canvas OR hides all canvases if there is no default canvas
     /// </summary>
@@ -85,6 +104,17 @@ public class MenuNavigator : MonoBehaviour {
            GoToCanvas(m_DefaultCanvas);
         }
         
+    
+    }
+
+    public void ToggleInGameMenu()
+    {
+        if (m_hasInGameMenu)
+        {
+            //Dubbelkolla så detta fungerar som det ska
+            Debug.Log(m_InGameMenu.gameObject.activeSelf);
+            m_InGameMenu.gameObject.SetActive(!m_InGameMenu.gameObject.activeSelf);
+        }
     }
 
     //
