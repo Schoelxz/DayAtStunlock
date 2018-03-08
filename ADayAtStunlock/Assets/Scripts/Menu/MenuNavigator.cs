@@ -78,6 +78,7 @@ public class MenuNavigator : MonoBehaviour {
     /// </summary>
     public void GoToDefaultCanvas()
     {
+
         HideAllCanvases();
         if (!m_hasDefaultCanvas)
         {
