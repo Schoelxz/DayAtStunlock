@@ -49,11 +49,12 @@ namespace DAS //  Namespace to sort out our own classes from other default class
         private static float timePassedSeconds;
         /// <summary>
         /// Get total time passed in seconds since game start(affected by time multiplier).
+        /// Is never negative, always returns and sets an absolute number.
         /// </summary>
         public static float TimePassedSeconds
         {
-            get { return timePassedSeconds; }
-            set { timePassedSeconds = value; }
+            get { return Mathf.Abs(timePassedSeconds); }
+            set { timePassedSeconds = Mathf.Abs(value); }
         }
         /// <summary>
         /// Get total time passed in minutes since game start(affected by time multiplier).

@@ -78,12 +78,11 @@ GameObject:
   - component: {fileID: 23809097217579148}
   - component: {fileID: 54597968555359634}
   - component: {fileID: 195217980782129402}
-  - component: {fileID: 114516246448684352}
-  - component: {fileID: 114406200906080248}
   - component: {fileID: 114432861031491712}
+  - component: {fileID: 114230643027699756}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: -3839803715187477772, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +107,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899139384297190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7197, y: -40.597176, z: -26.919}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.39781928, y: 1, z: 0.54456246}
   m_Children:
   - {fileID: 4631081110818862}
@@ -374,7 +373,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
---- !u!114 &114406200906080248
+--- !u!114 &114230643027699756
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -382,14 +381,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899139384297190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bb8aef1341e384b8e7ce1f0eaacc1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6771b80d9bc639b47b3fcfc466049bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testPath: {fileID: 0}
-  walkSpeed: 7
-  currentRoute: []
-  isToFollowWaypoints: 1
-  coroutineRunning: 0
+  myWorkSeat: {fileID: 0}
+  myWorkDestination:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114432861031491712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,20 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c94ca885a2ffc149ad8d5caad4a9aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRef: {fileID: 0}
-  specificTaskObject: {fileID: 11400000, guid: d5c6255fb8327fc45b3a5747b338bd7b, type: 2}
---- !u!114 &114516246448684352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1899139384297190}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c84f63019898244f877633a418728ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: {fileID: 0}
+  specificTaskObject: {fileID: 0}
 --- !u!114 &114881848011606948
 MonoBehaviour:
   m_ObjectHideFlags: 1

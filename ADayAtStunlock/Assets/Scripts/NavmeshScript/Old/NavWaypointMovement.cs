@@ -13,7 +13,8 @@ using UnityEngine.AI;
 
 public class NavWaypointMovement : MonoBehaviour
 {
-    public PathSO testPath;
+    public Vector3 myWorkSeatPosition;
+    public Vector3 myWorkRoomDestination;
 
     [Range(0.1f, 300f)]
     public float walkSpeed = 3;
@@ -48,11 +49,6 @@ public class NavWaypointMovement : MonoBehaviour
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
-
-        if (testPath != null)
-        {
-            SetPathRoute(testPath);
-        }
     }
 
     private void Update()
@@ -102,7 +98,39 @@ public class NavWaypointMovement : MonoBehaviour
         coroutineRunning = false;
         isToFollowWaypoints = true;
     }
+    private IEnumerator FollowWaypoints(List<Vector3> waypoints)
+    {
+        coroutineRunning = true;
+        if (waypoints.Count != 0 && waypoints[0] != null)
+        {
+            int currentWaypoint = 0;
+            bool destinationReached = false;
 
+            while (!destinationReached)
+            {
+                yield return new WaitForSeconds(WAITTIME);
+
+                if (currentWaypoint >= waypoints.Count)
+                    destinationReached = true;
+                else if (!destinationReached)
+                {
+
+                    navAgent.destination = waypoints[currentWaypoint];
+
+
+                    yield return new WaitForSeconds(WAITTIME);
+
+                    //  if current waypoint is reached
+                    if (navAgent.remainingDistance <= 2f)
+                    {
+                        currentWaypoint++;
+                    }
+                }
+            }
+        }
+        coroutineRunning = false;
+        isToFollowWaypoints = true;
+    }
     private IEnumerator FollowWaypointsBackwards(List<Waypoint> waypoints)
     {
         coroutineRunning = true;
@@ -137,6 +165,19 @@ public class NavWaypointMovement : MonoBehaviour
     #endregion
 
     #region public functions
+    public void GotoMyWorkSeat()
+    {
+        List<Vector3> workWaypoints = new List<Vector3>();
+        if (myWorkRoomDestination == null || myWorkSeatPosition == null || myWorkSeatPosition == Vector3.zero || myWorkRoomDestination == Vector3.zero)
+        {
+            Debug.LogAssertion("NPCs Work destination or seat position is null. Assign them!");
+            return;
+        }
+
+        StartCoroutine(FollowWaypoints(workWaypoints));
+
+    }
+
     /// <summary>
     /// Stops all coroutines. Making this object to stop following whatever path it is currently going to.
     /// </summary>
