@@ -3,46 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-//uncomment this to fill workSeats with all workseats in scene.
-[ExecuteInEditMode]
-public class WorkSeatManager : MonoBehaviour
+namespace DAS
 {
-    public List<GameObject> workSeats = new List<GameObject>();
-    // Use this for initialization
 
-    void Start ()
+    //uncomment this to fill workSeats with all workseats in scene.
+    [ExecuteInEditMode]
+    public class WorkSeatManager : MonoBehaviour
     {
-        workSeats.Clear();
-        List<GameObject> gameobjectList = new List<GameObject>();
-        List<GameObject> npcList = new List<GameObject>();
-
-        gameobjectList.AddRange(FindObjectsOfType<GameObject>());
-
-        foreach (var item in gameobjectList)
+        public List<GameObject> workSeats = new List<GameObject>();
+        // Use this for initialization
+        
+        void Start()
         {
-            if(item.tag == "WorkSeat")
+            workSeats.Clear();
+            List<GameObject> gameobjectList = new List<GameObject>();
+            List<GameObject> npcList = new List<GameObject>();
+
+            gameobjectList.AddRange(FindObjectsOfType<GameObject>());
+
+            foreach (var item in gameobjectList)
             {
-                workSeats.Add(item);
+                if (item.tag == "WorkSeat")
+                {
+                    workSeats.Add(item);
+                }
+            }
+
+            foreach (var item in gameobjectList)
+            {
+                if (item.tag == "NPC")
+                {
+                    npcList.Add(item);
+                }
+            }
+
+            for (int i = 0; i < npcList.Count; i++)
+            {
+                if (i < workSeats.Count)
+                    npcList[i].GetComponent<DAS.NavMovementSimple>().myWorkSeat = workSeats[i];
+                else
+                    npcList[i].GetComponent<DAS.NavMovementSimple>().myWorkSeat = workSeats[0];
             }
         }
 
-        foreach (var item in gameobjectList)
+        // Update is called once per frame
+        void Update()
         {
-            if(item.tag == "NPC")
-            {
-                npcList.Add(item);
-            }
-        }
 
-        for (int i = 0; i < npcList.Count; i++)
-        {
-            npcList[i].GetComponent<DAS.NavMovementSimple>().myWorkSeat = workSeats[i];
         }
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+    }
 }

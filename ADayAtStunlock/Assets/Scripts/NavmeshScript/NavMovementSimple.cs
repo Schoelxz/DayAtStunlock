@@ -12,13 +12,31 @@ namespace DAS
 
         private NavMeshAgent agentRef;
 
-        // Use this for initialization
         void Start()
         {
             agentRef = GetComponent<NavMeshAgent>();
             StartCoroutine(GotoMyWorkPlace(myWorkSeat));
         }
 
+        /// <summary>
+        /// Stops the current order where the NPC is going and stops it until a new goto is called.
+        /// </summary>
+        public void StopAllGoto()
+        {
+            StopAllCoroutines();
+            agentRef.destination = transform.position;
+            agentRef.isStopped = true;
+        }
+
+        public void GotoSelectedLocation(Vector3 location)
+        {
+            agentRef.destination = location;
+            agentRef.isStopped = false;
+        }
+
+        /// <summary>
+        /// Makes NPC with this script on it to walk to its workplace (with workdestination waypoints for fine-tune in the end?)
+        /// </summary>
         public void GotoMyWorkPlace()
         {
             if (myWorkSeat == null || myWorkDestination == null)
@@ -30,13 +48,16 @@ namespace DAS
             workplaceWaypoints.AddRange(myWorkDestination);
             workplaceWaypoints.Add(myWorkSeat);
 
-            StartCoroutine(GotoMyWorkPlace(workplaceWaypoints));
+            StartCoroutine(GotoWaypointsInOrder(workplaceWaypoints));
+
         }
+
         /// <summary>
         /// Coroutine function.
         /// </summary>
-        private IEnumerator GotoMyWorkPlace(List<GameObject> waypoints)
+        private IEnumerator GotoWaypointsInOrder(List<GameObject> waypoints)
         {
+            agentRef.isStopped = false;
             int currentWaypoint = 0;
             bool destinationReached = false;
 
@@ -63,6 +84,7 @@ namespace DAS
         /// </summary>
         private IEnumerator GotoMyWorkPlace(GameObject waypoint)
         {
+            agentRef.isStopped = false;
             bool destinationReached = false;
 
             while (!destinationReached)
