@@ -30,13 +30,24 @@ namespace DAS //  Namespace to sort out our own classes from other default class
 
             void Update()
             {
+                if(Input.GetKey(KeyCode.J))
+                {
+
+                    DAS.TimeSystem.TimePassedSeconds++;
+                }
+                else if (Input.GetKey(KeyCode.K))
+                {
+
+                    DAS.TimeSystem.TimePassedSeconds--;
+                }
+
                 if (NPCObject != null && NPCObject != oldNPCObject)
                 {
                     NPCSchedule = NPCObject.GetComponent<Schedule>();
                     oldNPCObject = NPCObject;
                 }
-                minutes = ((int)TimeSystem.TimePassedSeconds) % 60;
-                hours = ((int)TimeSystem.TimePassedMinutes) % 24;
+                minutes =   Mathf.Clamp(((int)TimeSystem.TimePassedSeconds) % 60, 0, 60);
+                hours   =   Mathf.Clamp(((int)TimeSystem.TimePassedMinutes) % 24, 0, 24);
             }
 
             //For drawing GUI to show values and debugging
