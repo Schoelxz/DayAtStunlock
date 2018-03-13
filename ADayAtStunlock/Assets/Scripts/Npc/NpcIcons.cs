@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class NpcIcons : MonoBehaviour {
     
     public Sprite[] statuses;
+    [Range(1, 2)]
+    [SerializeField] private int maxStatuses;
     private Image display;
     public bool hasStatus;
-    private Button button;
+    [SerializeField] private Button needsButton;
+    [SerializeField] private Slider HappySlider;
     CakeTable cakeTable;
 
     // Use this for initialization
@@ -16,8 +19,8 @@ public class NpcIcons : MonoBehaviour {
         display = transform.GetChild(0).GetComponentInChildren<Image>();
         hasStatus = false;
         display.enabled = false;
-        button = transform.GetChild(0).GetComponentInChildren<Button>();
-        button.onClick.AddListener(Clicked);
+        needsButton = transform.GetChild(0).GetComponentInChildren<Button>();
+        needsButton.onClick.AddListener(Clicked);
         cakeTable = FindObjectOfType<CakeTable>();
 	}
 	
