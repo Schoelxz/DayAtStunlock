@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+/*Le Old
 public class Schedule : MonoBehaviour
 {
     #region Struct: Task
@@ -77,6 +77,8 @@ public class Schedule : MonoBehaviour
     }
     #endregion
 
+    public NavWaypointMovement moveRef;
+
     //Inspector-visible public variables
     public BetterTaskObject specificTaskObject;
 
@@ -88,8 +90,12 @@ public class Schedule : MonoBehaviour
     private Task oldTask;
     private int taskIndex = 0; // task index helps using for loop as little as possible.
 
+    private float dt; // decrease function calls in update
+
     private void Start()
     {
+        moveRef = GetComponent<NavWaypointMovement>();
+        Debug.Assert(moveRef != null);
         oldTask = myCurrentTask;
         if (GetSpecifiedSchedule() != null)
         {
@@ -111,11 +117,20 @@ public class Schedule : MonoBehaviour
 
     private void Update ()
     {
-        SetCurrentTask();
+        // for each game second passes..
+        dt += DAS.TimeSystem.DeltaTime;
+        if (dt >= 1)
+        {
+            // checks what the current task should be and sets to it
+            SetCurrentTask();
+            dt = 0;
+        }
 	}
 
     /// <summary>
     /// Sets myCurrentTask to the current task inside myScheduleTasks.
+    /// Basically checks what the current task should be and sets to it.
+    /// NOTE: Only works properly if gametime is progressing forwards (increases), will not work if time goes backwards (decreases).
     /// </summary>
     private void SetCurrentTask()
     {
@@ -124,7 +139,7 @@ public class Schedule : MonoBehaviour
             Debug.Assert(myScheduleTasks.Count == 0, "Schedule: List of tasks is empty.");
             return;
         }
-
+        
         // if time has passed over the last tasks' end time, and, the time is below the first tasks' start time..
         if ((myScheduleTasks[myScheduleTasks.Count - 1].EndTime > (DAS.TimeSystem.TimePassedSeconds % 1440f) &&
             myScheduleTasks[0].StartTime <= (DAS.TimeSystem.TimePassedSeconds % 1440f)))
@@ -139,8 +154,9 @@ public class Schedule : MonoBehaviour
                     // if our current task is already set.
                     if (myCurrentTask != myScheduleTasks[i])
                     {
-                        ++taskIndex;
+                        // go to next task
                         myCurrentTask = myScheduleTasks[i];
+                        taskIndex = myScheduleTasks.IndexOf(myCurrentTask);
                     }
                     break; // break forloop for we have reached our goal.
                 }
@@ -149,9 +165,9 @@ public class Schedule : MonoBehaviour
         else // else if time is not within the time range of the first and last task..
         {
             // if current task index is the last index..
-            if (taskIndex == myScheduleTasks.Count)
+            if (taskIndex == myScheduleTasks.Count - 1)
             {
-                // set current task to null since we have none
+                // set current task to an empty task since we have none
                 myCurrentTask = new Task();
                 // restart the taskindex to the first task index
                 taskIndex = 0;
@@ -160,34 +176,30 @@ public class Schedule : MonoBehaviour
     }
 
     /// <summary>
-    /// Sort of a listener when current task is changed. Is called in update to "listen" for change.
-    /// Currently only used for debug logging our current task.
-    /// </summary>
-    private void OnCurrentTaskChanges()
-    {
-        // Runs code once when current task != old task
-        if(myCurrentTask != oldTask)
-        {
-            oldTask = myCurrentTask;
-            // Put code under here:...
-            Debug.Log(myCurrentTask.TaskName);
-        }
-    }
-    /// <summary>
     /// Sort of a listener when current task is changed. Is coroutine started in start to "listen" for change.
-    /// Currently only used for debug logging our current task.
+    /// This is currently checking for a path with the name of the current task, setting that path for follow.
     /// </summary>
     private IEnumerator CorOnCurrentTaskChanges()
     {
         while (true)
         {
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(0.1f);
             // Runs code once when current task != old task
             if (myCurrentTask != oldTask)
             {
                 oldTask = myCurrentTask;
                 // Put code under here:...
-                Debug.Log(myCurrentTask.TaskName);
+                //Debug.Log(myCurrentTask.TaskName);
+
+                yield return new WaitForSeconds(0.05f);
+
+                // Set path and follow it. Path of current task name.
+                if (myCurrentTask.TaskName != null && WaypointManager.listOfAllPathsMap.ContainsKey(myCurrentTask.TaskName))
+                {
+                   // moveRef.StopFollowingWaypoints();
+                    moveRef.SetPathRoute(WaypointManager.listOfAllPathsMap[myCurrentTask.TaskName]);
+                    moveRef.StartFollowingCurrentRoute();
+                }
             }
         }
     }
@@ -204,7 +216,7 @@ public class Schedule : MonoBehaviour
         taskData = Resources.LoadAll("Schedule/DefaultSchedule", typeof(BetterTaskObject));
 
         //Uncomment this when you want to get thwe data back!.
-        Debug.Log(Resources.Load("Schedule/DefaultSchedule"));
+        Debug.Assert(Resources.Load("Schedule/DefaultSchedule"), "Unable to load DefaultSchedule");
 
         BetterTaskObject defaultTask = null;
 
@@ -212,6 +224,10 @@ public class Schedule : MonoBehaviour
         {
             defaultTask = item;
         }
+
+        if (defaultTask == null)
+            return null;
+
         //
         for (int i = 0; i < defaultTask.TaskTime.Length; i++)
         {
@@ -220,6 +236,7 @@ public class Schedule : MonoBehaviour
 
         return tempSchedule;
     }
+
     /// <summary>
     /// Using the scriptable object to set its' tasks. If there is no scriptable object placed on this script or if it's null, this function will return null.
     /// </summary>
@@ -241,3 +258,4 @@ public class Schedule : MonoBehaviour
         return null;
     }
 }
+*/
