@@ -14,8 +14,8 @@ public class NpcStatus : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        delay = 1;
-        interval = 2;   
+        delay = 5;
+        interval = 10;   
 
         npcs = FindObjectsOfType<NpcIcons>();
         

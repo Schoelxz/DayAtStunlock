@@ -61,13 +61,13 @@ public class NpcIcons : MonoBehaviour {
 
         switch (display.sprite.name)
         {
-            case ("Confused"):
+            case ("confused_icon"):
                 display.enabled = false;
                 hasStatus = false;
 
                 break;
 
-            case ("Coffee"):
+            case ("coffee_icon"):
 
                 if (cakeTable.cakesAvailable > 0)
                 {
