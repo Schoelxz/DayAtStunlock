@@ -19,6 +19,7 @@ public class NpcCreator : MonoBehaviour
     List<GameObject> npcList = new List<GameObject>();
     string[] names = new string[45];
     public Vector3Int[] spawnLocations = new Vector3Int[2];
+    public bool toggleGUI = true;
 
     [Range(0, 45)]
     [SerializeField]
@@ -29,6 +30,8 @@ public class NpcCreator : MonoBehaviour
 
     private void OnGUI()
     {
+        if (!toggleGUI)
+            return;
         numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), numOfNPCs, maxNPCs, 0);
         numOfNPCs = (int)numOfNPCs;
         GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
@@ -43,10 +46,11 @@ public class NpcCreator : MonoBehaviour
             names[i] = "Stunlocker " + (i+1).ToString();
         }	
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+
         numOfNPCs = (int)numOfNPCs;
         dt += Time.deltaTime;
         if(dt >= 0.05)
