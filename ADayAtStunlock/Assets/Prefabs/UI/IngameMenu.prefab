@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114218848104879344}
   - component: {fileID: 114456187823592388}
   m_Layer: 0
-  m_Name: back
+  m_Name: Back_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114162697273061058}
   - component: {fileID: 114790175873117424}
   m_Layer: 0
-  m_Name: Restart
+  m_Name: Restart_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 114554699591845226}
   - component: {fileID: 114635084982839460}
   m_Layer: 0
-  m_Name: quit
+  m_Name: Exit_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 893f4d4c0e6e1bf4681169bc19a02b07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99d107412a03e7c47be9ccf3b090f1d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -262,7 +262,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 893f4d4c0e6e1bf4681169bc19a02b07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aba6c09cb03f42a4ab3d26860ee30190, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -289,8 +289,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e66e498199e00a846a2b1a269782ae1a, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7705711a8e0f7474aabdd590c6ba64e2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -323,9 +323,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 6e8f1d32b58ff634b82721b332721c4b,
+    m_HighlightedSprite: {fileID: 21300000, guid: 8f3cb465ff335e346893507dcfd20709,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: ceb271b8c6be0164abdc8f84bae4f2e2, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 1e7566471630f8a40bd50d7a462b0ebc, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -380,7 +380,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 893f4d4c0e6e1bf4681169bc19a02b07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5385d42217196f841b95824d3c6139bd, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -414,9 +414,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 6e8f1d32b58ff634b82721b332721c4b,
+    m_HighlightedSprite: {fileID: 21300000, guid: 8df1889ddb6253e4bb994623cdf8b19b,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: ceb271b8c6be0164abdc8f84bae4f2e2, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 0250573ee410f484db94f09cfc57f8fe, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -456,9 +456,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 6e8f1d32b58ff634b82721b332721c4b,
+    m_HighlightedSprite: {fileID: 21300000, guid: c1c2794d21856364897a63a518acd1e9,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: ceb271b8c6be0164abdc8f84bae4f2e2, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a64c830255d401144814e8ced8e1f31c, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

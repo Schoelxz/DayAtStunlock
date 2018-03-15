@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScreenShake : MonoBehaviour {
 
-    Camera camera;
+    new Camera camera;
     public static float shakeDuration;
     float shakeAmount;
     Vector3 originalPos;

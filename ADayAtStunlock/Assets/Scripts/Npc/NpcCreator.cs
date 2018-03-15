@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 class NPC : MonoBehaviour
 {
-    public string name;
+    public new string name;
 
     void OnDrawGizmos()
     {

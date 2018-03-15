@@ -101,7 +101,7 @@ public class NavWaypointMovement : MonoBehaviour
     private IEnumerator FollowWaypoints(List<Vector3> waypoints)
     {
         coroutineRunning = true;
-        if (waypoints.Count != 0 && waypoints[0] != null)
+        if (waypoints.Count != 0 && waypoints != null)
         {
             int currentWaypoint = 0;
             bool destinationReached = false;
@@ -168,9 +168,9 @@ public class NavWaypointMovement : MonoBehaviour
     public void GotoMyWorkSeat()
     {
         List<Vector3> workWaypoints = new List<Vector3>();
-        if (myWorkRoomDestination == null || myWorkSeatPosition == null || myWorkSeatPosition == Vector3.zero || myWorkRoomDestination == Vector3.zero)
+        if (myWorkSeatPosition == Vector3.zero || myWorkRoomDestination == Vector3.zero)
         {
-            Debug.LogAssertion("NPCs Work destination or seat position is null. Assign them!");
+            Debug.LogAssertion("NPCs Work destination or seat position is 0. Assign them!");
             return;
         }
 
