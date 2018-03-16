@@ -10,14 +10,15 @@ public class PlayerMovement : MonoBehaviour {
 
     [Range(2, 10)]
     public float movementSpeed;
-   
+    private Vector3 m_moveHere; 
 	
 	// Update is called once per frame
 	void Update ()
     {
-
+        Debug.Log(PlayerRaycast.hit.point);
         if (PlayerRaycast.mouseStart == true && Input.GetMouseButton(0))
         {
+            m_moveHere = PlayerRaycast.hit.point;
             transform.position = Vector3.MoveTowards(transform.position, PlayerRaycast.hit.point, movementSpeed * Time.deltaTime);
         }
     }
