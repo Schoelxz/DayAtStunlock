@@ -18,6 +18,7 @@ public class MenuNavigator : MonoBehaviour
     /// <para> canvases[2] = Config Canvas                               </para>
     /// <para> canvases[3] = Credits Canvas                              </para>
     /// <para> canvases[4] = IngameMenu Canvas                           </para>
+    /// <para> canvases[5] = GameHudCanvas Canvas                        </para>
     /// </summary>
     Canvas[] canvases;
 
@@ -39,10 +40,11 @@ public class MenuNavigator : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if(SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
-            canvases[1].gameObject.SetActive(true);
+        if (SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
+            GotoMainMenu();
         else
-            HideMainMenuMenus();
+            GotoGameCanvas();
+
 
         canvases[4].gameObject.SetActive(false);
     }
@@ -118,6 +120,12 @@ public class MenuNavigator : MonoBehaviour
     {
         HideAllCanvases();
         canvases[1].gameObject.SetActive(true);
+    }
+
+    public void GotoGameCanvas()
+    {
+        HideAllCanvases();
+        canvases[5].gameObject.SetActive(true);
     }
 
     /// <summary>
