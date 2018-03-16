@@ -16,17 +16,23 @@ class NPC : MonoBehaviour
 
 public class NpcCreator : MonoBehaviour
 {
+    private static int NPCMAX = 42;
+    [SerializeField]
+    private GameObject NPCPrefab;
+
     List<GameObject> npcList = new List<GameObject>();
     string[] names = new string[45];
-    public Vector3Int[] spawnLocations = new Vector3Int[2];
+    public Transform[] spawnLocations = new Transform[2];
     public bool toggleGUI = true;
 
-    [Range(0, 45)]
+    [Range(0, 42)]
     [SerializeField]
     private float numOfNPCs;
-    private float maxNPCs = 45; //45 could be a "number of workseats" variable instead, maybe from another script?
-
+    private float maxNPCs = NPCMAX;
+    
+    // Delta Timers
     float dt;
+    float dt2;
 
     private void OnGUI()
     {
@@ -50,36 +56,71 @@ public class NpcCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         numOfNPCs = (int)numOfNPCs;
-        dt += Time.deltaTime;
-        if(dt >= 0.05)
-        {
-            dt = 0;
-            return;
-        }
-        
 
-		if(npcList.Count != numOfNPCs)
+        UpdateGate(2);
+
+        //+++ Reduce update calls
+        dt += Time.deltaTime;
+        if (dt >= 0.05f)
+        { dt = 0; }
+        else
+            return;
+        //---
+
+        NpcAmountController();
+	}
+
+    /// <summary>
+    /// A seperate update from update..
+    /// </summary>
+    /// <param name="seconds">How often the update will run its' program (e.g. value 3 would call everything every third second).</param>
+    void UpdateGate(float seconds)
+    {
+        //+++ Reduce update calls
+        dt2 += Time.deltaTime;
+        if (dt2 >= seconds)
+        { dt2 = 0; }
+        else
+            return;
+        //---
+
+        if (npcList.Count < NPCMAX)
         {
-            if(npcList.Count < numOfNPCs)
+            numOfNPCs++;
+            AddNewNPC();
+        }
+    }
+
+    void NpcAmountController()
+    {
+        if (npcList.Count != numOfNPCs)
+        {
+            if (npcList.Count < numOfNPCs)
             {
                 for (int i = npcList.Count; i < numOfNPCs; i++)
                 {
-                    npcList.Add(new GameObject(names[npcList.Count]));
-                    npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
-                    npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)];
+                    AddNewNPC();
                 }
             }
-            else if(npcList.Count > numOfNPCs)
+            else if (npcList.Count > numOfNPCs)
             {
-                while(npcList.Count > numOfNPCs)
-                { 
+                while (npcList.Count > numOfNPCs)
+                {
                     Destroy(npcList[npcList.Count - 1]);
                     npcList.RemoveAt(npcList.Count - 1);
                 }
             }
-            
         }
-	}
+    }
+
+    void AddNewNPC()
+    {
+        if (NPCPrefab == null)
+            npcList.Add(new GameObject(names[npcList.Count]));
+        else
+            npcList.Add(Instantiate(NPCPrefab));
+        //npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
+        npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+    }
 }
