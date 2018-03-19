@@ -150,6 +150,16 @@ public class MenuNavigator : MonoBehaviour
     public void ToggleInGameMenu()
     {
         m_InGameMenu.gameObject.SetActive(!m_InGameMenu.gameObject.activeSelf);
+        if (!m_InGameMenu.gameObject.activeSelf)
+        {
+            DAS.TimeSystem.ResumeTime();
+        }
+        else
+        {
+            DAS.TimeSystem.PauseTime();
+        }
+        
+        
     }
     #endregion
 
@@ -200,6 +210,7 @@ public class MenuNavigator : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        DAS.TimeSystem.ResetTime();
     }
     #endregion
 }
