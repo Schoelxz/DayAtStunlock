@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class ColorGradientLerp : MonoBehaviour
 {
     Gradient g;
 
-    Color myColor = Color.green;
-
     [Range(0.1f, 0.9f)]
     public float gradientTweaker = 0.5f;
 
-    public Slider mySlider;
-    public Image myImage;
+    public Slider mySliderObject;
+    public Image myImageFillObject;
     
     void Start ()
     {
@@ -40,8 +37,6 @@ public class ColorGradientLerp : MonoBehaviour
 
     void Update ()
     {
-        float value = mySlider.value;
-
-        myImage.color = g.Evaluate(value);
+        myImageFillObject.color = g.Evaluate(mySliderObject.value);
     }
 }

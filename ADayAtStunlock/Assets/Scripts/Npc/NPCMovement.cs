@@ -25,6 +25,7 @@ namespace DAS
 
             public static void InitToilets()
             {
+                s_toiletPoints.Clear();
                 if (s_toiletPoints.Count == 0)
                     s_toiletPoints.AddRange(GameObject.FindGameObjectsWithTag("Toilet"));
             }
@@ -43,6 +44,7 @@ namespace DAS
 
             public static void InitWorkSeats()
             {
+                s_allWorkSeats.Clear();
                 if (s_allWorkSeats.Count == 0)
                     s_allWorkSeats.AddRange(GameObject.FindGameObjectsWithTag("WorkSeat"));
             }
@@ -161,6 +163,13 @@ namespace DAS
         {
             get
             {
+                // Code has weirdly prompted NullReferenceExceptions here, therefore if agentref == null was added.
+                if (agentRef == null)
+                {
+                    Debug.Assert(agentRef);
+                    return false;
+                }
+
                 if (agentRef.destination.x == myWorkSeat.x && agentRef.destination.z == myWorkSeat.z)
                     return true;
                 else
