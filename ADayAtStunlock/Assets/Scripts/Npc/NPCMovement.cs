@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 namespace DAS
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class NPCMovement : MonoBehaviour
     {
         private static class Toilet
@@ -80,6 +79,8 @@ namespace DAS
 
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
             agentRef.enabled = true;
+
+            InvokeRepeating("RandomlySetAvoidancePriority", 1, 2);
 
             // Our NPC starts by going to its work seat.
             agentRef.destination = myWorkSeat;
@@ -176,7 +177,7 @@ namespace DAS
             {
                 if (IsDestinationMyWorkSeat)
                 {
-                    if (agentRef.remainingDistance <= 1.5f)
+                    if (agentRef.remainingDistance <= 1.5f && Vector3.Distance(transform.position, myWorkSeat) < 0.5f)
                         return true;
                     else
                         return false;
@@ -184,6 +185,16 @@ namespace DAS
                 else
                     return false;
             }
+        }
+
+        /// <summary>
+        /// By randomly setting the avoidancepriorities,
+        /// NPCs will more easily choose who to avoid and who to not,
+        /// making a more "fluid" movemnt of not stubbornly walking into eachother.
+        /// </summary>
+        private void RandomlySetAvoidancePriority()
+        {
+            agentRef.avoidancePriority = Random.Range(1, 100);
         }
     }
 }
