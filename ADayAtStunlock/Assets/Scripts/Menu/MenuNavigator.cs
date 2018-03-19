@@ -18,7 +18,7 @@ public class MenuNavigator : MonoBehaviour
     /// <para> canvases[2] = Config Canvas                               </para>
     /// <para> canvases[3] = Credits Canvas                              </para>
     /// <para> canvases[4] = IngameMenu Canvas                           </para>
-    /// <para> canvases[5] = GameHudCanvas Canvas                        </para>
+    /// <para> canvases[5] = GameHud Canvas                              </para>
     /// </summary>
     Canvas[] canvases;
 
@@ -85,7 +85,7 @@ public class MenuNavigator : MonoBehaviour
         canvases[2].gameObject.SetActive(false);
         canvases[3].gameObject.SetActive(false);
     }
-
+    
     /// <summary>
     /// Hides all canvases except the default one (if there is one)
     /// </summary>
