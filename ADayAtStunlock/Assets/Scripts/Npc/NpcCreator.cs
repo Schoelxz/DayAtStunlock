@@ -82,23 +82,28 @@ public class NpcCreator : MonoBehaviour
     // Keeps track of NPCs.
     List<GameObject> npcList = new List<GameObject>();
 
-    // Max amount of NPCs
-    private static int NPCMAX = 42;
-    [Range(0, 42)][SerializeField]private float numOfNPCs;
-    private float maxNPCs = NPCMAX;
+    int numOfWorkSeats;
+    [Range(0, 45)][SerializeField]private float numOfNPCs;
+    private int NumOfNPCs
+    {
+        get { return (int)Mathf.Clamp(numOfNPCs, 0, numOfWorkSeats); }
+    }
 
     // Delta Timers
-    float dt;
-    float dt2;
+    float dt, dt2;
     #endregion
+
+    private void Start()
+    {
+        numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
+    }
 
     private void OnGUI()
     {
         if (!toggleGUI)
             return;
         // A Slider for controlling the number of NPCs
-        numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), numOfNPCs, maxNPCs, 0);
-        numOfNPCs = (int)numOfNPCs;
+        numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), NumOfNPCs, numOfWorkSeats, 0);
         // Shows the amount of NPCs
         GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
     }
@@ -110,7 +115,7 @@ public class NpcCreator : MonoBehaviour
      */
     void Update()
     {
-        numOfNPCs = (int)numOfNPCs;
+        numOfNPCs = NumOfNPCs;
 
         UpdateGate(2);
 
@@ -143,7 +148,7 @@ public class NpcCreator : MonoBehaviour
         //---
 
         // Adds 1 NPC while under NPC max limit
-        if (npcList.Count < NPCMAX)
+        if (npcList.Count < numOfWorkSeats)
         {
             numOfNPCs++;
             AddNewNPC();

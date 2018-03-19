@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 namespace DAS
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class NPCMovement : MonoBehaviour
     {
         private static class Toilet

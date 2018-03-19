@@ -120,9 +120,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4033507525075932}
-  - component: {fileID: 114966041471735738}
   - component: {fileID: 136199376084343004}
-  - component: {fileID: 195665818816763264}
+  - component: {fileID: 195181720867764768}
   m_Layer: 0
   m_Name: NPC Prefab
   m_TagString: NPC
@@ -484,24 +483,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114966041471735738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1730699408211108}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff89df8cca02d545973ffae6c835393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statuses:
-  - {fileID: 21300000, guid: 85b088d9637b9fd45b87b3f63fde37a7, type: 3}
-  - {fileID: 21300000, guid: a4aeb64528e4506409ecaf016b2f4ff5, type: 3}
-  hasStatus: 0
-  ButtonHolder: {fileID: 1343423139248948}
-  HappySlider: {fileID: 114486579624469426}
-  button: {fileID: 0}
 --- !u!136 &136199376084343004
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -515,13 +496,13 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!195 &195665818816763264
+--- !u!195 &195181720867764768
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730699408211108}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -529,13 +510,13 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
+  m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!222 &222814016228970960
 CanvasRenderer:
   m_ObjectHideFlags: 1
