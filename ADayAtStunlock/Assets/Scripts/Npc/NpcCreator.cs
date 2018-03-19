@@ -57,7 +57,7 @@ class NPC : MonoBehaviour
     public void GenerateMoney()
     {
         GetComponentInChildren<MeshRenderer>().material = moneyMaterial;
-        MoneyManager.currentMoney++;
+        MoneyManager.currentMoney += 1000;
         Invoke("SetDefaultMaterial", 1);
     }
 
