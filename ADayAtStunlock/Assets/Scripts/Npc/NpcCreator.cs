@@ -1,85 +1,194 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Standard NPC class, contains general NPC stuff.
+/// </summary>
 class NPC : MonoBehaviour
 {
-    public new string name;
-
+    #region EditorStuff
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1, 0.5F);
         Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
     }
+#endif
+    #endregion
+
+    #region Variables
+    public static List<NPC> s_npcList = new List<NPC>();
+
+    public new string name;
+
+    public DAS.NPCMovement moveRef;
+    private Material myMaterial;
+    private Material moneyMaterial;
+
+    float dt;
+    #endregion
+
+    private void Start()
+    {
+        /// Add ourself to list
+        s_npcList.Add(this);
+
+        /// Add Components
+        moveRef = gameObject.AddComponent<DAS.NPCMovement>();
+
+        /// Material
+        myMaterial = GetComponentInChildren<MeshRenderer>().material;
+        moneyMaterial = new Material(myMaterial);
+        moneyMaterial.color = Color.green;
+    }
+
+    private void OnDestroy()
+    {
+        s_npcList.Remove(this);
+    }
+
+    private void Update()
+    {
+        //happy
+    }
+
+    #region Functions
+    public void GenerateMoney()
+    {
+        GetComponentInChildren<MeshRenderer>().material = moneyMaterial;
+        MoneyManager.currentMoney++;
+        Invoke("SetDefaultMaterial", 1);
+    }
+
+    private void SetDefaultMaterial()
+    {
+        GetComponentInChildren<MeshRenderer>().material = myMaterial;
+    }
+    #endregion
 };
 
 public class NpcCreator : MonoBehaviour
 {
-    List<GameObject> npcList = new List<GameObject>();
-    string[] names = new string[45];
-    public Vector3Int[] spawnLocations = new Vector3Int[2];
+    #region Variables
+    [SerializeField]
+    private GameObject NPCPrefab;
+
+    // Locations the NPCs can spawn at when created.
+    public Transform[] spawnLocations = new Transform[2];
+    // Wether to show/use GUI or not.
     public bool toggleGUI = true;
 
-    [Range(0, 45)]
-    [SerializeField]
-    private float numOfNPCs;
-    private float maxNPCs = 45; //45 could be a "number of workseats" variable instead, maybe from another script?
+    // Keeps track of NPCs.
+    List<GameObject> npcList = new List<GameObject>();
 
-    float dt;
+    int numOfWorkSeats;
+    [Range(0, 45)][SerializeField]private float numOfNPCs;
+    private int NumOfNPCs
+    {
+        get { return (int)Mathf.Clamp(numOfNPCs, 0, numOfWorkSeats); }
+    }
+
+    // Delta Timers
+    float dt, dt2;
+    #endregion
+
+    private void Start()
+    {
+        numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
+    }
 
     private void OnGUI()
     {
         if (!toggleGUI)
             return;
-        numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), numOfNPCs, maxNPCs, 0);
-        numOfNPCs = (int)numOfNPCs;
+        // A Slider for controlling the number of NPCs
+        numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), NumOfNPCs, numOfWorkSeats, 0);
+        // Shows the amount of NPCs
         GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
     }
 
-    // Use this for initialization
-    void Start ()
-    {
-        // Set the names for the stunlockers in an array.
-        for (int i = 0; i < names.Length; i++)
-        {
-            names[i] = "Stunlocker " + (i+1).ToString();
-        }	
-	}
-
-    // Update is called once per frame
+    /*
+     * ThoughtBubble:
+     * Use invoke instead of update gates?
+     * Use invoke instead of tracking delta times?
+     */
     void Update()
     {
+        numOfNPCs = NumOfNPCs;
 
-        numOfNPCs = (int)numOfNPCs;
+        UpdateGate(2);
+
+        //+++ Reduce update calls
         dt += Time.deltaTime;
-        if(dt >= 0.05)
-        {
-            dt = 0;
+        if (dt >= 0.05f)
+        { dt = 0; }
+        else
             return;
-        }
-        
+        //---
 
-		if(npcList.Count != numOfNPCs)
+        // Controls NPC amount
+        NpcAmountController();
+	}
+
+    #region Functions
+
+    /// <summary>
+    /// A seperate update from update..
+    /// </summary>
+    /// <param name="seconds">How often the update will run its' program (e.g. value 3 would call everything every third second).</param>
+    void UpdateGate(float seconds)
+    {
+        //+++ Reduce update calls
+        dt2 += Time.deltaTime;
+        if (dt2 >= seconds)
+        { dt2 = 0; }
+        else
+            return;
+        //---
+
+        // Adds 1 NPC while under NPC max limit
+        if (npcList.Count < numOfWorkSeats)
         {
-            if(npcList.Count < numOfNPCs)
+            numOfNPCs++;
+            AddNewNPC();
+        }
+    }
+
+    /// <summary>
+    /// Adds or removes npcs depending on variable "numOfNPCs"
+    /// </summary>
+    void NpcAmountController()
+    {
+        if (npcList.Count != numOfNPCs)
+        {
+            if (npcList.Count < numOfNPCs)
             {
                 for (int i = npcList.Count; i < numOfNPCs; i++)
                 {
-                    npcList.Add(new GameObject(names[npcList.Count]));
-                    npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
-                    npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)];
+                    AddNewNPC();
                 }
             }
-            else if(npcList.Count > numOfNPCs)
+            else if (npcList.Count > numOfNPCs)
             {
-                while(npcList.Count > numOfNPCs)
-                { 
+                while (npcList.Count > numOfNPCs)
+                {
                     Destroy(npcList[npcList.Count - 1]);
                     npcList.RemoveAt(npcList.Count - 1);
                 }
             }
-            
         }
-	}
+    }
+
+    void AddNewNPC()
+    {
+        if (NPCPrefab == null)
+            Debug.Assert(NPCPrefab);
+        else
+            npcList.Add(Instantiate(NPCPrefab));
+        npcList[npcList.Count - 1].name = "Stunlocker " + npcList.Count;
+        npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
+        npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+    }
+    #endregion
 }
