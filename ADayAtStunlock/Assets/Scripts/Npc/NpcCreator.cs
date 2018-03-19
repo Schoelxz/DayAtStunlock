@@ -3,14 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Standard NPC class, contains general NPC stuff.
+/// </summary>
 class NPC : MonoBehaviour
 {
-    public new string name;
-
+    #region EditorStuff
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1, 0.5F);
         Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
+    }
+#endif
+    #endregion
+
+    public static List<NPC> s_npcList = new List<NPC>();
+
+    public new string name;
+
+    public DAS.NPCMovement moveRef;
+    private Material myMaterial;
+    private Material moneyMaterial;
+
+    float dt;
+
+    private void Start()
+    {
+        s_npcList.Add(this);
+        moveRef = gameObject.AddComponent<DAS.NPCMovement>();
+        myMaterial = GetComponentInChildren<MeshRenderer>().material;
+        moneyMaterial = new Material(myMaterial);
+        moneyMaterial.color = Color.green;
+    }
+
+    private void OnDestroy()
+    {
+        s_npcList.Remove(this);
+    }
+
+    private void Update()
+    {
+        //happy
+    }
+
+    public void GenerateMoney()
+    {
+        GetComponentInChildren<MeshRenderer>().material = moneyMaterial;
+        MoneyManager.currentMoney++;
+        Invoke("SetDefaultMaterial", 1);
+    }
+
+    private void SetDefaultMaterial()
+    {
+        GetComponentInChildren<MeshRenderer>().material = myMaterial;
     }
 };
 
@@ -120,7 +166,8 @@ public class NpcCreator : MonoBehaviour
             npcList.Add(new GameObject(names[npcList.Count]));
         else
             npcList.Add(Instantiate(NPCPrefab));
-        //npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
+        npcList[npcList.Count - 1].name = "Stunlocker " + npcList.Count;
+        npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
         npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
     }
 }
