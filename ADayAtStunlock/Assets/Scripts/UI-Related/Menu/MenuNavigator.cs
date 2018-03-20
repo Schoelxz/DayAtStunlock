@@ -18,6 +18,7 @@ public class MenuNavigator : MonoBehaviour
     /// <para> canvases[2] = Config Canvas                               </para>
     /// <para> canvases[3] = Credits Canvas                              </para>
     /// <para> canvases[4] = IngameMenu Canvas                           </para>
+    /// <para> canvases[5] = GameHud Canvas                              </para>
     /// </summary>
     Canvas[] canvases;
 
@@ -39,10 +40,11 @@ public class MenuNavigator : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if(SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
-            canvases[1].gameObject.SetActive(true);
+        if (SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
+            GotoMainMenu();
         else
-            HideMainMenuMenus();
+            GotoGameCanvas();
+
 
         canvases[4].gameObject.SetActive(false);
     }
@@ -83,7 +85,7 @@ public class MenuNavigator : MonoBehaviour
         canvases[2].gameObject.SetActive(false);
         canvases[3].gameObject.SetActive(false);
     }
-
+    
     /// <summary>
     /// Hides all canvases except the default one (if there is one)
     /// </summary>
@@ -120,6 +122,12 @@ public class MenuNavigator : MonoBehaviour
         canvases[1].gameObject.SetActive(true);
     }
 
+    public void GotoGameCanvas()
+    {
+        HideAllCanvases();
+        canvases[5].gameObject.SetActive(true);
+    }
+
     /// <summary>
     /// Go to default canvas OR hides all canvases if there is no default canvas
     /// </summary>
@@ -142,6 +150,16 @@ public class MenuNavigator : MonoBehaviour
     public void ToggleInGameMenu()
     {
         m_InGameMenu.gameObject.SetActive(!m_InGameMenu.gameObject.activeSelf);
+        if (!m_InGameMenu.gameObject.activeSelf)
+        {
+            DAS.TimeSystem.ResumeTime();
+        }
+        else
+        {
+            DAS.TimeSystem.PauseTime();
+        }
+        
+        
     }
     #endregion
 
@@ -192,6 +210,7 @@ public class MenuNavigator : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        DAS.TimeSystem.ResetTime();
     }
     #endregion
 }
