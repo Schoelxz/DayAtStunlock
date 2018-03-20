@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class MoneyManager : MonoBehaviour {
 
     //NPC[] npcs;
+    int m_interval = 5;
+    int m_delay = 1;
 
     [SerializeField]
     GameObject endScreen;
@@ -13,6 +15,9 @@ public class MoneyManager : MonoBehaviour {
     public float npcSalary;
     int npcIncome;
     int startMoney;
+
+    //
+    ScoreDisplay MoneyDisplay;
 
     //Use this as a display while playing
     static public float currentMoney;
@@ -27,6 +32,9 @@ public class MoneyManager : MonoBehaviour {
         //npcSalary = 15000;
         //npcIncome = 18500;
         //npcs = FindObjectsOfType<NPC>();
+        //HACK: Needs to be controlled by game time, help
+        InvokeRepeating("GenerateMoney", m_delay, m_interval);
+        MoneyDisplay = FindObjectOfType<ScoreDisplay>();
 
         InvokeRepeating("GenerateMoney", 1, 5);
         InvokeRepeating("DeductSalary", 30, 5);
@@ -34,7 +42,8 @@ public class MoneyManager : MonoBehaviour {
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(300, 0, 100, 50), currentMoney.ToString());
+        MoneyDisplay.SetScore(currentMoney);
+        //GUI.Box(new Rect(300, 0, 100, 50), currentMoney.ToString());
     }
 
     void Update ()
@@ -61,6 +70,7 @@ public class MoneyManager : MonoBehaviour {
 
     void GenerateMoney()
     {
+
         //Counts how many npcs are working
         foreach (var npc in DAS.NPC.s_npcList)
         {
