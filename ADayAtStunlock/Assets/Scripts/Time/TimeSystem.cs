@@ -9,6 +9,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
     /// </summary>
     public class TimeSystem : MonoBehaviour
     {
+        private static float m_previousTimeMultiplier;
         //Singleton class
         private static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
 
@@ -24,7 +25,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             set
             {
                 timeMultiplier = Mathf.Clamp(value, 0.1f, 100f);
-                
+
                 //Editor only
 #if UNITY_EDITOR
                 if (timeMultiplier == value)
@@ -109,6 +110,20 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             DeltaTime = Time.deltaTime * TimeMultiplier; //Game delta time
             RealTimePassedSeconds += Time.deltaTime; //Real seconds
             TimePassedSeconds += DeltaTime; //Game seconds
+        }
+        public static void ResetTime()
+        {
+            TimePassedSeconds = 0;
+            timeMultiplier = 1;
+        }
+        public static void PauseTime()
+        {
+            m_previousTimeMultiplier = timeMultiplier;
+            timeMultiplier = 0;
+        }
+        public static void ResumeTime()
+        {
+            timeMultiplier = m_previousTimeMultiplier;
         }
 
     }
