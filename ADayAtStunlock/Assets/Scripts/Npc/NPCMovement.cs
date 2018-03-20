@@ -64,14 +64,15 @@ namespace DAS
         {
             WorkSeat.InitWorkSeats();
             Toilet.InitToilets();
+
+            // All getcomponent functions are called inside this function, returning false if it fails.
+            if (!SetAllGetComponents())
+                Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
         }
 
         void Start()
         {
-            // All getcomponent functions are called inside this function, returning false if it fails.
-            if (!SetAllGetComponents())
-                Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
-
+            Debug.Assert(agentRef);
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
 

@@ -23,8 +23,19 @@ namespace DAS
         #region Structs
         public struct Feelings
         {
-            public float happiness;
-            public float motivation;
+            private float happiness;
+            private float motivation;
+
+            public float Happiness
+            {
+                get { return happiness; }
+                set { happiness = Mathf.Clamp01(value); }
+            }
+            public float Motivation
+            {
+                get { return motivation; }
+                set { motivation = Mathf.Clamp01(value); }
+            }
 
             public Feelings(float happiness, float motivation)
             {
@@ -69,6 +80,8 @@ namespace DAS
 
             /// Add Components
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
+            gameObject.AddComponent<NpcButtons>();
+            gameObject.AddComponent<ButtonToggler>();
 
             /// Material
             myMaterial = GetComponentInChildren<MeshRenderer>().material;
@@ -83,11 +96,11 @@ namespace DAS
 
         private void Update()
         {
-            myFeelings.happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 50);
-            myFeelings.motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 50);
+            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
 
-            happySlider.value      = Mathf.Clamp01(myFeelings.happiness);
-            motivationSlider.value = Mathf.Clamp01(myFeelings.motivation);
+            happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
+            motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
         }
 
         #region Functions

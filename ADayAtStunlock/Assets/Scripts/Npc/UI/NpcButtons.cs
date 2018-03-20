@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NpcButtons : MonoBehaviour {
 
     Button[] buttons;
-
+    
     Button happiness;
     Button motivation;
     
@@ -42,11 +42,12 @@ public class NpcButtons : MonoBehaviour {
 
     void AddMotivation()
     {
-        print("Adds motivation to npc. (Actually doesnt, fix this)");
+        GetComponent<DAS.NPC>().myFeelings.Motivation++;
     }
 
     void AddHappiness()
     {
-        print("Adds happiness to npc. (Actually doesnt, fix this)");
+        GetComponent<DAS.NPC>().myFeelings.Happiness++;
     }
 }
+
