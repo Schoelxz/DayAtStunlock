@@ -35,6 +35,9 @@ public class MoneyManager : MonoBehaviour {
         //HACK: Needs to be controlled by game time, help
         InvokeRepeating("GenerateMoney", m_delay, m_interval);
         MoneyDisplay = FindObjectOfType<ScoreDisplay>();
+
+        InvokeRepeating("GenerateMoney", 1, 5);
+        InvokeRepeating("DeductSalary", 30, 5);
 	}
 
     private void OnGUI()
@@ -76,6 +79,16 @@ public class MoneyManager : MonoBehaviour {
                 npc.GenerateMoney();
             }
         }
+    }
+
+    void DeductSalary()
+    {
+        print("Deducting salary");
+        foreach (var npc in DAS.NPC.s_npcList)
+        {
+            currentMoney -= 2 - (npc.myFeelings.Happiness + npc.myFeelings.Motivation) + DAS.TimeSystem.TimePassedSeconds / 120;
+        }
+        
     }
 
 }
