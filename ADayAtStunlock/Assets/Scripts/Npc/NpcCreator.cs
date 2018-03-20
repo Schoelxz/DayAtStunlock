@@ -243,14 +243,13 @@ namespace DAS
 
         /*
          * ThoughtBubble:
-         * Use invoke instead of update gates?
          * Use invoke instead of tracking delta times?
          */
         void Update()
         {
             numOfNPCs = NumOfNPCs;
 
-            UpdateGate(2);
+            NpcCreationPerXSeconds(2);
 
             //+++ Reduce update calls
             dt += Time.deltaTime;
@@ -267,13 +266,13 @@ namespace DAS
         #region Functions
 
         /// <summary>
-        /// A seperate update from update..
+        /// Create new NPCs at the rate of game speed seconds.
         /// </summary>
-        /// <param name="seconds">How often the update will run its' program (e.g. value 3 would call everything every third second).</param>
-        void UpdateGate(float seconds)
+        /// <param name="seconds">How often the function will run its' program (e.g. value 3 would call everything every third second).</param>
+        void NpcCreationPerXSeconds(float seconds)
         {
             //+++ Reduce update calls
-            dt2 += Time.deltaTime;
+            dt2 += DAS.TimeSystem.DeltaTime;
             if (dt2 >= seconds)
             { dt2 = 0; }
             else
@@ -313,6 +312,9 @@ namespace DAS
             }
         }
 
+        /// <summary>
+        /// Creates a new NPC when called.
+        /// </summary>
         void AddNewNPC()
         {
             if (NPCPrefab == null)
@@ -323,6 +325,7 @@ namespace DAS
             npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
             npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
+
         #endregion
     }
 
