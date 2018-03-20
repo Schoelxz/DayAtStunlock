@@ -13,6 +13,6 @@ public class ScoreDisplay : MonoBehaviour {
 
     public void SetScore(float newScore)
     {
-        m_scoreText.text = newScore.ToString();
+        m_scoreText.text = newScore.ToString("C000000000");
     }
 }
