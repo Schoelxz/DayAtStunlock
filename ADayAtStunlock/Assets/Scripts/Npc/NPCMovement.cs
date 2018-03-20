@@ -57,6 +57,8 @@ namespace DAS
         private float timeInsideDestination;
         private float workTimeStreak;
 
+        private Animator m_animator;
+
         // Delta time
         private float dt;
 
@@ -72,6 +74,8 @@ namespace DAS
 
         void Start()
         {
+            //Find Animator
+            m_animator = GetComponentInChildren<Animator>();
             Debug.Assert(agentRef);
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
@@ -128,6 +132,9 @@ namespace DAS
                 agentRef.destination = myWorkSeat;
                 timeInsideDestination = 0;
             }
+
+            //Movement Animation
+            m_animator.SetFloat("MoveSpeed", agentRef.velocity.magnitude);
         }
 
         private void OnDestroy()
