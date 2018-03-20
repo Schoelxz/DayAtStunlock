@@ -69,7 +69,7 @@ public class MoneyManager : MonoBehaviour {
     {
 
         //Counts how many npcs are working
-        foreach (var npc in NPC.s_npcList)
+        foreach (var npc in DAS.NPC.s_npcList)
         {
             if (npc.moveRef.IsCurrentlyWorking)
             {
