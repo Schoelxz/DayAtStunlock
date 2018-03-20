@@ -52,7 +52,7 @@ namespace DAS
 
         private static List<NPCMovement> s_allNPCs = new List<NPCMovement>();
         
-        private Vector3 myWorkSeat;
+        private Transform myWorkSeat;
         private NavMeshAgent agentRef;
         private float timeInsideDestination;
         private float workTimeStreak;
@@ -72,13 +72,18 @@ namespace DAS
 
         void Start()
         {
-            Debug.Assert(agentRef);
+            
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
 
             // Assign this NPCs' work seat.
-            Vector3 temp = WorkSeat.s_allWorkSeats[s_allNPCs.IndexOf(this)].transform.position;
-            myWorkSeat = new Vector3(temp.x, 0, temp.z);
+            Transform temp = WorkSeat.s_allWorkSeats[s_allNPCs.IndexOf(this)].transform;
+            myWorkSeat = temp;
+            myWorkSeat.position = new Vector3(temp.position.x, 0, temp.position.z);
+
+            // Assert
+            Debug.Assert(agentRef);
+            Debug.Assert(myWorkSeat);
 
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
             agentRef.enabled = true;
@@ -86,11 +91,16 @@ namespace DAS
             InvokeRepeating("RandomlySetAvoidancePriority", 1, 2);
 
             // Our NPC starts by going to its work seat.
-            agentRef.destination = myWorkSeat;
+            agentRef.destination = myWorkSeat.position;
         }
 
         void Update()
         {
+            if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
+                RotateTowardsDesk();
+            else
+                agentRef.isStopped = false;
+
             //+++ Reduce update calls to 10 times per second.
             dt += Time.deltaTime;
             if (dt >= 0.1f)
@@ -118,15 +128,18 @@ namespace DAS
 
             // Count how long we have been working since interupption.
             if (IsCurrentlyWorking)
+            {
                 workTimeStreak++;
+            }
             else
                 workTimeStreak = 0;
 
             // If our NPC has been at a destination for longer than (5) seconds, go back to work.
             if (timeInsideDestination >= 50)
             {
-                agentRef.destination = myWorkSeat;
+                agentRef.destination = myWorkSeat.position;
                 timeInsideDestination = 0;
+                agentRef.isStopped = false;
             }
         }
 
@@ -155,6 +168,7 @@ namespace DAS
         {
             timeInsideDestination = 0;
             agentRef.destination = Toilet.GetAToiletPosition;
+            agentRef.isStopped = false;
         }
 
         /// <summary>
@@ -171,7 +185,7 @@ namespace DAS
                     return false;
                 }
 
-                if (agentRef.destination.x == myWorkSeat.x && agentRef.destination.z == myWorkSeat.z)
+                if (agentRef.destination.x == myWorkSeat.position.x && agentRef.destination.z == myWorkSeat.position.z)
                     return true;
                 else
                     return false;
@@ -187,7 +201,7 @@ namespace DAS
             {
                 if (IsDestinationMyWorkSeat)
                 {
-                    if (agentRef.remainingDistance <= 1.5f && Vector3.Distance(transform.position, myWorkSeat) < 0.5f)
+                    if (agentRef.remainingDistance <= 1.5f && Vector3.Distance(transform.position, myWorkSeat.position) < 0.5f)
                         return true;
                     else
                         return false;
@@ -205,6 +219,24 @@ namespace DAS
         private void RandomlySetAvoidancePriority()
         {
             agentRef.avoidancePriority = Random.Range(1, 100);
+        }
+
+        private void RotateTowardsDesk()
+        {
+            // Stop our agent from fidgeting in his seat.
+            agentRef.isStopped = true;
+            // targetDir is our work seats position + forward its own direction (roughly our desk's position)
+            Vector3 targetDir = (myWorkSeat.position + (-myWorkSeat.forward) - myWorkSeat.position);
+            // How fast we turn every frame.
+            float step = 5 * Time.deltaTime;
+            // Our complete rotate towards direction.
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+
+            // Draw ray towards the position we're rotating towards.
+            //Debug.DrawRay(transform.position, newDir, Color.red, 3);
+
+            // Apply the rotate towards.
+            transform.rotation = Quaternion.LookRotation(newDir);
         }
     }
 }
