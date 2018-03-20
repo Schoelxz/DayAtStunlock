@@ -57,6 +57,8 @@ namespace DAS
         private Material moneyMaterial;
 
         public Feelings myFeelings;
+        private GameObject nameHolder;
+        private TextMesh myNameDisplay;
 
         float dt;
         #endregion
@@ -82,6 +84,22 @@ namespace DAS
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
             gameObject.AddComponent<NpcButtons>();
             gameObject.AddComponent<ButtonToggler>();
+            nameHolder = new GameObject("Name Holder");
+            nameHolder.transform.parent = gameObject.transform.GetChild(0);
+            myNameDisplay = nameHolder.AddComponent<TextMesh>();
+
+            /// Text
+            if (myNameDisplay != null)
+            {
+                myNameDisplay.text = name;
+                myNameDisplay.alignment = TextAlignment.Center;
+                myNameDisplay.anchor = TextAnchor.MiddleCenter;
+                myNameDisplay.transform.position = transform.position;
+                myNameDisplay.transform.position += new Vector3(0, 3, 0);
+                myNameDisplay.transform.Rotate(0, 180, 0);
+                myNameDisplay.characterSize = 0.03f;
+                myNameDisplay.fontSize = 355;
+            }
 
             /// Material
             myMaterial = GetComponentInChildren<MeshRenderer>().material;
@@ -139,12 +157,77 @@ namespace DAS
             get { return (int)Mathf.Clamp(numOfNPCs, 0, numOfWorkSeats); }
         }
 
+        string[] names = new string[45];
+        void AssignNamesToArray()
+        {
+            names[0] = "Peter";
+            names[1] = "Filip";
+            names[2] = "Martin";
+            names[3] = "Max";
+            names[4] = "Philip";
+            names[5] = "Pierre";
+            names[6] = "Rickard";
+            names[7] = "Srdan";
+            names[8] = "Tau";
+
+            //Art team
+            names[9] = "Patrik";
+            names[10] = "Gabriel";
+            names[11] = "Oskar";
+            names[12] = "Mattias";
+            names[13] = "Martin";
+            names[14] = "Max";
+            names[15] = "Tara";
+            names[16] = "Fanny";
+            names[17] = "Sofia";
+            names[18] = "Andreas";
+            names[19] = "Viktor";
+            names[20] = "Johan A";
+            names[21] = "Johan W";
+
+            //UI
+            names[22] = "Karl";
+            names[23] = "Katey";
+            names[24] = "Daniel";
+            names[25] = "Arvid";
+
+            //Design
+            names[26] = "Simon";
+            names[27] = "Konrad";
+            names[28] = "Christian";
+            names[29] = "Erik";
+            names[30] = "Emil";
+
+            //Programmers
+            names[31] = "Fredrik";
+            names[32] = "Jonas";
+
+            //Temps
+            names[33] = "Christoffer";
+            names[34] = "Tobias";
+            names[35] = "Jimmy";
+
+            //Community
+            names[36] = "Johan";
+            names[37] = "Liz";
+            names[38] = "Christopher";
+            names[39] = "Lisabeth";
+            names[40] = "Ruth";
+
+
+            for (int i = 41; i < names.Length; i++)
+            {
+                names[i] = "Bob";
+            }
+        }
+
         // Delta Timers
         float dt, dt2;
         #endregion
 
         private void Start()
         {
+            AssignNamesToArray();
             numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
         }
 
@@ -236,7 +319,7 @@ namespace DAS
                 Debug.Assert(NPCPrefab);
             else
                 npcList.Add(Instantiate(NPCPrefab));
-            npcList[npcList.Count - 1].name = "Stunlocker " + npcList.Count;
+            npcList[npcList.Count - 1].name = names[npcList.Count - 1]; //+ npcList.Count;
             npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
             npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
