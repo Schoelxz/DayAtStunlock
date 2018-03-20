@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Text))]
 public class ScoreDisplay : MonoBehaviour {
     private Text m_scoreText;
 	// Use this for initialization

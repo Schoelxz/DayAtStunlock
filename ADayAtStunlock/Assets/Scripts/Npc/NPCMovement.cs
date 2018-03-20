@@ -7,6 +7,7 @@ namespace DAS
 {
     public class NPCMovement : MonoBehaviour
     {
+        #region Structs
         private static class Toilet
         {
             public static List<GameObject> s_toiletPoints = new List<GameObject>();
@@ -49,6 +50,11 @@ namespace DAS
                     s_allWorkSeats.AddRange(GameObject.FindGameObjectsWithTag("WorkSeat"));
             }
         }
+        private struct AgentValues
+        {
+            public Vector3 velocity;
+        }
+        #endregion
 
         private static List<NPCMovement> s_allNPCs = new List<NPCMovement>();
         
@@ -56,8 +62,10 @@ namespace DAS
         private NavMeshAgent agentRef;
         private float timeInsideDestination;
         private float workTimeStreak;
-
+        private AgentValues agentValues;
         private Animator m_animator;
+
+        private bool gameHasBeenPaused = false;
 
         // Delta time
         private float dt;
@@ -100,31 +108,41 @@ namespace DAS
 
         void Update()
         {
-            if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
-                RotateTowardsDesk();
+            
+            if(gameHasBeenPaused == false)
+                agentValues.velocity = agentRef.velocity;
+
+            if (gameHasBeenPaused && !DAS.TimeSystem.IsGamePaused)
+            {
+                gameHasBeenPaused = false;
+                agentRef.velocity = agentValues.velocity;
+            }
+
+            if(DAS.TimeSystem.IsGamePaused)
+            {
+                gameHasBeenPaused = true;
+                agentRef.isStopped = true;
+                agentRef.velocity = Vector3.zero;
+            }
             else
-                agentRef.isStopped = false;
+            {
+                if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
+                    RotateTowardsDesk();
+                else
+                    agentRef.isStopped = false;
+            }
 
             //+++ Reduce update calls to 10 times per second.
             dt += Time.deltaTime;
-            if (dt >= 0.1f)
+            if (dt >= 0.1f && !DAS.TimeSystem.IsGamePaused)
             { dt = 0; }
             else
                 return;
             //---
 
             // Random Chance of NPC wanting to go to the toilet.
-            if (Random.Range(0f, 1000f) > 999.7f && IsCurrentlyWorking && workTimeStreak >= 100)
-            {
-                bool allowedToilet = true;
-                for (int i = 0; i < Toilet.s_toiletPoints.Count; i++)
-                {
-                    if (Toilet.s_toiletPoints[i].transform.position == agentRef.destination)
-                        allowedToilet = false;
-                }
-                if (allowedToilet)
-                    GotoToilet();
-            }
+            RandomGotoToiletChance();
+
 
             // Check time an NPC has been inside of its destination (not counting work destination).
             if (agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat)
@@ -155,6 +173,7 @@ namespace DAS
             s_allNPCs.Remove(this);
         }
 
+        #region Functions
         /// <summary>
         /// Initializes variables calling upon GetComponent
         /// <para>Returns false if GetComponent fails on any variable.</para>
@@ -176,6 +195,25 @@ namespace DAS
             timeInsideDestination = 0;
             agentRef.destination = Toilet.GetAToiletPosition;
             agentRef.isStopped = false;
+        }
+
+        /// <summary>
+        /// Called in Update.
+        /// Random Chance of NPC wanting to go to the toilet.
+        /// </summary>
+        private void RandomGotoToiletChance()
+        {
+            if (Random.Range(0f, 1000f) > 999.7f && IsCurrentlyWorking && workTimeStreak >= 100)
+            {
+                bool allowedToilet = true;
+                for (int i = 0; i < Toilet.s_toiletPoints.Count; i++)
+                {
+                    if (Toilet.s_toiletPoints[i].transform.position == agentRef.destination)
+                        allowedToilet = false;
+                }
+                if (allowedToilet)
+                    GotoToilet();
+            }
         }
 
         /// <summary>
@@ -245,5 +283,6 @@ namespace DAS
             // Apply the rotate towards.
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+        #endregion
     }
 }

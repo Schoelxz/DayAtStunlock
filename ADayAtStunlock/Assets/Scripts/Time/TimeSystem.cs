@@ -10,6 +10,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
     public class TimeSystem : MonoBehaviour
     {
         private static float m_previousTimeMultiplier;
+        private static bool isGamePaused;
         //Singleton class
         private static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
 
@@ -81,6 +82,11 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             get { return realTimePassedSeconds; }
             private set { realTimePassedSeconds = value; } //Time should not be changed from outside sources, therefore private.
         }
+
+        public static bool IsGamePaused
+        {
+            get { return isGamePaused; }
+        }
         #endregion
 
         private void Awake()
@@ -118,12 +124,21 @@ namespace DAS //  Namespace to sort out our own classes from other default class
         }
         public static void PauseTime()
         {
+            isGamePaused = true;
             m_previousTimeMultiplier = timeMultiplier;
             timeMultiplier = 0;
+
+            // Time Scale fixes EVERYTHING (and thats kinda nice AND annoying).
+            Time.timeScale = 0;
         }
         public static void ResumeTime()
         {
+            // Time Scale fixes EVERYTHING (and thats kinda nice AND annoying).
+            Time.timeScale = 1;
+
+            isGamePaused = false;
             timeMultiplier = m_previousTimeMultiplier;
+            
         }
 
     }

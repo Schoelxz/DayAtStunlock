@@ -114,6 +114,14 @@ namespace DAS
 
         private void Update()
         {
+            //+++ Reduce update calls
+            dt += Time.deltaTime;
+            if (dt >= 0.01f)
+            { dt = 0; }
+            else
+                return;
+            //---
+
             myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 50);
             myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
 

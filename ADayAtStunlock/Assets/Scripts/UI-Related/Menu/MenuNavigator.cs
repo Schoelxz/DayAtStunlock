@@ -41,9 +41,17 @@ public class MenuNavigator : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         if (SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
+        {
+            DAS.TimeSystem.ResumeTime();
+            DAS.TimeSystem.TimePassedSeconds = 0;
             GotoMainMenu();
+        }
         else
+        {
+            DAS.TimeSystem.ResumeTime();
+            DAS.TimeSystem.TimePassedSeconds = 0;
             GotoGameCanvas();
+        }
 
 
         canvases[4].gameObject.SetActive(false);
@@ -126,6 +134,7 @@ public class MenuNavigator : MonoBehaviour
     {
         HideAllCanvases();
         canvases[5].gameObject.SetActive(true);
+        DAS.TimeSystem.TimePassedSeconds = 0;
     }
 
     /// <summary>
@@ -158,8 +167,6 @@ public class MenuNavigator : MonoBehaviour
         {
             DAS.TimeSystem.PauseTime();
         }
-        
-        
     }
     #endregion
 
