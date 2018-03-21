@@ -40,15 +40,14 @@ public class MenuNavigator : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
+        DAS.TimeSystem.ResumeTime();
         if (SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
         {
-            DAS.TimeSystem.ResumeTime();
             DAS.TimeSystem.TimePassedSeconds = 0;
             GotoMainMenu();
         }
         else
         {
-            DAS.TimeSystem.ResumeTime();
             DAS.TimeSystem.TimePassedSeconds = 0;
             GotoGameCanvas();
         }
@@ -187,7 +186,7 @@ public class MenuNavigator : MonoBehaviour
     public void GotoScene(Scene scene)
     {
         //goes to the game scene
-        Debug.Log("You've started up the game, enjoy!");
+        Debug.Log("You've started scene: " + scene.name);
         SceneManager.LoadScene(scene.buildIndex);
     }
     /// <summary>
@@ -197,7 +196,7 @@ public class MenuNavigator : MonoBehaviour
     public void GotoScene(string sceneName)
     {
         //goes to the game scene
-        Debug.Log("You've started up the game, enjoy!");
+        Debug.Log("You've started scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
     /// <summary>
@@ -207,7 +206,7 @@ public class MenuNavigator : MonoBehaviour
     public void GotoScene(int sceneIndex)
     {
         //goes to the game scene
-        Debug.Log("You've started up the game, enjoy!");
+        Debug.Log("You've started scene: " + SceneManager.GetSceneAt(sceneIndex).name);
         SceneManager.LoadScene(sceneIndex);
     }
 
@@ -216,6 +215,7 @@ public class MenuNavigator : MonoBehaviour
     /// </summary>
     public void RestartScene()
     {
+        Debug.Log("You've restarted scene: " + SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         DAS.TimeSystem.ResetTime();
     }

@@ -65,7 +65,7 @@ namespace DAS
         private AgentValues agentValues;
         private Animator m_animator;
 
-        private bool gameHasBeenPaused = false;
+       // private bool gameHasBeenPaused = false;
 
         // Delta time
         private float dt;
@@ -108,7 +108,8 @@ namespace DAS
 
         void Update()
         {
-            
+            #region old pause
+            /*
             if(gameHasBeenPaused == false)
                 agentValues.velocity = agentRef.velocity;
 
@@ -124,14 +125,17 @@ namespace DAS
                 agentRef.isStopped = true;
                 agentRef.velocity = Vector3.zero;
             }
-            else
-            {
-                if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
-                    RotateTowardsDesk();
-                else
-                    agentRef.isStopped = false;
-            }
+            else*/
+            // {
+            #endregion
 
+            // Rotate towards our desk if we are basically on our chair in our work seat and working.
+           if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
+                RotateTowardsDesk();
+           else // else we should not be stopped in our movement
+                agentRef.isStopped = false;
+
+            #region dt call reducer
             //+++ Reduce update calls to 10 times per second.
             dt += Time.deltaTime;
             if (dt >= 0.1f && !DAS.TimeSystem.IsGamePaused)
@@ -139,10 +143,10 @@ namespace DAS
             else
                 return;
             //---
+            #endregion
 
             // Random Chance of NPC wanting to go to the toilet.
             RandomGotoToiletChance();
-
 
             // Check time an NPC has been inside of its destination (not counting work destination).
             if (agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat)
@@ -150,9 +154,7 @@ namespace DAS
 
             // Count how long we have been working since interupption.
             if (IsCurrentlyWorking)
-            {
                 workTimeStreak++;
-            }
             else
                 workTimeStreak = 0;
 

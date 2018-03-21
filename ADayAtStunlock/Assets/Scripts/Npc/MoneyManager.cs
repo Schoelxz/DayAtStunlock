@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(ScoreDisplay))]
+//[RequireComponent(typeof(ScoreDisplay))]
 public class MoneyManager : MonoBehaviour
 {
     int m_interval = 5;

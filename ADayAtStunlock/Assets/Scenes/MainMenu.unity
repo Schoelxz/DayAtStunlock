@@ -3931,6 +3931,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1672203876}
+--- !u!1 &1689889215 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1668138172005344, guid: 362a699490cea7244aa5d68aa39d254c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1463412383}
+--- !u!114 &1689889219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1689889215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f179983a117270945bdc57a8cf2e4a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happySlider: {fileID: 1941249265}
+  motivationSlider: {fileID: 2104484840}
 --- !u!1 &1702173364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4282,6 +4300,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1941249265 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114258234212170530, guid: 362a699490cea7244aa5d68aa39d254c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1463412383}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1974337032
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,6 +4579,12 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2089595152}
+--- !u!114 &2104484840 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114218593907020926, guid: 362a699490cea7244aa5d68aa39d254c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1463412383}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!224 &2105714176 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224115485131819594, guid: 362a699490cea7244aa5d68aa39d254c,
