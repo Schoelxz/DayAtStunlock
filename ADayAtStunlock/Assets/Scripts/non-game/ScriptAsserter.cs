@@ -10,7 +10,7 @@ static class ScriptAsserter
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
-        Debug.Log("ScriptAsserter Checking scripts...");
+        //Debug.Log("ScriptAsserter Checking scripts...");
 
         #region GameObjects
       //  Debug.Assert(GameObject.Find("EditorManager"), "Warning: No EditorManager gameobject found. Please create it and put relevant scripts on it");
