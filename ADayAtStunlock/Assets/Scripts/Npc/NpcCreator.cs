@@ -48,6 +48,8 @@ namespace DAS
         #region Variables
         public static List<NPC> s_npcList = new List<NPC>();
 
+        public static float s_happyAverage, s_motivationAverage;
+
         private Slider happySlider, motivationSlider;
 
         public new string name;
@@ -122,7 +124,7 @@ namespace DAS
                 return;
             //---
 
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 50);
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
             myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
@@ -249,10 +251,6 @@ namespace DAS
             GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
         }
 
-        /*
-         * ThoughtBubble:
-         * Use invoke instead of tracking delta times?
-         */
         void Update()
         {
             numOfNPCs = NumOfNPCs;
@@ -269,6 +267,8 @@ namespace DAS
 
             // Controls NPC amount
             NpcAmountController();
+
+            UpdateAverageValues();
         }
 
         #region Functions
@@ -334,7 +334,24 @@ namespace DAS
             npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
 
+        /// <summary>
+        /// Sets average values of all NPCs feelings.
+        /// </summary>
+        void UpdateAverageValues()
+        {
+            float hA = 0;
+            float mA = 0;
+
+            foreach (var npc in DAS.NPC.s_npcList)
+            {
+                hA += npc.myFeelings.Happiness;
+                mA += npc.myFeelings.Motivation;
+            }
+
+            NPC.s_happyAverage = hA / DAS.NPC.s_npcList.Count;
+            NPC.s_motivationAverage = mA / DAS.NPC.s_npcList.Count;
+        }
+
         #endregion
     }
-
 }
