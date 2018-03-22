@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyManager : MonoBehaviour {
-
-    NpcIcons[] npcs;
+//[RequireComponent(typeof(ScoreDisplay))]
+public class MoneyManager : MonoBehaviour
+{
+    int m_interval = 5;
+    int m_delay = 1;
 
     [SerializeField]
     GameObject endScreen;
 
-    int working;
-    public float salary;
-    int output;
+    public float npcSalary;
+    int npcIncome;
     int startMoney;
+
+    ScoreDisplay MoneyDisplay;
 
     //Use this as a display while playing
     static public float currentMoney;
@@ -21,49 +24,44 @@ public class MoneyManager : MonoBehaviour {
     //Use this for highscore
     static public float moneyEarned;
 
-	// Use this for initialization
-	void Start () {
-        startMoney = 1000000;
+	void Start ()
+    {
+        startMoney = 0;
         currentMoney = startMoney;
-        working = 0;
-        salary = 15000;
-        output = 18500;
-        npcs = FindObjectsOfType<NpcIcons>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
+        //HACK: Needs to be controlled by game time, help
+        InvokeRepeating("GenerateMoney", m_delay, m_interval);
+        MoneyDisplay = FindObjectOfType<ScoreDisplay>();
+
+        InvokeRepeating("GenerateMoney", 1, 5);
+        InvokeRepeating("DeductSalary", 31, 5);
+	}
+
+    void Update ()
+    {
+        MoneyDisplay.SetScore(currentMoney);
+    }
+
+    void GenerateMoney()
+    {
         //Counts how many npcs are working
-        foreach (var n in npcs)
+        foreach (var npc in DAS.NPC.s_npcList)
         {
-            if(n.hasStatus == false)
+            if (npc.moveRef.IsCurrentlyWorking)
             {
-                working++;
+                npc.GenerateMoney();
             }
         }
+    }
 
-        //Calculates money
-        currentMoney += output * working * Time.deltaTime;
-        moneyEarned += output * working * Time.deltaTime;
-        currentMoney -= salary * npcs.Length *  Time.deltaTime;
-
-        //Increases salary for workers over time
-        salary += Time.deltaTime * 10;
-
-        working = 0;
-
-        if(currentMoney < 0)
+    void DeductSalary()
+    {
+        print("Deducting salary");
+        foreach (var npc in DAS.NPC.s_npcList)
         {
-            
-            if(!endScreen.activeInHierarchy)
-            {
-                endScreen.SetActive(true);
-                endScreen.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text = moneyEarned.ToString("n0");
-                moneyEarned = 0;
-            }
-                
-            
+            currentMoney -= 2 - (npc.myFeelings.Happiness + npc.myFeelings.Motivation) + DAS.TimeSystem.TimePassedSeconds / 120;
         }
-	}
+        
+    }
+
 }

@@ -10,6 +10,19 @@ namespace DAS //  Namespace to sort out our own classes from other default class
     {
         public class TimeDisplay : MonoBehaviour
         {
+            //For drawing GUI to show values and debugging
+            void OnGUI()
+            {
+                    GUI.Box(new Rect(10, 50, 240, 40), "Game Seconds Passed\n" + TimeSystem.TimePassedSeconds.ToString());
+            }
+        }
+    } // Namespace DBUG
+} // Namespace DAS
+
+#region Old
+/*
+ public class TimeDisplay : MonoBehaviour
+        {
             private int minutes;
             private int hours;
 
@@ -74,5 +87,5 @@ namespace DAS //  Namespace to sort out our own classes from other default class
                 //GUI.Box(new Rect(10, 170, 200, 40), "Next task: " + sched.myScheduleTasks[taskIndex].TaskName);
             }
         }
-    } // Namespace DBUG
-} // Namespace DAS
+*/
+#endregion

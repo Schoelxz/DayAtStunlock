@@ -6,6 +6,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
 {
     /// <summary>
     /// TimeSystem a Singleton Class, for all your timey needs. Provides properties for deltatime, getting time passed and controlling game speed.
+    /// <para>Should exist on a GameManager</para>
     /// </summary>
     public class TimeSystem : MonoBehaviour
     {
@@ -13,6 +14,8 @@ namespace DAS //  Namespace to sort out our own classes from other default class
         private static TimeSystem instance = null; //Private cause class only has static variables to reference to, no need to be public.
 
         #region Time Properties
+        private static bool isGamePaused;
+
         private static float timeMultiplier = 1;
         /// <summary>
         /// Changes game speed by multiplying the delta time.
@@ -24,7 +27,7 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             set
             {
                 timeMultiplier = Mathf.Clamp(value, 0.1f, 100f);
-                
+
                 //Editor only
 #if UNITY_EDITOR
                 if (timeMultiplier == value)
@@ -80,6 +83,11 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             get { return realTimePassedSeconds; }
             private set { realTimePassedSeconds = value; } //Time should not be changed from outside sources, therefore private.
         }
+
+        public static bool IsGamePaused
+        {
+            get { return isGamePaused; }
+        }
         #endregion
 
         private void Awake()
@@ -94,7 +102,6 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             }
         }
 
-        // Update is called once per frame
         private void Update()
         {
             //Update our time properties.
@@ -110,7 +117,33 @@ namespace DAS //  Namespace to sort out our own classes from other default class
             RealTimePassedSeconds += Time.deltaTime; //Real seconds
             TimePassedSeconds += DeltaTime; //Game seconds
         }
+       
+        /// <summary>
+        /// TimePassedSeconds = 0
+        /// Time Multiplier = 1;
+        /// </summary>
+        public static void ResetTime()
+        {
+            TimePassedSeconds = 0;
+            timeMultiplier = 1;
+        }
+        public static void PauseTime()
+        {
+            //m_previousTimeMultiplier = timeMultiplier;
+            //timeMultiplier = 0;
 
+            // Time Scale fixes EVERYTHING (and thats kinda nice AND annoying).
+            Time.timeScale = 0;
+            isGamePaused = true;
+        }
+        public static void ResumeTime()
+        {
+            // Time Scale fixes EVERYTHING (and thats kinda nice AND annoying).
+            Time.timeScale = 1;
+            isGamePaused = false;
+
+            //timeMultiplier = m_previousTimeMultiplier;
+        }
     }
 
 }// Namespace DAS

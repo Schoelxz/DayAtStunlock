@@ -37,12 +37,12 @@ public class PlayerRaycast : MonoBehaviour {
 
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                print("Mouse start is set to true");
+                //print("Mouse start is set to true");
                 mouseStart = true;
             }
             else
             {
-                print("Mouse start is set to false");
+                //print("Mouse start is set to false");
                 mouseStart = false;
             }
         }
