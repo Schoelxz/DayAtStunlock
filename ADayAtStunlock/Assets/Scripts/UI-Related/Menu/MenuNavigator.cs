@@ -9,7 +9,7 @@ public class MenuNavigator : MonoBehaviour
     /// <summary>
     /// Singleton behaviour variable.
     /// </summary>
-    static GameObject s_menuHolder;
+    public static GameObject s_menuHolder;
 
     /// <summary>
     /// Canvas array description:
@@ -19,6 +19,7 @@ public class MenuNavigator : MonoBehaviour
     /// <para> canvases[3] = Credits Canvas                              </para>
     /// <para> canvases[4] = IngameMenu Canvas                           </para>
     /// <para> canvases[5] = GameHud Canvas                              </para>
+    /// <para> canvases[6] = EndGame Canvas                              </para>
     /// </summary>
     Canvas[] canvases;
 

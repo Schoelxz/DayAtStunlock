@@ -23,7 +23,7 @@ public class MoneyManager : MonoBehaviour
 
 	void Start ()
     {
-        startMoney = 0;
+        startMoney = 50;
         currentMoney = startMoney;
 
         MoneyDisplay = FindObjectOfType<ScoreDisplay>();
@@ -34,6 +34,9 @@ public class MoneyManager : MonoBehaviour
     void Update ()
     {
         MoneyDisplay.SetScore(currentMoney);
+
+        if (currentMoney <= 0)
+            LoseGame();
     }
 
     public static void GenerateMoney()
@@ -41,8 +44,11 @@ public class MoneyManager : MonoBehaviour
         //Counts how many npcs are working
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            if(npc.moveRef.IsCurrentlyWorking)
+            if (npc.moveRef.IsCurrentlyWorking)
+            {
                 currentMoney += DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation;
+                moneyEarned  += DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation;
+            }
         }
     }
 
@@ -53,6 +59,11 @@ public class MoneyManager : MonoBehaviour
         {
             currentMoney -= 3f - (npc.myFeelings.Happiness + DAS.NPC.s_happyAverage);
         }
+    }
+
+    void LoseGame()
+    {
+        EndGameCanvas.GameOver();
     }
 
 }
