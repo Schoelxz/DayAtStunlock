@@ -178,8 +178,8 @@ GameObject:
   m_Name: Cube (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1006893526897832
 GameObject:
@@ -196,8 +196,8 @@ GameObject:
   m_Name: Cube (50)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1009370062983006
 GameObject:
@@ -274,6 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186484299344100}
   - component: {fileID: 65667240093094764}
+  - component: {fileID: 208371732100552468}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -298,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1012489766701770
 GameObject:
   m_ObjectHideFlags: 1
@@ -546,7 +547,7 @@ GameObject:
   - component: {fileID: 4566717361927800}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,8 +617,8 @@ GameObject:
   m_Name: Cube (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1033879467574602
 GameObject:
@@ -695,7 +696,7 @@ GameObject:
   - component: {fileID: 4604939551424970}
   m_Layer: 0
   m_Name: Chair (3)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -794,6 +795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4522778295245358}
   - component: {fileID: 65727945852420684}
+  - component: {fileID: 208950638870052212}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -863,7 +865,7 @@ GameObject:
   - component: {fileID: 4748257780080986}
   m_Layer: 0
   m_Name: Chair (14)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -968,8 +970,8 @@ GameObject:
   m_Name: window (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1049715551602854
 GameObject:
@@ -1082,8 +1084,8 @@ GameObject:
   m_Name: Cube (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1057739564667816
 GameObject:
@@ -1132,8 +1134,8 @@ GameObject:
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1059606535657668
 GameObject:
@@ -1229,13 +1231,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4858606917793098}
+  - component: {fileID: 208561926590378020}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1062257021316968
 GameObject:
   m_ObjectHideFlags: 1
@@ -1330,6 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4749149621087106}
   - component: {fileID: 65585970735150474}
+  - component: {fileID: 208198611463936058}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -1397,13 +1401,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4628488036627004}
+  - component: {fileID: 208544202364823300}
   m_Layer: 0
   m_Name: door (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1067578116624834
 GameObject:
   m_ObjectHideFlags: 1
@@ -1516,6 +1521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815624665264410}
   - component: {fileID: 65305705746709924}
+  - component: {fileID: 208945471835611758}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -1581,6 +1587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4234973401185776}
   - component: {fileID: 65203637692803354}
+  - component: {fileID: 208332259841179016}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -1739,8 +1746,8 @@ GameObject:
   m_Name: Cube (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1080705114266440
 GameObject:
@@ -1792,8 +1799,8 @@ GameObject:
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1083323931695924
 GameObject:
@@ -2023,6 +2030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4653337737778866}
   - component: {fileID: 65009677675959888}
+  - component: {fileID: 208453433239587556}
   m_Layer: 0
   m_Name: Table (4)
   m_TagString: Untagged
@@ -2294,8 +2302,8 @@ GameObject:
   m_Name: Cube (49)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1109317816854056
 GameObject:
@@ -2424,7 +2432,7 @@ GameObject:
   - component: {fileID: 4649119948272832}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2641,6 +2649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4641100241206472}
   - component: {fileID: 65581630776715880}
+  - component: {fileID: 208355640437141772}
   m_Layer: 0
   m_Name: Table (11)
   m_TagString: Untagged
@@ -2680,8 +2689,8 @@ GameObject:
   m_Name: Cube (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1128203524309302
 GameObject:
@@ -2693,7 +2702,7 @@ GameObject:
   - component: {fileID: 4217580710542362}
   m_Layer: 0
   m_Name: Chair (18)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2713,8 +2722,8 @@ GameObject:
   m_Name: window (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1131773521284408
 GameObject:
@@ -2782,8 +2791,8 @@ GameObject:
   m_Name: window (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1134398849075524
 GameObject:
@@ -2910,7 +2919,7 @@ GameObject:
   - component: {fileID: 4480917611333752}
   m_Layer: 0
   m_Name: Chair (11)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3098,8 +3107,8 @@ GameObject:
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1148243454415644
 GameObject:
@@ -3145,7 +3154,7 @@ GameObject:
   - component: {fileID: 4767957975098284}
   m_Layer: 0
   m_Name: Chair (6)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3233,8 +3242,8 @@ GameObject:
   m_Name: window (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1153160594147934
 GameObject:
@@ -3336,8 +3345,8 @@ GameObject:
   m_Name: Cube (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1157162308960632
 GameObject:
@@ -3413,13 +3422,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4511637464176104}
+  - component: {fileID: 208993024760965840}
   m_Layer: 0
   m_Name: door (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1160762193134606
 GameObject:
   m_ObjectHideFlags: 1
@@ -3917,6 +3927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4229598981206392}
   - component: {fileID: 65673695390184060}
+  - component: {fileID: 208614076974699432}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -4056,8 +4067,8 @@ GameObject:
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1189847246380828
 GameObject:
@@ -4143,8 +4154,8 @@ GameObject:
   m_Name: Cube (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1193930800283960
 GameObject:
@@ -4275,6 +4286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4364721361778968}
   - component: {fileID: 65789561168049806}
+  - component: {fileID: 208476682109129274}
   m_Layer: 0
   m_Name: Table (7)
   m_TagString: Untagged
@@ -4559,8 +4571,8 @@ GameObject:
   m_Name: window (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1211409372456146
 GameObject:
@@ -4571,6 +4583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4964245337001146}
   - component: {fileID: 65760269466157928}
+  - component: {fileID: 208130006522348058}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -4619,6 +4632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4385791302700414}
   - component: {fileID: 65042422500187614}
+  - component: {fileID: 208186500688464620}
   m_Layer: 0
   m_Name: Table (4)
   m_TagString: Untagged
@@ -5064,7 +5078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1231925339925538
 GameObject:
   m_ObjectHideFlags: 1
@@ -5073,13 +5087,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4208162214980600}
+  - component: {fileID: 208447090738324994}
   m_Layer: 0
   m_Name: door (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1232258163753682
 GameObject:
   m_ObjectHideFlags: 1
@@ -5191,6 +5206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4879342245867920}
   - component: {fileID: 65855900909433604}
+  - component: {fileID: 208649610846981262}
   m_Layer: 0
   m_Name: Table (6)
   m_TagString: Untagged
@@ -5213,8 +5229,8 @@ GameObject:
   m_Name: Cube (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1237726003157274
 GameObject:
@@ -5277,6 +5293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4807405556890888}
   - component: {fileID: 65491201057743700}
+  - component: {fileID: 208371321512716484}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -5316,8 +5333,8 @@ GameObject:
   m_Name: Cube (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1239777092008332
 GameObject:
@@ -5363,7 +5380,7 @@ GameObject:
   - component: {fileID: 4005049099439628}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5629,6 +5646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4638181980819340}
   - component: {fileID: 65007906044572490}
+  - component: {fileID: 208971836056461544}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -5705,7 +5723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1264753366609666
 GameObject:
   m_ObjectHideFlags: 1
@@ -6047,6 +6065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4218510411182992}
   - component: {fileID: 65186349884899156}
+  - component: {fileID: 208071338229063842}
   m_Layer: 0
   m_Name: Table (5)
   m_TagString: Untagged
@@ -6086,8 +6105,8 @@ GameObject:
   m_Name: window (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1280277813129748
 GameObject:
@@ -6222,8 +6241,8 @@ GameObject:
   m_Name: Cube (36)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1285768637621558
 GameObject:
@@ -6257,8 +6276,8 @@ GameObject:
   m_Name: window (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1288387810958036
 GameObject:
@@ -6344,8 +6363,8 @@ GameObject:
   m_Name: Cube (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1290783202834628
 GameObject:
@@ -6356,6 +6375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4330092425895570}
   - component: {fileID: 65484001618794588}
+  - component: {fileID: 208471906006747532}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -6523,6 +6543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4578279494416648}
   - component: {fileID: 65247960790186290}
+  - component: {fileID: 208544817433769600}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -6573,6 +6594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4675788760521094}
   - component: {fileID: 65487399196479672}
+  - component: {fileID: 208880789666764664}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -6744,8 +6766,8 @@ GameObject:
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1306161813622268
 GameObject:
@@ -6796,8 +6818,8 @@ GameObject:
   m_Name: window (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1307956226313668
 GameObject:
@@ -6976,7 +6998,7 @@ GameObject:
   - component: {fileID: 4757852333613038}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7092,7 +7114,7 @@ GameObject:
   - component: {fileID: 4143429617632424}
   m_Layer: 0
   m_Name: Chair (12)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7265,8 +7287,8 @@ GameObject:
   m_Name: Cube (55)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1336298653024930
 GameObject:
@@ -7397,7 +7419,7 @@ GameObject:
   - component: {fileID: 4438481996267754}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7468,8 +7490,8 @@ GameObject:
   m_Name: window (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1345064973333480
 GameObject:
@@ -7691,8 +7713,8 @@ GameObject:
   m_Name: window (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1357451930026218
 GameObject:
@@ -7788,7 +7810,7 @@ GameObject:
   - component: {fileID: 4320178915314660}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7859,8 +7881,8 @@ GameObject:
   m_Name: Cube (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1366692236731402
 GameObject:
@@ -7911,8 +7933,8 @@ GameObject:
   m_Name: Cube (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1368117513694066
 GameObject:
@@ -7929,8 +7951,8 @@ GameObject:
   m_Name: window (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1369441628404372
 GameObject:
@@ -7947,8 +7969,8 @@ GameObject:
   m_Name: Cube (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1370018733413046
 GameObject:
@@ -8027,6 +8049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4564291640615928}
   - component: {fileID: 65254272463149658}
+  - component: {fileID: 208938685435459604}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -8236,8 +8259,8 @@ GameObject:
   m_Name: Cube (47)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1384250961355648
 GameObject:
@@ -8317,7 +8340,7 @@ GameObject:
   - component: {fileID: 4462216596620814}
   m_Layer: 0
   m_Name: Chair (4)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8399,6 +8422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4059351570606636}
   - component: {fileID: 65114870309275442}
+  - component: {fileID: 208408333722869718}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -8516,7 +8540,7 @@ GameObject:
   - component: {fileID: 4030175710464624}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8581,6 +8605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4140685234377724}
   - component: {fileID: 65300066979962792}
+  - component: {fileID: 208013181286491182}
   m_Layer: 0
   m_Name: Table (8)
   m_TagString: Untagged
@@ -8596,13 +8621,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4199959087886008}
+  - component: {fileID: 208117667010007946}
   m_Layer: 0
   m_Name: door (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1396792092885070
 GameObject:
   m_ObjectHideFlags: 1
@@ -8767,8 +8793,8 @@ GameObject:
   m_Name: Cube (52)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1403240019313014
 GameObject:
@@ -8932,7 +8958,7 @@ GameObject:
   - component: {fileID: 4585919555086880}
   m_Layer: 0
   m_Name: Chair (19)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8965,7 +8991,7 @@ GameObject:
   - component: {fileID: 4405642053027638}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9096,13 +9122,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4994382509727964}
+  - component: {fileID: 208403795259152730}
   m_Layer: 0
   m_Name: door (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1421368856927754
 GameObject:
   m_ObjectHideFlags: 1
@@ -9299,7 +9326,7 @@ GameObject:
   - component: {fileID: 4647396596596318}
   m_Layer: 0
   m_Name: Chair (10)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9415,6 +9442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4378856011233392}
   - component: {fileID: 65647263291003278}
+  - component: {fileID: 208293465639731782}
   m_Layer: 0
   m_Name: Table (9)
   m_TagString: Untagged
@@ -9706,8 +9734,8 @@ GameObject:
   m_Name: Cube (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1448415104540814
 GameObject:
@@ -9878,8 +9906,8 @@ GameObject:
   m_Name: Cube (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1454560549252408
 GameObject:
@@ -9908,7 +9936,7 @@ GameObject:
   - component: {fileID: 4078039497792334}
   m_Layer: 0
   m_Name: Chair (15)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10090,6 +10118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4764796268954962}
   - component: {fileID: 65180118968096642}
+  - component: {fileID: 208427557130080616}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -10231,8 +10260,8 @@ GameObject:
   m_Name: Cube (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1472583422966746
 GameObject:
@@ -10376,13 +10405,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4784969622466454}
+  - component: {fileID: 208491697586741354}
   m_Layer: 0
   m_Name: door (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1482305587615982
 GameObject:
   m_ObjectHideFlags: 1
@@ -10785,8 +10815,8 @@ GameObject:
   m_Name: window (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1502884045928538
 GameObject:
@@ -10854,8 +10884,8 @@ GameObject:
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1504344470877532
 GameObject:
@@ -10872,8 +10902,8 @@ GameObject:
   m_Name: Cube (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1505115961838158
 GameObject:
@@ -10924,8 +10954,8 @@ GameObject:
   m_Name: Cube (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1506857299552364
 GameObject:
@@ -10942,8 +10972,8 @@ GameObject:
   m_Name: Cube (53)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1507467362423742
 GameObject:
@@ -10971,6 +11001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4659571569691746}
   - component: {fileID: 65072243244878502}
+  - component: {fileID: 208501972852579860}
   m_Layer: 0
   m_Name: Table (5)
   m_TagString: Untagged
@@ -11071,7 +11102,7 @@ GameObject:
   - component: {fileID: 4263442177211060}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11177,8 +11208,8 @@ GameObject:
   m_Name: Cube (48)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1516921046904700
 GameObject:
@@ -11305,13 +11336,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4679583400484888}
+  - component: {fileID: 208905039478329652}
   m_Layer: 0
   m_Name: door (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1521543224595882
 GameObject:
   m_ObjectHideFlags: 1
@@ -11413,8 +11445,8 @@ GameObject:
   m_Name: window (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1524453509819380
 GameObject:
@@ -11629,7 +11661,7 @@ GameObject:
   - component: {fileID: 4777741246983060}
   m_Layer: 0
   m_Name: Chair (2)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11768,8 +11800,8 @@ GameObject:
   m_Name: Cube (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1540660228391636
 GameObject:
@@ -11915,7 +11947,7 @@ GameObject:
   - component: {fileID: 4255815337296164}
   m_Layer: 0
   m_Name: Chair (3)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11935,8 +11967,8 @@ GameObject:
   m_Name: window (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1546739038636528
 GameObject:
@@ -11964,6 +11996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4252543419936826}
   - component: {fileID: 65488974520381354}
+  - component: {fileID: 208628819361241874}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -12037,8 +12070,8 @@ GameObject:
   m_Name: window (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1548739827993474
 GameObject:
@@ -12251,6 +12284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012142810320328}
   - component: {fileID: 65409543392989168}
+  - component: {fileID: 208650415850889596}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -12273,8 +12307,8 @@ GameObject:
   m_Name: Cube (51)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1555207096422890
 GameObject:
@@ -12610,8 +12644,8 @@ GameObject:
   m_Name: Cube (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1570329089140606
 GameObject:
@@ -12656,7 +12690,7 @@ GameObject:
   - component: {fileID: 4280865649860350}
   m_Layer: 0
   m_Name: Chair (5)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12703,7 +12737,7 @@ GameObject:
   - component: {fileID: 4119503852772760}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12717,6 +12751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4895369052948460}
   - component: {fileID: 65127145076325284}
+  - component: {fileID: 208126024672585864}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -12785,7 +12820,7 @@ GameObject:
   - component: {fileID: 4122501728696400}
   m_Layer: 0
   m_Name: Chair (3)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12872,8 +12907,8 @@ GameObject:
   m_Name: Cube (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1582424247060738
 GameObject:
@@ -12901,6 +12936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073871849514592}
   - component: {fileID: 65866235105298114}
+  - component: {fileID: 208329780561699068}
   m_Layer: 0
   m_Name: Table (6)
   m_TagString: Untagged
@@ -12967,7 +13003,7 @@ GameObject:
   - component: {fileID: 4388526444079430}
   m_Layer: 0
   m_Name: Chair (4)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13433,7 +13469,7 @@ GameObject:
   - component: {fileID: 4635950417607330}
   m_Layer: 0
   m_Name: Chair (4)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13468,8 +13504,8 @@ GameObject:
   m_Name: window (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1608692552107964
 GameObject:
@@ -13598,7 +13634,7 @@ GameObject:
   - component: {fileID: 4208483712987406}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13755,8 +13791,8 @@ GameObject:
   m_Name: Cube (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1621529396272564
 GameObject:
@@ -14110,8 +14146,8 @@ GameObject:
   m_Name: Cube (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1640075040016374
 GameObject:
@@ -14145,8 +14181,8 @@ GameObject:
   m_Name: Cube (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1642431999971876
 GameObject:
@@ -14158,7 +14194,7 @@ GameObject:
   - component: {fileID: 4201907179388406}
   m_Layer: 0
   m_Name: Chair (9)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14298,8 +14334,8 @@ GameObject:
   m_Name: window (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1650321822938958
 GameObject:
@@ -14328,7 +14364,7 @@ GameObject:
   - component: {fileID: 4920566247142512}
   m_Layer: 0
   m_Name: Chair (2)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14911,6 +14947,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4473464088883314}
   - component: {fileID: 65626182734107136}
+  - component: {fileID: 208506373632330982}
   m_Layer: 0
   m_Name: Table (5)
   m_TagString: Untagged
@@ -15261,7 +15298,7 @@ GameObject:
   - component: {fileID: 4265309190025418}
   m_Layer: 0
   m_Name: Chair (5)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15281,8 +15318,8 @@ GameObject:
   m_Name: Cube (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1692761634896082
 GameObject:
@@ -15411,7 +15448,7 @@ GameObject:
   - component: {fileID: 4733382751971702}
   m_Layer: 0
   m_Name: Chair (6)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15425,6 +15462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4316010503215932}
   - component: {fileID: 65724383831169762}
+  - component: {fileID: 208415600014727246}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -15476,7 +15514,7 @@ GameObject:
   - component: {fileID: 4927013657733472}
   m_Layer: 0
   m_Name: Chair (7)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15793,6 +15831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4553764856726390}
   - component: {fileID: 65733758050218454}
+  - component: {fileID: 208069280627242442}
   m_Layer: 0
   m_Name: Table (12)
   m_TagString: Untagged
@@ -15876,13 +15915,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4842615295194150}
+  - component: {fileID: 208067390354689800}
   m_Layer: 0
   m_Name: door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1723004202579128
 GameObject:
   m_ObjectHideFlags: 1
@@ -15942,13 +15982,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4754477687678100}
+  - component: {fileID: 208122951016707208}
   m_Layer: 0
   m_Name: door (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1726395108371050
 GameObject:
   m_ObjectHideFlags: 1
@@ -15976,7 +16017,7 @@ GameObject:
   - component: {fileID: 4300015895397194}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16005,6 +16046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4603272430104610}
   - component: {fileID: 65399451975361386}
+  - component: {fileID: 208855744126108526}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -16077,8 +16119,8 @@ GameObject:
   m_Name: Cube (57)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1732390618325138
 GameObject:
@@ -16244,7 +16286,7 @@ GameObject:
   - component: {fileID: 4312527786918566}
   m_Layer: 0
   m_Name: Chair (8)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16381,8 +16423,8 @@ GameObject:
   m_Name: window (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1742982510204072
 GameObject:
@@ -16514,12 +16556,12 @@ GameObject:
   - component: {fileID: 33294372515444828}
   - component: {fileID: 64498050273470924}
   - component: {fileID: 23578583596492846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1750537739198188
 GameObject:
@@ -16553,8 +16595,8 @@ GameObject:
   m_Name: Cube (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1753064305142558
 GameObject:
@@ -16887,7 +16929,7 @@ GameObject:
   - component: {fileID: 4140617571091962}
   m_Layer: 0
   m_Name: Chair (5)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17044,8 +17086,8 @@ GameObject:
   m_Name: Cube (58)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1771537370390908
 GameObject:
@@ -17195,8 +17237,8 @@ GameObject:
   m_Name: Cube (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1777022096038702
 GameObject:
@@ -17256,6 +17298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4091815979853618}
   - component: {fileID: 65445832501865090}
+  - component: {fileID: 208482651197654334}
   m_Layer: 0
   m_Name: Table (6)
   m_TagString: Untagged
@@ -17329,8 +17372,8 @@ GameObject:
   m_Name: window (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1789299710687722
 GameObject:
@@ -17381,8 +17424,8 @@ GameObject:
   m_Name: Cube (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1791521045824832
 GameObject:
@@ -17513,6 +17556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4188247397959392}
   - component: {fileID: 65875840078513330}
+  - component: {fileID: 208451322321590624}
   m_Layer: 0
   m_Name: Table (10)
   m_TagString: Untagged
@@ -17769,8 +17813,8 @@ GameObject:
   m_Name: Cube (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1814430010902666
 GameObject:
@@ -17853,8 +17897,8 @@ GameObject:
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1819169201218720
 GameObject:
@@ -17937,8 +17981,8 @@ GameObject:
   m_Name: Cube (54)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1823099560260266
 GameObject:
@@ -18106,8 +18150,8 @@ GameObject:
   m_Name: window (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1832732649793902
 GameObject:
@@ -18119,7 +18163,7 @@ GameObject:
   - component: {fileID: 4808505525305704}
   m_Layer: 0
   m_Name: Chair (16)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18276,8 +18320,8 @@ GameObject:
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1842963462806988
 GameObject:
@@ -18340,7 +18384,7 @@ GameObject:
   - component: {fileID: 4239146098956192}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18360,8 +18404,8 @@ GameObject:
   m_Name: Cube (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1845818662887212
 GameObject:
@@ -18531,8 +18575,8 @@ GameObject:
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1852414996985992
 GameObject:
@@ -18600,8 +18644,8 @@ GameObject:
   m_Name: Cube (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1856779281170060
 GameObject:
@@ -18874,8 +18918,8 @@ GameObject:
   m_Name: window (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1866799397701930
 GameObject:
@@ -18919,13 +18963,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4780146185393228}
+  - component: {fileID: 208157142568207532}
   m_Layer: 0
   m_Name: door (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1868336369195852
 GameObject:
   m_ObjectHideFlags: 1
@@ -19025,8 +19070,8 @@ GameObject:
   m_Name: Cube (56)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1871016470239980
 GameObject:
@@ -19188,6 +19233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4547833048541954}
   - component: {fileID: 65624218666746452}
+  - component: {fileID: 208247675962720066}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -19238,6 +19284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4940524538077322}
   - component: {fileID: 65612515644185506}
+  - component: {fileID: 208728924698736932}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -19313,7 +19360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1880682584485984
 GameObject:
   m_ObjectHideFlags: 1
@@ -19374,6 +19421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4123336097598884}
   - component: {fileID: 65508088679913286}
+  - component: {fileID: 208317892491369738}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -19680,6 +19728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4676446576594262}
   - component: {fileID: 65115665786775802}
+  - component: {fileID: 208211583599507164}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -19700,24 +19749,6 @@ GameObject:
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1893764217973988
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4876249284695058}
-  - component: {fileID: 20418004833651608}
-  - component: {fileID: 124261904212596314}
-  - component: {fileID: 81166327981213186}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19822,8 +19853,8 @@ GameObject:
   m_Name: Cube (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1898162120661896
 GameObject:
@@ -20100,6 +20131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408760841282254}
   - component: {fileID: 65448789731165356}
+  - component: {fileID: 208996650542830378}
   m_Layer: 0
   m_Name: Table (13)
   m_TagString: Untagged
@@ -20216,6 +20248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4734575630920426}
   - component: {fileID: 65650839572043464}
+  - component: {fileID: 208038446656260862}
   m_Layer: 0
   m_Name: Table (14)
   m_TagString: Untagged
@@ -20389,8 +20422,8 @@ GameObject:
   m_Name: Cube (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1917145254798150
 GameObject:
@@ -20741,6 +20774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4589685974538060}
   - component: {fileID: 65007444111127470}
+  - component: {fileID: 208739058786905238}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -20763,8 +20797,8 @@ GameObject:
   m_Name: window (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1933752074312976
 GameObject:
@@ -20828,7 +20862,7 @@ GameObject:
   - component: {fileID: 4216359569921812}
   m_Layer: 0
   m_Name: Chair (1)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21031,8 +21065,8 @@ GameObject:
   m_Name: window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1942943051475262
 GameObject:
@@ -21060,6 +21094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4453281195501910}
   - component: {fileID: 65614482838752432}
+  - component: {fileID: 208842346062553540}
   m_Layer: 0
   m_Name: Table (3)
   m_TagString: Untagged
@@ -21144,6 +21179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4845276462239526}
   - component: {fileID: 65141336708109814}
+  - component: {fileID: 208325540614527860}
   m_Layer: 0
   m_Name: Table (2)
   m_TagString: Untagged
@@ -21549,8 +21585,8 @@ GameObject:
   m_Name: window (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1960165163523812
 GameObject:
@@ -21562,7 +21598,7 @@ GameObject:
   - component: {fileID: 4764660215896274}
   m_Layer: 0
   m_Name: Chair (17)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21744,7 +21780,7 @@ GameObject:
   - component: {fileID: 4108157989486818}
   m_Layer: 0
   m_Name: Chair (13)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21893,13 +21929,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4664358928885966}
+  - component: {fileID: 208277937357962700}
   m_Layer: 0
   m_Name: door (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1976094191397608
 GameObject:
   m_ObjectHideFlags: 1
@@ -21927,7 +21964,7 @@ GameObject:
   - component: {fileID: 4433668261662704}
   m_Layer: 0
   m_Name: Chair (2)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22175,6 +22212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4533725912627476}
   - component: {fileID: 65697201650688356}
+  - component: {fileID: 208079853502898262}
   m_Layer: 0
   m_Name: Table (1)
   m_TagString: Untagged
@@ -22231,8 +22269,8 @@ GameObject:
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1985906888809108
 GameObject:
@@ -22249,8 +22287,8 @@ GameObject:
   m_Name: Cube (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1986883136075042
 GameObject:
@@ -22319,8 +22357,8 @@ GameObject:
   m_Name: window (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1991640996052454
 GameObject:
@@ -22383,7 +22421,7 @@ GameObject:
   - component: {fileID: 4637304806619242}
   m_Layer: 0
   m_Name: Chair (2)
-  m_TagString: Untagged
+  m_TagString: WorkSeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22403,8 +22441,8 @@ GameObject:
   m_Name: window (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1994440241892484
 GameObject:
@@ -22438,8 +22476,8 @@ GameObject:
   m_Name: Cube (59)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1994862218163772
 GameObject:
@@ -22522,8 +22560,8 @@ GameObject:
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1996862470723102
 GameObject:
@@ -24708,7 +24746,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579790860435866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.30998898, z: 0.10999966}
+  m_LocalPosition: {x: -0.5, y: 0.30998898, z: 0.5499997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4403580049068218}
@@ -26743,7 +26781,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!4 &4232689676407860
 Transform:
@@ -26955,7 +26993,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1845233058822436}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.5723667, y: 0.30998898, z: 2.6654139}
+  m_LocalPosition: {x: -0.5723667, y: 0.30998898, z: 2.0299997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4822022892409006}
@@ -27481,7 +27519,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1692371391948540}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.7, y: 0.30998898, z: 5.62}
+  m_LocalPosition: {x: 2.7, y: 0.30998898, z: 6.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203228831380404}
@@ -27558,7 +27596,7 @@ Transform:
   - {fileID: 4780146185393228}
   - {fileID: 4664358928885966}
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4268796783791614
 Transform:
@@ -29940,7 +29978,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585227258866910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.30998898, z: 5.62}
+  m_LocalPosition: {x: -0.5, y: 0.30998898, z: 6.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4554080548334676}
@@ -30659,7 +30697,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340964430523668}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 2.75, y: 0.30998898, z: 2.6654139}
+  m_LocalPosition: {x: 2.75, y: 0.30998898, z: 2.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4162158205349132}
@@ -33986,7 +34024,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037217384733912}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.87, y: 0.30998898, z: 2.3099995}
+  m_LocalPosition: {x: 5.9, y: 0.30998898, z: 17.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4528068338790414}
@@ -34227,7 +34265,7 @@ Transform:
   - {fileID: 4637370809580848}
   - {fileID: 4708845617647022}
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4614277934049196
 Transform:
@@ -34570,7 +34608,7 @@ Transform:
   - {fileID: 224664795323362552}
   - {fileID: 224561959793144404}
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4635377490659870
 Transform:
@@ -36853,7 +36891,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4876249284695058}
   - {fileID: 4231746602913442}
   - {fileID: 4993476948862784}
   - {fileID: 4267461295262092}
@@ -37275,7 +37312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1532640674288472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.53, y: 0.30998898, z: 0.11}
+  m_LocalPosition: {x: 2.53, y: 0.30998898, z: 0.5500001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4223864266989396}
@@ -38844,7 +38881,7 @@ Transform:
   - {fileID: 4038248234771228}
   - {fileID: 4524445163564334}
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4873169997721764
 Transform:
@@ -38885,19 +38922,6 @@ Transform:
   m_Father: {fileID: 4553311614317024}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4876249284695058
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893764217973988}
-  m_LocalRotation: {x: 0, y: 0.85485303, z: -0.5188703, w: 0}
-  m_LocalPosition: {x: 7.7, y: 23.49, z: 19.38}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 62.513004, y: 180, z: 0}
 --- !u!4 &4876270123172524
 Transform:
   m_ObjectHideFlags: 1
@@ -39108,7 +39132,7 @@ Transform:
   - {fileID: 4979068610920004}
   - {fileID: 4070023553661218}
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4884551768695470
 Transform:
@@ -40976,10 +41000,10 @@ Transform:
   m_GameObject: {fileID: 1748701439141500}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.637, y: 0, z: 0.7}
-  m_LocalScale: {x: 4.443733, y: 1, z: 3.825531}
+  m_LocalScale: {x: 5.131006, y: 1, z: 3.825531}
   m_Children: []
   m_Father: {fileID: 4759656331327722}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4994358478249156
 Transform:
@@ -41079,42 +41103,6 @@ Transform:
   m_Father: {fileID: 4628488036627004}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20418004833651608
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893764217973988}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!23 &23001478207988036
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -88135,13 +88123,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!81 &81166327981213186
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893764217973988}
-  m_Enabled: 1
 --- !u!95 &95317582475710428
 Animator:
   serializedVersion: 3
@@ -89398,13 +89379,846 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!124 &124261904212596314
-Behaviour:
+--- !u!208 &208013181286491182
+NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893764217973988}
+  m_GameObject: {fileID: 1396681630886610}
   m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208038446656260862
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911118396688524}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208067390354689800
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722899456172058}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208069280627242442
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721563389054202}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208071338229063842
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279171435560748}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208079853502898262
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984718692274486}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208117667010007946
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396722438658308}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208122951016707208
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725293927375080}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208126024672585864
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576165705445778}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208130006522348058
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211409372456146}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208157142568207532
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1867715291995284}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208186500688464620
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1212387628535766}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208198611463936058
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064655852042698}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208211583599507164
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891333417091704}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208247675962720066
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877051681501624}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208277937357962700
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1974518928143876}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208293465639731782
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1435324812900014}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208317892491369738
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882215212441290}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208325540614527860
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947576925361104}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208329780561699068
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582742618928936}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208332259841179016
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077112726352292}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208355640437141772
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1127371724753832}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208371321512716484
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1238298775902520}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208371732100552468
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011953301623570}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208403795259152730
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419826745298234}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208408333722869718
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1387395161808838}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208415600014727246
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700277198053108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208427557130080616
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1464231508805708}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208447090738324994
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231925339925538}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208451322321590624
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1796859419467832}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208453433239587556
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094900070992698}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208471906006747532
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290783202834628}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208476682109129274
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200021763261838}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208482651197654334
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781216558431996}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208491697586741354
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481819995005590}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208501972852579860
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508133239622888}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208506373632330982
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676802408377566}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208544202364823300
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067575761129308}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208544817433769600
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298522525091320}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208561926590378020
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062147197679098}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208614076974699432
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1183146866119218}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208628819361241874
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546822852242900}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208649610846981262
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1236516984437454}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208650415850889596
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553825640073734}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208728924698736932
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879353598108486}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208739058786905238
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1929592847613450}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208842346062553540
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943373592638250}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208855744126108526
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727813207570756}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208880789666764664
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1299086660781066}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208905039478329652
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521311240080434}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208938685435459604
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1371300976760230}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208945471835611758
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071417702973974}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208950638870052212
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1042020565794888}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208971836056461544
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257168339983992}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208993024760965840
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1160670213982526}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 2.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208996650542830378
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906181278937652}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!222 &222000544077341226
 CanvasRenderer:
   m_ObjectHideFlags: 1
