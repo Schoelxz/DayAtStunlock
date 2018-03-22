@@ -9,29 +9,25 @@ public class InteractableObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        cooldown = 0.2f;
-        timer = 0;
+
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        timer += Time.deltaTime;
 
         if (PlayerRaycast.hit.transform != null && Input.GetMouseButtonDown(0))
         {
-            print(PlayerRaycast.hit.transform.name);
             if(PlayerRaycast.hit.transform.tag == "InteractableObject" )
             {
-                if (PlayerRaycast.hit.transform.name == "CoffeeMaker" && timer > cooldown)
+                if (PlayerRaycast.hit.transform.name == "CoffeeMaker")
                 {
-                    timer = 0;
                     CoffeeMaker();
                 }
 
-                if (PlayerRaycast.hit.transform.name == "Fridge" && timer > cooldown)
+                if (PlayerRaycast.hit.transform.name == "Fridge")
                 {
-                    timer = 0;
+                    
                     Fridge();
                 }
             }
