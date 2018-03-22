@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update ()
     {
         Debug.Log(PlayerRaycast.hit.point);
-        if ( Input.GetMouseButton(0))
+        if ( Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             m_moveHere = PlayerRaycast.hit.point;
             m_agentRef.destination = PlayerRaycast.hit.point;
