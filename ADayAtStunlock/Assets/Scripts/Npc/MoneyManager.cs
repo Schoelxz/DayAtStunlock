@@ -23,6 +23,7 @@ public class MoneyManager : MonoBehaviour
 
 	void Start ()
     {
+        moneyEarned = 0;
         startMoney = 500;
         currentMoney = startMoney;
 
