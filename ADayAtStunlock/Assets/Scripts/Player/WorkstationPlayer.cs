@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorkstationPlayer : MonoBehaviour
 {
     GameObject player;
+    Material playerMat;
 
 	void Start ()
     {
@@ -19,6 +20,14 @@ public class WorkstationPlayer : MonoBehaviour
             //MoneyManager.GenerateMoney();
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == player)
+        {
+            playerMat = new Material(player.GetComponent<MeshRenderer>().material);
+            player.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
+    }
 
     private void OnCollisionStay(Collision collision)
     {
@@ -27,6 +36,14 @@ public class WorkstationPlayer : MonoBehaviour
             print("Collision Player");
 
             MoneyManager.GenerateMoney();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject == player)
+        {
+            player.GetComponent<MeshRenderer>().material.color = playerMat.color;
         }
     }
 

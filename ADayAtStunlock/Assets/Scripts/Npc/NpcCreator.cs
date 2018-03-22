@@ -124,20 +124,14 @@ namespace DAS
                 return;
             //---
 
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
-            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 10);
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 100);
+            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 40);
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
         }
 
         #region Functions
-        /*public void GenerateMoney()
-        {
-            GetComponentInChildren<MeshRenderer>().material = moneyMaterial;
-            MoneyManager.currentMoney += (happySlider.value + motivationSlider.value);
-            Invoke("SetDefaultMaterial", 1);
-        }*/
 
         private void SetDefaultMaterial()
         {

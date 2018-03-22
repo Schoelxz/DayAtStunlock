@@ -42,7 +42,7 @@ public class MoneyManager : MonoBehaviour
         foreach (var npc in DAS.NPC.s_npcList)
         {
             if(npc.moveRef.IsCurrentlyWorking)
-                currentMoney += (1 / DAS.NPC.s_npcList.Count) + npc.myFeelings.Motivation;
+                currentMoney += DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation;
         }
     }
 
