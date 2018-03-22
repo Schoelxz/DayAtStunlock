@@ -130,12 +130,12 @@ namespace DAS
         }
 
         #region Functions
-        public void GenerateMoney()
+        /*public void GenerateMoney()
         {
             GetComponentInChildren<MeshRenderer>().material = moneyMaterial;
             MoneyManager.currentMoney += (happySlider.value + motivationSlider.value);
             Invoke("SetDefaultMaterial", 1);
-        }
+        }*/
 
         private void SetDefaultMaterial()
         {

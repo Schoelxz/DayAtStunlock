@@ -6,8 +6,8 @@ using UnityEngine.UI;
 //[RequireComponent(typeof(ScoreDisplay))]
 public class MoneyManager : MonoBehaviour
 {
-    int m_interval = 5;
-    int m_delay = 1;
+    //int m_interval = 5;
+    //int m_delay = 1;
 
     [SerializeField]
     GameObject endScreen;
@@ -30,11 +30,11 @@ public class MoneyManager : MonoBehaviour
         currentMoney = startMoney;
 
         //HACK: Needs to be controlled by game time, help
-        InvokeRepeating("GenerateMoney", m_delay, m_interval);
+        //InvokeRepeating("GenerateMoney", m_delay, m_interval);
         MoneyDisplay = FindObjectOfType<ScoreDisplay>();
 
-        InvokeRepeating("GenerateMoney", 1, 5);
-        InvokeRepeating("DeductSalary", 31, 5);
+        //InvokeRepeating("GenerateMoney", 1, 5);
+        InvokeRepeating("DeductSalary", 31, 1);
 	}
 
     void Update ()
@@ -42,15 +42,16 @@ public class MoneyManager : MonoBehaviour
         MoneyDisplay.SetScore(currentMoney);
     }
 
-    void GenerateMoney()
+    public static void GenerateMoney()
     {
         //Counts how many npcs are working
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            if (npc.moveRef.IsCurrentlyWorking)
+            currentMoney += (1 / DAS.NPC.s_npcList.Count) + npc.myFeelings.Motivation;
+            /*if (npc.moveRef.IsCurrentlyWorking)
             {
                 npc.GenerateMoney();
-            }
+            }*/
         }
     }
 
@@ -59,7 +60,7 @@ public class MoneyManager : MonoBehaviour
         print("Deducting salary");
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            currentMoney -= 2 - (npc.myFeelings.Happiness + npc.myFeelings.Motivation) + DAS.TimeSystem.TimePassedSeconds / 120;
+            currentMoney -= (1 / DAS.NPC.s_npcList.Count) - (npc.myFeelings.Happiness / DAS.NPC.s_npcList.Count);
         }
         
     }
