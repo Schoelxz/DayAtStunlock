@@ -71,7 +71,10 @@ namespace DAS
             s_npcList.Add(this);
 
             /// Assign Values
-            myFeelings = new Feelings(1, 1);
+            if(Random.Range(0f, 1f) > 0.5f)
+                myFeelings = new Feelings(0.9f, 0.5f);
+            else
+                myFeelings = new Feelings(0.5f, 0.9f);
 
             /// Get Components
             foreach (var item in GetComponentsInChildren<Slider>())
@@ -124,7 +127,7 @@ namespace DAS
                 return;
             //---
 
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 100);
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 50);
             myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 40);
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
@@ -249,7 +252,7 @@ namespace DAS
         {
             numOfNPCs = NumOfNPCs;
 
-            NpcCreationPerXSeconds(2);
+            NpcCreationPerXSeconds(1);
 
             //+++ Reduce update calls
             dt += Time.deltaTime;
