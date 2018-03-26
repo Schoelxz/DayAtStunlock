@@ -12,12 +12,14 @@ public class CameraMovement : MonoBehaviour {
     [Header("Indicates how far the camera will rotate")]
     [Range(20f, 90f)]
     [SerializeField] private float m_rotationStep = 45f;
+    private float m_destinationRotation;
 
 
     // Use this for initialization
     void Start () {
         if (m_playerRef == null)
         m_playerRef = FindObjectOfType<PlayerMovement>().gameObject;
+        m_destinationRotation = transform.rotation.eulerAngles.y;
     }
 
     float dt;
@@ -29,11 +31,13 @@ public class CameraMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + m_rotationStep, transform.rotation.eulerAngles.z);
+            m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_destinationRotation + m_rotationStep, transform.rotation.eulerAngles.z);
+            m_destinationRotation += m_rotationStep;
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - m_rotationStep, transform.rotation.eulerAngles.z);
+            m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_destinationRotation - m_rotationStep, transform.rotation.eulerAngles.z);
+            m_destinationRotation -= m_rotationStep;
         }
         transform.rotation = Quaternion.Lerp(transform.rotation, m_targetRotation, speed);
 
