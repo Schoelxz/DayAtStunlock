@@ -6,24 +6,20 @@ public class RandomEventTrigger : MonoBehaviour {
 
     List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
     static public bool stopWork;
-    
+    List<float> motivationList = new List<float>();
+    int shakeDuration;
 
 	// Use this for initialization
 	void Start () {
         stopWork = false;
-        InvokeRepeating("TriggerRandomEvent", 5, 60);
+        InvokeRepeating("TriggerRandomEvent", 10, 60);
         randomEvents.Add(TrainEvent);
+        shakeDuration = 7;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        
-	}
-
-
+	
     void TriggerRandomEvent()
     {
-        stopWork = true;
 
         randomEvents[Random.Range(0, randomEvents.Count)]();
     }
@@ -31,6 +27,22 @@ public class RandomEventTrigger : MonoBehaviour {
 
     void TrainEvent()
     {
-        ScreenShake.shakeDuration = 5;
+        ScreenShake.shakeDuration = shakeDuration;
+        Camera.main.GetComponent<AudioSource>().Play();
+        foreach (var npc in DAS.NPC.s_npcList)
+        {
+            motivationList.Add(npc.myFeelings.Motivation);
+            npc.myFeelings.Motivation = 0;
+        }
+
+        Invoke("ResetMotivation", shakeDuration);
+    }
+
+    void ResetMotivation()
+    {
+        for(int i = 0; i < DAS.NPC.s_npcList.Count; i++)
+        {
+            DAS.NPC.s_npcList[i].myFeelings.Motivation = motivationList[i];
+        }
     }
 }
