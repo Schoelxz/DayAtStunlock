@@ -27,6 +27,7 @@ public class RandomEventTrigger : MonoBehaviour {
 
     void TrainEvent()
     {
+        motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
         Camera.main.GetComponent<AudioSource>().Play();
         foreach (var npc in DAS.NPC.s_npcList)
