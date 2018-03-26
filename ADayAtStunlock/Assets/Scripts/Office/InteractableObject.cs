@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour {
     
-    float cooldown;
-    float timer;
-
     //Objects that are to be interacted with needs a collider, the "InteractableObject" tag, a proper name and a function for whatever purpose it should serve. See below.
-
-	// Use this for initialization
-	void Start () {
-
-	}
+    
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,7 +21,6 @@ public class InteractableObject : MonoBehaviour {
 
                 if (PlayerRaycast.hit.transform.name == "Fridge")
                 {
-                    
                     Fridge();
                 }
             }
@@ -45,4 +37,8 @@ public class InteractableObject : MonoBehaviour {
     {
         print("Fridge was clicked, Fridge function running.");
     }
+
+    //Add more functions here when needed. One function for each object intended to be interactive. 
+
+    //
 }
