@@ -97,7 +97,8 @@ namespace DAS //  Namespace to sort out our own classes from other default class
                 instance = this;
             else
             {
-                Debug.LogWarning("Another TimeSystem script already exists, destroying the new one inside of gameobject " + gameObject.name + ". Don't forget to remove me after play!");
+                if(gameObject.name != "UI - Menus")
+                    Debug.LogWarning("Another TimeSystem script already exists, destroying the new one inside of gameobject " + gameObject.name + ". Don't forget to remove me after play!");
                 Destroy(this);
             }
         }
