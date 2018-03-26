@@ -26,7 +26,7 @@ public class MoneyManager : MonoBehaviour
 	void Start ()
     {
         moneyEarned = 0;
-        startMoney = 5000;
+        startMoney = 12500;
         currentMoney = startMoney;
 
         MoneyDisplay = FindObjectOfType<ScoreDisplay>();

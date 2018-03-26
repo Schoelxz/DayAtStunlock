@@ -11,9 +11,11 @@ public class PlayerRaycast : MonoBehaviour {
     public static bool mouseStart;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         layerMask = LayerMask.GetMask("Floor");
-	}
+        hit = new RaycastHit();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -22,8 +24,6 @@ public class PlayerRaycast : MonoBehaviour {
         {
             mouseStart = false;
         }
-        
-        hit = new RaycastHit();
         
         if (Input.GetMouseButton(0))
         {
