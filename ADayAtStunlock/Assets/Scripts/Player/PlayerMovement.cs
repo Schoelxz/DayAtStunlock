@@ -24,12 +24,14 @@ public class PlayerMovement : MonoBehaviour {
         if ( Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             m_moveHere = PlayerRaycast.hit.point;
+            
             m_agentRef.destination = PlayerRaycast.hit.point;
         }
     }
-    /*private void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         Gizmos.DrawCube(PlayerRaycast.hit.point,new Vector3(1,1,1));
-    }/*/
+    }
 }
 //PlayerRaycast.mouseStart == true &&

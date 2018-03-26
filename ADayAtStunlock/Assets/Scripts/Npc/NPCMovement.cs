@@ -150,7 +150,10 @@ namespace DAS
 
             // Check time an NPC has been inside of its destination (not counting work destination).
             if (agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat)
+            {
                 timeInsideDestination++;
+                GetComponent<NPC>().myFeelings.Happiness += 0.01f;
+            }
 
             // Count how long we have been working since interupption.
             if (IsCurrentlyWorking)

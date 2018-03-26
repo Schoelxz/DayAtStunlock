@@ -5,22 +5,19 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 
     [SerializeField] private GameObject m_playerRef;
-  /*  private Vector3 m_startRotasion;
-    private bool m_inRotasion;
-    private bool m_goingRight;
-    private bool m_goingLeft;
-    */
     private Quaternion m_targetRotation;
-    [Header("this is ther camera rotasion speed")]
+    [Header("Camera rotation speed")]
     [Range(0.01f, 1f)]
-    [SerializeField]
-    private float speed = 0.1f;
-    private float m_rotationStep = 45f;
+    [SerializeField] private float speed = 0.1f;
+    [Header("Indicates how far the camera will rotate")]
+    [Range(20f, 90f)]
+    [SerializeField] private float m_rotationStep = 45f;
 
 
     // Use this for initialization
     void Start () {
-   
+        if (m_playerRef == null)
+        m_playerRef = FindObjectOfType<PlayerMovement>().gameObject;
     }
 
     float dt;
