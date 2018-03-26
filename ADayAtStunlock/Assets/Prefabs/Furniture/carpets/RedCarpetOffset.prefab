@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4143119757694972}
   m_Layer: 0
-  m_Name: red carpet
+  m_Name: RedCarpetOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4281456579026468}
   - component: {fileID: 33240197647393198}
-  - component: {fileID: 64442917672207052}
   - component: {fileID: 23174397255004462}
   m_Layer: 0
   m_Name: red carpet
@@ -51,8 +50,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193940018174862}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalPosition: {x: -18.13, y: 0, z: 8.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4281456579026468}
   m_Father: {fileID: 0}
@@ -66,7 +65,7 @@ Transform:
   m_GameObject: {fileID: 1726103406416404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4143119757694972}
   m_RootOrder: 0
@@ -111,18 +110,4 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726103406416404}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64442917672207052
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1726103406416404}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
