@@ -2,48 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomEventTrigger : MonoBehaviour {
+public class RandomEventTrigger : MonoBehaviour
+{
+    public List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
 
-    List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
-    static public bool stopWork;
-    List<float> motivationList = new List<float>();
-    int shakeDuration;
+    [Range(1, 20)]
+    [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
+    public int shakeDuration = 10;
 
-	// Use this for initialization
-	void Start () {
-        stopWork = false;
-        InvokeRepeating("TriggerRandomEvent", 10, 60);
-        randomEvents.Add(TrainEvent);
-        shakeDuration = 7;
-	}
-	
-	
-    void TriggerRandomEvent()
+    private List<float> motivationList = new List<float>();
+    private int motivationLossDuration;
+
+	void Start ()
     {
+        motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        randomEvents[Random.Range(0, randomEvents.Count)]();
+        randomEvents.Add(TrainEvent);
+
+        StartCoroutine(StartInvokeRepeatingWhen());
+        
+        Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
+	}
+
+    IEnumerator StartInvokeRepeatingWhen()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            // Starts InvokeRepeating when All Npcs has been created.
+            if(DAS.NpcCreator.MaxNumberOfNPCs == DAS.NPC.s_npcList.Count)
+            {
+                InvokeRepeating("TriggerRandomEvent", 2, 60);
+                break;
+            }
+        }
+        Debug.Log("coroutine end");
     }
 
+    void TriggerRandomEvent()
+    {
+        randomEvents[Random.Range(0, randomEvents.Count)]();
+    }
 
     void TrainEvent()
     {
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        Camera.main.GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().Play();
         foreach (var npc in DAS.NPC.s_npcList)
         {
             motivationList.Add(npc.myFeelings.Motivation);
             npc.myFeelings.Motivation = 0;
         }
 
-        Invoke("ResetMotivation", shakeDuration);
+        Invoke("ResetMotivation", motivationLossDuration);
     }
 
     void ResetMotivation()
     {
-        for(int i = 0; i < DAS.NPC.s_npcList.Count; i++)
+        for(int i = 0; i < motivationList.Count - 1; i++)
         {
-            DAS.NPC.s_npcList[i].myFeelings.Motivation = motivationList[i];
+            DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
         }
     }
 }
