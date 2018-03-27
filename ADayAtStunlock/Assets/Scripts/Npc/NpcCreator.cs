@@ -157,7 +157,17 @@ namespace DAS
         // Keeps track of NPCs.
         List<GameObject> npcList = new List<GameObject>();
 
-        int numOfWorkSeats;
+        static int numOfWorkSeats;
+        /// <summary>
+        /// Returns an integer.
+        /// <para>Number is set at Start() of NpcCreator.</para>
+        /// <para>Is also number of work seats.</para>
+        /// </summary>
+        public static int MaxNumberOfNPCs
+        {
+            get { return numOfWorkSeats; }
+        }
+
         [Range(0, 45)] [SerializeField] private float numOfNPCs;
         private int NumOfNPCs
         {
