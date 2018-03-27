@@ -108,6 +108,13 @@ namespace DAS
 
         void Update()
         {
+            //Animate work
+           if(IsDestinationMyWorkSeat && IsCurrentlyWorking && GetComponent<NPC>().myFeelings.Motivation != 0)
+            {
+                m_animator.SetBool("Pickup 0", true);
+            }
+           else
+                m_animator.SetBool("Pickup 0", false);
             #region old pause
             /*
             if(gameHasBeenPaused == false)
@@ -130,7 +137,7 @@ namespace DAS
             #endregion
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
-           if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
+            if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
                 RotateTowardsDesk();
            else // else we should not be stopped in our movement
                 agentRef.isStopped = false;
@@ -251,7 +258,7 @@ namespace DAS
             {
                 if (IsDestinationMyWorkSeat)
                 {
-                    if (agentRef.remainingDistance <= 1.5f && Vector3.Distance(transform.position, myWorkSeat.position) < 0.5f)
+                    if (Vector3.Distance(transform.position, myWorkSeat.position) < 0.5f)
                         return true;
                     else
                         return false;
