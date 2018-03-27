@@ -56,7 +56,7 @@ public class NpcButtons : MonoBehaviour {
             m_buttonCanvas.enabled = true;
 
         // Make buttons follow NPCs in the screen overlay canvas.
-        if (m_npcRef != null && m_happinessButton.enabled == true)
+        if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(m_buttonCanvas.transform as RectTransform,
                 Camera.main.WorldToScreenPoint(m_npcRef.transform.position),
@@ -66,11 +66,11 @@ public class NpcButtons : MonoBehaviour {
             m_holderPos += new Vector2(Screen.width/2f, Screen.height/2f); // add some fixing offset to the buttons position.
         }
     }
-    // Update is called once per frame
+
     void LateUpdate ()
     {
         // Make buttons follow NPCs in the screen overlay canvas.
-        if (m_npcRef != null && m_happinessButton.enabled == true)
+        if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
             m_buttonHolder.position = m_holderPos;
         }
