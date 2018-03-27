@@ -36,6 +36,7 @@ public class MoneyManager : MonoBehaviour
 
     void Update ()
     {
+        if(MoneyDisplay != null)
         MoneyDisplay.SetScore(currentMoney);
 
         if (currentMoney <= 0)
