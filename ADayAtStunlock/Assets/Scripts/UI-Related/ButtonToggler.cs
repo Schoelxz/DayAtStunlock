@@ -17,6 +17,8 @@ public class ButtonToggler : MonoBehaviour
 
         buttons = GetComponentsInChildren<Button>(true);
 
+
+
         player = GameObject.Find("Player");
         distance = 5;
 
@@ -25,7 +27,6 @@ public class ButtonToggler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (buttons != null && player != null)
         {
             if (Vector3.Distance(player.transform.position, transform.position) < distance)
@@ -37,12 +38,9 @@ public class ButtonToggler : MonoBehaviour
             }
             else
             {
-                if (buttons != null)
+                foreach (var b in buttons)
                 {
-                    foreach (var b in buttons)
-                    {
-                        b.gameObject.SetActive(false);
-                    }
+                    b.gameObject.SetActive(false);
                 }
             }
         }
