@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        // checking if 
         if (m_playerRef == null)
         m_playerRef = FindObjectOfType<PlayerMovement>().gameObject;
         m_destinationRotation = transform.rotation.eulerAngles.y;
@@ -26,12 +27,16 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //make use of time so here we show/change time
         dt += Time.deltaTime;
+        // sets the posison of the of the script user to that of the object in  m_playerRef
         this.transform.position = new Vector3(m_playerRef.transform.position.x, m_playerRef.transform.position.y, m_playerRef.transform.position.z);
-
+        //when you press down Q you turn the camra to the left
         if (Input.GetKeyDown(KeyCode.Q))
-        {
+        {// sets the target rotasion dependent on how rotaded you are allredy with m_rotasionStep  
+         // with m_destinationRotasion contaning how mutch you have rotated allready
             m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_destinationRotation + m_rotationStep, transform.rotation.eulerAngles.z);
+         // changeing m_destinationRotation to how rotade the camera is
             m_destinationRotation += m_rotationStep;
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -39,40 +44,9 @@ public class CameraMovement : MonoBehaviour {
             m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_destinationRotation - m_rotationStep, transform.rotation.eulerAngles.z);
             m_destinationRotation -= m_rotationStep;
         }
+        //the acual change that is happening over time
         transform.rotation = Quaternion.Lerp(transform.rotation, m_targetRotation, speed);
 
-        /*if (Input.GetKeyDown(KeyCode.Q) && m_inRotasion==false)
-        {
-            m_goingLeft = true;
-            m_inRotasion = true;
-        }
-           
-
-        
-        else if (Input.GetKeyDown(KeyCode.E) && m_inRotasion == false)
-        {
-            m_goingRight = true;
-            m_inRotasion = true;
-        }
-        if (m_inRotasion == true && m_goingLeft == true)
-        {
-            this.transform.Rotate(Vector3.Lerp(new Vector3(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z),
-                                                new Vector3(this.transform.rotation.x, this.transform.rotation.y - 90, this.transform.rotation.z),
-                                                dt));
-        }
-
-
-        if (m_inRotasion == true && m_goingLeft == true)
-        {
-            this.transform.Rotate(Vector3.Lerp(new Vector3(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z),
-                                                          new Vector3(this.transform.rotation.x, this.transform.rotation.y + 90, this.transform.rotation.z),
-                                                          dt));
-        }
-        if (dt > 1) { 
-        dt = 0;
-            m_goingRight = false;
-            m_inRotasion = false;
-            m_goingLeft = false;
-        }*/
+       
     }
 }
