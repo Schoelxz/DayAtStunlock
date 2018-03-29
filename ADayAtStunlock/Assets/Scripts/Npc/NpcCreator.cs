@@ -36,6 +36,13 @@ namespace DAS
                 get { return motivation; }
                 set { motivation = Mathf.Clamp01(value); }
             }
+            /// <summary>
+            /// Total of motivation and happiness (value will be between 0 and 2)
+            /// </summary>
+            public float TotalFeelings
+            {
+                get { return motivation+happiness; }
+            }
 
             public Feelings(float happiness, float motivation)
             {
