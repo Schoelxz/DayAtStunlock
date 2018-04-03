@@ -22,7 +22,7 @@ public class RandomEventTrigger : MonoBehaviour
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        //randomEvents.Add(TrainEvent);
+        randomEvents.Add(TrainEvent);
 
         randomEvents.Add(RadiatorEvent);
 
@@ -76,14 +76,12 @@ public class RandomEventTrigger : MonoBehaviour
         }
     }
     #endregion
-
-
+    
     #region Radiator
 
     void RadiatorEvent()
     {
-            radiators[Random.Range(0, radiators.Length)].RadiatorNoise();
-        
+            radiators[Random.Range(0, radiators.Length)].RadiatorStart();
     }
     
     #endregion
