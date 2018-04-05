@@ -179,7 +179,7 @@ namespace DAS
             foreach (var icon in m_icons)
             {
 
-                var allowedPos = (Vector3)icon.MyVector2 - middlePoint;
+                var allowedPos = new Vector3(icon.MyVector2.x, icon.MyVector2.y) - middlePoint;
                 allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height/(2f*screenClampMultiplier));
 
                 //Set gameobjects position to the Vector2 Position it should have.
@@ -213,15 +213,19 @@ namespace DAS
                 );
 
                 //Positioning of the Icons
-                pos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.
+                pos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
 
-                if (Vector3.Distance(pos, icon.MyGameObject.transform.position) < 2)
+                float distColLerp = Mathf.Clamp(1 - Vector3.Distance(middlePoint, icon.MyVector2)/1500, 0.2f, 0.8f);
+                
+                Debug.Log(distColLerp);
+
+                if (Vector3.Distance(pos, icon.MyGameObject.transform.position) < 1f)
                 {
                     icon.MyGameObject.transform.position = (middlePoint + allowedPos) + new Vector3(0, 110);
-                    icon.MyGameObject.GetComponent<Image>().color = new Color(0.8f, 0.1f, 0.8f, 1);
+                    icon.MyGameObject.GetComponent<Image>().color = new Color(0.8f, 0.1f, 0.1f, 1);
                 }
                 else
-                    icon.MyGameObject.GetComponent<Image>().color = new Color(0.2f, 0, 0.2f, 1);
+                    icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1-distColLerp, 1);
                 //icon.MyGameObject.SetActive(false);
 
 
