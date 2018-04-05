@@ -56,10 +56,10 @@ public class AudioManager : MonoBehaviour {
         UpdateSoundVolumeAll();
 
     }
-    public float GetVolume()
-    {
-        return masterVolume;
-    }
+    //public float GetVolume()
+    //{
+    //    return masterVolume;
+    //}
     public void UpdateSoundVolumeAll()
     {
         foreach (Sound s in sounds)
