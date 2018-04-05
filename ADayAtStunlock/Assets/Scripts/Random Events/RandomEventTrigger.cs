@@ -13,6 +13,8 @@ public class RandomEventTrigger : MonoBehaviour
     private List<float> motivationList = new List<float>();
     private int motivationLossDuration;
 
+    AudioManager audioManager;
+
 	void Start ()
     {
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
@@ -20,9 +22,10 @@ public class RandomEventTrigger : MonoBehaviour
         randomEvents.Add(TrainEvent);
 
         StartCoroutine(StartInvokeRepeatingWhen());
-        
-        Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
-	}
+
+        audioManager = FindObjectOfType<AudioManager>();
+        //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
+    }
 
     IEnumerator StartInvokeRepeatingWhen()
     {
@@ -49,7 +52,8 @@ public class RandomEventTrigger : MonoBehaviour
     {
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        GetComponent<AudioSource>().Play();
+        audioManager.Play("Train");
+
         foreach (var npc in DAS.NPC.s_npcList)
         {
             motivationList.Add(npc.myFeelings.Motivation);
