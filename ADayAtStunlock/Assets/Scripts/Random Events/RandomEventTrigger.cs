@@ -16,6 +16,8 @@ public class RandomEventTrigger : MonoBehaviour
 
     private int motivationLossDuration;
 
+    AudioManager audioManager;
+
 	void Start ()
     {
         radiators = FindObjectsOfType<Radiator>();
@@ -26,9 +28,10 @@ public class RandomEventTrigger : MonoBehaviour
         randomEvents.Add(RadiatorEvent);
 
         StartCoroutine(StartInvokeRepeatingWhen());
-        
-        Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
-	}
+
+        audioManager = FindObjectOfType<AudioManager>();
+        //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
+    }
 
     //Makes sure to start the random events after all npcs have spawned
     IEnumerator StartInvokeRepeatingWhen()
@@ -57,7 +60,8 @@ public class RandomEventTrigger : MonoBehaviour
     {
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        GetComponent<AudioSource>().Play();
+        audioManager.Play("Train");
+
         foreach (var npc in DAS.NPC.s_npcList)
         {
             motivationList.Add(npc.myFeelings.Motivation);
