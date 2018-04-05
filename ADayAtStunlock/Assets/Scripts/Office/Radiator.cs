@@ -9,16 +9,23 @@ public class Radiator : MonoBehaviour {
     bool isBroken;
     Button fixButton;
     Image fixButtonImage;
-    
+
+
+    AudioManager audioManager;
+
 	void Start () {
 
         isBroken = false;
 
-        fixButton.onClick.AddListener(RadiatorEnd);
+        
         fixButton = gameObject.GetComponentInChildren<Button>();
+        fixButton.onClick.AddListener(RadiatorEnd);
 
-        fixButtonImage.enabled = false;
         fixButtonImage = gameObject.GetComponentInChildren<Image>();
+        fixButtonImage.enabled = false;
+
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
+
     }
 	
 	void Update () {
@@ -39,6 +46,12 @@ public class Radiator : MonoBehaviour {
         fixButtonImage.enabled = true;
 
         //Play radiator sound here
+        if(audioManager != null)
+        {
+            print("Trying to play broken radiator sound");
+            audioManager.Play("RadiatorBroken");
+        }
+        
     }
 
     void RadiatorEnd()
@@ -48,6 +61,12 @@ public class Radiator : MonoBehaviour {
 
         //Pause radiator sound here
         //Play fix radiator sound here
+        if (audioManager != null)
+        {
+            print("Trying to stop broken radiator sound");
+            audioManager.Stop("RadiatorBroken");
+            audioManager.Play("RadiatorRepair");
+        }
     }
 
     private void OnTriggerEnter(Collider other)

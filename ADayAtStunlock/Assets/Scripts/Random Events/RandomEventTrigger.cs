@@ -24,7 +24,7 @@ public class RandomEventTrigger : MonoBehaviour
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        randomEvents.Add(TrainEvent);
+        //randomEvents.Add(TrainEvent);
         randomEvents.Add(RadiatorEvent);
 
         StartCoroutine(StartInvokeRepeatingWhen());
