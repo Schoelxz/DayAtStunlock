@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace DAS
 {
-
     public class FindNpcInUI : MonoBehaviour
     {
         class Icon
@@ -51,22 +50,22 @@ namespace DAS
                 MyVector2 = newV2;
             }
 
-            public bool IsWithinScreenBoundaries
+            private bool IsWithinScreenBoundaries
             {
                 get
                 {
-                    if  (   
-                            myVector2.x > Screen.width  / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance)
-                        &&  myVector2.x < Screen.width  - (Screen.width     / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance))
-                        &&  myVector2.y > Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier +   myInstance.screenInsideBoundaryAllowance)
-                        &&  myVector2.y < Screen.height - (Screen.height    / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance))
+                    if (
+                            myVector2.x > Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance)
+                        && myVector2.x < Screen.width - (Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance))
+                        && myVector2.y > Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance)
+                        && myVector2.y < Screen.height - (Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier + myInstance.screenInsideBoundaryAllowance))
                         )
                         return true;
                     else
                         return false;
                 }
             }
-            public bool IsOutsideScreenBoundaries
+            private bool IsOutsideScreenBoundaries
             {
                 get
                 {
@@ -75,12 +74,12 @@ namespace DAS
 
                     if (
                          ((
-                            myVector2.x < Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier *2)
-                        ||  myVector2.x > Screen.width - (Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier *2))
+                            myVector2.x < Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier * 2)
+                        || myVector2.x > Screen.width - (Screen.width / (FindNpcInUI.myInstance.screenClampMultiplier * 2))
                           )
-                        &&(
-                            myVector2.y < Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier *2)
-                        ||  myVector2.y > Screen.height - (Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier *2))
+                        && (
+                            myVector2.y < Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier * 2)
+                        || myVector2.y > Screen.height - (Screen.height / (FindNpcInUI.myInstance.screenClampMultiplier * 2))
                           ))
                        )
                         return true;
@@ -88,7 +87,6 @@ namespace DAS
                         return false;
                 }
             }
-
         }
 
         //Singleton behaviour class.
@@ -97,12 +95,17 @@ namespace DAS
         public Sprite imageToDisplay;
 
         [Header("Artist Variables")]
-        [Range(1f, 50f)]
+        [Range(1f, 5f)]
         [SerializeField]
         private float screenClampMultiplier = 1.1f;
-        [Range(0, 150)]
+        [Range(1, 300)]
         [SerializeField]
+        private int distanceTilArrowPlaced = 1;
+        //[Range(0, 150)]
+        //[SerializeField]
         private int screenInsideBoundaryAllowance = 10;
+        [SerializeField]
+        private bool showArrowWhenClose = true;
 
         private Canvas m_myCanvas;
         private List<Icon> m_icons = new List<Icon>();
@@ -157,80 +160,81 @@ namespace DAS
 
                 m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyVector2 = new Vector2(pos.x, pos.y);
 
-                /*m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyVector2 = new Vector2(
-                    Mathf.Clamp(pos.x, Screen.width  / screenClampMultiplier, Screen.width  - (Screen.width  / screenClampMultiplier)),
-                    Mathf.Clamp(pos.y, Screen.height / screenClampMultiplier, Screen.height - (Screen.height / screenClampMultiplier))
-                    ); // Set the "to be" position of the icon*/
-
                 // Rotation of the Icons
-                //Vector3 diff = middlePoint - m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyGameObject.transform.position;
                 Vector3 diff = (Vector3)pos - m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyGameObject.transform.position;
                 diff.Normalize();
                 float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
                 m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyGameObject.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-                //m_icons[DAS.NPC.s_npcList.IndexOf(npc)].MyGameObject.transform.Rotate(0, 0, 180); // flip
             }
         }
 
         private void LateUpdate()
         {
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             // Update all icon arrows; their position and if visible(and active)
             foreach (var icon in m_icons)
             {
-
-                var allowedPos = new Vector3(icon.MyVector2.x, icon.MyVector2.y) - middlePoint;
-                allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height/(2f*screenClampMultiplier));
+                //Set allowed position to keep inside
+                Vector3 allowedPos = new Vector3(icon.MyVector2.x, icon.MyVector2.y) - middlePoint;
+                allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height / (2f * screenClampMultiplier));
 
                 //Set gameobjects position to the Vector2 Position it should have.
-
-
                 icon.MyGameObject.transform.position = middlePoint + allowedPos;
                 icon.MyGameObject.SetActive(false);
 
                 if (icon.myNpcRef == null)
                     continue;
 
-                /*if (icon.IsWithinScreenBoundaries)
-                {
-                   // icon.MyGameObject.SetActive(false);
-                }
-                else*/
                 if (icon.myNpcRef != null && icon.myNpcRef.myFeelings.TotalFeelings <= 0)
                     icon.MyGameObject.SetActive(true);
+                else
+                    continue;
 
-                Vector2 pos;
+                Vector2 npcPosInUIPos; //Npc position in UI Position
+
                 //Get position from the 3D world and convert it into a 2D position on the screen
                 RectTransformUtility.ScreenPointToLocalPointInRectangle
                 (
                     m_myCanvas.transform as RectTransform,
-
                     Camera.main.WorldToScreenPoint(icon.myNpcRef.transform.position),
-
                     m_myCanvas.worldCamera,
-
-                    out pos
+                    out npcPosInUIPos
                 );
 
                 //Positioning of the Icons
-                pos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
+                npcPosInUIPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
 
-                float distColLerp = Mathf.Clamp(1 - Vector3.Distance(middlePoint, icon.MyVector2)/1500, 0.2f, 0.8f);
-                
-                Debug.Log(distColLerp);
+                //Lerp a color by checking deistance between middlepoint of screen and npc position in 2D space
+                float distColLerp = Mathf.Clamp(1 - Vector3.Distance(middlePoint, icon.MyVector2) / 1500, 0.2f, 0.8f);
 
-                if (Vector3.Distance(pos, icon.MyGameObject.transform.position) < 1f)
+                //if the distance between the npc 2D-Pos and that npcs' icon position is less than "distanceTilArrowPlaced"
+                if (Vector3.Distance(npcPosInUIPos, icon.MyGameObject.transform.position) < distanceTilArrowPlaced)
                 {
-                    icon.MyGameObject.transform.position = (middlePoint + allowedPos) + new Vector3(0, 110);
-                    icon.MyGameObject.GetComponent<Image>().color = new Color(0.8f, 0.1f, 0.1f, 1);
+                    if (!showArrowWhenClose)
+                    {
+                        icon.MyGameObject.SetActive(false);
+                        continue;
+                    }
+                    //Set icon position roughly above the head of the NPC
+                    icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 110);
+                    icon.MyGameObject.GetComponent<Image>().color = new Color(0.9f, 0.15f, 0.15f, 1);//Arrow color change
                 }
                 else
-                    icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1-distColLerp, 1);
-                //icon.MyGameObject.SetActive(false);
-
-
+                    icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1 - distColLerp, 1); //Arrow color change
             }
         }
-    }
 
+
+        private void OnDrawGizmos()
+        {
+            Camera camera = Camera.main;
+            Vector3 p = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(p, 0.1F);
+
+            UnityEditor.Handles.color = Color.red;
+
+
+
+        }
+    }
 }

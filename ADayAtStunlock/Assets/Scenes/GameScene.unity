@@ -778,9 +778,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67f55341b355d34aac7bcdc0288dcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageToDisplay: {fileID: 21300000, guid: 30194a55f19209b4b9da819d26ee62b7, type: 3}
-  screenClampMultiplier: 10
-  screenInsideBoundaryAllowance: 0
+  imageToDisplay: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
+  screenClampMultiplier: 1.1
+  distanceTilArrowPlaced: 1
+  showArrowWhenClose: 1
 --- !u!114 &110456207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2755,6 +2756,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 195628272985572028, guid: 7555152c399f0bd47bc81c6247a4a7d4,
+        type: 2}
+      propertyPath: m_AngularSpeed
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 195628272985572028, guid: 7555152c399f0bd47bc81c6247a4a7d4,
+        type: 2}
+      propertyPath: m_Acceleration
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7555152c399f0bd47bc81c6247a4a7d4, type: 2}
   m_IsPrefabParent: 0
@@ -4003,7 +4014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4196729492056494, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -8.15
       objectReference: {fileID: 0}
     - target: {fileID: 4196729492056494, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalPosition.x
