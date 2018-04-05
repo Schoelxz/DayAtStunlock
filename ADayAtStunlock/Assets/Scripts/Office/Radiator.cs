@@ -14,12 +14,12 @@ public class Radiator : MonoBehaviour {
 
         isBroken = false;
 
-        fixButton = gameObject.GetComponentInChildren<Button>();
-        fixButtonImage = gameObject.GetComponentInChildren<Image>();
-
         fixButton.onClick.AddListener(RadiatorEnd);
+        fixButton = gameObject.GetComponentInChildren<Button>();
+
         fixButtonImage.enabled = false;
-	}
+        fixButtonImage = gameObject.GetComponentInChildren<Image>();
+    }
 	
 	void Update () {
 
@@ -38,7 +38,7 @@ public class Radiator : MonoBehaviour {
         isBroken = true;
         fixButtonImage.enabled = true;
 
-        //Play sound effect here
+        //Play radiator sound here
     }
 
     void RadiatorEnd()
@@ -46,7 +46,8 @@ public class Radiator : MonoBehaviour {
         fixButtonImage.enabled = false;
         isBroken = false;
 
-        //Pause sound effect here
+        //Pause radiator sound here
+        //Play fix radiator sound here
     }
 
     private void OnTriggerEnter(Collider other)

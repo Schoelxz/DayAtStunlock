@@ -23,7 +23,6 @@ public class RandomEventTrigger : MonoBehaviour
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
         randomEvents.Add(TrainEvent);
-
         randomEvents.Add(RadiatorEvent);
 
         StartCoroutine(StartInvokeRepeatingWhen());
@@ -81,7 +80,11 @@ public class RandomEventTrigger : MonoBehaviour
 
     void RadiatorEvent()
     {
+        if(radiators.Length > 0)
+        {
+
             radiators[Random.Range(0, radiators.Length)].RadiatorStart();
+        }
     }
     
     #endregion
