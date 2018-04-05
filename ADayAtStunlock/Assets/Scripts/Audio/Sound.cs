@@ -9,15 +9,17 @@ public class Sound
     public AudioClip clip;
 
     [Range(0f, 1f)]
-    public float volume = 1f;
+    public float volume;
 
     [Range(0.1f, 3f)]
-    public float pitch = 1f;
+    public float pitch;
 
     public bool loop;
-    [HideInInspector]
-    public enum AudioType { music, soundEffect, test};
-    public AudioType audioType;
+
+    //Not currently in use
+    //public enum SoundType { music, soundEffect, test };
+    //public SoundType soundType;
+
     [HideInInspector]
     public AudioSource source;
 
