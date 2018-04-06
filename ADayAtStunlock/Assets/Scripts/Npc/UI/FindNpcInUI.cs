@@ -98,18 +98,13 @@ namespace DAS
         [Range(1f, 5f)]
         [SerializeField]
         private float screenClampMultiplier = 1.1f;
-        [Range(1, 300)]
-        [SerializeField]
-        private int distanceTilArrowPlaced = 1;
-        //[Range(0, 150)]
-        //[SerializeField]
-        private int screenInsideBoundaryAllowance = 10;
         [SerializeField]
         private bool showArrowWhenClose = true;
 
         private Canvas m_myCanvas;
         private List<Icon> m_icons = new List<Icon>();
         private Vector3 middlePoint;
+        private int screenInsideBoundaryAllowance = 10;
 
         void Start()
         {
@@ -117,7 +112,10 @@ namespace DAS
             if (myInstance == null)
                 myInstance = this;
             else
-                Destroy(this.gameObject);
+            {
+                Debug.LogError("Singleton Conflict: Removing newest script component FindNpcUI");
+                Destroy(this);
+            }
 
             m_myCanvas = GetComponent<Canvas>();
 
@@ -140,6 +138,7 @@ namespace DAS
 
             foreach (var npc in DAS.NPC.s_npcList)
             {
+                //Give each icon their respective npc to refer to.
                 if (m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef == null)
                     m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef = npc;
 
@@ -171,7 +170,6 @@ namespace DAS
 
         private void LateUpdate()
         {
-            Vector2 screenVector2 = new Vector2(Screen.width, Screen.height);
             // Update all icon arrows; their position and if visible(and active)
             foreach (var icon in m_icons)
             {
@@ -186,7 +184,7 @@ namespace DAS
                 //Set gameobjects position to the Vector2 Position it should have.
                 icon.MyGameObject.transform.position = middlePoint + allowedPos;
 
-                if (icon.myNpcRef != null && icon.myNpcRef.myFeelings.TotalFeelings <= 0)
+                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0)
                     icon.MyGameObject.SetActive(true);
                 else
                     continue;
@@ -200,7 +198,9 @@ namespace DAS
                     m_myCanvas.worldCamera,
                     out npcPosInUIPos
                 );
+
                 Vector2 screenPos;
+                //Get position from the 3D world and convert it into a 2D position on the screen
                 RectTransformUtility.ScreenPointToLocalPointInRectangle
                 (
                     m_myCanvas.transform as RectTransform,
@@ -211,13 +211,11 @@ namespace DAS
 
                 //Positioning of the Icons
                 npcPosInUIPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
-                //npcPosInUIPos = new Vector2(npcPosInUIPos.x, Mathf.Clamp(npcPosInUIPos.y, -500, 500));
 
                 //Lerp a color by checking deistance between middlepoint of screen and npc position in 2D space
                 float distColLerp = Mathf.Clamp(1 - Vector3.Distance(PlayerMovement.s_playerGoRef.transform.position, icon.myNpcRef.transform.position) / (new Vector2(Screen.width, Screen.height).magnitude/70), 0.2f, 0.8f);
                 
-                //if the distance between the npc 2D-Pos and that npcs' icon position is less than "distanceTilArrowPlaced"
-                //if (Vector3.Distance(npcPosInUIPos, icon.MyGameObject.transform.position) < distanceTilArrowPlaced)
+                //If npc is inside the area of the screen.
                 if(Screen.safeArea.Contains(npcPosInUIPos))
                 {
                     if (!showArrowWhenClose)
@@ -227,17 +225,18 @@ namespace DAS
                     }
                     //Set icon position roughly above the head of the NPC
                     icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 80);
+                    //Arrow color to be if above head of NPC
                     icon.MyGameObject.GetComponent<Image>().color = new Color(0.9f, 0.15f, 0.15f, 1);//Arrow color change
 
                     //if the new position of the Icon goes outside of the screen; set the position to its "original" position.
                     if (!Screen.safeArea.Contains((icon.MyVector2 + new Vector2(0, 100))))
                     {
                         icon.MyGameObject.transform.position = (middlePoint + allowedPos) - new Vector3(0, 20);
-                        icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1 - distColLerp, 1); //Arrow color change
+                        icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1 - distColLerp, 1); //Standard Arrow color lerp change
                     }
                 }
                 else
-                    icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1 - distColLerp, 1); //Arrow color change
+                    icon.MyGameObject.GetComponent<Image>().color = new Color(distColLerp, 0, 1 - distColLerp, 1); //Standard Arrow color lerp change
             }
         }
 
