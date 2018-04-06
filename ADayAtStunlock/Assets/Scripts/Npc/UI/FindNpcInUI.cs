@@ -224,7 +224,7 @@ namespace DAS
                         continue;
                     }
                     //Set icon position roughly above the head of the NPC
-                    icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 80);
+                    icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 100);
                     //Arrow color to be if above head of NPC
                     icon.MyGameObject.GetComponent<Image>().color = new Color(0.9f, 0.15f, 0.15f, 1);//Arrow color change
 

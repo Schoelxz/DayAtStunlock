@@ -31,7 +31,7 @@ namespace DAS
                     s_toiletPoints.AddRange(GameObject.FindGameObjectsWithTag("Toilet"));
             }
         }
-        private static class WorkSeat
+        private static class WorkSeatTemp
         {
             public static List<GameObject> s_allWorkSeats = new List<GameObject>();
 
@@ -72,7 +72,7 @@ namespace DAS
 
         private void Awake()
         {
-            WorkSeat.InitWorkSeats();
+            WorkSeatTemp.InitWorkSeats();
             Toilet.InitToilets();
 
             // All getcomponent functions are called inside this function, returning false if it fails.
@@ -89,7 +89,7 @@ namespace DAS
             s_allNPCs.Add(this);
 
             // Assign this NPCs' work seat.
-            Transform temp = WorkSeat.s_allWorkSeats[s_allNPCs.IndexOf(this)].transform;
+            Transform temp = WorkSeatTemp.s_allWorkSeats[s_allNPCs.IndexOf(this)].transform;
             myWorkSeat = temp;
             myWorkSeat.position = new Vector3(temp.position.x, 0, temp.position.z);
 

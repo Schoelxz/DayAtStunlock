@@ -780,7 +780,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageToDisplay: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
   screenClampMultiplier: 1.1
-  distanceTilArrowPlaced: 1
   showArrowWhenClose: 1
 --- !u!114 &110456207
 MonoBehaviour:
@@ -6858,6 +6857,7 @@ GameObject:
   - component: {fileID: 1168330430}
   - component: {fileID: 1168330432}
   - component: {fileID: 1168330431}
+  - component: {fileID: 1168330433}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7022,6 +7022,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e0302bb28457e4dbd3b311cfda3381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1168330433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d774e730d6da1cd4abd4e28a923b6e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameobjectSeats: []
+  workSeats: []
 --- !u!1001 &1170073839
 Prefab:
   m_ObjectHideFlags: 0

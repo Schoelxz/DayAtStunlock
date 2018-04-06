@@ -8,7 +8,7 @@ namespace DAS
     /// <summary>
     /// Standard NPC class, contains general NPC stuff.
     /// </summary>
-    class NPC : MonoBehaviour
+    public class NPC : MonoBehaviour
     {
         #region EditorStuff
 #if UNITY_EDITOR
@@ -61,6 +61,7 @@ namespace DAS
 
         public new string name;
 
+        public WorkSeat myWorkSeat;
         public DAS.NPCMovement moveRef;
         private Material myMaterial;
         private Material moneyMaterial;
@@ -121,6 +122,7 @@ namespace DAS
 
         private void OnDestroy()
         {
+            WorkSeatManager.myInstance.workSeats.Remove(this.myWorkSeat);
             s_npcList.Remove(this);
         }
 
@@ -143,6 +145,8 @@ namespace DAS
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
+
+            
         }
 
         #region Functions
@@ -259,6 +263,7 @@ namespace DAS
             numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
         }
 
+#if UNITY_EDITOR
         private void OnGUI()
         {
             if (!toggleGUI)
@@ -268,6 +273,7 @@ namespace DAS
             // Shows the amount of NPCs
             GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
         }
+#endif
 
         void Update()
         {
@@ -282,7 +288,7 @@ namespace DAS
             else
                 return;
             //---
-
+            
             // Controls NPC amount
             NpcAmountController();
 
@@ -343,13 +349,16 @@ namespace DAS
         /// </summary>
         void AddNewNPC()
         {
+            NPC tempNPC;
             if (NPCPrefab == null)
                 Debug.Assert(NPCPrefab);
             else
                 npcList.Add(Instantiate(NPCPrefab));
             npcList[npcList.Count - 1].name = names[npcList.Count - 1]; //+ npcList.Count;
-            npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
-            npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+            tempNPC = npcList[npcList.Count - 1].AddComponent<NPC>();
+            tempNPC.name = npcList[npcList.Count - 1].gameObject.name;
+            tempNPC.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+            tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[npcList.Count - 1], tempNPC);
         }
 
         /// <summary>
