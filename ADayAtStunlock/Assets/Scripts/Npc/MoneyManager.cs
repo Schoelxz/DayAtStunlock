@@ -23,6 +23,8 @@ public class MoneyManager : MonoBehaviour
 
     static public float moneyLost;
 
+    static float moneyChangeLastFrame;
+
     float timer;
 
 	void Start ()
@@ -31,6 +33,7 @@ public class MoneyManager : MonoBehaviour
         moneyEarned = 0;
         startMoney = 12500;
         currentMoney = startMoney;
+        moneyChangeLastFrame = startMoney;
 
         scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
@@ -40,10 +43,15 @@ public class MoneyManager : MonoBehaviour
     void Update ()
     {
         if(scoreDisplay != null)
-        scoreDisplay.SetScore(currentMoney);
+        scoreDisplay.SetScore(currentMoney, moneyChangeLastFrame);
 
         if (currentMoney <= 0)
             LoseGame();
+        
+    }
+    private void LateUpdate()
+    {
+        moneyChangeLastFrame = currentMoney;
     }
 
     private void FixedUpdate()
