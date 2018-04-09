@@ -41,7 +41,7 @@ public class RandomEventTrigger : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
             // Starts InvokeRepeating when All Npcs has been created.
-            if(DAS.NpcCreator.MaxNumberOfNPCs == DAS.NPC.s_npcList.Count)
+            if(DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count)
             {
                 InvokeRepeating("TriggerRandomEvent", 2, 60);
                 break;

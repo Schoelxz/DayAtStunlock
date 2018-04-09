@@ -8,7 +8,7 @@ namespace DAS
     /// <summary>
     /// Standard NPC class, contains general NPC stuff.
     /// </summary>
-    class NPC : MonoBehaviour
+    public class NPC : MonoBehaviour
     {
         #region EditorStuff
 #if UNITY_EDITOR
@@ -61,6 +61,7 @@ namespace DAS
 
         public new string name;
 
+        public WorkSeat myWorkSeat;
         public DAS.NPCMovement moveRef;
         private Material myMaterial;
         private Material moneyMaterial;
@@ -121,6 +122,7 @@ namespace DAS
 
         private void OnDestroy()
         {
+            WorkSeatManager.myInstance.workSeats.Remove(this.myWorkSeat);
             s_npcList.Remove(this);
         }
 
@@ -143,6 +145,8 @@ namespace DAS
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
+
+            
         }
 
         #region Functions
@@ -160,6 +164,8 @@ namespace DAS
         [SerializeField]
         private GameObject NPCPrefab;
 
+        private GameObject npcFolder;
+
         // Locations the NPCs can spawn at when created.
         public Transform[] spawnLocations = new Transform[2];
         // Wether to show/use GUI or not.
@@ -168,18 +174,34 @@ namespace DAS
         // Keeps track of NPCs.
         List<GameObject> npcList = new List<GameObject>();
 
+        [Range(0, 41)]
+        [SerializeField]
+        private int maxAllowedNpcs = 41;
+        public int MaxAllowedNpcs
+        {
+
+            get { return maxAllowedNpcs; }
+            set { maxAllowedNpcs = Mathf.Clamp(value, 0, MaxNumberOfNPCsByWorkseatAmount); }
+        }
+
         static int numOfWorkSeats;
         /// <summary>
         /// Returns an integer.
         /// <para>Number is set at Start() of NpcCreator.</para>
         /// <para>Is also number of work seats.</para>
         /// </summary>
-        public static int MaxNumberOfNPCs
+        public static int MaxNumberOfNPCsByWorkseatAmount
         {
             get { return numOfWorkSeats; }
         }
 
-        [Range(0, 45)] [SerializeField] private float numOfNPCs;
+        [Range(0f, 45f)]
+        [SerializeField]
+        private float secondsTilNpcSpawn = 1;
+
+        [Range(0, 45)]
+        [SerializeField]
+        private float numOfNPCs;
         private int NumOfNPCs
         {
             get { return (int)Mathf.Clamp(numOfNPCs, 0, numOfWorkSeats); }
@@ -188,59 +210,59 @@ namespace DAS
         string[] names = new string[45];
         void AssignNamesToArray()
         {
-            names[0] = "Peter";
-            names[1] = "Filip";
-            names[2] = "Martin";
-            names[3] = "Max";
-            names[4] = "Philip";
-            names[5] = "Pierre";
-            names[6] = "Rickard";
-            names[7] = "Srdan";
-            names[8] = "Tau";
+            names[0] = "Peter";//ll     //product owner, game director
+            names[1] = "Filip";//mr     //Ekonomichef
+            names[2] = "Martin L";//bs    //creative director
+            names[3] = "Max T";//ml     //Producer
+            names[4] = "Philip";//ml    //lead programmer
+            names[5] = "Pierre";//bs    //HR
+            names[6] = "Rickard";//rrr   //VD
+            names[7] = "Srdan";//bs //lead artist
+            names[8] = "Tau";//ll       //PR
 
             //Art team
-            names[9] = "Patrik";
-            names[10] = "Gabriel";
-            names[11] = "Oskar";
-            names[12] = "Mattias";
-            names[13] = "Martin";
-            names[14] = "Max";
-            names[15] = "Tara";
-            names[16] = "Fanny";
-            names[17] = "Sofia";
-            names[18] = "Andreas";
-            names[19] = "Viktor";
-            names[20] = "Johan A";
-            names[21] = "Johan W";
+            names[9] = "Patrik";//bs
+            names[10] = "Gabriel";//bs
+            names[11] = "Oskar";//bl
+            names[12] = "Mattias";//bl
+            names[13] = "Martin";//bl
+            names[14] = "Max";//bl
+            names[15] = "Tara";//bl
+            names[16] = "Fanny";//bl
+            names[17] = "Sofia";//bl
+            names[18] = "Andreas";//bl
+            names[19] = "Viktor";//bl
+            names[20] = "Johan A";//bl
+            names[21] = "Johan W";//rr
 
             //UI
-            names[22] = "Karl";
-            names[23] = "Katey";
-            names[24] = "Daniel";
-            names[25] = "Arvid";
+            names[22] = "Karl";//rr
+            names[23] = "Katey";//rr
+            names[24] = "Daniel";//rr
+            names[25] = "Arvid";//rr
 
             //Design
-            names[26] = "Simon";
-            names[27] = "Konrad";
-            names[28] = "Christian";
-            names[29] = "Erik";
-            names[30] = "Emil";
+            names[26] = "Simon";//rr
+            names[27] = "Konrad";//rr
+            names[28] = "Christian";//rr
+            names[29] = "Erik";//rr
+            names[30] = "Emil";//rr
 
             //Programmers
-            names[31] = "Fredrik";
-            names[32] = "Jonas";
+            names[31] = "Fredrik";//ml
+            names[32] = "Jonas";//ml
 
             //Temps
-            names[33] = "Christoffer";
-            names[34] = "Tobias";
-            names[35] = "Jimmy";
+            names[33] = "Christoffer";//bs
+            names[34] = "Tobias";//bs
+            names[35] = "Jimmy";//bs
 
             //Community
-            names[36] = "Johan";
-            names[37] = "Liz";
-            names[38] = "Christopher";
-            names[39] = "Lisabeth";
-            names[40] = "Ruth";
+            names[36] = "Johan";//mr
+            names[37] = "Liz";//mr
+            names[38] = "Christopher";//mr
+            names[39] = "Lisabeth";//ll
+            names[40] = "Ruth";//ll
 
 
             for (int i = 41; i < names.Length; i++)
@@ -257,8 +279,11 @@ namespace DAS
         {
             AssignNamesToArray();
             numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
+            npcFolder = GameObject.Find("NPC Folder");
         }
 
+#if UNITY_EDITOR
+        
         private void OnGUI()
         {
             if (!toggleGUI)
@@ -266,14 +291,20 @@ namespace DAS
             // A Slider for controlling the number of NPCs
             numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), NumOfNPCs, numOfWorkSeats, 0);
             // Shows the amount of NPCs
-            GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
+            GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString("00"));
+
+            secondsTilNpcSpawn = GUI.VerticalSlider(new Rect(25, 140, 100, 100), secondsTilNpcSpawn, 30, 0);
+            // Shows the amount of NPCs
+            GUI.Box(new Rect(35, 130, 35, 25), secondsTilNpcSpawn.ToString("00.0"));
         }
+#endif
 
         void Update()
         {
             numOfNPCs = NumOfNPCs;
 
-            NpcCreationPerXSeconds(1);
+            if(NumOfNPCs < MaxAllowedNpcs)
+                NpcCreationPerXSeconds(secondsTilNpcSpawn);
 
             //+++ Reduce update calls
             dt += Time.deltaTime;
@@ -282,7 +313,7 @@ namespace DAS
             else
                 return;
             //---
-
+            
             // Controls NPC amount
             NpcAmountController();
 
@@ -343,13 +374,17 @@ namespace DAS
         /// </summary>
         void AddNewNPC()
         {
+            NPC tempNPC;
             if (NPCPrefab == null)
                 Debug.Assert(NPCPrefab);
             else
                 npcList.Add(Instantiate(NPCPrefab));
             npcList[npcList.Count - 1].name = names[npcList.Count - 1]; //+ npcList.Count;
-            npcList[npcList.Count - 1].AddComponent<NPC>().name = npcList[npcList.Count - 1].gameObject.name;
-            npcList[npcList.Count - 1].transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+            tempNPC = npcList[npcList.Count - 1].AddComponent<NPC>();
+            tempNPC.name = npcList[npcList.Count - 1].gameObject.name;
+            tempNPC.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+            tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[tempNPC.name].gameObject, tempNPC);
+            tempNPC.gameObject.transform.parent = npcFolder.transform;
         }
 
         /// <summary>

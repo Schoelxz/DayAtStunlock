@@ -120,7 +120,7 @@ namespace DAS
             m_myCanvas = GetComponent<Canvas>();
 
             // Add an icon arrow spot for all npcs, starting at the max amount of npcs
-            for (int i = 0; i < DAS.NpcCreator.MaxNumberOfNPCs; i++)
+            for (int i = 0; i < DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount; i++)
             {
                 m_icons.Add(new Icon(new GameObject("NPC Icon " + i)));
                 m_icons[i].MyGameObject.transform.parent = transform;
@@ -224,7 +224,7 @@ namespace DAS
                         continue;
                     }
                     //Set icon position roughly above the head of the NPC
-                    icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 80);
+                    icon.MyGameObject.transform.position = (Vector3)icon.MyVector2 + new Vector3(0, 100);
                     //Arrow color to be if above head of NPC
                     icon.MyGameObject.GetComponent<Image>().color = new Color(0.9f, 0.15f, 0.15f, 1);//Arrow color change
 
