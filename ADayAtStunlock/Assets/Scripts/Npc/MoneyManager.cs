@@ -21,10 +21,13 @@ public class MoneyManager : MonoBehaviour
     //Use this for highscore
     static public float moneyEarned;
 
+    static public float moneyLost;
+
     float timer;
 
 	void Start ()
     {
+        moneyLost = 0;
         moneyEarned = 0;
         startMoney = 12500;
         currentMoney = startMoney;
@@ -80,6 +83,7 @@ public class MoneyManager : MonoBehaviour
         foreach (var npc in DAS.NPC.s_npcList)
         {
             currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+            //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }
 
