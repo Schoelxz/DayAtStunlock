@@ -17,6 +17,9 @@ public class NpcButtons : MonoBehaviour {
 
     private DAS.NPC m_npcRef;
 
+    EffectsManager effectsManager;
+    
+
     // Use this for initialization
     void Start ()
     {
@@ -27,6 +30,10 @@ public class NpcButtons : MonoBehaviour {
         m_buttonCanvas = transform.GetChild(2).GetComponent<Canvas>();
         // get button holder UI object.
         m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+
+        effectsManager = GameObject.FindObjectOfType<EffectsManager>();
+       
+        
 
         foreach (var b in m_buttons)
         {
@@ -43,8 +50,8 @@ public class NpcButtons : MonoBehaviour {
 
         if(m_motivationButton != null && m_happinessButton != null)
         {
-            m_motivationButton.onClick.AddListener(AddMotivation);
-            m_happinessButton.onClick.AddListener(AddHappiness);
+            m_motivationButton.onClick.AddListener(MotivationButton);
+            m_happinessButton.onClick.AddListener(HappinessButton);
         }
 	}
 
@@ -76,14 +83,15 @@ public class NpcButtons : MonoBehaviour {
         }
 	}
 
-    void AddMotivation()
+    void MotivationButton()
     {
         m_npcRef.myFeelings.Motivation++;
     }
 
-    void AddHappiness()
+    void HappinessButton()
     {
         m_npcRef.myFeelings.Happiness++;
+        effectsManager.PlayEffectAt(transform.position, new Vector3(0, 3, 0), "HappinessParticle");
     }
 }
 

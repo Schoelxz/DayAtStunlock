@@ -11,15 +11,21 @@ public class RandomEventTrigger : MonoBehaviour
     public int shakeDuration = 10;
 
     private List<float> motivationList = new List<float>();
+
+    private Radiator[] radiators;
+
     private int motivationLossDuration;
 
     AudioManager audioManager;
 
 	void Start ()
     {
+        radiators = FindObjectsOfType<Radiator>();
+
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        randomEvents.Add(TrainEvent);
+        //randomEvents.Add(TrainEvent);
+        randomEvents.Add(RadiatorEvent);
 
         StartCoroutine(StartInvokeRepeatingWhen());
 
@@ -27,6 +33,7 @@ public class RandomEventTrigger : MonoBehaviour
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
     }
 
+    //Makes sure to start the random events after all npcs have spawned
     IEnumerator StartInvokeRepeatingWhen()
     {
         while(true)
@@ -48,6 +55,7 @@ public class RandomEventTrigger : MonoBehaviour
         randomEvents[Random.Range(0, randomEvents.Count)]();
     }
 
+    #region Train 
     void TrainEvent()
     {
         motivationList.Clear();
@@ -70,4 +78,18 @@ public class RandomEventTrigger : MonoBehaviour
             DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
         }
     }
+    #endregion
+    
+    #region Radiator
+
+    void RadiatorEvent()
+    {
+        if(radiators.Length > 0)
+        {
+
+            radiators[Random.Range(0, radiators.Length)].RadiatorStart();
+        }
+    }
+    
+    #endregion
 }

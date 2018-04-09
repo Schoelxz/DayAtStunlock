@@ -36,6 +36,13 @@ namespace DAS
                 get { return motivation; }
                 set { motivation = Mathf.Clamp01(value); }
             }
+            /// <summary>
+            /// Total of motivation and happiness (value will be between 0 and 2)
+            /// </summary>
+            public float TotalFeelings
+            {
+                get { return motivation+happiness; }
+            }
 
             public Feelings(float happiness, float motivation)
             {
@@ -72,9 +79,9 @@ namespace DAS
 
             /// Assign Values
             if(Random.Range(0f, 1f) > 0.5f)
-                myFeelings = new Feelings(0.9f, 0.5f);
+                myFeelings = new Feelings(0.0f, 0.0f);
             else
-                myFeelings = new Feelings(0.5f, 0.9f);
+                myFeelings = new Feelings(0.0f, 0.0f);
 
             /// Get Components
             foreach (var item in GetComponentsInChildren<Slider>())
@@ -119,6 +126,7 @@ namespace DAS
 
         private void Update()
         {
+            /*
             //+++ Reduce update calls
             dt += Time.deltaTime;
             if (dt >= 0.01f)
@@ -126,9 +134,12 @@ namespace DAS
             else
                 return;
             //---
+            */
 
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 130);
-            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 100);
+            // Feelings depletion;
+            // example explaination: feeling -= (delta time / amount of seconds until 0)
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 150);
+            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 120);
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);

@@ -8,14 +8,29 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour {
     
     Rigidbody rb;
+    //Singleton Behaviour
+    private static PlayerMovement s_myInstance;
+
+    public static GameObject s_playerGoRef;
 
     [Range(2, 10)]
     public float movementSpeed;
     private Vector3 m_moveHere;
     private NavMeshAgent m_agentRef;
 
+    private void Awake()
+    {
+        if (s_myInstance == null)
+            s_myInstance = this;
+        else
+        {
+            Debug.LogError("More than one PlayerMovement class");
+            Destroy(this); }
+    }
+
     void Start()
     {
+        s_playerGoRef = gameObject;
         m_agentRef = GetComponent<NavMeshAgent>();   
     }
     // Update is called once per frame
