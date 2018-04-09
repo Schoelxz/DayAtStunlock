@@ -264,6 +264,7 @@ namespace DAS
         }
 
 #if UNITY_EDITOR
+        float secondsTilNpcSpawn = 1;
         private void OnGUI()
         {
             if (!toggleGUI)
@@ -271,7 +272,11 @@ namespace DAS
             // A Slider for controlling the number of NPCs
             numOfNPCs = GUI.VerticalSlider(new Rect(25, 25, 100, 100), NumOfNPCs, numOfWorkSeats, 0);
             // Shows the amount of NPCs
-            GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString());
+            GUI.Box(new Rect(35, 10, 25, 25), numOfNPCs.ToString("00"));
+
+            secondsTilNpcSpawn = GUI.VerticalSlider(new Rect(25, 140, 100, 100), secondsTilNpcSpawn, 30, 0);
+            // Shows the amount of NPCs
+            GUI.Box(new Rect(35, 130, 35, 25), secondsTilNpcSpawn.ToString("00.0"));
         }
 #endif
 
@@ -279,8 +284,11 @@ namespace DAS
         {
             numOfNPCs = NumOfNPCs;
 
+#if UNITY_EDITOR
+            NpcCreationPerXSeconds(secondsTilNpcSpawn);
+#else
             NpcCreationPerXSeconds(1);
-
+#endif
             //+++ Reduce update calls
             dt += Time.deltaTime;
             if (dt >= 0.05f)
