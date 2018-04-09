@@ -109,9 +109,10 @@ namespace DAS
                 myNameDisplay.anchor = TextAnchor.MiddleCenter;
                 myNameDisplay.transform.position = transform.position;
                 myNameDisplay.transform.position += new Vector3(0, 3, 0);
+                myNameDisplay.transform.forward = Camera.main.transform.forward;
                 myNameDisplay.transform.Rotate(0, 180, 0);
                 myNameDisplay.characterSize = 0.03f;
-                myNameDisplay.fontSize = 355;
+                myNameDisplay.fontSize = 155;
             }
 
             /// Material
@@ -147,6 +148,10 @@ namespace DAS
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
 
             
+        }
+        private void FixedUpdate()
+        {
+            myNameDisplay.transform.forward = Camera.main.transform.forward;
         }
 
         #region Functions

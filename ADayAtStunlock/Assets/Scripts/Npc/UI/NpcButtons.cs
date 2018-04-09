@@ -10,6 +10,7 @@ public class NpcButtons : MonoBehaviour {
     private Canvas m_buttonCanvas;
 
     private RectTransform m_buttonHolder;
+    private RectTransform m_sliderHolder;
     private Vector2 m_holderPos;
 
     private Button m_happinessButton;
@@ -27,13 +28,13 @@ public class NpcButtons : MonoBehaviour {
         // get npc reference
         m_npcRef = GetComponent<DAS.NPC>();
         // get canvas holding buttons
-        m_buttonCanvas = transform.GetChild(2).GetComponent<Canvas>();
+        m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
         // get button holder UI object.
         m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
 
+        m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
+
         effectsManager = GameObject.FindObjectOfType<EffectsManager>();
-       
-        
 
         foreach (var b in m_buttons)
         {
@@ -80,6 +81,8 @@ public class NpcButtons : MonoBehaviour {
         if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
             m_buttonHolder.position = m_holderPos;
+            m_sliderHolder.position = m_holderPos;
+            m_sliderHolder.position -= new Vector3(0, 60);
         }
 	}
 
