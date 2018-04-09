@@ -18,21 +18,38 @@ public class RandomEventTrigger : MonoBehaviour
 
     AudioManager audioManager;
 
-	void Start ()
+    int eventDelayEasy;
+    int eventDelayMedium;
+    int eventDelayHard;
+
+    void Start ()
     {
         radiators = FindObjectsOfType<Radiator>();
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        //randomEvents.Add(TrainEvent);
-        randomEvents.Add(RadiatorEvent);
+        eventDelayEasy = 50;
+        eventDelayMedium = 40;
+        eventDelayHard = 30;
 
-        StartCoroutine(StartInvokeRepeatingWhen());
+        if(DifficultyManager.difficultyScalingEnabled)
+        {
+            randomEvents.Add(RadiatorEvent);
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayEasy);
+        }
+        else
+        {
+            randomEvents.Add(TrainEvent);
+            randomEvents.Add(RadiatorEvent);
+            StartCoroutine(StartInvokeRepeatingWhen());
+        }
+
+        
 
         audioManager = FindObjectOfType<AudioManager>();
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
     }
-
+    
     //Makes sure to start the random events after all npcs have spawned
     IEnumerator StartInvokeRepeatingWhen()
     {
@@ -52,7 +69,30 @@ public class RandomEventTrigger : MonoBehaviour
 
     void TriggerRandomEvent()
     {
+
+
         randomEvents[Random.Range(0, randomEvents.Count)]();
+    }
+
+    public void IncreaseDifficulty()
+    {
+
+        //Medium Difficulty
+        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
+        {
+            CancelInvoke("TriggerRandomEvent");
+            randomEvents.Add(TrainEvent);
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayMedium);
+
+        }
+        
+        //Hard difficulty
+        if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+        {
+            CancelInvoke("TriggerRandomEvent");
+            //Add events to randomevents list here if we have any new ones. 
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayHard);
+        }
     }
 
     #region Train 
@@ -60,7 +100,7 @@ public class RandomEventTrigger : MonoBehaviour
     {
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        audioManager.Play("Train");
+        //audioManager.Play("Train");
 
         foreach (var npc in DAS.NPC.s_npcList)
         {
@@ -86,10 +126,11 @@ public class RandomEventTrigger : MonoBehaviour
     {
         if(radiators.Length > 0)
         {
-
             radiators[Random.Range(0, radiators.Length)].RadiatorStart();
         }
     }
     
     #endregion
+
+
 }
