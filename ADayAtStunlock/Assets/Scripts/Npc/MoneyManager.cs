@@ -13,7 +13,7 @@ public class MoneyManager : MonoBehaviour
     int npcIncome;
     int startMoney;
 
-    ScoreDisplay MoneyDisplay;
+    ScoreDisplay scoreDisplay;
 
     //Use this as a display while playing
     static public float currentMoney;
@@ -32,15 +32,15 @@ public class MoneyManager : MonoBehaviour
         startMoney = 12500;
         currentMoney = startMoney;
 
-        MoneyDisplay = FindObjectOfType<ScoreDisplay>();
+        scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
         //InvokeRepeating("DeductSalary", 1, 0.2f);
 	}
 
     void Update ()
     {
-        if(MoneyDisplay != null)
-        MoneyDisplay.SetScore(currentMoney);
+        if(scoreDisplay != null)
+        scoreDisplay.SetScore(currentMoney);
 
         if (currentMoney <= 0)
             LoseGame();
