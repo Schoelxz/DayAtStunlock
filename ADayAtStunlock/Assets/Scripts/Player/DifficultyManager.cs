@@ -9,27 +9,46 @@ public class DifficultyManager : MonoBehaviour {
     static public Difficulty currentDifficulty;
     static public bool difficultyScalingEnabled;
 
+    int mediumDifficultyDelay;
+    int hardDifficultyDelay;
+
+    DAS.NpcCreator npcCreator;
+    RandomEventTrigger randomEvent;
+
 	// Use this for initialization
 	void Start () {
+        mediumDifficultyDelay = 60;
+        hardDifficultyDelay = 180;
 
         currentDifficulty = Difficulty.Easy;
         difficultyScalingEnabled = true;
-   
+
+        npcCreator = GameObject.FindObjectOfType<DAS.NpcCreator>();
+        randomEvent = GameObject.FindObjectOfType<RandomEventTrigger>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if(DAS.TimeSystem.TimePassedMinutes > 3 && currentDifficulty != Difficulty.Medium)
+        if(difficultyScalingEnabled)
         {
-            currentDifficulty = Difficulty.Medium;
-            print("difficulty is now set to medium");
-        }
+            if (DAS.TimeSystem.TimePassedSeconds > mediumDifficultyDelay && currentDifficulty == Difficulty.Easy)
+            {
+                npcCreator.MaxAllowedNpcs = DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount;
 
-        if (DAS.TimeSystem.TimePassedMinutes > 6 && currentDifficulty != Difficulty.Hard)
-        {
-            currentDifficulty = Difficulty.Hard;
-            print("difficulty is now set to hard");
+                if (DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count) //When all npcs have spawned, we can increase the difficulty and move on
+                {
+                    currentDifficulty = Difficulty.Medium;
+                    randomEvent.IncreaseDifficulty();
+                }
+            }
+
+            if (DAS.TimeSystem.TimePassedSeconds > hardDifficultyDelay && currentDifficulty == Difficulty.Medium)
+            {
+                currentDifficulty = Difficulty.Hard;
+                randomEvent.IncreaseDifficulty();
+            }
         }
+        
     }
 }

@@ -16,6 +16,7 @@ public class EffectsManager : MonoBehaviour {
             }
         }
     }
+
     public void PlayEffectAt(Vector3 effectPosition, Vector3 offsetPosition, string effectName)
     {
         for(int i = 0; i < particleObjects.Length; i++)

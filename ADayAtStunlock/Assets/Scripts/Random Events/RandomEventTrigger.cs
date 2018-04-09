@@ -18,16 +18,24 @@ public class RandomEventTrigger : MonoBehaviour
 
     AudioManager audioManager;
 
-	void Start ()
+    int eventDelayEasy;
+    int eventDelayMedium;
+    int eventDelayHard;
+
+    void Start ()
     {
         radiators = FindObjectsOfType<Radiator>();
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
+        eventDelayEasy = 50;
+        eventDelayMedium = 40;
+        eventDelayHard = 30;
+
         if(DifficultyManager.difficultyScalingEnabled)
         {
             randomEvents.Add(RadiatorEvent);
-            InvokeRepeating("TriggerRandomEvent", 2, 60);
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayEasy);
         }
         else
         {
@@ -41,24 +49,7 @@ public class RandomEventTrigger : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
     }
-
-    private void Update()
-    {
-        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium && !randomEvents.Contains(TrainEvent))
-        {
-            if (DAS.NpcCreator.MaxNumberOfNPCs == DAS.NPC.s_npcList.Count)
-            {
-                IncreaseDifficulty();
-            }
-        }
-
-        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
-        {
-            IncreaseDifficulty();
-        }
-        
-    }
-
+    
     //Makes sure to start the random events after all npcs have spawned
     IEnumerator StartInvokeRepeatingWhen()
     {
@@ -67,7 +58,7 @@ public class RandomEventTrigger : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
             // Starts InvokeRepeating when All Npcs has been created.
-            if(DAS.NpcCreator.MaxNumberOfNPCs == DAS.NPC.s_npcList.Count)
+            if(DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count)
             {
                 InvokeRepeating("TriggerRandomEvent", 2, 60);
                 break;
@@ -78,24 +69,29 @@ public class RandomEventTrigger : MonoBehaviour
 
     void TriggerRandomEvent()
     {
+
+
         randomEvents[Random.Range(0, randomEvents.Count)]();
     }
 
-    void IncreaseDifficulty()
+    public void IncreaseDifficulty()
     {
+
+        //Medium Difficulty
         if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
-            print("Difficulty is now medium");
             CancelInvoke("TriggerRandomEvent");
             randomEvents.Add(TrainEvent);
-            InvokeRepeating("TriggerRandomEvent", 2, 45);
-        }
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayMedium);
 
-        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+        }
+        
+        //Hard difficulty
+        if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
         {
-            print("Difficulty is now hard");
             CancelInvoke("TriggerRandomEvent");
-            InvokeRepeating("TriggerRandomEvent", 2, 30);
+            //Add events to randomevents list here if we have any new ones. 
+            InvokeRepeating("TriggerRandomEvent", 2, eventDelayHard);
         }
     }
 
@@ -104,7 +100,7 @@ public class RandomEventTrigger : MonoBehaviour
     {
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        audioManager.Play("Train");
+        //audioManager.Play("Train");
 
         foreach (var npc in DAS.NPC.s_npcList)
         {
@@ -130,7 +126,6 @@ public class RandomEventTrigger : MonoBehaviour
     {
         if(radiators.Length > 0)
         {
-
             radiators[Random.Range(0, radiators.Length)].RadiatorStart();
         }
     }
