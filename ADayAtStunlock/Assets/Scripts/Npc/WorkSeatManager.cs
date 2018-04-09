@@ -25,7 +25,7 @@ namespace DAS
         public static WorkSeatManager myInstance;
 
         [HideInInspector]
-        public List<GameObject> gameobjectSeats = new List<GameObject>();
+        public Dictionary<string, WorkseatOwner> gameobjectSeats = new Dictionary<string, WorkseatOwner>();
         public List<WorkSeat> workSeats = new List<WorkSeat>();
 
         private void Awake()
@@ -38,7 +38,11 @@ namespace DAS
                 Destroy(this);
             }
 
-            gameobjectSeats.AddRange(GameObject.FindGameObjectsWithTag("WorkSeat"));
+            foreach (var workseat in GameObject.FindObjectsOfType<WorkseatOwner>())
+            {
+                gameobjectSeats.Add(workseat.ownerName, workseat);
+            }
+            
         }
     }
 

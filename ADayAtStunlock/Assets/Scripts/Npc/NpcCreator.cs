@@ -192,59 +192,59 @@ namespace DAS
         string[] names = new string[45];
         void AssignNamesToArray()
         {
-            names[0] = "Peter";
-            names[1] = "Filip";
-            names[2] = "Martin";
-            names[3] = "Max";
-            names[4] = "Philip";
-            names[5] = "Pierre";
-            names[6] = "Rickard";
-            names[7] = "Srdan";
-            names[8] = "Tau";
+            names[0] = "Peter";//ll     //product owner, game director
+            names[1] = "Filip";//mr     //Ekonomichef
+            names[2] = "Martin L";//bs    //creative director
+            names[3] = "Max T";//ml     //Producer
+            names[4] = "Philip";//ml    //lead programmer
+            names[5] = "Pierre";//bs    //HR
+            names[6] = "Rickard";//rrr   //VD
+            names[7] = "Srdan";//bs //lead artist
+            names[8] = "Tau";//ll       //PR
 
             //Art team
-            names[9] = "Patrik";
-            names[10] = "Gabriel";
-            names[11] = "Oskar";
-            names[12] = "Mattias";
-            names[13] = "Martin";
-            names[14] = "Max";
-            names[15] = "Tara";
-            names[16] = "Fanny";
-            names[17] = "Sofia";
-            names[18] = "Andreas";
-            names[19] = "Viktor";
-            names[20] = "Johan A";
-            names[21] = "Johan W";
+            names[9] = "Patrik";//bs
+            names[10] = "Gabriel";//bs
+            names[11] = "Oskar";//bl
+            names[12] = "Mattias";//bl
+            names[13] = "Martin";//bl
+            names[14] = "Max";//bl
+            names[15] = "Tara";//bl
+            names[16] = "Fanny";//bl
+            names[17] = "Sofia";//bl
+            names[18] = "Andreas";//bl
+            names[19] = "Viktor";//bl
+            names[20] = "Johan A";//bl
+            names[21] = "Johan W";//rr
 
             //UI
-            names[22] = "Karl";
-            names[23] = "Katey";
-            names[24] = "Daniel";
-            names[25] = "Arvid";
+            names[22] = "Karl";//rr
+            names[23] = "Katey";//rr
+            names[24] = "Daniel";//rr
+            names[25] = "Arvid";//rr
 
             //Design
-            names[26] = "Simon";
-            names[27] = "Konrad";
-            names[28] = "Christian";
-            names[29] = "Erik";
-            names[30] = "Emil";
+            names[26] = "Simon";//rr
+            names[27] = "Konrad";//rr
+            names[28] = "Christian";//rr
+            names[29] = "Erik";//rr
+            names[30] = "Emil";//rr
 
             //Programmers
-            names[31] = "Fredrik";
-            names[32] = "Jonas";
+            names[31] = "Fredrik";//ml
+            names[32] = "Jonas";//ml
 
             //Temps
-            names[33] = "Christoffer";
-            names[34] = "Tobias";
-            names[35] = "Jimmy";
+            names[33] = "Christoffer";//bs
+            names[34] = "Tobias";//bs
+            names[35] = "Jimmy";//bs
 
             //Community
-            names[36] = "Johan";
-            names[37] = "Liz";
-            names[38] = "Christopher";
-            names[39] = "Lisabeth";
-            names[40] = "Ruth";
+            names[36] = "Johan";//mr
+            names[37] = "Liz";//mr
+            names[38] = "Christopher";//mr
+            names[39] = "Lisabeth";//ll
+            names[40] = "Ruth";//ll
 
 
             for (int i = 41; i < names.Length; i++)
@@ -366,7 +366,7 @@ namespace DAS
             tempNPC = npcList[npcList.Count - 1].AddComponent<NPC>();
             tempNPC.name = npcList[npcList.Count - 1].gameObject.name;
             tempNPC.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
-            tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[npcList.Count - 1], tempNPC);
+            tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[tempNPC.name].gameObject, tempNPC);
         }
 
         /// <summary>

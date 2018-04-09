@@ -65,6 +65,8 @@ namespace DAS
         private AgentValues agentValues;
         private Animator m_animator;
 
+        private DAS.NPC myNpcRef;
+
        // private bool gameHasBeenPaused = false;
 
         // Delta time
@@ -82,6 +84,8 @@ namespace DAS
 
         void Start()
         {
+            myNpcRef = gameObject.GetComponent<NPC>();
+
             //Find Animator
             m_animator = GetComponentInChildren<Animator>();
             Debug.Assert(agentRef);
@@ -89,9 +93,7 @@ namespace DAS
             s_allNPCs.Add(this);
 
             // Assign this NPCs' work seat.
-            Transform temp = WorkSeatTemp.s_allWorkSeats[s_allNPCs.IndexOf(this)].transform;
-            myWorkSeat = temp;
-            myWorkSeat.position = new Vector3(temp.position.x, 0, temp.position.z);
+            myWorkSeat = myNpcRef.myWorkSeat.workSeatGameObject.transform;
 
             // Assert
             Debug.Assert(agentRef);
