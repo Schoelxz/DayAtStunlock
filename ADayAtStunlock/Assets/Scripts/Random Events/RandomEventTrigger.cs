@@ -24,13 +24,39 @@ public class RandomEventTrigger : MonoBehaviour
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
 
-        //randomEvents.Add(TrainEvent);
-        randomEvents.Add(RadiatorEvent);
+        if(DifficultyManager.difficultyScalingEnabled)
+        {
+            randomEvents.Add(RadiatorEvent);
+            InvokeRepeating("TriggerRandomEvent", 2, 60);
+        }
+        else
+        {
+            randomEvents.Add(TrainEvent);
+            randomEvents.Add(RadiatorEvent);
+            StartCoroutine(StartInvokeRepeatingWhen());
+        }
 
-        StartCoroutine(StartInvokeRepeatingWhen());
+        
 
         audioManager = FindObjectOfType<AudioManager>();
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
+    }
+
+    private void Update()
+    {
+        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium && !randomEvents.Contains(TrainEvent))
+        {
+            if (DAS.NpcCreator.MaxNumberOfNPCs == DAS.NPC.s_npcList.Count)
+            {
+                IncreaseDifficulty();
+            }
+        }
+
+        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+        {
+            IncreaseDifficulty();
+        }
+        
     }
 
     //Makes sure to start the random events after all npcs have spawned
@@ -53,6 +79,24 @@ public class RandomEventTrigger : MonoBehaviour
     void TriggerRandomEvent()
     {
         randomEvents[Random.Range(0, randomEvents.Count)]();
+    }
+
+    void IncreaseDifficulty()
+    {
+        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
+        {
+            print("Difficulty is now medium");
+            CancelInvoke("TriggerRandomEvent");
+            randomEvents.Add(TrainEvent);
+            InvokeRepeating("TriggerRandomEvent", 2, 45);
+        }
+
+        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+        {
+            print("Difficulty is now hard");
+            CancelInvoke("TriggerRandomEvent");
+            InvokeRepeating("TriggerRandomEvent", 2, 30);
+        }
     }
 
     #region Train 
@@ -92,4 +136,6 @@ public class RandomEventTrigger : MonoBehaviour
     }
     
     #endregion
+
+
 }
