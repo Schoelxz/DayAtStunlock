@@ -12,8 +12,16 @@ public class ScoreDisplay : MonoBehaviour {
 
     }
 
-    public void SetScore(float newScore)
+    public void SetScore(float newScore, float moneyChangeLastFrame)
     {
         m_scoreText.text = newScore.ToString("C000000000");
+        if(newScore< moneyChangeLastFrame && m_scoreText.color != Color.red)
+        { 
+        m_scoreText.color = Color.red;
+        }
+        else if(newScore> moneyChangeLastFrame && m_scoreText.color != Color.green)
+        {
+            m_scoreText.color = Color.green;
+        }
     }
 }
