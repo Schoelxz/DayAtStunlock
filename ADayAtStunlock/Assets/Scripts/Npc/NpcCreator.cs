@@ -80,9 +80,9 @@ namespace DAS
 
             /// Assign Values
             if(Random.Range(0f, 1f) > 0.5f)
-                myFeelings = new Feelings(0.0f, 0.0f);
+                myFeelings = new Feelings(1.0f, 1.0f);
             else
-                myFeelings = new Feelings(0.0f, 0.0f);
+                myFeelings = new Feelings(1.0f, 1.0f);
 
             /// Get Components
             foreach (var item in GetComponentsInChildren<Slider>())

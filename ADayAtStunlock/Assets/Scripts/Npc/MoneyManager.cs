@@ -13,7 +13,7 @@ public class MoneyManager : MonoBehaviour
     int npcIncome;
     int startMoney;
 
-    ScoreDisplay MoneyDisplay;
+    ScoreDisplay scoreDisplay;
 
     //Use this as a display while playing
     static public float currentMoney;
@@ -21,23 +21,26 @@ public class MoneyManager : MonoBehaviour
     //Use this for highscore
     static public float moneyEarned;
 
+    static public float moneyLost;
+
     float timer;
 
 	void Start ()
     {
+        moneyLost = 0;
         moneyEarned = 0;
         startMoney = 12500;
         currentMoney = startMoney;
 
-        MoneyDisplay = FindObjectOfType<ScoreDisplay>();
+        scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
         //InvokeRepeating("DeductSalary", 1, 0.2f);
 	}
 
     void Update ()
     {
-        if(MoneyDisplay != null)
-        MoneyDisplay.SetScore(currentMoney);
+        if(scoreDisplay != null)
+        scoreDisplay.SetScore(currentMoney);
 
         if (currentMoney <= 0)
             LoseGame();
@@ -80,6 +83,7 @@ public class MoneyManager : MonoBehaviour
         foreach (var npc in DAS.NPC.s_npcList)
         {
             currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+            //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }
 
