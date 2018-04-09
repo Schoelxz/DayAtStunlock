@@ -1736,6 +1736,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4249494782463754, guid: a8fb1c3e08ed06f43877b5a8d1fe1e19,
     type: 2}
   m_PrefabInternal: {fileID: 236469774}
+--- !u!1 &252021604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 252021605}
+  m_Layer: 0
+  m_Name: NPC Folder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &252021605
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252021604}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &271528954
 Prefab:
   m_ObjectHideFlags: 0
@@ -4288,6 +4316,11 @@ Prefab:
         type: 2}
       propertyPath: orthographic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20042239239225472, guid: 8606a7d163e176043bb852a1d0a32759,
+        type: 2}
+      propertyPath: orthographic size
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -7441,7 +7474,9 @@ MonoBehaviour:
   - {fileID: 1518809106}
   - {fileID: 946374110}
   toggleGUI: 1
-  numOfNPCs: 8.53
+  maxAllowedNpcs: 41
+  secondsTilNpcSpawn: 1
+  numOfNPCs: 0
 --- !u!4 &1168330427
 Transform:
   m_ObjectHideFlags: 0
@@ -7606,7 +7641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d774e730d6da1cd4abd4e28a923b6e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameobjectSeats: []
   workSeats: []
 --- !u!1001 &1170073839
 Prefab:

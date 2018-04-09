@@ -164,6 +164,8 @@ namespace DAS
         [SerializeField]
         private GameObject NPCPrefab;
 
+        private GameObject npcFolder;
+
         // Locations the NPCs can spawn at when created.
         public Transform[] spawnLocations = new Transform[2];
         // Wether to show/use GUI or not.
@@ -172,18 +174,34 @@ namespace DAS
         // Keeps track of NPCs.
         List<GameObject> npcList = new List<GameObject>();
 
+        [Range(0, 41)]
+        [SerializeField]
+        private int maxAllowedNpcs = 41;
+        public int MaxAllowedNpcs
+        {
+
+            get { return maxAllowedNpcs; }
+            set { maxAllowedNpcs = Mathf.Clamp(value, 0, MaxNumberOfNPCsByWorkseatAmount); }
+        }
+
         static int numOfWorkSeats;
         /// <summary>
         /// Returns an integer.
         /// <para>Number is set at Start() of NpcCreator.</para>
         /// <para>Is also number of work seats.</para>
         /// </summary>
-        public static int MaxNumberOfNPCs
+        public static int MaxNumberOfNPCsByWorkseatAmount
         {
             get { return numOfWorkSeats; }
         }
 
-        [Range(0, 45)] [SerializeField] private float numOfNPCs;
+        [Range(0f, 45f)]
+        [SerializeField]
+        private float secondsTilNpcSpawn = 1;
+
+        [Range(0, 45)]
+        [SerializeField]
+        private float numOfNPCs;
         private int NumOfNPCs
         {
             get { return (int)Mathf.Clamp(numOfNPCs, 0, numOfWorkSeats); }
@@ -261,10 +279,11 @@ namespace DAS
         {
             AssignNamesToArray();
             numOfWorkSeats = GameObject.FindGameObjectsWithTag("WorkSeat").Length;
+            npcFolder = GameObject.Find("NPC Folder");
         }
 
 #if UNITY_EDITOR
-        float secondsTilNpcSpawn = 1;
+        
         private void OnGUI()
         {
             if (!toggleGUI)
@@ -284,11 +303,9 @@ namespace DAS
         {
             numOfNPCs = NumOfNPCs;
 
-#if UNITY_EDITOR
-            NpcCreationPerXSeconds(secondsTilNpcSpawn);
-#else
-            NpcCreationPerXSeconds(1);
-#endif
+            if(NumOfNPCs < MaxAllowedNpcs)
+                NpcCreationPerXSeconds(secondsTilNpcSpawn);
+
             //+++ Reduce update calls
             dt += Time.deltaTime;
             if (dt >= 0.05f)
@@ -367,6 +384,7 @@ namespace DAS
             tempNPC.name = npcList[npcList.Count - 1].gameObject.name;
             tempNPC.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
             tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[tempNPC.name].gameObject, tempNPC);
+            tempNPC.gameObject.transform.parent = npcFolder.transform;
         }
 
         /// <summary>

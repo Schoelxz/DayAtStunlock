@@ -120,7 +120,7 @@ namespace DAS
             m_myCanvas = GetComponent<Canvas>();
 
             // Add an icon arrow spot for all npcs, starting at the max amount of npcs
-            for (int i = 0; i < DAS.NpcCreator.MaxNumberOfNPCs; i++)
+            for (int i = 0; i < DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount; i++)
             {
                 m_icons.Add(new Icon(new GameObject("NPC Icon " + i)));
                 m_icons[i].MyGameObject.transform.parent = transform;
