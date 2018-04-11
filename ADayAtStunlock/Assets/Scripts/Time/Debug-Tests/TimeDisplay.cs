@@ -10,11 +10,14 @@ namespace DAS //  Namespace to sort out our own classes from other default class
     {
         public class TimeDisplay : MonoBehaviour
         {
+            //Lets only draw this when in editor
+            #if UNITY_EDITOR
             //For drawing GUI to show values and debugging
             void OnGUI()
             {
                     GUI.Box(new Rect(10, 50, 240, 40), "Game Seconds Passed\n" + TimeSystem.TimePassedSeconds.ToString());
             }
+            #endif
         }
     } // Namespace DBUG
 } // Namespace DAS

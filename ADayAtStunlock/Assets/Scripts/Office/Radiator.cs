@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Radiator : MonoBehaviour {
+public class Radiator : MonoBehaviour
+{
+    /*
+     * JÅ:
+     * Maybe change this from a collider to checking distance to NPCs instead?
+     * Collisions can be a bit clunky. ;)
+    */
 
     List<DAS.NPC> nearbyNpcs = new List<DAS.NPC>();
     bool isBroken;
@@ -35,7 +41,7 @@ public class Radiator : MonoBehaviour {
             //Make all npcs in the nearbyNpcs list sad. The list gets updated by the triggerbox on the radiator.
             foreach (var npc in nearbyNpcs)
             {
-                npc.myFeelings.Happiness -= 0.03f * Time.deltaTime;
+                npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
             }
         }
 	}

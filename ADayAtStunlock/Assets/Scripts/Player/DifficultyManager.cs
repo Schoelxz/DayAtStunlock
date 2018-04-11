@@ -7,6 +7,9 @@ public class DifficultyManager : MonoBehaviour {
     public enum Difficulty { Easy, Medium, Hard}
 
     static public Difficulty currentDifficulty;
+
+    // !!!
+    // Make a singleton of the class instead of making this variable public. This should be an inspector variable.
     static public bool difficultyScalingEnabled;
 
     int mediumDifficultyDelay;
@@ -16,9 +19,10 @@ public class DifficultyManager : MonoBehaviour {
     RandomEventTrigger randomEvent;
 
 	// Use this for initialization
-	void Start () {
-        mediumDifficultyDelay = 60;
-        hardDifficultyDelay = 180;
+	void Start ()
+    {
+        mediumDifficultyDelay = 100;
+        hardDifficultyDelay = mediumDifficultyDelay + 240;
 
         currentDifficulty = Difficulty.Easy;
         difficultyScalingEnabled = true;

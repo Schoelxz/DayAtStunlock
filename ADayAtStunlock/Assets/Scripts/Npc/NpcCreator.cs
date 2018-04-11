@@ -63,6 +63,8 @@ namespace DAS
 
         public WorkSeat myWorkSeat;
         public DAS.NPCMovement moveRef;
+        public NpcButtons buttonRef;
+        public ButtonToggler buttonTogglerRef;
         private Material myMaterial;
         private Material moneyMaterial;
 
@@ -95,8 +97,12 @@ namespace DAS
 
             /// Add Components
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
-            gameObject.AddComponent<NpcButtons>();
-            gameObject.AddComponent<ButtonToggler>();
+
+            buttonRef = gameObject.AddComponent<NpcButtons>();
+            buttonRef.InitNpcButtons();
+            buttonTogglerRef = gameObject.AddComponent<ButtonToggler>();
+            buttonTogglerRef.InitButtonToggler();
+
             nameHolder = new GameObject("Name Holder");
             nameHolder.transform.parent = gameObject.transform.GetChild(0);
             myNameDisplay = nameHolder.AddComponent<TextMesh>();
@@ -129,20 +135,10 @@ namespace DAS
 
         private void Update()
         {
-            /*
-            //+++ Reduce update calls
-            dt += Time.deltaTime;
-            if (dt >= 0.01f)
-            { dt = 0; }
-            else
-                return;
-            //---
-            */
-
             // Feelings depletion;
             // example explaination: feeling -= (delta time / amount of seconds until 0)
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 150);
-            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 120);
+            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
+            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
 
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
@@ -184,7 +180,6 @@ namespace DAS
         private int maxAllowedNpcs = 41;
         public int MaxAllowedNpcs
         {
-
             get { return maxAllowedNpcs; }
             set { maxAllowedNpcs = Mathf.Clamp(value, 0, MaxNumberOfNPCsByWorkseatAmount); }
         }

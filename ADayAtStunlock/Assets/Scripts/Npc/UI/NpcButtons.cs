@@ -20,40 +20,10 @@ public class NpcButtons : MonoBehaviour {
 
     EffectsManager effectsManager;
     
-
     // Use this for initialization
     void Start ()
     {
-        m_buttons = GetComponentsInChildren<Button>(true);
-        // get npc reference
-        m_npcRef = GetComponent<DAS.NPC>();
-        // get canvas holding buttons
-        m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
-        // get button holder UI object.
-        m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
-
-        m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
-
-        effectsManager = GameObject.FindObjectOfType<EffectsManager>();
-
-        foreach (var b in m_buttons)
-        {
-            if(b.name == "Happiness")
-            {
-                m_happinessButton = b;
-            }
-
-            if(b.name == "Motivation")
-            {
-                m_motivationButton = b;
-            }
-        }
-
-        if(m_motivationButton != null && m_happinessButton != null)
-        {
-            m_motivationButton.onClick.AddListener(MotivationButton);
-            m_happinessButton.onClick.AddListener(HappinessButton);
-        }
+        //InitNpcButtons(); <- gets called in NPC
 	}
 
     private void Update()
@@ -95,6 +65,43 @@ public class NpcButtons : MonoBehaviour {
     {
         m_npcRef.myFeelings.Happiness++;
         effectsManager.PlayEffectAt(transform.position, new Vector3(0, 3, 0), "HappinessParticle");
+    }
+
+    /// <summary>
+    /// Initializes UI elements for the NPC to control.
+    /// </summary>
+    public void InitNpcButtons()
+    {
+        m_buttons = GetComponentsInChildren<Button>(true);
+        // get npc reference
+        m_npcRef = GetComponent<DAS.NPC>();
+        // get canvas holding buttons
+        m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
+        // get button holder UI object.
+        m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+
+        m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
+
+        effectsManager = GameObject.FindObjectOfType<EffectsManager>();
+
+        foreach (var b in m_buttons)
+        {
+            if (b.name == "Happiness")
+            {
+                m_happinessButton = b;
+            }
+
+            if (b.name == "Motivation")
+            {
+                m_motivationButton = b;
+            }
+        }
+
+        if (m_motivationButton != null && m_happinessButton != null)
+        {
+            m_motivationButton.onClick.AddListener(MotivationButton);
+            m_happinessButton.onClick.AddListener(HappinessButton);
+        }
     }
 }
 

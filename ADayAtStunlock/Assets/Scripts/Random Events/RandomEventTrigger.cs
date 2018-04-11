@@ -8,14 +8,11 @@ public class RandomEventTrigger : MonoBehaviour
 
     [Range(1, 20)]
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
-    public int shakeDuration = 10;
+    public int shakeDuration = 6;
 
     private List<float> motivationList = new List<float>();
-
     private Radiator[] radiators;
-
     private int motivationLossDuration;
-
     AudioManager audioManager;
 
     int eventDelayEasy;
@@ -26,7 +23,7 @@ public class RandomEventTrigger : MonoBehaviour
     {
         radiators = FindObjectsOfType<Radiator>();
 
-        motivationLossDuration = Mathf.Clamp(shakeDuration + 5, 0, 25);
+        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
 
         eventDelayEasy = 50;
         eventDelayMedium = 40;
@@ -43,8 +40,6 @@ public class RandomEventTrigger : MonoBehaviour
             randomEvents.Add(RadiatorEvent);
             StartCoroutine(StartInvokeRepeatingWhen());
         }
-
-        
 
         audioManager = FindObjectOfType<AudioManager>();
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
@@ -69,14 +64,11 @@ public class RandomEventTrigger : MonoBehaviour
 
     void TriggerRandomEvent()
     {
-
-
         randomEvents[Random.Range(0, randomEvents.Count)]();
     }
 
     public void IncreaseDifficulty()
     {
-
         //Medium Difficulty
         if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
@@ -96,12 +88,15 @@ public class RandomEventTrigger : MonoBehaviour
     }
 
     #region Train 
+    private bool hasMotivationReset = true;
     void TrainEvent()
     {
+        if (!hasMotivationReset)
+            return;
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
         //audioManager.Play("Train");
-
+        hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {
             motivationList.Add(npc.myFeelings.Motivation);
@@ -117,6 +112,7 @@ public class RandomEventTrigger : MonoBehaviour
         {
             DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
         }
+        hasMotivationReset = true;
     }
     #endregion
     
