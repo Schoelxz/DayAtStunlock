@@ -1069,8 +1069,9 @@ GameObject:
   - component: {fileID: 110456208}
   - component: {fileID: 110456207}
   - component: {fileID: 110456206}
+  - component: {fileID: 110456211}
   m_Layer: 5
-  m_Name: FindNpcCanvas
+  m_Name: ExtraGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1165,6 +1166,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &110456211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110456205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aefe139d0cf844bad9ff57e85e10ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listOfStuffToPointAt:
+  - {fileID: 946929662}
+  typeOfSprite: {fileID: 0}
 --- !u!1001 &111153037
 Prefab:
   m_ObjectHideFlags: 0
@@ -7693,6 +7708,11 @@ Transform:
   m_Father: {fileID: 64836606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &946929662 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1013401022707310, guid: 4b6217d9a4a57474987e5e6ce47b7fd8,
+    type: 2}
+  m_PrefabInternal: {fileID: 442113989}
 --- !u!1 &953613366 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1286641746594060, guid: a8fb1c3e08ed06f43877b5a8d1fe1e19,
