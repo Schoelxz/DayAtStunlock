@@ -1067,7 +1067,6 @@ GameObject:
   - component: {fileID: 110456210}
   - component: {fileID: 110456209}
   - component: {fileID: 110456208}
-  - component: {fileID: 110456207}
   - component: {fileID: 110456206}
   - component: {fileID: 110456211}
   m_Layer: 5
@@ -1091,22 +1090,6 @@ MonoBehaviour:
   imageToDisplay: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
   screenClampMultiplier: 1.1
   showArrowWhenClose: 1
---- !u!114 &110456207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 110456205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &110456208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,7 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listOfStuffToPointAt:
   - {fileID: 946929662}
-  typeOfSprite: {fileID: 0}
+  typeOfSprite: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
 --- !u!1001 &111153037
 Prefab:
   m_ObjectHideFlags: 0
@@ -5400,7 +5383,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.z
@@ -5408,7 +5391,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_RootOrder
@@ -5425,7 +5408,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5456,6 +5439,11 @@ Prefab:
         type: 2}
       propertyPath: orthographic size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114565422493377858, guid: 8606a7d163e176043bb852a1d0a32759,
+        type: 2}
+      propertyPath: m_rotationStep
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
