@@ -1,29 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class NpcButtons : MonoBehaviour {
+public class NpcButtons : MonoBehaviour
+{
+    public class ClickableObject : MonoBehaviour, IPointerDownHandler
+    {
+        private NpcButtons npcButtonsRef;
 
-    private Button[] m_buttons;
+        private void Awake()
+        {
+            npcButtonsRef = transform.GetComponentInParent<NpcButtons>();
+        }
 
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            npcButtonsRef.MoodButtonPressed();
+        }
+    }
     private Canvas m_buttonCanvas;
 
     private RectTransform m_buttonHolder;
     private RectTransform m_sliderHolder;
     private Vector2 m_holderPos;
 
-    private Button m_happinessButton;
-    private Button m_motivationButton;
+    private Button npcButton;
 
     private DAS.NPC m_npcRef;
 
-    EffectsManager effectsManager;
-    
-    // Use this for initialization
+    private EffectsManager effectsManager;
+
+    #region Unity Standard Functions
     void Start ()
     {
-        //InitNpcButtons(); <- gets called in NPC
+        npcButton = gameObject.GetComponentInChildren<Button>();
+        npcButton.gameObject.AddComponent<ClickableObject>();
 	}
 
     private void Update()
@@ -41,7 +55,7 @@ public class NpcButtons : MonoBehaviour {
                 m_buttonCanvas.worldCamera,
                 out m_holderPos);
 
-            m_holderPos += new Vector2(Screen.width/2f, Screen.height/2f); // add some fixing offset to the buttons position.
+            m_holderPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset to the buttons position.
         }
     }
 
@@ -55,53 +69,29 @@ public class NpcButtons : MonoBehaviour {
             m_sliderHolder.position -= new Vector3(0, 60);
         }
 	}
-
-    void MotivationButton()
-    {
-        m_npcRef.myFeelings.Motivation++;
-    }
-
-    void HappinessButton()
-    {
-        m_npcRef.myFeelings.Happiness++;
-        effectsManager.PlayEffectAt(transform.position, new Vector3(0, 3, 0), "HappinessParticle");
-    }
+    #endregion
 
     /// <summary>
     /// Initializes UI elements for the NPC to control.
     /// </summary>
     public void InitNpcButtons()
     {
-        m_buttons = GetComponentsInChildren<Button>(true);
         // get npc reference
         m_npcRef = GetComponent<DAS.NPC>();
         // get canvas holding buttons
         m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
         // get button holder UI object.
         m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
-
+        // get slider holder UI object.
         m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
-
+        // find and get effects manager reference.
         effectsManager = GameObject.FindObjectOfType<EffectsManager>();
+    }
 
-        foreach (var b in m_buttons)
-        {
-            if (b.name == "Happiness")
-            {
-                m_happinessButton = b;
-            }
-
-            if (b.name == "Motivation")
-            {
-                m_motivationButton = b;
-            }
-        }
-
-        if (m_motivationButton != null && m_happinessButton != null)
-        {
-            m_motivationButton.onClick.AddListener(MotivationButton);
-            m_happinessButton.onClick.AddListener(HappinessButton);
-        }
+    protected void MoodButtonPressed()
+    {
+        m_npcRef.myFeelings.Happiness++;
+        m_npcRef.myFeelings.Motivation++;
+        effectsManager.PlayEffectAt(transform.position, new Vector3(0, 3, 0), "HappinessParticle");
     }
 }
-

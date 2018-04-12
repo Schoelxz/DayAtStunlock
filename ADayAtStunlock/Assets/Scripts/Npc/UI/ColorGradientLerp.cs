@@ -12,17 +12,19 @@ public class ColorGradientLerp : MonoBehaviour
 
     public Slider mySliderObject;
     public Image myImageFillObject;
-    
+
+    public Color colHigh, colMid, colLow;
+
     void Start ()
     {
         GradientColorKey[] gck;
         g = new Gradient();
         gck = new GradientColorKey[3];
-        gck[0].color = Color.red;
+        gck[0].color = colLow;
         gck[0].time = 0.0F;
-        gck[1].color = Color.yellow;
+        gck[1].color = colMid;
         gck[1].time = gradientTweaker;
-        gck[2].color = Color.green;
+        gck[2].color = colHigh;
         gck[2].time = 1.0F;
 
         GradientAlphaKey[] gak;

@@ -11,7 +11,6 @@ namespace DAS
         //Singleton Behaviour and Script Reference for other classes
         public static PlayerMovement s_myInstance;
 
-        private PlayerRaycast playerRaycast;
         private NavMeshAgent m_agentRef;
 
         private void Awake()
@@ -41,10 +40,22 @@ namespace DAS
         {
             //Goto where we clicked
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
                 m_agentRef.destination = PlayerRaycast.hit.point;
+                if (IsInvoking("StopMovement"))
+                    CancelInvoke("StopMovement");
+            }
             //For smooth movement stops
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
                 m_agentRef.destination = transform.position + (PlayerRaycast.hit.point - transform.position).normalized * 2;
+                Invoke("StopMovement", 0.3f);
+            }
+        }
+
+        void StopMovement()
+        {
+            m_agentRef.destination = transform.position;
         }
 
         #if UNITY_EDITOR
