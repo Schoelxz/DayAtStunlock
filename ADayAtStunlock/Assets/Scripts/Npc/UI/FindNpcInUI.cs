@@ -213,7 +213,7 @@ namespace DAS
                 npcPosInUIPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
 
                 //Lerp a color by checking deistance between middlepoint of screen and npc position in 2D space
-                float distColLerp = Mathf.Clamp(1 - Vector3.Distance(PlayerMovement.s_playerGoRef.transform.position, icon.myNpcRef.transform.position) / (new Vector2(Screen.width, Screen.height).magnitude/70), 0.2f, 0.8f);
+                float distColLerp = Mathf.Clamp(1 - Vector3.Distance(PlayerMovement.s_myInstance.transform.position, icon.myNpcRef.transform.position) / (new Vector2(Screen.width, Screen.height).magnitude/70), 0.2f, 0.8f);
                 
                 //If npc is inside the area of the screen.
                 if(Screen.safeArea.Contains(npcPosInUIPos))
