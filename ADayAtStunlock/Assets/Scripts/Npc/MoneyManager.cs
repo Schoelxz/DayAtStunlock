@@ -27,6 +27,8 @@ public class MoneyManager : MonoBehaviour
 
     float timer;
 
+    static public List<string> highscoreList = new List<string>();
+
 	void Start ()
     {
         moneyLost = 0;
@@ -100,6 +102,12 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
+        highscoreList.Add(currentMoney.ToString("n0"));
+        highscoreList.Add(currentMoney.ToString("n0"));
+        highscoreList.Add(currentMoney.ToString("n0"));
+        highscoreList.Add(currentMoney.ToString("n0"));
+        highscoreList.Add(currentMoney.ToString("n0"));
+        Highscore.SaveHighscore();
         EndGameCanvas.GameOver();
     }
 
