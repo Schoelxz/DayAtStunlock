@@ -1160,8 +1160,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99aefe139d0cf844bad9ff57e85e10ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfStuffToPointAt:
-  - {fileID: 946929662}
+  listOfPointingAt:
+  - targetObject: {fileID: 946929662}
+    convertedTargetObjectPosition: {x: 0, y: 0}
+    arrowPointer: {fileID: 0}
+    extraFunction: 1
+    exclamationMark: {fileID: 0}
+    textFont: {fileID: 12800000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
+    textMaterial: {fileID: 2100000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
+    coroutineRunning: 0
   typeOfSprite: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
 --- !u!1001 &111153037
 Prefab:
