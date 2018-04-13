@@ -46,7 +46,7 @@ public class ControlTime : MonoBehaviour
     }
     bool ToggleFastForward(bool value)
     {
-        if(!value)
+        if(value)
         {
             isFastForward = true;
             Time.timeScale = 3;
