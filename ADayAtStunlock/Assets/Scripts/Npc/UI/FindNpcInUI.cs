@@ -142,6 +142,9 @@ namespace DAS
                 if (m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef == null)
                     m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef = npc;
 
+                if (npc.myFeelings.TotalFeelings <= 0)
+                    continue;
+
                 Vector2 pos;
                 //Get position from the 3D world and convert it into a 2D position on the screen
                 RectTransformUtility.ScreenPointToLocalPointInRectangle
@@ -177,17 +180,17 @@ namespace DAS
                 if (icon.myNpcRef == null)
                     continue;
 
+                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0)
+                    icon.MyGameObject.SetActive(true);
+                else
+                    continue;
+
                 //Set allowed position to keep inside
                 Vector3 allowedPos = (Vector3)icon.MyVector2 - middlePoint;
                 allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height / (2f * screenClampMultiplier));
 
                 //Set gameobjects position to the Vector2 Position it should have.
                 icon.MyGameObject.transform.position = middlePoint + allowedPos;
-
-                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0)
-                    icon.MyGameObject.SetActive(true);
-                else
-                    continue;
 
                 Vector2 npcPosInUIPos; //Npc position in UI Position (camera decided)
                 //Get position from the 3D world and convert it into a 2D position on the screen

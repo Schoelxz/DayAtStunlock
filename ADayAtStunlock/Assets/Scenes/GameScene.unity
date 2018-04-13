@@ -5452,6 +5452,11 @@ Prefab:
       propertyPath: m_rotationStep
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1135492139403252, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
@@ -9566,6 +9571,7 @@ GameObject:
   - component: {fileID: 1168330433}
   - component: {fileID: 1168330434}
   - component: {fileID: 1168330435}
+  - component: {fileID: 1168330436}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9766,6 +9772,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5de7ee134e78f254295c0f823028be09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1168330436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b2d4e293fa86e49a81b64eb95b34c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1170073839

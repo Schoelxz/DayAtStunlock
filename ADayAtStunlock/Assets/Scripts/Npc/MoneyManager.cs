@@ -87,7 +87,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void DeductSalary()
     {
-        print("Deducting salary");
+        //Debug.Log("Deducting salary");
         foreach (var npc in DAS.NPC.s_npcList)
         {
             currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
