@@ -1067,10 +1067,10 @@ GameObject:
   - component: {fileID: 110456210}
   - component: {fileID: 110456209}
   - component: {fileID: 110456208}
-  - component: {fileID: 110456207}
   - component: {fileID: 110456206}
+  - component: {fileID: 110456211}
   m_Layer: 5
-  m_Name: FindNpcCanvas
+  m_Name: ExtraGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1090,22 +1090,6 @@ MonoBehaviour:
   imageToDisplay: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
   screenClampMultiplier: 1.1
   showArrowWhenClose: 1
---- !u!114 &110456207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 110456205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &110456208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1165,6 +1149,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &110456211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110456205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aefe139d0cf844bad9ff57e85e10ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listOfPointingAt:
+  - targetObject: {fileID: 946929662}
+    convertedTargetObjectPosition: {x: 0, y: 0}
+    arrowPointer: {fileID: 0}
+    extraFunction: 1
+    exclamationMark: {fileID: 0}
+    textFont: {fileID: 12800000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
+    textMaterial: {fileID: 2100000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
+    coroutineRunning: 0
+  typeOfSprite: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
 --- !u!1001 &111153037
 Prefab:
   m_ObjectHideFlags: 0
@@ -5385,7 +5390,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.z
@@ -5393,7 +5398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_RootOrder
@@ -5410,7 +5415,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4069869956835500, guid: 8606a7d163e176043bb852a1d0a32759, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5441,6 +5446,11 @@ Prefab:
         type: 2}
       propertyPath: orthographic size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114565422493377858, guid: 8606a7d163e176043bb852a1d0a32759,
+        type: 2}
+      propertyPath: m_rotationStep
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -7693,6 +7703,11 @@ Transform:
   m_Father: {fileID: 64836606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &946929662 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1013401022707310, guid: 4b6217d9a4a57474987e5e6ce47b7fd8,
+    type: 2}
+  m_PrefabInternal: {fileID: 442113989}
 --- !u!1 &953613366 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1286641746594060, guid: a8fb1c3e08ed06f43877b5a8d1fe1e19,
