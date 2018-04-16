@@ -244,8 +244,14 @@ namespace DAS
         }
 
 #if UNITY_EDITOR
+
+        public bool gizmoEnabled = false;
+
         private void OnDrawGizmos()
         {
+            if (!gizmoEnabled)
+                return;
+
             foreach (var icon in m_icons)
             {
                 if (icon.myNpcRef == null)

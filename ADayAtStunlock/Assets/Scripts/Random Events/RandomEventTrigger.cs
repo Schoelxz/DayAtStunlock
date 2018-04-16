@@ -38,6 +38,7 @@ public class RandomEventTrigger : MonoBehaviour
         {
             randomEvents.Add(TrainEvent);
             randomEvents.Add(RadiatorEvent);
+            randomEvents.Add(ToiletBreaksEvent);
             StartCoroutine(StartInvokeRepeatingWhen());
         }
 
@@ -125,8 +126,14 @@ public class RandomEventTrigger : MonoBehaviour
             radiators[Random.Range(0, radiators.Length)].RadiatorStart();
         }
     }
-    
+
     #endregion
 
+    #region Toilet
+    void ToiletBreaksEvent()
+    {
+        DAS.ToiletSystem.s_myInstance.ToiletBreakEvent();
+    }
 
+    #endregion
 }

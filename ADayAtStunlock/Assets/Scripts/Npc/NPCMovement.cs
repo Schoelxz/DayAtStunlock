@@ -85,38 +85,17 @@ namespace DAS
 
         void Update()
         {
-            //Animate work
-           if(IsDestinationMyWorkSeat && IsCurrentlyWorking && GetComponent<NPC>().myFeelings.Motivation != 0)
-            {
+           //Animate work
+           if(IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
                 m_animator.SetBool("Pickup 0", true);
-            }
            else
                 m_animator.SetBool("Pickup 0", false);
-            #region old pause
-            /*
-            if(gameHasBeenPaused == false)
-                agentValues.velocity = agentRef.velocity;
-
-            if (gameHasBeenPaused && !DAS.TimeSystem.IsGamePaused)
-            {
-                gameHasBeenPaused = false;
-                agentRef.velocity = agentValues.velocity;
-            }
-
-            if(DAS.TimeSystem.IsGamePaused)
-            {
-                gameHasBeenPaused = true;
-                agentRef.isStopped = true;
-                agentRef.velocity = Vector3.zero;
-            }
-            else*/
-            // {
-            #endregion
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
                 RotateTowardsDesk();
-           else // else we should not be stopped in our movement
+            // else we should not be stopped in our movement
+            else
                 m_agentRef.isStopped = false;
 
             #region dt call reducer
@@ -129,8 +108,8 @@ namespace DAS
             //---
             #endregion
 
-            // Random Chance of NPC wanting to go to the toilet.
-            if (IsCurrentlyWorking)
+            // Random Chance of NPC wanting to go to the toilet. Can only happen if one is currently working and is not currently queued for
+            if (IsCurrentlyWorking && !isQueued)
                 ToiletSystem.s_myInstance.RandomGotoToiletChance(this);
 
             // Check time an NPC has been inside of its destination (not counting work destination).
@@ -147,14 +126,7 @@ namespace DAS
                 workTimeStreak = 0;
 
             // If our NPC has been at a destination for longer than (5) seconds, go back to work.
-            if (timeInsideDestination >= 50)
-            {
-                ToiletSystem.s_myInstance.RemoveFromQueue(this);
-                m_agentRef.destination = m_myWorkSeat.position;
-                isAtToilet = false;
-                timeInsideDestination = 0;
-                m_agentRef.isStopped = false;
-            }
+            CheckAwayTimeTriggerReturn(25);
 
             //Movement Animation
             m_animator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
@@ -207,7 +179,7 @@ namespace DAS
         }
 
         /// <summary>
-        /// Returns true if #1. Destination is workseat. #2. Is within (1.5) units of its' workseat.
+        /// Returns true if #1. Destination is workseat. #2. Is within (0.5) units of its' workseat.
         /// </summary>
         public bool IsCurrentlyWorking
         {
@@ -235,6 +207,9 @@ namespace DAS
             m_agentRef.avoidancePriority = Random.Range(1, 100);
         }
 
+        /// <summary>
+        /// Rotates our NPC so he looks towards his desk.
+        /// </summary>
         private void RotateTowardsDesk()
         {
             // Stop our agent from fidgeting in his seat.
@@ -247,6 +222,21 @@ namespace DAS
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
             // Apply the rotate towards.
             transform.rotation = Quaternion.LookRotation(newDir);
+        }
+
+        /// <summary>
+        /// Called in update+ Checks if NPC has been away at its' destination for a set amount of time. If it has, trigger the NPC to come back to work.
+        /// </summary>
+        private void CheckAwayTimeTriggerReturn(int timeAllowedAway)
+        {
+            if (timeInsideDestination >= timeAllowedAway)
+            {
+                ToiletSystem.s_myInstance.RemoveFromQueue(this);
+                m_agentRef.destination = m_myWorkSeat.position;
+                isAtToilet = false;
+                timeInsideDestination = 0;
+                m_agentRef.isStopped = false;
+            }
         }
         #endregion
     }
