@@ -44,6 +44,9 @@ namespace DAS
         public float timeInsideDestination;
         public float workTimeStreak;
 
+        public bool isAtToilet = false;
+        public bool isQueued = false;
+
         // Delta time
         private float dt;
 
@@ -73,7 +76,7 @@ namespace DAS
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
             m_agentRef.enabled = true;
 
-            // To give NPCs the chance to walk past eachother.
+            // To give NPCs the chance to walk past eachother. Set a random number between 1-100 for the avoidance priority on the navAgent every 2nd second.
             InvokeRepeating("RandomlySetAvoidancePriority", 1, 2);
 
             // Our NPC starts by going to its work seat.
@@ -127,10 +130,11 @@ namespace DAS
             #endregion
 
             // Random Chance of NPC wanting to go to the toilet.
-            ToiletSystem.s_myInstance.RandomGotoToiletChance(this);
+            if (IsCurrentlyWorking)
+                ToiletSystem.s_myInstance.RandomGotoToiletChance(this);
 
             // Check time an NPC has been inside of its destination (not counting work destination).
-            if (m_agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat)
+            if (m_agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat && isAtToilet)
             {
                 timeInsideDestination++;
                 GetComponent<NPC>().myFeelings.Happiness += 0.01f;
@@ -145,7 +149,9 @@ namespace DAS
             // If our NPC has been at a destination for longer than (5) seconds, go back to work.
             if (timeInsideDestination >= 50)
             {
+                ToiletSystem.s_myInstance.RemoveFromQueue(this);
                 m_agentRef.destination = m_myWorkSeat.position;
+                isAtToilet = false;
                 timeInsideDestination = 0;
                 m_agentRef.isStopped = false;
             }
