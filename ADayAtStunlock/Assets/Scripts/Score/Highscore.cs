@@ -8,12 +8,16 @@ public class Highscore : MonoBehaviour {
 
     static string filePath;
     static List<Score> scores = new List<Score>();
+    static int maxListSize;
 
     // Use this for initialization
     void Start() {
+
+        maxListSize = 15;
         filePath = "Assets/Resources/Score/Highscore.txt";
         BuildListsOnStartup();
         SortHighscore();
+        SaveHighscore();
     }
 
     public class Score
@@ -28,20 +32,7 @@ public class Highscore : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            StreamWriter writer = new StreamWriter(filePath, true);
-            
-            for (int i = 0; i < scores.Count; i++)
-            {
-                writer.WriteLine(scores[i]);
-            }
-            writer.Close();
-        }
-    }
+    
 
     static public void SaveHighscore()
     {
@@ -64,6 +55,12 @@ public class Highscore : MonoBehaviour {
     {
         scores = scores.OrderBy(s => s.Amount).ToList();
         scores.Reverse();
+
+        while(scores.Count > maxListSize)
+        {
+            scores.RemoveAt(scores.Count - 1);
+        }
+
     }
 
     void BuildListsOnStartup()
