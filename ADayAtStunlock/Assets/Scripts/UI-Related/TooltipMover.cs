@@ -7,7 +7,7 @@ public class TooltipMover : MonoBehaviour {
 
     void Start()
     {
-        offset.x = this.GetComponent<RectTransform>().sizeDelta.x;
+        offset.x = this.GetComponent<RectTransform>().sizeDelta.x /2;
         offset.y = this.GetComponent<RectTransform>().sizeDelta.y /2 *-1;
 
     }
