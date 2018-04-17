@@ -813,11 +813,32 @@ MonoBehaviour:
     name: Stunblock Helper
     sentences:
     - Hi I'm Stunblock and I'm here to help you!
-    - Motivation explaination
-    - Happiness explaination
-    - Managment explaination
-    - Events explaination
-    - Good Luck!
+    - Motivation decays over time. It can be increased by moving over to each worker
+      and clicking on their little button.
+    - Happiness decays over time. It can be increased by moving over to each worker
+      and clicking on their little button.
+    - 'Events
+
+      Events happen randomly throughout the game, they can have both positive and
+      negative effects. They spawn more rapidly the further into the game you get.'
+    - 'Event Radiator
+
+      A Radiator is faulty! Quick! Run over to it and repair it as soon as you can.
+      It''ll increase the speed at which happiness decays.'
+    - 'Event Train
+
+      A train is passing through the building! This will lower the motivation of all
+      workers and block the path between the two entrances.
+
+'
+    - 'Movement, you can move your character around the office by pressing and holding
+      the left mouse button.
+
+'
+    - 'Workstation, you generate money by standing next to the workstation. When in
+      doubt, look for the exclaimation mark!
+
+'
 --- !u!114 &114344845109753390
 MonoBehaviour:
   m_ObjectHideFlags: 1

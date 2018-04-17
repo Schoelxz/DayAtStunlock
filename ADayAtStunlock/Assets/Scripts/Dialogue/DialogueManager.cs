@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
 
     private Queue<string> sentences;
+
     public static DialogueManager instance;
 
     private void Awake()
@@ -31,12 +32,16 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+
+        animator.gameObject.SetActive(false);
         sentences = new Queue<string>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        animator.SetBool("IsOpen", true);
+        DAS.TimeSystem.PauseTime();
+        //animator.SetBool("IsOpen", true);
+        animator.gameObject.SetActive(true);
 
         nameText.text = dialogue.name;
 
@@ -75,7 +80,9 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        animator.SetBool("IsOpen", false);
+        //animator.SetBool("IsOpen", false);
+        DAS.TimeSystem.ResumeTime();
+        animator.gameObject.SetActive(false);
     }
 
 }
