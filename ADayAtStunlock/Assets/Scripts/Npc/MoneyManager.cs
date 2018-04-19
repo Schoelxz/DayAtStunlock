@@ -106,7 +106,7 @@ public class MoneyManager : MonoBehaviour
     void LoseGame()
     {
         
-        Highscore.AddHighscore("placeholdername", (int)moneyEarned);
+        Highscore.AddHighscore("Name", (int)moneyEarned);
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
         EndGameCanvas.GameOver();
