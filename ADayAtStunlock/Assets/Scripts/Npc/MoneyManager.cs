@@ -28,7 +28,6 @@ public class MoneyManager : MonoBehaviour
     float timer;
     bool run;
 
-    static public List<string> highscoreList = new List<string>();
 
 	void Start ()
     {
