@@ -39,6 +39,8 @@ namespace DAS
         /// </summary>
         public static ToiletSystem s_myInstance;
 
+        public GameObject toiletQueue1, toiletQueue2;
+
         /// <summary>
         /// List of all toilets.
         /// </summary>
@@ -68,6 +70,20 @@ namespace DAS
             InitToilets();
         }
         #endregion
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                EveryoneNeedsToiletEvent();
+            }
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                ToiletBreakEvent();
+            }
+        }
+#endif
 
         #region Functions
         #region Toilet
@@ -177,20 +193,22 @@ namespace DAS
 
                     //1. if not first in queue and a queue exists.
                     if (s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement) > 0 && s_npcAssignedToToilet[dasNpcMovement].toiletQueue.Count > 0)
-                        //2. if not first or second.
-                        if (s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement) > 1)
-                            //3. Which side of the toilets?
-                            if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
-                                dasNpcMovement.m_agentRef.destination = new Vector3((-4.55f) - s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement), 0f, -7.34f);
-                            else
-                                dasNpcMovement.m_agentRef.destination = new Vector3((4.95f) + s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement), 0f, -7.34f);
-                        //2. else if not first or second
+                        //3. Which side of the toilets?
+                        if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
+                            dasNpcMovement.m_agentRef.destination = toiletQueue1.transform.position +
+                                toiletQueue1.transform.forward +
+                                (-toiletQueue1.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
                         else
-                            //3. Which side of the toilets?
-                            if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
-                                dasNpcMovement.m_agentRef.destination = new Vector3(-5.55f, 0f, -7.34f);
-                            else
-                                dasNpcMovement.m_agentRef.destination = new Vector3(5.95f, 0f, -7.34f);
+                            dasNpcMovement.m_agentRef.destination = toiletQueue2.transform.position +
+                                toiletQueue2.transform.forward +
+                                (-toiletQueue2.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
+                    else
+                    {
+                        if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
+                            dasNpcMovement.m_agentRef.destination = toiletQueue1.transform.position + toiletQueue1.transform.forward;
+                        else
+                            dasNpcMovement.m_agentRef.destination = toiletQueue2.transform.position + toiletQueue2.transform.forward;
+                    }
                 }
             } while (s_npcAssignedToToilet[dasNpcMovement].broken);
             GotoToilet(dasNpcMovement);
@@ -215,6 +233,15 @@ namespace DAS
         #endregion
 
         #region Event
+        public void EveryoneNeedsToiletEvent()
+        {
+            foreach (var npc in NPC.s_npcList)
+            {
+                if (!s_npcAssignedToToilet.ContainsKey(npc.moveRef))
+                    TryGotoToilet(npc.moveRef);
+            }
+        }
+
         public void ToiletBreakEvent()
         {
             foreach (var toilet in s_toiletPoints)
