@@ -36,7 +36,7 @@ public class Highscore : MonoBehaviour {
 
     static public void SaveHighscore()
     {
-        StreamWriter writer = new StreamWriter(filePath);
+        StreamWriter writer = new StreamWriter(filePath, false);
  
         for (int i = 0; i < scores.Count; i++)
         {
@@ -48,7 +48,10 @@ public class Highscore : MonoBehaviour {
 
     static public void AddHighscore(string name, int score)
     {
-        scores.Add(new Score(score, name));
+        if(CheckIfAdded(name,score) == false)
+        {
+            scores.Add(new Score(score, name));
+        }
     }
 
     static public void SortHighscore()
@@ -65,6 +68,7 @@ public class Highscore : MonoBehaviour {
 
     void BuildListsOnStartup()
     {
+        scores.Clear();
         string line;
         StreamReader reader = new StreamReader(filePath);
 
@@ -74,5 +78,20 @@ public class Highscore : MonoBehaviour {
             print(parts.Length);
             scores.Add(new Score(int.Parse(parts[0]), parts[1]));
         }
+
+        reader.Close();
+    }
+
+    static public bool CheckIfAdded(string name, int score)
+    {
+        foreach (var item in scores)
+        {
+            if (item.Amount == score && item.Name == name)
+            {
+                return(true);
+            }
+        }
+
+        return false;
     }
 }

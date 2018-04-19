@@ -24,8 +24,9 @@ public class MoneyManager : MonoBehaviour
     static public float moneyLost;
 
     private float m_moneyChangeLastFrame;
-
+    
     float timer;
+    bool run;
 
     static public List<string> highscoreList = new List<string>();
 
@@ -36,6 +37,7 @@ public class MoneyManager : MonoBehaviour
         startMoney = 12500;
         currentMoney = startMoney;
         m_moneyChangeLastFrame = startMoney;
+        run = false;
 
         scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
@@ -47,8 +49,11 @@ public class MoneyManager : MonoBehaviour
         if(scoreDisplay != null)
         scoreDisplay.SetScore(currentMoney, m_moneyChangeLastFrame);
 
-        if (currentMoney <= 0)
+        if (currentMoney <= 0 && !run)
+        {
+            run = true;
             LoseGame();
+        }
         
     }
     private void LateUpdate()
@@ -89,7 +94,6 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void DeductSalary()
     {
-        print("Deducting salary");
         foreach (var npc in DAS.NPC.s_npcList)
         {
             currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
@@ -102,6 +106,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
+        
         Highscore.AddHighscore("placeholdername", (int)moneyEarned);
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
