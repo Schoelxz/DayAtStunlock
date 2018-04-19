@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace DAS
 {
     public class ToiletSystem : MonoBehaviour
     {
-        //TODO: Create event breaking the toilets, which queues NPCs for toilet but can never finish.
-
+        #region Classes
         public class Toilet
         {
             public GameObject gameObject;
+            public ToiletObject myObjects;
             public DAS.NPCMovement occupier;
             public List<DAS.NPCMovement> toiletQueue = new List<DAS.NPCMovement>();
 
@@ -31,7 +32,31 @@ namespace DAS
                         return false;
                 }
             }
+            public void RepairMe()
+            {
+                broken = false;
+                myObjects.canvas.SetActive(false);
+            }
         }
+
+        [System.Serializable]
+        public class ToiletObject
+        {
+            public GameObject parent;
+            public GameObject queue;
+            public GameObject canvas;
+        }
+
+        public class ClickableObject : MonoBehaviour, IPointerDownHandler
+        {
+            public Toilet toiletRef;
+
+            public void OnPointerDown(PointerEventData eventData)
+            {
+                toiletRef.RepairMe();
+            }
+        }
+        #endregion
 
         #region Variables
         /// <summary>
@@ -39,7 +64,7 @@ namespace DAS
         /// </summary>
         public static ToiletSystem s_myInstance;
 
-        public GameObject toiletQueue1, toiletQueue2;
+        public ToiletObject toiletObject1, toiletObject2;
 
         /// <summary>
         /// List of all toilets.
@@ -68,6 +93,14 @@ namespace DAS
         private void Start()
         {
             InitToilets();
+
+            s_toiletPoints[0].myObjects = toiletObject2;
+            s_toiletPoints[1].myObjects = toiletObject1;
+
+            toiletObject2.canvas.GetComponentInChildren<Button>().gameObject.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[0];
+            toiletObject1.canvas.GetComponentInChildren<Button>().gameObject.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[1];
+            toiletObject1.canvas.SetActive(false);
+            toiletObject2.canvas.SetActive(false);
         }
         #endregion
 
@@ -180,51 +213,53 @@ namespace DAS
         private IEnumerator StandInLine(DAS.NPCMovement dasNpcMovement)
         {
             dasNpcMovement.m_agentRef.isStopped = false;
-            Debug.Log("Coroutine StandInLine Start");
             do
             {
                 yield return new WaitForSeconds(0.2f);
 
-                while (s_npcAssignedToToilet[dasNpcMovement].toiletQueue[0] != dasNpcMovement)
+                do
                 {
                     yield return new WaitForSeconds(0.2f);
 
-                    //TODO: find out why the two first in queue. fight over their queue spot until toilets are fixed.
-
                     //1. if not first in queue and a queue exists.
                     if (s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement) > 0 && s_npcAssignedToToilet[dasNpcMovement].toiletQueue.Count > 0)
-                        //3. Which side of the toilets?
+                        //2. Which side of the toilets?
                         if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
-                            dasNpcMovement.m_agentRef.destination = toiletQueue1.transform.position +
-                                toiletQueue1.transform.forward +
-                                (-toiletQueue1.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
+                            dasNpcMovement.m_agentRef.destination = toiletObject1.queue.transform.position +
+                                toiletObject1.queue.transform.forward +
+                                (-toiletObject1.queue.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
                         else
-                            dasNpcMovement.m_agentRef.destination = toiletQueue2.transform.position +
-                                toiletQueue2.transform.forward +
-                                (-toiletQueue2.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
-                    else
-                    {
+                            dasNpcMovement.m_agentRef.destination = toiletObject2.queue.transform.position +
+                                toiletObject2.queue.transform.forward +
+                                (-toiletObject2.queue.transform.forward * s_npcAssignedToToilet[dasNpcMovement].toiletQueue.IndexOf(dasNpcMovement));
+                    else //1. else if not first in queue and a queue exists.
+                        //2. Which side of the toilets?
                         if (s_npcAssignedToToilet[dasNpcMovement] == s_toiletPoints[0])
-                            dasNpcMovement.m_agentRef.destination = toiletQueue1.transform.position + toiletQueue1.transform.forward;
+                            dasNpcMovement.m_agentRef.destination = toiletObject1.queue.transform.position + toiletObject1.queue.transform.forward;
                         else
-                            dasNpcMovement.m_agentRef.destination = toiletQueue2.transform.position + toiletQueue2.transform.forward;
-                    }
-                }
+                            dasNpcMovement.m_agentRef.destination = toiletObject2.queue.transform.position + toiletObject2.queue.transform.forward;
+
+                } while (s_npcAssignedToToilet[dasNpcMovement].toiletQueue[0] != dasNpcMovement);
             } while (s_npcAssignedToToilet[dasNpcMovement].broken);
             GotoToilet(dasNpcMovement);
-            Debug.Log("Coroutine StandInLine End");
         }
 
+        /// <summary>
+        /// Adds an NPC to the toilet queue.
+        /// </summary>
         private void AddToQueue(DAS.NPCMovement dasNpcMovement, Toilet toiletToQueue)
         {
-            Debug.Log(dasNpcMovement.name + " is being added to queue");
+            //Debug.Log(dasNpcMovement.name + " is being added to queue");
             s_npcAssignedToToilet.Add(dasNpcMovement, toiletToQueue);
             s_npcAssignedToToilet[dasNpcMovement].toiletQueue.Add(dasNpcMovement);
         }
 
+        /// <summary>
+        /// Removes NPC from the queue to the toilet.
+        /// </summary>
         public void RemoveFromQueue(DAS.NPCMovement dasNpcMovement)
         {
-            Debug.Log(dasNpcMovement.name + " is being removed from queue");
+            //Debug.Log(dasNpcMovement.name + " is being removed from queue");
             s_npcAssignedToToilet[dasNpcMovement].occupier = null;
             s_npcAssignedToToilet[dasNpcMovement].toiletQueue.Remove(dasNpcMovement);
             s_npcAssignedToToilet.Remove(dasNpcMovement);
@@ -233,6 +268,9 @@ namespace DAS
         #endregion
 
         #region Event
+        /// <summary>
+        /// Makes all npcs go to the toilet.
+        /// </summary>
         public void EveryoneNeedsToiletEvent()
         {
             foreach (var npc in NPC.s_npcList)
@@ -242,21 +280,27 @@ namespace DAS
             }
         }
 
+        /// <summary>
+        /// Breaks all toilets rendering them unusuable until fixed.
+        /// </summary>
         public void ToiletBreakEvent()
         {
             foreach (var toilet in s_toiletPoints)
             {
                 toilet.broken = true;
+                toilet.myObjects.canvas.SetActive(true);
             }
-
-            Invoke("FixAllToilets", 30);
         }
 
+        /// <summary>
+        /// Fixes all toilets, making them not broken.
+        /// </summary>
         public void FixAllToilets()
         {
             foreach (var toilet in s_toiletPoints)
             {
                 toilet.broken = false;
+                toilet.myObjects.canvas.SetActive(false);
             }
         }
         #endregion
