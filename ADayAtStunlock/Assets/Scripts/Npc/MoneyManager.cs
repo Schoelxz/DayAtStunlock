@@ -27,6 +27,7 @@ public class MoneyManager : MonoBehaviour
 
     float timer;
 
+
 	void Start ()
     {
         moneyLost = 0;
@@ -100,6 +101,9 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
+        Highscore.AddHighscore("placeholdername", (int)moneyEarned);
+        Highscore.SortHighscore();
+        Highscore.SaveHighscore();
         EndGameCanvas.GameOver();
     }
 
