@@ -70,6 +70,7 @@ namespace DAS
         #endregion
 
         #region Functions
+        #region Toilet
         /// <summary>
         /// Find and add all toilets in the scene.
         /// </summary>
@@ -211,7 +212,9 @@ namespace DAS
             s_npcAssignedToToilet.Remove(dasNpcMovement);
             dasNpcMovement.isQueued = false;
         }
+        #endregion
 
+        #region Event
         public void ToiletBreakEvent()
         {
             foreach (var toilet in s_toiletPoints)
@@ -229,6 +232,7 @@ namespace DAS
                 toilet.broken = false;
             }
         }
+        #endregion
         #endregion
 
         #region Properties
