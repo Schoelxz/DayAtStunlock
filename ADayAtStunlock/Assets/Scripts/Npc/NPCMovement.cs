@@ -63,7 +63,8 @@ namespace DAS
         private float timeInsideDestination;
         private float workTimeStreak;
         private AgentValues agentValues;
-        private Animator m_animator;
+        private Animator[] m_animator;
+        private Animator currentAnimator;
 
         private DAS.NPC myNpcRef;
 
@@ -87,8 +88,16 @@ namespace DAS
             myNpcRef = gameObject.GetComponent<NPC>();
 
             //Find Animator
-            m_animator = GetComponentInChildren<Animator>();
+            m_animator = GetComponentsInChildren<Animator>(true);
             Debug.Assert(agentRef);
+
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+            }
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
 
@@ -113,10 +122,10 @@ namespace DAS
             //Animate work
            if(IsDestinationMyWorkSeat && IsCurrentlyWorking && GetComponent<NPC>().myFeelings.Motivation != 0)
             {
-                m_animator.SetBool("Pickup 0", true);
+                currentAnimator.SetBool("Pickup 0", true);
             }
            else
-                m_animator.SetBool("Pickup 0", false);
+                currentAnimator.SetBool("Pickup 0", false);
             #region old pause
             /*
             if(gameHasBeenPaused == false)
@@ -179,7 +188,7 @@ namespace DAS
             }
 
             //Movement Animation
-            m_animator.SetFloat("MoveSpeed", agentRef.velocity.magnitude);
+            currentAnimator.SetFloat("MoveSpeed", agentRef.velocity.magnitude);
         }
 
         private void OnDestroy()
@@ -296,6 +305,18 @@ namespace DAS
 
             // Apply the rotate towards.
             transform.rotation = Quaternion.LookRotation(newDir);
+        }
+
+        public void ToggleAnimator()
+        {
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+                
+            }
         }
         #endregion
     }
