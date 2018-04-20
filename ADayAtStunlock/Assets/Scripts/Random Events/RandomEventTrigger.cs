@@ -114,7 +114,7 @@ public class RandomEventTrigger : MonoBehaviour
         m_trainTrack.SetBool("IsActive", true);
         m_train.SetBool("IsMoving", true);
         //Train sound
-        //audioManager.Play("Train");
+        audioManager.Play("Train");
         hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {

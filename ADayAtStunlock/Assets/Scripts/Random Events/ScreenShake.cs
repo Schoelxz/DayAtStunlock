@@ -13,7 +13,7 @@ public class ScreenShake : MonoBehaviour
     {
         camera = Camera.main;
         originalPos = camera.transform.localPosition;
-        shakeAmount = 1;
+        shakeAmount = 0.2f;
 	}
 
 	void Update ()
