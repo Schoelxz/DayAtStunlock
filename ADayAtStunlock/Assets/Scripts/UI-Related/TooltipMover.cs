@@ -1,44 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//min
 public class TooltipMover : MonoBehaviour {
-    public Vector3 offset;
+    private Vector3 m_offset;
+    private Vector3 m_tempOffset;
+
+    public Vector2 cerserPos;
 
     void Start()
     {
-        offset.x = this.GetComponent<RectTransform>().sizeDelta.x /2;
-        offset.y = this.GetComponent<RectTransform>().sizeDelta.y /2 *-1;
+        m_offset.x = this.GetComponent<RectTransform>().sizeDelta.x /2;
+        m_offset.y = this.GetComponent<RectTransform>().sizeDelta.y /2 *-1;
 
     }
 
     // Update is called once per frame
     void Update ()
-    {   
+    {
+        m_tempOffset = m_offset;
+        cerserPos = Input.mousePosition;
         //top right
-        if (Input.mousePosition.y <= Screen.height/2 && Input.mousePosition.x >= Screen.width /2)
+        if (cerserPos.y >= Screen.height/2
+            &&
+            cerserPos.x <= Screen.width /2)
         {
             
         } 
         // lower right
-        else if (Input.mousePosition.y >= Screen.height / 2 && Input.mousePosition.x >= Screen.width / 2)
+        else if (cerserPos.y <= Screen.height / 2
+            &&
+            cerserPos.x <= Screen.width / 2)
         {
-            offset.y = offset.y * -1;
+            m_tempOffset.y = m_tempOffset.y * -1;
         }
         //top left
-        else if (Input.mousePosition.y <= Screen.height / 2 && Input.mousePosition.x <= Screen.width / 2)
+        else if (cerserPos.y >= Screen.height / 2 
+            &&
+            cerserPos.x >= Screen.width / 2)
         {
-            offset.x = offset.x * -1;
+            m_tempOffset.x = m_tempOffset.x * -1;
             
         }
         //lower left
-        else if (Input.mousePosition.y >= Screen.height / 2 && Input.mousePosition.x <= Screen.width / 2)
+        else if (cerserPos.y <= Screen.height / 2 
+                &&
+                cerserPos.x >= Screen.width / 2)
         {
-            offset.x = offset.x * -1;
-            offset.y = offset.y * -1;
+                m_tempOffset.x = m_tempOffset.x * -1;
+                m_tempOffset.y = m_tempOffset.y * -1;
         }
        
 
-     transform.position = Input.mousePosition + offset;
+     transform.position = Input.mousePosition + m_tempOffset;
     }
 }
