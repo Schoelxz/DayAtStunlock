@@ -59,6 +59,15 @@ namespace DAS
 
         private Slider happySlider, motivationSlider;
 
+        public Slider HappySlider
+        {
+            get { return happySlider; }
+        }
+        public Slider MotivationSlider
+        {
+            get { return motivationSlider; }
+        }
+
         public new string name;
 
         public WorkSeat myWorkSeat;

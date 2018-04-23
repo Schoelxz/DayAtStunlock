@@ -48,6 +48,14 @@ public class Radiator : MonoBehaviour
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)
             {
                 npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
+                npc.buttonRef.particle.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var npc in nearbyNpcs)
+            {
+                npc.buttonRef.particle.SetActive(false);
             }
         }
 	}
@@ -98,9 +106,12 @@ public class Radiator : MonoBehaviour
         {
             nearbyNpcs.Add(other.GetComponent<DAS.NPC>());
 
-            if(isBroken)
+            if (isBroken)
+            {
                 foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                     material.color = Color.red;
+                other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(true);
+            }
         }
     }
 
@@ -113,6 +124,7 @@ public class Radiator : MonoBehaviour
 
             foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
+            other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(false);
         }
     }
 }

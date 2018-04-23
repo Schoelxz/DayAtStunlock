@@ -10084,6 +10084,7 @@ GameObject:
   - component: {fileID: 1168330435}
   - component: {fileID: 1168330436}
   - component: {fileID: 1168330431}
+  - component: {fileID: 1168330437}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10238,6 +10239,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e919b476cbf9247b26a3bc2337f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1168330437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66408502743e3c04b8c871cf5518afdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - prefabObject: {fileID: 1865597750475982, guid: 1d2353d4734337049ba69de3084fc13a,
+      type: 2}
+    key: 2D-Particle
 --- !u!1001 &1170073839
 Prefab:
   m_ObjectHideFlags: 0
