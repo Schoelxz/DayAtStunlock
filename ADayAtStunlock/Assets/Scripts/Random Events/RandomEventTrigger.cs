@@ -56,6 +56,8 @@ public class RandomEventTrigger : MonoBehaviour
         }
 
         audioManager = FindObjectOfType<AudioManager>();
+        Debug.Assert(audioManager, "No audiomanager exists!!!");
+
         //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
     }
     
@@ -73,7 +75,7 @@ public class RandomEventTrigger : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("coroutine end");
+        //Debug.Log("coroutine end");
     }
 
     void TriggerRandomEvent()

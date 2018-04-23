@@ -104,7 +104,7 @@ namespace DAS
             buttonTogglerRef.InitButtonToggler();
 
             nameHolder = new GameObject("Name Holder");
-            nameHolder.transform.parent = gameObject.transform.GetChild(0);
+            nameHolder.transform.parent = gameObject.transform;
             myNameDisplay = nameHolder.AddComponent<TextMesh>();
 
             /// Text
