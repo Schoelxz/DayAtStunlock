@@ -28,6 +28,14 @@ public class RandomEventTrigger : MonoBehaviour
     int eventDelayMedium;
     int eventDelayHard;
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.T))
+            TrainEvent();
+    }
+#endif
+
     void Start ()
     {
         //Train Stuff
@@ -117,7 +125,7 @@ public class RandomEventTrigger : MonoBehaviour
         m_trainTrack.SetBool("IsActive", true);
         m_train.SetBool("IsMoving", true);
         //Train sound
-        audioManager.Play("Train");
+        //audioManager.Play("Train");
         hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {
@@ -138,6 +146,12 @@ public class RandomEventTrigger : MonoBehaviour
         //Turn off trains
         m_trainTrack.SetBool("IsActive", false);
         m_train.SetBool("IsMoving", false);
+
+        Invoke("InvokeOnlyFunctionHideTrainTrack", 1);
+    }
+
+    private void InvokeOnlyFunctionHideTrainTrack()
+    {
         m_trainTrack.gameObject.SetActive(false);
     }
     #endregion

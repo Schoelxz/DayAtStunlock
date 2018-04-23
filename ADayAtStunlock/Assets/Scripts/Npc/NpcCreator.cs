@@ -65,7 +65,7 @@ namespace DAS
         public DAS.NPCMovement moveRef;
         public NpcButtons buttonRef;
         public ButtonToggler buttonTogglerRef;
-        private Material myMaterial;
+        private Material[] myMaterials;
         private Material moneyMaterial;
 
         public Feelings myFeelings;
@@ -74,6 +74,11 @@ namespace DAS
 
         float dt;
         #endregion
+
+        public Material[] MyMaterials
+        {
+            get { return myMaterials; }
+        }
 
         private void Start()
         {
@@ -122,8 +127,8 @@ namespace DAS
             }
 
             /// Material
-            myMaterial = GetComponentInChildren<MeshRenderer>().material;
-            moneyMaterial = new Material(myMaterial);
+            myMaterials = GetComponentInChildren<MeshRenderer>().materials;
+            moneyMaterial = new Material(myMaterials[0]);
             moneyMaterial.color = Color.green;
         }
 
@@ -152,10 +157,10 @@ namespace DAS
 
         #region Functions
 
-        private void SetDefaultMaterial()
+       /* private void SetDefaultMaterial()
         {
-            GetComponentInChildren<MeshRenderer>().material = myMaterial;
-        }
+            //GetComponentInChildren<MeshRenderer>().material = myMaterial;
+        }*/
         #endregion
     };
 
