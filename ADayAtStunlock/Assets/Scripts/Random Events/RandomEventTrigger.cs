@@ -10,6 +10,15 @@ public class RandomEventTrigger : MonoBehaviour
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
     public int shakeDuration = 6;
 
+    //Train Event
+
+    //TrainPrefab
+    [SerializeField]
+    //[Tooltip("Put TrainEventPrefab here")]
+    Animator m_trainTrack;
+    [SerializeField]
+    Animator m_train;
+
     private List<float> motivationList = new List<float>();
     private Radiator[] radiators;
     private int motivationLossDuration;
@@ -21,6 +30,10 @@ public class RandomEventTrigger : MonoBehaviour
 
     void Start ()
     {
+        //Train Stuff
+        m_trainTrack.gameObject.SetActive(false);
+
+        //Radiator stuff
         radiators = FindObjectsOfType<Radiator>();
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
@@ -95,7 +108,13 @@ public class RandomEventTrigger : MonoBehaviour
             return;
         motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
-        //audioManager.Play("Train");
+
+        //Turn on trains
+        m_trainTrack.gameObject.SetActive(true);
+        m_trainTrack.SetBool("IsActive", true);
+        m_train.SetBool("IsMoving", true);
+        //Train sound
+        audioManager.Play("Train");
         hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {
@@ -113,6 +132,10 @@ public class RandomEventTrigger : MonoBehaviour
             DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
         }
         hasMotivationReset = true;
+        //Turn off trains
+        m_trainTrack.SetBool("IsActive", false);
+        m_train.SetBool("IsMoving", false);
+        m_trainTrack.gameObject.SetActive(false);
     }
     #endregion
     
