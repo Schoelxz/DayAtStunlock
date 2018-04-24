@@ -43,21 +43,15 @@ public class Radiator : MonoBehaviour
 	void Update ()
     {
         if (isBroken)
-        {
             //Make all npcs in the nearbyNpcs list sad. The list gets updated by the triggerbox on the radiator.
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)
             {
                 npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
                 npc.buttonRef.particle.SetActive(true);
             }
-        }
         else
-        {
             foreach (var npc in nearbyNpcs)
-            {
                 npc.buttonRef.particle.SetActive(false);
-            }
-        }
 	}
 
     public void RadiatorStart()
@@ -67,16 +61,14 @@ public class Radiator : MonoBehaviour
 
         //Play radiator sound here
         if(audioManager != null)
-        {
             //print("Trying to play broken radiator sound");
             audioManager.Play("RadiatorBroken");
-        }
 
         foreach (var npc in nearbyNpcs)
-        {
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.red;
-        }
+
+        ArrowPointer.MyInstance.AddObjectToPointAt(gameObject);
     }
 
     void RadiatorEnd()
@@ -94,10 +86,10 @@ public class Radiator : MonoBehaviour
         }
 
         foreach (var npc in nearbyNpcs)
-        {
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
-        }
+
+        ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -117,7 +109,6 @@ public class Radiator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
         if (other.gameObject.tag == "NPC")
         {
             nearbyNpcs.Remove(other.GetComponent<DAS.NPC>());
