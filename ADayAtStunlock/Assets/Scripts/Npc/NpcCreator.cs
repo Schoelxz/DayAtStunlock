@@ -59,13 +59,22 @@ namespace DAS
 
         private Slider happySlider, motivationSlider;
 
+        public Slider HappySlider
+        {
+            get { return happySlider; }
+        }
+        public Slider MotivationSlider
+        {
+            get { return motivationSlider; }
+        }
+
         public new string name;
 
         public WorkSeat myWorkSeat;
         public DAS.NPCMovement moveRef;
         public NpcButtons buttonRef;
         public ButtonToggler buttonTogglerRef;
-        private Material myMaterial;
+        private Material[] myMaterials;
         private Material moneyMaterial;
         private ModelChanger modelChanger;
 
@@ -77,6 +86,11 @@ namespace DAS
 
        
         #endregion
+
+        public Material[] MyMaterials
+        {
+            get { return myMaterials; }
+        }
 
         private void Start()
         {
@@ -107,7 +121,7 @@ namespace DAS
             buttonTogglerRef.InitButtonToggler();
 
             nameHolder = new GameObject("Name Holder");
-            nameHolder.transform.parent = gameObject.transform.GetChild(0);
+            nameHolder.transform.parent = gameObject.transform;
             myNameDisplay = nameHolder.AddComponent<TextMesh>();
 
             /// Text
@@ -125,8 +139,8 @@ namespace DAS
             }
 
             /// Material
-            myMaterial = GetComponentInChildren<MeshRenderer>().material;
-            moneyMaterial = new Material(myMaterial);
+            myMaterials = GetComponentInChildren<MeshRenderer>().materials;
+            moneyMaterial = new Material(myMaterials[0]);
             moneyMaterial.color = Color.green;
         }
 
@@ -163,10 +177,10 @@ namespace DAS
 
         #region Functions
 
-        private void SetDefaultMaterial()
+       /* private void SetDefaultMaterial()
         {
-            GetComponentInChildren<MeshRenderer>().material = myMaterial;
-        }
+            //GetComponentInChildren<MeshRenderer>().material = myMaterial;
+        }*/
         #endregion
     };
 
