@@ -34,11 +34,12 @@ namespace DAS
         #endregion
 
         private static List<NPCMovement> s_allNPCs = new List<NPCMovement>();
-        
+
         private Transform m_myWorkSeat;
         public NavMeshAgent m_agentRef;
         private AgentValues m_agentValues;
-        private Animator m_animator;
+        private Animator[] m_animator;
+        private Animator currentAnimator;
         public DAS.NPC m_myNpcRef;
 
         public float timeInsideDestination;
@@ -61,6 +62,17 @@ namespace DAS
             if (!SetAllGetComponents())
                 Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
 
+            //Find Animator
+            m_animator = GetComponentsInChildren<Animator>(true);
+            Debug.Assert(m_agentRef);
+
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+            }
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
 
@@ -70,7 +82,7 @@ namespace DAS
             // Assert
             Debug.Assert(m_myWorkSeat);
             Debug.Assert(m_agentRef);
-            Debug.Assert(m_animator);
+            Debug.Assert(currentAnimator);
             Debug.Assert(m_myNpcRef);
 
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
@@ -87,9 +99,9 @@ namespace DAS
         {
            //Animate work
            if(IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
-                m_animator.SetBool("Pickup 0", true);
+                currentAnimator.SetBool("Pickup 0", true);
            else
-                m_animator.SetBool("Pickup 0", false);
+                currentAnimator.SetBool("Pickup 0", false);
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
@@ -129,7 +141,7 @@ namespace DAS
             CheckAwayTimeTriggerReturn(25);
 
             //Movement Animation
-            m_animator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
+            currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
         }
 
         private void OnDestroy()
@@ -151,7 +163,7 @@ namespace DAS
             if (!(m_myNpcRef = gameObject.GetComponent<NPC>()))
                 return false;
 
-            if (!(m_animator = GetComponentInChildren<Animator>()))
+            if (!(currentAnimator = GetComponentInChildren<Animator>()))
                 return false;
 
             return true;
@@ -224,6 +236,18 @@ namespace DAS
             transform.rotation = Quaternion.LookRotation(newDir);
         }
 
+        //Changes the animator based on whether the "Alien" or the "NPC" model is active in the scene. This function is executed from the ModelChanger script.
+        public void ToggleAnimator()
+        {
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+            }
+        }
+
         /// <summary>
         /// Called in update+ Checks if NPC has been away at its' destination for a set amount of time. If it has, trigger the NPC to come back to work.
         /// </summary>
@@ -238,6 +262,7 @@ namespace DAS
                 m_agentRef.isStopped = false;
             }
         }
+
         #endregion
     }
 }
