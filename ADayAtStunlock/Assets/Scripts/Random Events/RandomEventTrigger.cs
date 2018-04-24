@@ -149,11 +149,9 @@ public class RandomEventTrigger : MonoBehaviour
         {
             if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
             {
-                print("Creating an alien");
                 npc.GetComponent<ModelChanger>().ToggleModel();
                 npc.GetComponent<ModelChanger>().isAlien = true;
             }
-            print(npc.GetComponent<ModelChanger>().isAlien);
         }
 
         Invoke("DisableSpaceship", 7);
