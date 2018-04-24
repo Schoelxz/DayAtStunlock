@@ -67,12 +67,15 @@ namespace DAS
         public ButtonToggler buttonTogglerRef;
         private Material myMaterial;
         private Material moneyMaterial;
+        private ModelChanger modelChanger;
 
         public Feelings myFeelings;
         private GameObject nameHolder;
         private TextMesh myNameDisplay;
 
         float dt;
+
+       
         #endregion
 
         private void Start()
@@ -97,7 +100,7 @@ namespace DAS
 
             /// Add Components
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
-
+            modelChanger = gameObject.AddComponent<ModelChanger>();
             buttonRef = gameObject.AddComponent<NpcButtons>();
             buttonRef.InitNpcButtons();
             buttonTogglerRef = gameObject.AddComponent<ButtonToggler>();
@@ -137,9 +140,17 @@ namespace DAS
         {
             // Feelings depletion;
             // example explaination: feeling -= (delta time / amount of seconds until 0)
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
-            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
 
+            if(modelChanger.isAlien)
+            {
+                myFeelings.Happiness = 1;
+                myFeelings.Motivation = 1;
+            }
+            else
+            {
+                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
+                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
+            }
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
 

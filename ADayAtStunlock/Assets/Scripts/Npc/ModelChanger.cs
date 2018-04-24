@@ -4,41 +4,38 @@ using UnityEngine;
 
 public class ModelChanger : MonoBehaviour {
 
-    public GameObject alienModel;
-    public GameObject personModel;
+    private GameObject alienModel;
+    private GameObject personModel;
     private DAS.NPCMovement npcMovement;
+
+    public bool isAlien;
 
 	// Use this for initialization
 	void Start () {
-        
+        isAlien = false;
+        alienModel = gameObject.transform.GetChild(2).gameObject;
+        personModel = gameObject.transform.GetChild(0).gameObject;
     }
 	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            ToggleModel();
-        }
-
-	}
 
     public void ToggleModel()
     {
         npcMovement = gameObject.GetComponent<DAS.NPCMovement>();
-
-        if (alienModel.activeInHierarchy)
-        {
-            alienModel.SetActive(false);
-            personModel.SetActive(true);
-            npcMovement.ToggleAnimator();
-        }
-        else
-        {
+        
+            isAlien = true;
             personModel.SetActive(false);
             alienModel.SetActive(true);
             npcMovement.ToggleAnimator();
-        }
 
+            Invoke("AlienOff", 90);
+        
+    }
 
+    private void AlienOff()
+    {
+        isAlien = false;
+        alienModel.SetActive(false);
+        personModel.SetActive(true);
+        npcMovement.ToggleAnimator();
     }
 }

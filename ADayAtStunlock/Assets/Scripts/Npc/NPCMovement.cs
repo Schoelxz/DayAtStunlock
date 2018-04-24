@@ -307,6 +307,7 @@ namespace DAS
             transform.rotation = Quaternion.LookRotation(newDir);
         }
 
+        //Changes the animator based on whether the "Alien" or the "NPC" model is active in the scene. This function is executed from the ModelChanger script. 
         public void ToggleAnimator()
         {
             for (int i = 0; i < m_animator.Length; i++)

@@ -12,6 +12,7 @@ public class RandomEventTrigger : MonoBehaviour
 
     private List<float> motivationList = new List<float>();
     private Radiator[] radiators;
+    private GameObject spaceship;
     private int motivationLossDuration;
     AudioManager audioManager;
 
@@ -19,8 +20,12 @@ public class RandomEventTrigger : MonoBehaviour
     int eventDelayMedium;
     int eventDelayHard;
 
+    int alienCount;
+
     void Start ()
     {
+        spaceship = GameObject.FindGameObjectWithTag("Spaceship");
+        spaceship.SetActive(false);
         radiators = FindObjectsOfType<Radiator>();
 
         motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
@@ -29,13 +34,17 @@ public class RandomEventTrigger : MonoBehaviour
         eventDelayMedium = 40;
         eventDelayHard = 30;
 
+        alienCount = 8;
+
         if(DifficultyManager.difficultyScalingEnabled)
         {
             randomEvents.Add(RadiatorEvent);
-            InvokeRepeating("TriggerRandomEvent", 2, eventDelayEasy);
+            randomEvents.Add(AlienEvent);
+            InvokeRepeating("TriggerRandomEvent", 10, eventDelayEasy);
         }
         else
         {
+            randomEvents.Add(AlienEvent);
             randomEvents.Add(TrainEvent);
             randomEvents.Add(RadiatorEvent);
             StartCoroutine(StartInvokeRepeatingWhen());
@@ -73,7 +82,7 @@ public class RandomEventTrigger : MonoBehaviour
         if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
             CancelInvoke("TriggerRandomEvent");
-            randomEvents.Add(TrainEvent);
+            //randomEvents.Add(TrainEvent);
             InvokeRepeating("TriggerRandomEvent", 2, eventDelayMedium);
 
         }
@@ -125,8 +134,39 @@ public class RandomEventTrigger : MonoBehaviour
             radiators[Random.Range(0, radiators.Length)].RadiatorStart();
         }
     }
-    
+
     #endregion
 
+    #region Aliens
+
+    void AlienEvent()
+    {
+        DAS.NPC npc;
+
+        spaceship.SetActive(true);
+
+        for (int i = 0; i < alienCount; i++)
+        {
+            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
+            {
+                print("Creating an alien");
+                npc.GetComponent<ModelChanger>().ToggleModel();
+                npc.GetComponent<ModelChanger>().isAlien = true;
+            }
+            print(npc.GetComponent<ModelChanger>().isAlien);
+        }
+
+        Invoke("DisableSpaceship", 7);
+        
+        
+    }
+
+    private void DisableSpaceship()
+    {
+        spaceship.SetActive(false);
+    }
+
+
+    #endregion 
 
 }
