@@ -36,8 +36,6 @@ public class Radiator : MonoBehaviour
         fixButtonImage.enabled = false;
 
         audioManager = GameObject.FindObjectOfType<AudioManager>();
-
-        RadiatorStart();
     }
 	
 	void Update ()

@@ -36,6 +36,7 @@ namespace DAS
             {
                 broken = false;
                 myObjects.canvas.SetActive(false);
+                ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
             }
         }
 
@@ -289,6 +290,7 @@ namespace DAS
             {
                 toilet.broken = true;
                 toilet.myObjects.canvas.SetActive(true);
+                ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject);
             }
         }
 
@@ -301,6 +303,7 @@ namespace DAS
             {
                 toilet.broken = false;
                 toilet.myObjects.canvas.SetActive(false);
+                ArrowPointer.MyInstance.RemoveObjectToPointAt(toilet.gameObject);
             }
         }
         #endregion
