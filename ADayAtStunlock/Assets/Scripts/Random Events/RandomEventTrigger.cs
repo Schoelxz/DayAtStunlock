@@ -82,7 +82,7 @@ public class RandomEventTrigger : MonoBehaviour
         if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
             CancelInvoke("TriggerRandomEvent");
-            //randomEvents.Add(TrainEvent);
+            randomEvents.Add(TrainEvent);
             InvokeRepeating("TriggerRandomEvent", 2, eventDelayMedium);
 
         }
