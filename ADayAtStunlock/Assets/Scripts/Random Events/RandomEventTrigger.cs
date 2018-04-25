@@ -60,7 +60,8 @@ public class RandomEventTrigger : MonoBehaviour
         {
             randomEvents.Add(RadiatorEvent);
             randomEvents.Add(AlienEvent);
-            InvokeRepeating("TriggerRandomEvent", 10, eventDelayEasy);
+            randomEvents.Add(ToiletBreaksEvent);
+            InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
         }
         else
         {
