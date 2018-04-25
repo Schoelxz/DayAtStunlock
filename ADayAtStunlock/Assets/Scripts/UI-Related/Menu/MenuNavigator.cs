@@ -39,10 +39,20 @@ public class MenuNavigator : MonoBehaviour
         InitializeCanvases();
     }
 
-    private void OnLevelWasLoaded(int level)
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         DAS.TimeSystem.ResumeTime();
-        if (SceneManager.GetSceneByBuildIndex(level).name == "MainMenu")
+        if (scene.name == "MainMenu")
         {
             DAS.TimeSystem.TimePassedSeconds = 0;
             GotoMainMenu();

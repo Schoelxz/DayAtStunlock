@@ -25,10 +25,13 @@ public class EndGameCanvas : MonoBehaviour
 
     public static void GameOver()
     {
-        myInstance.SetActive(true);
-        DAS.TimeSystem.PauseTime();
-        highscore.text = MoneyManager.moneyEarned.ToString("C0");
+        if (myInstance != null)
+        {
+            myInstance.SetActive(true);
+            DAS.TimeSystem.PauseTime();
+            highscore.text = MoneyManager.moneyEarned.ToString("C0");
+        }
+        else
+            Debug.LogWarning("EndGameCanvas probably missing");
     }
-
-
 }

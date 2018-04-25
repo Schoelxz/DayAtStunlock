@@ -21,6 +21,8 @@ public class Radiator : MonoBehaviour
         }
     }
 
+    public SnowControl snowControl;
+
     private List<DAS.NPC> nearbyNpcs = new List<DAS.NPC>();
     private bool isBroken = false;
     private Button fixButton;
@@ -64,9 +66,11 @@ public class Radiator : MonoBehaviour
 
         foreach (var npc in nearbyNpcs)
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
-                material.color = Color.red;
+                material.color = Color.blue;
 
         ArrowPointer.MyInstance.AddObjectToPointAt(gameObject);
+
+        snowControl.ParticleSystem.Play();
     }
 
     void RadiatorEnd()
@@ -88,6 +92,8 @@ public class Radiator : MonoBehaviour
                 material.color = Color.white;
 
         ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
+
+        snowControl.ParticleSystem.Stop();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -99,7 +105,7 @@ public class Radiator : MonoBehaviour
             if (isBroken)
             {
                 foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
-                    material.color = Color.red;
+                    material.color = Color.blue;
                 other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(true);
             }
         }
