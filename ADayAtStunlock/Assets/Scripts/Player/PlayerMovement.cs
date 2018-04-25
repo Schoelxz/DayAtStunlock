@@ -41,6 +41,7 @@ namespace DAS
             //Goto where we clicked
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
+                m_agentRef.isStopped = false;
                 m_agentRef.destination = PlayerRaycast.hit.point;
                 if (IsInvoking("StopMovement"))
                     CancelInvoke("StopMovement");

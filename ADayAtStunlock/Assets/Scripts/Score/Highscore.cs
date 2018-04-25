@@ -11,10 +11,10 @@ public class Highscore : MonoBehaviour {
     static int maxListSize;
 
     // Use this for initialization
-    void Start() {
-
+    void Start()
+    {
+        InitFile(); //Creates Highscore.txt if it does not exist.
         maxListSize = 15;
-        filePath = "Assets/Resources/Score/Highscore.txt";
         BuildListsOnStartup();
         SortHighscore();
         SaveHighscore();
@@ -32,7 +32,15 @@ public class Highscore : MonoBehaviour {
         }
     }
 
-    
+    private void InitFile()
+    {
+        filePath = Application.persistentDataPath + "/Highscore.txt"; // "Assets /Resources/Score/Highscore.txt";
+
+        Debug.Log("filepath: " + filePath);
+
+        if (!File.Exists(filePath))
+            File.CreateText(filePath).Dispose();
+    }
 
     static public void SaveHighscore()
     {
@@ -75,7 +83,7 @@ public class Highscore : MonoBehaviour {
         while((line = reader.ReadLine()) != null)
         {
             string[] parts = line.Split();
-            print(parts.Length);
+            //print(parts.Length);
             scores.Add(new Score(int.Parse(parts[0]), parts[1]));
         }
 
