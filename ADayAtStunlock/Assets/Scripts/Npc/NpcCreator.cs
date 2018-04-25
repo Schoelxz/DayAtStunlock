@@ -59,21 +59,38 @@ namespace DAS
 
         private Slider happySlider, motivationSlider;
 
+        public Slider HappySlider
+        {
+            get { return happySlider; }
+        }
+        public Slider MotivationSlider
+        {
+            get { return motivationSlider; }
+        }
+
         public new string name;
 
         public WorkSeat myWorkSeat;
         public DAS.NPCMovement moveRef;
         public NpcButtons buttonRef;
         public ButtonToggler buttonTogglerRef;
-        private Material myMaterial;
+        private Material[] myMaterials;
         private Material moneyMaterial;
+        private ModelChanger modelChanger;
 
         public Feelings myFeelings;
         private GameObject nameHolder;
         private TextMesh myNameDisplay;
 
         float dt;
+
+       
         #endregion
+
+        public Material[] MyMaterials
+        {
+            get { return myMaterials; }
+        }
 
         private void Start()
         {
@@ -97,14 +114,14 @@ namespace DAS
 
             /// Add Components
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
-
+            modelChanger = gameObject.AddComponent<ModelChanger>();
             buttonRef = gameObject.AddComponent<NpcButtons>();
             buttonRef.InitNpcButtons();
             buttonTogglerRef = gameObject.AddComponent<ButtonToggler>();
             buttonTogglerRef.InitButtonToggler();
 
             nameHolder = new GameObject("Name Holder");
-            nameHolder.transform.parent = gameObject.transform.GetChild(0);
+            nameHolder.transform.parent = gameObject.transform;
             myNameDisplay = nameHolder.AddComponent<TextMesh>();
 
             /// Text
@@ -122,8 +139,8 @@ namespace DAS
             }
 
             /// Material
-            myMaterial = GetComponentInChildren<MeshRenderer>().material;
-            moneyMaterial = new Material(myMaterial);
+            myMaterials = GetComponentInChildren<MeshRenderer>().materials;
+            moneyMaterial = new Material(myMaterials[0]);
             moneyMaterial.color = Color.green;
         }
 
@@ -137,9 +154,17 @@ namespace DAS
         {
             // Feelings depletion;
             // example explaination: feeling -= (delta time / amount of seconds until 0)
-            myFeelings.Happiness  -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
-            myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
 
+            if(modelChanger.isAlien)
+            {
+                myFeelings.Happiness = 1;
+                myFeelings.Motivation = 1;
+            }
+            else
+            {
+                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
+                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
+            }
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
 
@@ -152,10 +177,10 @@ namespace DAS
 
         #region Functions
 
-        private void SetDefaultMaterial()
+       /* private void SetDefaultMaterial()
         {
-            GetComponentInChildren<MeshRenderer>().material = myMaterial;
-        }
+            //GetComponentInChildren<MeshRenderer>().material = myMaterial;
+        }*/
         #endregion
     };
 

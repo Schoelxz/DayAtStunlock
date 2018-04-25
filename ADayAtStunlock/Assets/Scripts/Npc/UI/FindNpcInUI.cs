@@ -13,10 +13,10 @@ namespace DAS
             private Vector2 myVector2;
             public DAS.NPC myNpcRef;
 
-            public Icon(GameObject go)
-            {
-                myGameObject = go;
-            }
+            //public Icon(GameObject go)
+            //{
+            //    myGameObject = go;
+            //}
 
             public GameObject MyGameObject
             {
@@ -122,7 +122,8 @@ namespace DAS
             // Add an icon arrow spot for all npcs, starting at the max amount of npcs
             for (int i = 0; i < DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount; i++)
             {
-                m_icons.Add(new Icon(new GameObject("NPC Icon " + i)));
+                m_icons.Add(new Icon());
+                m_icons[i].MyGameObject = new GameObject("NPC Icon " + i);
                 m_icons[i].MyGameObject.transform.parent = transform;
                 m_icons[i].MyGameObject.AddComponent<Image>().sprite = imageToDisplay;
                 m_icons[i].MyGameObject.GetComponent<Image>().raycastTarget = false;
@@ -141,6 +142,9 @@ namespace DAS
                 //Give each icon their respective npc to refer to.
                 if (m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef == null)
                     m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef = npc;
+
+                if (npc.myFeelings.TotalFeelings >= 0.1f)
+                    continue;
 
                 Vector2 pos;
                 //Get position from the 3D world and convert it into a 2D position on the screen
@@ -177,17 +181,17 @@ namespace DAS
                 if (icon.myNpcRef == null)
                     continue;
 
+                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0.1f)
+                    icon.MyGameObject.SetActive(true);
+                else
+                    continue;
+
                 //Set allowed position to keep inside
                 Vector3 allowedPos = (Vector3)icon.MyVector2 - middlePoint;
                 allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height / (2f * screenClampMultiplier));
 
                 //Set gameobjects position to the Vector2 Position it should have.
                 icon.MyGameObject.transform.position = middlePoint + allowedPos;
-
-                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0)
-                    icon.MyGameObject.SetActive(true);
-                else
-                    continue;
 
                 Vector2 npcPosInUIPos; //Npc position in UI Position (camera decided)
                 //Get position from the 3D world and convert it into a 2D position on the screen
@@ -241,8 +245,14 @@ namespace DAS
         }
 
 #if UNITY_EDITOR
+
+        public bool gizmoEnabled = false;
+
         private void OnDrawGizmos()
         {
+            if (!gizmoEnabled)
+                return;
+
             foreach (var icon in m_icons)
             {
                 if (icon.myNpcRef == null)

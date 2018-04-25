@@ -11,10 +11,10 @@ public class Highscore : MonoBehaviour {
     static int maxListSize;
 
     // Use this for initialization
-    void Start() {
-
+    void Start()
+    {
+        InitFile(); //Creates Highscore.txt if it does not exist.
         maxListSize = 15;
-        filePath = "Assets/Resources/Score/Highscore.txt";
         BuildListsOnStartup();
         SortHighscore();
         SaveHighscore();
@@ -32,11 +32,19 @@ public class Highscore : MonoBehaviour {
         }
     }
 
-    
+    private void InitFile()
+    {
+        filePath = Application.persistentDataPath + "/Highscore.txt"; // "Assets /Resources/Score/Highscore.txt";
+
+        Debug.Log("filepath: " + filePath);
+
+        if (!File.Exists(filePath))
+            File.CreateText(filePath).Dispose();
+    }
 
     static public void SaveHighscore()
     {
-        StreamWriter writer = new StreamWriter(filePath);
+        StreamWriter writer = new StreamWriter(filePath, false);
  
         for (int i = 0; i < scores.Count; i++)
         {
@@ -48,7 +56,10 @@ public class Highscore : MonoBehaviour {
 
     static public void AddHighscore(string name, int score)
     {
-        scores.Add(new Score(score, name));
+        if(CheckIfAdded(name,score) == false)
+        {
+            scores.Add(new Score(score, name));
+        }
     }
 
     static public void SortHighscore()
@@ -65,14 +76,30 @@ public class Highscore : MonoBehaviour {
 
     void BuildListsOnStartup()
     {
+        scores.Clear();
         string line;
         StreamReader reader = new StreamReader(filePath);
 
         while((line = reader.ReadLine()) != null)
         {
             string[] parts = line.Split();
-            print(parts.Length);
+            //print(parts.Length);
             scores.Add(new Score(int.Parse(parts[0]), parts[1]));
         }
+
+        reader.Close();
+    }
+
+    static public bool CheckIfAdded(string name, int score)
+    {
+        foreach (var item in scores)
+        {
+            if (item.Amount == score && item.Name == name)
+            {
+                return(true);
+            }
+        }
+
+        return false;
     }
 }

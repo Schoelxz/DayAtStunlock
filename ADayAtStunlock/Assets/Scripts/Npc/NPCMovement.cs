@@ -8,29 +8,6 @@ namespace DAS
     public class NPCMovement : MonoBehaviour
     {
         #region Structs
-        private static class Toilet
-        {
-            public static List<GameObject> s_toiletPoints = new List<GameObject>();
-            private static int toiletTrack;
-
-            public static Vector3 GetAToiletPosition
-            {
-                get
-                {
-                    toiletTrack++;
-                    if (toiletTrack == s_toiletPoints.Count)
-                        toiletTrack = 0;
-                    return s_toiletPoints[toiletTrack].transform.position;
-                }
-            }
-
-            public static void InitToilets()
-            {
-                s_toiletPoints.Clear();
-                if (s_toiletPoints.Count == 0)
-                    s_toiletPoints.AddRange(GameObject.FindGameObjectsWithTag("Toilet"));
-            }
-        }
         private static class WorkSeatTemp
         {
             public static List<GameObject> s_allWorkSeats = new List<GameObject>();
@@ -57,17 +34,19 @@ namespace DAS
         #endregion
 
         private static List<NPCMovement> s_allNPCs = new List<NPCMovement>();
-        
-        private Transform myWorkSeat;
-        private NavMeshAgent agentRef;
-        private float timeInsideDestination;
-        private float workTimeStreak;
-        private AgentValues agentValues;
-        private Animator m_animator;
 
-        private DAS.NPC myNpcRef;
+        private Transform m_myWorkSeat;
+        public NavMeshAgent m_agentRef;
+        private AgentValues m_agentValues;
+        private Animator[] m_animator;
+        private Animator currentAnimator;
+        public DAS.NPC m_myNpcRef;
 
-       // private bool gameHasBeenPaused = false;
+        public float timeInsideDestination;
+        public float workTimeStreak;
+
+        public bool isAtToilet = false;
+        public bool isQueued = false;
 
         // Delta time
         private float dt;
@@ -75,78 +54,65 @@ namespace DAS
         private void Awake()
         {
             WorkSeatTemp.InitWorkSeats();
-            Toilet.InitToilets();
-
-            // All getcomponent functions are called inside this function, returning false if it fails.
-            if (!SetAllGetComponents())
-                Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
         }
 
         void Start()
         {
-            myNpcRef = gameObject.GetComponent<NPC>();
+            // All getcomponent functions are called inside this function, returning false if it fails.
+            if (!SetAllGetComponents())
+                Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
 
             //Find Animator
-            m_animator = GetComponentInChildren<Animator>();
-            Debug.Assert(agentRef);
+            m_animator = GetComponentsInChildren<Animator>(true);
+            Debug.Assert(m_agentRef);
+
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+            }
             // Add this NPC to the static list of NPCs.
             s_allNPCs.Add(this);
 
             // Assign this NPCs' work seat.
-            myWorkSeat = myNpcRef.myWorkSeat.workSeatGameObject.transform;
+            m_myWorkSeat = m_myNpcRef.myWorkSeat.workSeatGameObject.transform;
 
             // Assert
-            Debug.Assert(agentRef);
-            Debug.Assert(myWorkSeat);
+            Debug.Assert(m_myWorkSeat);
+            Debug.Assert(m_agentRef);
+            Debug.Assert(currentAnimator);
+            Debug.Assert(m_myNpcRef);
 
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
-            agentRef.enabled = true;
+            m_agentRef.enabled = true;
 
+            // To give NPCs the chance to walk past eachother. Set a random number between 1-100 for the avoidance priority on the navAgent every 2nd second.
             InvokeRepeating("RandomlySetAvoidancePriority", 1, 2);
 
             // Our NPC starts by going to its work seat.
-            agentRef.destination = myWorkSeat.position;
+            m_agentRef.destination = m_myWorkSeat.position;
         }
 
         void Update()
         {
-            //Animate work
-           if(IsDestinationMyWorkSeat && IsCurrentlyWorking && GetComponent<NPC>().myFeelings.Motivation != 0)
-            {
-                m_animator.SetBool("Pickup 0", true);
-            }
+           //Animate work
+           if(IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
+                currentAnimator.SetBool("Pickup 0", true);
            else
-                m_animator.SetBool("Pickup 0", false);
-            #region old pause
-            /*
-            if(gameHasBeenPaused == false)
-                agentValues.velocity = agentRef.velocity;
-
-            if (gameHasBeenPaused && !DAS.TimeSystem.IsGamePaused)
-            {
-                gameHasBeenPaused = false;
-                agentRef.velocity = agentValues.velocity;
-            }
-
-            if(DAS.TimeSystem.IsGamePaused)
-            {
-                gameHasBeenPaused = true;
-                agentRef.isStopped = true;
-                agentRef.velocity = Vector3.zero;
-            }
-            else*/
-            // {
-            #endregion
+                currentAnimator.SetBool("Pickup 0", false);
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
-            if (IsCurrentlyWorking && Vector3.Distance(agentRef.destination, transform.position) < 0.1f)
+            if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
                 RotateTowardsDesk();
-           else // else we should not be stopped in our movement
-                agentRef.isStopped = false;
+            // else we should not be stopped in our movement
+            else
+                m_agentRef.isStopped = false;
 
             #region dt call reducer
-            //+++ Reduce update calls to 10 times per second.
-            dt += Time.deltaTime;
+            //+++ Reduce update calls to 10 times per in-game second.
+            dt += TimeSystem.DeltaTime;
             if (dt >= 0.1f && !DAS.TimeSystem.IsGamePaused)
             { dt = 0; }
             else
@@ -154,11 +120,12 @@ namespace DAS
             //---
             #endregion
 
-            // Random Chance of NPC wanting to go to the toilet.
-            RandomGotoToiletChance();
+            // Random Chance of NPC wanting to go to the toilet. Can only happen if one is currently working and is not currently queued for
+            if (IsCurrentlyWorking && !isQueued)
+                ToiletSystem.s_myInstance.RandomGotoToiletChance(this);
 
             // Check time an NPC has been inside of its destination (not counting work destination).
-            if (agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat)
+            if (m_agentRef.remainingDistance <= 1f && !IsDestinationMyWorkSeat && isAtToilet)
             {
                 timeInsideDestination++;
                 GetComponent<NPC>().myFeelings.Happiness += 0.01f;
@@ -171,15 +138,10 @@ namespace DAS
                 workTimeStreak = 0;
 
             // If our NPC has been at a destination for longer than (5) seconds, go back to work.
-            if (timeInsideDestination >= 50)
-            {
-                agentRef.destination = myWorkSeat.position;
-                timeInsideDestination = 0;
-                agentRef.isStopped = false;
-            }
+            CheckAwayTimeTriggerReturn(25);
 
             //Movement Animation
-            m_animator.SetFloat("MoveSpeed", agentRef.velocity.magnitude);
+            currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
         }
 
         private void OnDestroy()
@@ -195,39 +157,16 @@ namespace DAS
         /// <returns></returns>
         private bool SetAllGetComponents()
         {
-            if (!(agentRef = GetComponent<NavMeshAgent>()))
+            if (!(m_agentRef = GetComponent<NavMeshAgent>()))
+                return false;
+
+            if (!(m_myNpcRef = gameObject.GetComponent<NPC>()))
+                return false;
+
+            if (!(currentAnimator = GetComponentInChildren<Animator>()))
                 return false;
 
             return true;
-        }
-
-        /// <summary>
-        /// NPCs destination becomes one of the toilets in the scene.
-        /// </summary>
-        private void GotoToilet()
-        {
-            timeInsideDestination = 0;
-            agentRef.destination = Toilet.GetAToiletPosition;
-            agentRef.isStopped = false;
-        }
-
-        /// <summary>
-        /// Called in Update.
-        /// Random Chance of NPC wanting to go to the toilet.
-        /// </summary>
-        private void RandomGotoToiletChance()
-        {
-            if (Random.Range(0f, 1000f) > 999.7f && IsCurrentlyWorking && workTimeStreak >= 100)
-            {
-                bool allowedToilet = true;
-                for (int i = 0; i < Toilet.s_toiletPoints.Count; i++)
-                {
-                    if (Toilet.s_toiletPoints[i].transform.position == agentRef.destination)
-                        allowedToilet = false;
-                }
-                if (allowedToilet)
-                    GotoToilet();
-            }
         }
 
         /// <summary>
@@ -238,13 +177,13 @@ namespace DAS
             get
             {
                 // Code has weirdly prompted NullReferenceExceptions here, therefore if agentref == null was added.
-                if (agentRef == null)
+                if (m_agentRef == null)
                 {
-                    Debug.Assert(agentRef);
+                    Debug.Assert(m_agentRef);
                     return false;
                 }
 
-                if (agentRef.destination.x == myWorkSeat.position.x && agentRef.destination.z == myWorkSeat.position.z)
+                if (m_agentRef.destination.x == m_myWorkSeat.position.x && m_agentRef.destination.z == m_myWorkSeat.position.z)
                     return true;
                 else
                     return false;
@@ -252,7 +191,7 @@ namespace DAS
         }
 
         /// <summary>
-        /// Returns true if #1. Destination is workseat. #2. Is within (1.5) units of its' workseat.
+        /// Returns true if #1. Destination is workseat. #2. Is within (0.5) units of its' workseat.
         /// </summary>
         public bool IsCurrentlyWorking
         {
@@ -260,7 +199,7 @@ namespace DAS
             {
                 if (IsDestinationMyWorkSeat)
                 {
-                    if (Vector3.Distance(transform.position, myWorkSeat.position) < 0.5f)
+                    if (Vector3.Distance(transform.position, m_myWorkSeat.position) < 0.5f)
                         return true;
                     else
                         return false;
@@ -277,26 +216,53 @@ namespace DAS
         /// </summary>
         private void RandomlySetAvoidancePriority()
         {
-            agentRef.avoidancePriority = Random.Range(1, 100);
+            m_agentRef.avoidancePriority = Random.Range(1, 100);
         }
 
+        /// <summary>
+        /// Rotates our NPC so he looks towards his desk.
+        /// </summary>
         private void RotateTowardsDesk()
         {
             // Stop our agent from fidgeting in his seat.
-            agentRef.isStopped = true;
+            m_agentRef.isStopped = true;
             // targetDir is our work seats position + forward its own direction (roughly our desk's position)
-            Vector3 targetDir = (myWorkSeat.position + (-myWorkSeat.forward) - myWorkSeat.position);
+            Vector3 targetDir = (m_myWorkSeat.position + (-m_myWorkSeat.forward) - m_myWorkSeat.position);
             // How fast we turn every frame.
             float step = 5 * Time.deltaTime;
             // Our complete rotate towards direction.
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-
-            // Draw ray towards the position we're rotating towards.
-            //Debug.DrawRay(transform.position, newDir, Color.red, 3);
-
             // Apply the rotate towards.
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+
+        //Changes the animator based on whether the "Alien" or the "NPC" model is active in the scene. This function is executed from the ModelChanger script.
+        public void ToggleAnimator()
+        {
+            for (int i = 0; i < m_animator.Length; i++)
+            {
+                if(m_animator[i].gameObject.activeInHierarchy)
+                {
+                    currentAnimator = m_animator[i];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called in update+ Checks if NPC has been away at its' destination for a set amount of time. If it has, trigger the NPC to come back to work.
+        /// </summary>
+        private void CheckAwayTimeTriggerReturn(int timeAllowedAway)
+        {
+            if (timeInsideDestination >= timeAllowedAway)
+            {
+                ToiletSystem.s_myInstance.RemoveFromQueue(this);
+                m_agentRef.destination = m_myWorkSeat.position;
+                isAtToilet = false;
+                timeInsideDestination = 0;
+                m_agentRef.isStopped = false;
+            }
+        }
+
         #endregion
     }
 }

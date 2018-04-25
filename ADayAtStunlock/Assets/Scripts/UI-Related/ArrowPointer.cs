@@ -12,7 +12,6 @@ public class ArrowPointer : MonoBehaviour
         //2D canvas-positioning of a 3D object-world
         [HideInInspector]
         public Vector2 convertedTargetObjectPosition;
-
         [HideInInspector]
         public GameObject arrowPointer;
 
@@ -29,20 +28,28 @@ public class ArrowPointer : MonoBehaviour
 
     #region Variables
     private static ArrowPointer s_myInstance;
+    public static ArrowPointer MyInstance
+    {
+        get { return s_myInstance; }
+    }
 
     public List<ObjectPointer> listOfPointingAt = new List<ObjectPointer>();
+    private List<ObjectPointer> listOfStuffToRemove = new List<ObjectPointer>();
     public Sprite typeOfSprite;
     private Canvas m_myCanvas;
     private Vector3 m_middlePoint;
     #endregion
-    
-    private void Start()
+
+    private void Awake()
     {
         if (s_myInstance == null)
             s_myInstance = this;
         else
             Destroy(this);
+    }
 
+    private void Start()
+    {
         m_myCanvas = GetComponent<Canvas>();
 
         InitializeVariables();
@@ -61,35 +68,57 @@ public class ArrowPointer : MonoBehaviour
     {
         foreach (var item in listOfPointingAt)
         {
-            item.arrowPointer = new GameObject("Arrow Pointer for: " + item.targetObject.name);
-            item.arrowPointer.transform.parent = gameObject.transform;
-            Image tempImage;
-            item.arrowPointer.AddComponent<RectTransform>();
-            tempImage = item.arrowPointer.AddComponent<Image>();
-            tempImage.sprite = typeOfSprite;
-            tempImage.color = Color.yellow;
+            StandardInitObjectPointer(item);
 
-            if (item.extraFunction)
-            {
-                item.exclamationMark = new GameObject("Exclamation Mark");
-                item.exclamationMark.transform.parent = gameObject.transform;
-                TextMesh tempTextMesh = item.exclamationMark.AddComponent<TextMesh>();
-                item.exclamationMark.GetComponent<MeshRenderer>().material = item.textMaterial;
-                tempTextMesh.text = "!";
-                tempTextMesh.font = item.textFont;
-                tempTextMesh.alignment = TextAlignment.Center;
-                tempTextMesh.anchor = TextAnchor.MiddleCenter;
-                tempTextMesh.characterSize = 0.06f;
-                tempTextMesh.fontSize = 500;
-                tempTextMesh.color = Color.yellow;
+            ExtraInitObjectPointer(item);
+        }
+    }
 
-                item.exclamationMark.SetActive(false);
-            }
+    private void StandardInitObjectPointer(ObjectPointer item)
+    {
+        if (item.arrowPointer != null)
+            return;
+        item.arrowPointer = new GameObject("Arrow Pointer for: " + item.targetObject.name);
+        item.arrowPointer.transform.parent = gameObject.transform;
+        Image tempImage;
+        item.arrowPointer.AddComponent<RectTransform>();
+        tempImage = item.arrowPointer.AddComponent<Image>();
+        tempImage.sprite = typeOfSprite;
+        tempImage.color = Color.yellow;
+    }
+
+    private void ExtraInitObjectPointer(ObjectPointer item)
+    {
+        if (item.extraFunction)
+        {
+            item.exclamationMark = new GameObject("Exclamation Mark");
+            item.exclamationMark.transform.parent = gameObject.transform;
+            TextMesh tempTextMesh = item.exclamationMark.AddComponent<TextMesh>();
+            item.exclamationMark.GetComponent<MeshRenderer>().material = item.textMaterial;
+            tempTextMesh.text = "!";
+            tempTextMesh.font = item.textFont;
+            tempTextMesh.alignment = TextAlignment.Center;
+            tempTextMesh.anchor = TextAnchor.MiddleCenter;
+            tempTextMesh.characterSize = 0.06f;
+            tempTextMesh.fontSize = 500;
+            tempTextMesh.color = Color.yellow;
+
+            item.exclamationMark.SetActive(false);
         }
     }
 
     private void UpdateAllArrowObjects()
     {
+        if (listOfStuffToRemove.Count != 0)
+        {
+            foreach (var item in listOfStuffToRemove)
+            {
+                Destroy(item.arrowPointer);
+                listOfPointingAt.Remove(item);
+            }
+            //listOfStuffToRemove.Clear();
+        }
+
         foreach (var item in listOfPointingAt)
         {
             //Transform 3D-position to a 2D-canvas local postion
@@ -132,6 +161,9 @@ public class ArrowPointer : MonoBehaviour
         arrow.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 
+    /// <summary>
+    /// Corotine function. Switches between active false/true.
+    /// </summary>
     private IEnumerator Blink(GameObject objectToBlink)
     {
         objectToBlink.SetActive(true);
@@ -166,6 +198,25 @@ public class ArrowPointer : MonoBehaviour
                 StopCoroutine(item.coroutine);
             item.exclamationMark.SetActive(false);
             item.coroutineRunning = false;
+        }
+    }
+
+    public void AddObjectToPointAt(GameObject targetToPoint)
+    {
+        ObjectPointer temp = new ObjectPointer();
+        temp.targetObject = targetToPoint;
+        StandardInitObjectPointer(temp);
+
+        listOfPointingAt.Add(temp);
+    }
+    public void RemoveObjectToPointAt(GameObject targetToRemove)
+    {
+        foreach (var item in listOfPointingAt)
+        {
+            if (item.targetObject == targetToRemove)
+            {
+                listOfStuffToRemove.Add(item);
+            }
         }
     }
     #endregion

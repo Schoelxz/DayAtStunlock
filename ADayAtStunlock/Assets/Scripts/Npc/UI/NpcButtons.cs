@@ -27,6 +27,9 @@ public class NpcButtons : MonoBehaviour
     private RectTransform m_sliderHolder;
     private Vector2 m_holderPos;
 
+    private GameObject test;
+    public GameObject particle;
+
     private Button npcButton;
 
     private DAS.NPC m_npcRef;
@@ -38,10 +41,23 @@ public class NpcButtons : MonoBehaviour
     {
         npcButton = gameObject.GetComponentInChildren<Button>();
         npcButton.gameObject.AddComponent<ClickableObject>();
-	}
+
+        test = new GameObject("test");
+        
+
+        test.transform.parent = m_sliderHolder.GetChild(0);
+        test.transform.position = m_sliderHolder.GetChild(0).transform.position;
+
+        particle = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
+        particle.transform.SetParent(test.transform);
+        particle.transform.localPosition = Vector3.zero;
+        particle.SetActive(false);
+    }
 
     private void Update()
     {
+        test.transform.localPosition = new Vector3(m_npcRef.HappySlider.value * 66, -10, 0);
+
         if (Time.timeScale == 0)
             m_buttonCanvas.enabled = false;
         else
