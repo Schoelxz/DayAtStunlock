@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+#pragma warning disable
+
 [ExecuteInEditMode]
 [RequireComponent(typeof(CanvasRenderer))]
 [RequireComponent(typeof(ParticleSystem))]
@@ -262,3 +264,5 @@ public class UIParticleSystem : MaskableGraphic
 #endif
 
 }
+
+#pragma warning restore
