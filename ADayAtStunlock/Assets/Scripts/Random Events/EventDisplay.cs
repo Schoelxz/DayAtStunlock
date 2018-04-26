@@ -6,7 +6,9 @@ public class EventDisplay : MonoBehaviour
 {
     private static Rect m_methodNamesPosition = new Rect(200, 50, 300, 50);
 
-    static string methodName = "Current Event: \n";
+    static string currentMethodPlayed = "Current Event: \n";
+
+    static int eventNamesLength = 0;
 
     static string AllMethodNames
     {
@@ -20,7 +22,7 @@ public class EventDisplay : MonoBehaviour
                 amountOfEvents++;
                 result += "\n" + events.Method.Name;
             }
-            m_methodNamesPosition = new Rect(Screen.width - 300, 50, 300, 21* amountOfEvents);
+            m_methodNamesPosition = new Rect(Screen.width - 300, 50, 300, (21* amountOfEvents) + 2);
             return result;
         }
     }
@@ -29,17 +31,21 @@ public class EventDisplay : MonoBehaviour
     {
         GUI.Box(m_methodNamesPosition, AllMethodNames);
 
-        GUI.Box(new Rect(Screen.width - 300, 0, 300, 42), methodName);
+        GUI.Box(new Rect(Screen.width - 300, 0, 300, 42), currentMethodPlayed);
 
         int amountOfEvents = 0;
         foreach (var item in RandomEventTrigger.randomEvents)
         {
-            if (GUI.Button(new Rect(Screen.width - 450, 50* amountOfEvents, 150, 50), item.Method.Name))
+            eventNamesLength = 50 * amountOfEvents;
+            if (GUI.Button(new Rect(Screen.width - 450, eventNamesLength, 150, 50), item.Method.Name))
             {
-                item();
+                FunctionTriggered(item);
             }
             amountOfEvents++;
         }
+
+        GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 50, 120, 38), "Current Difficulty: \n" + DifficultyManager.currentDifficulty.ToString());
+        GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 100, 120, 75), "Next difficulty in: \n" + DifficultyManager.s_myInstance.timeTilNextDifficulty + "\n at timestamp: \n" + DifficultyManager.s_myInstance.timeAtNextDifficulty);
         
     }
 
@@ -50,7 +56,7 @@ public class EventDisplay : MonoBehaviour
 
         Debug.Log(function.Method.Name);
 
-        methodName = "Current Event: \n" + function.Method.Name;
+        currentMethodPlayed = "Current Event: \n" + function.Method.Name;
 
         return function;
     }

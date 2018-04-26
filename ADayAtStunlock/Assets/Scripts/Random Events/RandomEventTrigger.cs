@@ -72,28 +72,9 @@ public class RandomEventTrigger : MonoBehaviour
 
     }
 
-
-#if UNITY_EDITOR
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.T))
-            TrainEvent();
-
-        if (Input.GetKey(KeyCode.Y))
-            ToiletBreaksEvent();
-
     void TriggerRandomEvent()
     {
         EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
-    }
-
-#endif
-
-
-    void TriggerRandomEvent()
-    {
-        randomEvents[Random.Range(0, randomEvents.Count)]();
     }
 
 #region Train
@@ -199,7 +180,7 @@ public class RandomEventTrigger : MonoBehaviour
 
 #endregion
 
-    public void IncreaseDifficulty()
+    public void WhenDifficultyIncreases()
     {
         //Medium Difficulty
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
@@ -207,7 +188,6 @@ public class RandomEventTrigger : MonoBehaviour
             CancelInvoke("TriggerRandomEvent");
             randomEvents.Add(TrainEvent);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);
-
         }
 
         //Hard difficulty
@@ -233,6 +213,5 @@ public class RandomEventTrigger : MonoBehaviour
                 break;
             }
         }
-        //Debug.Log("coroutine end");
     }
 }
