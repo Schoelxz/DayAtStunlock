@@ -31,15 +31,7 @@ public class RandomEventTrigger : MonoBehaviour
     int eventDelayEasy;
     int eventDelayMedium;
     int eventDelayHard;
-
-
-   
-
-
     
-    
-    
-
     void Start ()
     {
         //Train Stuff

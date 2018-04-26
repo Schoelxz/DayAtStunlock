@@ -7,14 +7,14 @@ using System.Linq;
 public class Highscore : MonoBehaviour {
 
     static string filePath;
-    static List<Score> scores = new List<Score>();
+    static public List<Score> scores = new List<Score>();
     static int maxListSize;
 
     // Use this for initialization
     void Start()
     {
         InitFile(); //Creates Highscore.txt if it does not exist.
-        maxListSize = 15;
+        maxListSize = 10;
         BuildListsOnStartup();
         SortHighscore();
         SaveHighscore();

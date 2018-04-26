@@ -28,6 +28,8 @@ public class MoneyManager : MonoBehaviour
     float timer;
     bool run;
 
+    HighscoreListScreen[] highscoreScreen;
+
 
 	void Start ()
     {
@@ -41,6 +43,8 @@ public class MoneyManager : MonoBehaviour
         scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
         //InvokeRepeating("DeductSalary", 1, 0.2f);
+
+        highscoreScreen = Resources.FindObjectsOfTypeAll<HighscoreListScreen>();
 	}
 
     void Update ()
@@ -109,6 +113,8 @@ public class MoneyManager : MonoBehaviour
         Highscore.AddHighscore("Name", (int)moneyEarned);
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
+        highscoreScreen[0].gameObject.SetActive(true);
+        HighscoreListScreen.DisplayScores();
         EndGameCanvas.GameOver();
     }
 
