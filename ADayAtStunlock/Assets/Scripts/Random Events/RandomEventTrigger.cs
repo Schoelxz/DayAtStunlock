@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomEventTrigger : MonoBehaviour
 {
-    public List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
+    public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
 
     [Range(1, 20)]
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
@@ -65,6 +65,14 @@ public class RandomEventTrigger : MonoBehaviour
         else
         {
             randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(AlienEvent);
             randomEvents.Add(TrainEvent);
             randomEvents.Add(RadiatorEvent);
             randomEvents.Add(ToiletBreaksEvent);
@@ -96,7 +104,7 @@ public class RandomEventTrigger : MonoBehaviour
 
     void TriggerRandomEvent()
     {
-        randomEvents[Random.Range(0, randomEvents.Count)]();
+        EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
     }
 
     public void IncreaseDifficulty()
