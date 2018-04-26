@@ -6,6 +6,114 @@ public class RandomEventTrigger : MonoBehaviour
 {
     public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
 
+    /// <summary>
+    /// All the events which gets added to the random event list.
+    /// </summary>
+    #region Events:
+    #region Train
+    private bool hasMotivationReset = true;
+    void TrainEvent()
+    {
+        if (!hasMotivationReset)
+            return;
+        motivationList.Clear();
+        ScreenShake.shakeDuration = shakeDuration;
+
+        //Turn on trains
+        m_trainTrack.gameObject.SetActive(true);
+        m_trainTrack.SetBool("IsActive", true);
+        m_train.SetBool("IsMoving", true);
+        //Train sound
+        //audioManager.Play("Train");
+        hasMotivationReset = false;
+        foreach (var npc in DAS.NPC.s_npcList)
+        {
+            motivationList.Add(npc.myFeelings.Motivation);
+            npc.myFeelings.Motivation = 0;
+        }
+
+        Invoke("ResetMotivation", motivationLossDuration);
+    }
+
+    void ResetMotivation()
+    {
+        for (int i = 0; i < motivationList.Count - 1; i++)
+        {
+            DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
+        }
+        hasMotivationReset = true;
+        //Turn off trains
+        m_trainTrack.SetBool("IsActive", false);
+        m_train.SetBool("IsMoving", false);
+
+        Invoke("InvokeOnlyFunctionHideTrainTrack", 1);
+    }
+
+    private void InvokeOnlyFunctionHideTrainTrack()
+    {
+        m_trainTrack.gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region Radiator
+
+    void RadiatorEvent()
+    {
+        bool foundBroken = false;
+        for (int i = 0; i < 8; i++)
+        {
+            Radiator radiator;
+            if ((radiator = radiators[Random.Range(0, radiators.Length)]).isBroken == false)//Checks if the random radiator is broken, if not, it makes it broken and hops out of the loop.
+            {
+                radiator.RadiatorStart();
+                foundBroken = true;
+                break;
+            }
+        }
+
+        if (foundBroken == false)
+        {
+            TriggerRandomEvent();
+        }
+    }
+
+    #endregion
+
+    #region Aliens
+
+    void AlienEvent()
+    {
+        DAS.NPC npc;
+
+        spaceship.SetActive(true);
+
+        for (int i = 0; i < alienCount; i++)
+        {
+            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
+            {
+                npc.GetComponent<ModelChanger>().ToggleModel();
+            }
+        }
+
+        Invoke("DisableSpaceship", 6);
+    }
+
+    private void DisableSpaceship()
+    {
+        spaceship.SetActive(false);
+    }
+
+    #endregion
+
+    #region Toilet
+    void ToiletBreaksEvent()
+    {
+        DAS.ToiletSystem.s_myInstance.ToiletBreakEvent();
+    }
+
+    #endregion
+    #endregion
+
     //Train Stuff
     [Range(1, 20)]
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
@@ -18,6 +126,8 @@ public class RandomEventTrigger : MonoBehaviour
     Animator m_train;
     private List<float> motivationList = new List<float>();
     private int motivationLossDuration;
+
+    private static float timeTilNextEvent = 0;
 
     //Radiator stuff
     private Radiator[] radiators;
@@ -45,11 +155,9 @@ public class RandomEventTrigger : MonoBehaviour
         //Radiator stuff
         radiators = FindObjectsOfType<Radiator>();
 
-
         eventDelayEasy = 50;
         eventDelayMedium = 40;
         eventDelayHard = 30;
-
 
         if(DifficultyManager.difficultyScalingEnabled)
         {
@@ -69,116 +177,12 @@ public class RandomEventTrigger : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         Debug.Assert(audioManager, "No audiomanager exists!!!");
-
     }
 
     void TriggerRandomEvent()
     {
         EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
     }
-
-#region Train
-    private bool hasMotivationReset = true;
-    void TrainEvent()
-    {
-        if (!hasMotivationReset)
-            return;
-        motivationList.Clear();
-        ScreenShake.shakeDuration = shakeDuration;
-
-        //Turn on trains
-        m_trainTrack.gameObject.SetActive(true);
-        m_trainTrack.SetBool("IsActive", true);
-        m_train.SetBool("IsMoving", true);
-        //Train sound
-        //audioManager.Play("Train");
-        hasMotivationReset = false;
-        foreach (var npc in DAS.NPC.s_npcList)
-        {
-            motivationList.Add(npc.myFeelings.Motivation);
-            npc.myFeelings.Motivation = 0;
-        }
-
-        Invoke("ResetMotivation", motivationLossDuration);
-    }
-
-    void ResetMotivation()
-    {
-        for(int i = 0; i < motivationList.Count - 1; i++)
-        {
-            DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
-        }
-        hasMotivationReset = true;
-        //Turn off trains
-        m_trainTrack.SetBool("IsActive", false);
-        m_train.SetBool("IsMoving", false);
-
-        Invoke("InvokeOnlyFunctionHideTrainTrack", 1);
-    }
-
-    private void InvokeOnlyFunctionHideTrainTrack()
-    {
-        m_trainTrack.gameObject.SetActive(false);
-    }
-#endregion
-
-#region Radiator
-
-    void RadiatorEvent()
-    {
-        bool foundBroken = false;
-        for (int i = 0; i < 8; i++)
-        {
-            Radiator radiator;
-            if ((radiator = radiators[Random.Range(0, radiators.Length)]).isBroken == false)//Checks if the random radiator is broken, if not, it makes it broken and hops out of the loop.
-            {
-                radiator.RadiatorStart();
-                foundBroken = true;
-                break;
-            }
-        }
-
-        if(foundBroken == false)
-        {
-            TriggerRandomEvent();
-        }
-    }
-
-#endregion
-
-#region Aliens
-
-    void AlienEvent()
-    {
-        DAS.NPC npc;
-
-        spaceship.SetActive(true);
-
-        for (int i = 0; i < alienCount; i++)
-        {
-            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
-            {
-                npc.GetComponent<ModelChanger>().ToggleModel();
-            }
-        }
-
-        Invoke("DisableSpaceship", 6);
-    }
-
-    private void DisableSpaceship()
-    {
-        spaceship.SetActive(false);
-    }
-
-#endregion
-
-#region Toilet
-    void ToiletBreaksEvent()
-    {
-        DAS.ToiletSystem.s_myInstance.ToiletBreakEvent();
-    }
-
-#endregion
 
     public void WhenDifficultyIncreases()
     {
