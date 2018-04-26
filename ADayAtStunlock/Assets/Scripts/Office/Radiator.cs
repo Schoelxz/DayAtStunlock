@@ -24,7 +24,7 @@ public class Radiator : MonoBehaviour
     public SnowControl snowControl;
 
     private List<DAS.NPC> nearbyNpcs = new List<DAS.NPC>();
-    private bool isBroken = false;
+    public bool isBroken = false;
     private Button fixButton;
     private Image fixButtonImage;
     private AudioManager audioManager;
