@@ -27,7 +27,7 @@ public class NpcButtons : MonoBehaviour
     private RectTransform m_sliderHolder;
     private Vector2 m_holderPos;
 
-    private GameObject test;
+    private GameObject m_particleHolder;
     public GameObject particle;
 
     private Button npcButton;
@@ -42,21 +42,21 @@ public class NpcButtons : MonoBehaviour
         npcButton = gameObject.GetComponentInChildren<Button>();
         npcButton.gameObject.AddComponent<ClickableObject>();
 
-        test = new GameObject("test");
-        
+        //m_particleHolder = new GameObject("ParticleEffectHandle");
 
-        test.transform.parent = m_sliderHolder.GetChild(0);
-        test.transform.position = m_sliderHolder.GetChild(0).transform.position;
 
-        particle = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
-        particle.transform.SetParent(test.transform);
-        particle.transform.localPosition = Vector3.zero;
-        particle.SetActive(false);
+        //m_particleHolder.transform.parent = m_sliderHolder.GetChild(0);
+        //m_particleHolder.transform.position = m_sliderHolder.GetChild(0).transform.position;
+
+        //particle = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-ParticleSliderBurn"]);
+        //particle.transform.SetParent(m_particleHolder.transform);
+        //particle.transform.localPosition = Vector3.zero;
+        //particle.SetActive(false);
     }
 
     private void Update()
     {
-        test.transform.localPosition = new Vector3(m_npcRef.HappySlider.value * 66, -10, 0);
+        //m_particleHolder.transform.eulerAngles = new Vector3(m_particleHolder.transform.rotation.x, m_particleHolder.transform.rotation.y, m_npcRef.HappySlider.value * 360);
 
         if (Time.timeScale == 0)
             m_buttonCanvas.enabled = false;
