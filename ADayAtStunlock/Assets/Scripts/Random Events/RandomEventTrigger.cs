@@ -6,55 +6,59 @@ public class RandomEventTrigger : MonoBehaviour
 {
     public List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
 
+
+    //Train Stuff
     [Range(1, 20)]
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
     public int shakeDuration = 6;
-
-    //Train Event
-
     //TrainPrefab
     [SerializeField]
     //[Tooltip("Put TrainEventPrefab here")]
     Animator m_trainTrack;
     [SerializeField]
     Animator m_train;
-
     private List<float> motivationList = new List<float>();
-    private Radiator[] radiators;
-    private GameObject spaceship;
     private int motivationLossDuration;
-    AudioManager audioManager;
 
+    //Radiator stuff    
+    private Radiator[] radiators;
+
+    //Spaceship stuff
+    private GameObject spaceship;
+    int alienCount;
+    
+    AudioManager audioManager;
     int eventDelayEasy;
     int eventDelayMedium;
     int eventDelayHard;
 
-    int alienCount;
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.T))
-            TrainEvent();
-    }
-#endif
+
+   
+
+
+    
+    
+    
 
     void Start ()
     {
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
+        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
+
+        //Spaceship stuff
         spaceship = GameObject.FindGameObjectWithTag("Spaceship");
         spaceship.SetActive(false);
+        alienCount = 8;
 
         //Radiator stuff
         radiators = FindObjectsOfType<Radiator>();
 
-        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
 
         eventDelayEasy = 50;
         eventDelayMedium = 40;
         eventDelayHard = 30;
 
-        alienCount = 8;
 
         if(DifficultyManager.difficultyScalingEnabled)
         {
@@ -74,53 +78,36 @@ public class RandomEventTrigger : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         Debug.Assert(audioManager, "No audiomanager exists!!!");
-
-        //Debug.Assert(GetComponent<AudioSource>(), gameObject.name + " has no audio source. Script RandomEventTrigger requires it!");
+        
     }
 
-    //Makes sure to start the random events after all npcs have spawned
-    IEnumerator StartInvokeRepeatingWhen()
+
+#if UNITY_EDITOR
+    
+    private void Update()
     {
-        while(true)
-        {
-            yield return new WaitForSeconds(0.1f);
+        if (Input.GetKey(KeyCode.T))
+            TrainEvent();
 
-            // Starts InvokeRepeating when All Npcs has been created.
-            if(DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count)
-            {
-                InvokeRepeating("TriggerRandomEvent", 2, 60);
-                break;
-            }
-        }
-        //Debug.Log("coroutine end");
+        if (Input.GetKey(KeyCode.Y))
+            ToiletBreaksEvent();
+
+        if (Input.GetKey(KeyCode.U))
+            AlienEvent();
+
+        if (Input.GetKey(KeyCode.I))
+            RadiatorEvent();
     }
+
+#endif
+
 
     void TriggerRandomEvent()
     {
         randomEvents[Random.Range(0, randomEvents.Count)]();
     }
-
-    public void IncreaseDifficulty()
-    {
-        //Medium Difficulty
-        if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
-        {
-            CancelInvoke("TriggerRandomEvent");
-            randomEvents.Add(TrainEvent);
-            InvokeRepeating("TriggerRandomEvent", 2, eventDelayMedium);
-
-        }
-
-        //Hard difficulty
-        if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
-        {
-            CancelInvoke("TriggerRandomEvent");
-            //Add events to randomevents list here if we have any new ones.
-            InvokeRepeating("TriggerRandomEvent", 2, eventDelayHard);
-        }
-    }
-
-    #region Train
+    
+#region Train
     private bool hasMotivationReset = true;
     void TrainEvent()
     {
@@ -163,21 +150,33 @@ public class RandomEventTrigger : MonoBehaviour
     {
         m_trainTrack.gameObject.SetActive(false);
     }
-    #endregion
+#endregion
 
-    #region Radiator
+#region Radiator
 
     void RadiatorEvent()
     {
-        if(radiators.Length > 0)
+        bool foundBroken = false;
+        for (int i = 0; i < 8; i++)
         {
-            radiators[Random.Range(0, radiators.Length)].RadiatorStart();
+            Radiator radiator;
+            if ((radiator = radiators[Random.Range(0, radiators.Length)]).isBroken == false)//Checks if the random radiator is broken, if not, it makes it broken and hops out of the loop.
+            {
+                radiator.RadiatorStart();
+                foundBroken = true;
+                break;
+            }
+        }
+    
+        if(foundBroken == false)
+        {
+            TriggerRandomEvent();
         }
     }
 
-    #endregion
+#endregion
 
-    #region Aliens
+#region Aliens
 
     void AlienEvent()
     {
@@ -190,11 +189,10 @@ public class RandomEventTrigger : MonoBehaviour
             if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
             {
                 npc.GetComponent<ModelChanger>().ToggleModel();
-                npc.GetComponent<ModelChanger>().isAlien = true;
             }
         }
 
-        Invoke("DisableSpaceship", 7);
+        Invoke("DisableSpaceship", 6);
 
 
     }
@@ -205,12 +203,50 @@ public class RandomEventTrigger : MonoBehaviour
     }
 
 
-    #endregion
-    #region Toilet
+#endregion
+
+#region Toilet
     void ToiletBreaksEvent()
     {
         DAS.ToiletSystem.s_myInstance.ToiletBreakEvent();
     }
 
-    #endregion
+#endregion
+    
+    public void IncreaseDifficulty()
+    {
+        //Medium Difficulty
+        if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
+        {
+            CancelInvoke("TriggerRandomEvent");
+            randomEvents.Add(TrainEvent);
+            InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);
+
+        }
+
+        //Hard difficulty
+        if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+        {
+            CancelInvoke("TriggerRandomEvent");
+            //Add events to randomevents list here if we have any new ones.
+            InvokeRepeating("TriggerRandomEvent", 20, eventDelayHard);
+        }
+    }
+    
+    //Makes sure to start the random events after all npcs have spawned
+    IEnumerator StartInvokeRepeatingWhen()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            // Starts InvokeRepeating when All Npcs has been created.
+            if (DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count)
+            {
+                InvokeRepeating("TriggerRandomEvent", 2, 60);
+                break;
+            }
+        }
+        //Debug.Log("coroutine end");
+    }
 }
