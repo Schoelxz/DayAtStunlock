@@ -10,7 +10,7 @@ public class DifficultyManager : MonoBehaviour {
 
     // !!!
     // Make a singleton of the class instead of making this variable public. This should be an inspector variable.
-    static public bool difficultyScalingEnabled;
+    static public bool difficultyScalingEnabled = true;
 
     int mediumDifficultyDelay;
     int hardDifficultyDelay;
@@ -25,7 +25,6 @@ public class DifficultyManager : MonoBehaviour {
         hardDifficultyDelay = mediumDifficultyDelay + 240;
 
         currentDifficulty = Difficulty.Easy;
-        difficultyScalingEnabled = true;
 
         npcCreator = GameObject.FindObjectOfType<DAS.NpcCreator>();
         randomEvent = GameObject.FindObjectOfType<RandomEventTrigger>();
