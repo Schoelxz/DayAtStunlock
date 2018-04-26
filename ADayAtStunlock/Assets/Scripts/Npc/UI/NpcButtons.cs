@@ -71,7 +71,7 @@ public class NpcButtons : MonoBehaviour
                 m_buttonCanvas.worldCamera,
                 out m_holderPos);
 
-            m_holderPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset to the buttons position.
+            m_holderPos += new Vector2(Screen.width / 2f, Screen.height / 2f + 100f); // add some fixing offset to the buttons position.
         }
     }
 
@@ -81,8 +81,9 @@ public class NpcButtons : MonoBehaviour
         if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
             m_buttonHolder.position = m_holderPos;
-            m_sliderHolder.position = m_holderPos;
-            m_sliderHolder.position -= new Vector3(0, 60);
+            //m_sliderHolder.position = m_holderPos;
+            //m_sliderHolder.position -= new Vector3(0, 60);
+            //m_sliderHolder.GetComponent<Material>().renderQueue = 0;
         }
 	}
     #endregion
@@ -95,13 +96,13 @@ public class NpcButtons : MonoBehaviour
         // get npc reference
         m_npcRef = GetComponent<DAS.NPC>();
         // get canvas holding buttons
-        m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
+        m_buttonCanvas = transform.GetChild(2).GetComponent<Canvas>();
         // get button holder UI object.
         m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
         // get slider holder UI object.
-        m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
+        m_sliderHolder = transform.GetChild(3).GetComponent<RectTransform>();
         // find and get effects manager reference.
-        effectsManager = GameObject.FindObjectOfType<EffectsManager>();
+        effectsManager = FindObjectOfType<EffectsManager>();
     }
 
     protected void MoodButtonPressed()
