@@ -13,7 +13,7 @@ public class ModelChanger : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isAlien = false;
-        alienModel = gameObject.transform.GetChild(2).gameObject;
+        alienModel = gameObject.transform.GetChild(1).gameObject;
         personModel = gameObject.transform.GetChild(0).gameObject;
     }
 	

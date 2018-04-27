@@ -37,15 +37,15 @@ public class ButtonToggler : MonoBehaviour
                     b.gameObject.SetActive(false);
         }
 
-        if (sliders != null && player != null)
-        {
-            if (Vector3.Distance(player.transform.position, transform.position) < distance)
-                foreach (var s in sliders)
-                    s.gameObject.SetActive(true);
-            else
-                foreach (var s in sliders)
-                    s.gameObject.SetActive(false);
-        }
+        //if (sliders != null && player != null)
+        //{
+        //    if (Vector3.Distance(player.transform.position, transform.position) < distance)
+        //        foreach (var s in sliders)
+        //            s.gameObject.SetActive(true);
+        //    else
+        //        foreach (var s in sliders)
+        //            s.gameObject.SetActive(false);
+        //}
     }
 
     private void ShowDisabledImages()
