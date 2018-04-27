@@ -4,110 +4,13 @@ using UnityEngine;
 
 public class RandomEventTrigger : MonoBehaviour
 {
-    public List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
+    public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
 
-
-    //Train Stuff
-    [Range(1, 20)]
-    [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
-    public int shakeDuration = 6;
-    //TrainPrefab
-    [SerializeField]
-    //[Tooltip("Put TrainEventPrefab here")]
-    Animator m_trainTrack;
-    [SerializeField]
-    Animator m_train;
-    private List<float> motivationList = new List<float>();
-    private int motivationLossDuration;
-
-    //Radiator stuff    
-    private Radiator[] radiators;
-
-    //Spaceship stuff
-    private GameObject spaceship;
-    int alienCount;
-    
-    AudioManager audioManager;
-    int eventDelayEasy;
-    int eventDelayMedium;
-    int eventDelayHard;
-
-
-   
-
-
-    
-    
-    
-
-    void Start ()
-    {
-        //Train Stuff
-        m_trainTrack.gameObject.SetActive(false);
-        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
-
-        //Spaceship stuff
-        spaceship = GameObject.FindGameObjectWithTag("Spaceship");
-        spaceship.SetActive(false);
-        alienCount = 8;
-
-        //Radiator stuff
-        radiators = FindObjectsOfType<Radiator>();
-
-
-        eventDelayEasy = 50;
-        eventDelayMedium = 40;
-        eventDelayHard = 30;
-
-
-        if(DifficultyManager.difficultyScalingEnabled)
-        {
-            randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(AlienEvent);
-            randomEvents.Add(ToiletBreaksEvent);
-            InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
-        }
-        else
-        {
-            randomEvents.Add(AlienEvent);
-            randomEvents.Add(TrainEvent);
-            randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(ToiletBreaksEvent);
-            StartCoroutine(StartInvokeRepeatingWhen());
-        }
-
-        audioManager = FindObjectOfType<AudioManager>();
-        Debug.Assert(audioManager, "No audiomanager exists!!!");
-        
-    }
-
-
-#if UNITY_EDITOR
-    
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.T))
-            TrainEvent();
-
-        if (Input.GetKey(KeyCode.Y))
-            ToiletBreaksEvent();
-
-        if (Input.GetKey(KeyCode.U))
-            AlienEvent();
-
-        if (Input.GetKey(KeyCode.I))
-            RadiatorEvent();
-    }
-
-#endif
-
-
-    void TriggerRandomEvent()
-    {
-        randomEvents[Random.Range(0, randomEvents.Count)]();
-    }
-    
-#region Train
+    /// <summary>
+    /// All the events which gets added to the random event list.
+    /// </summary>
+    #region Events:
+    #region Train
     private bool hasMotivationReset = true;
     void TrainEvent()
     {
@@ -134,7 +37,7 @@ public class RandomEventTrigger : MonoBehaviour
 
     void ResetMotivation()
     {
-        for(int i = 0; i < motivationList.Count - 1; i++)
+        for (int i = 0; i < motivationList.Count - 1; i++)
         {
             DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
         }
@@ -150,9 +53,9 @@ public class RandomEventTrigger : MonoBehaviour
     {
         m_trainTrack.gameObject.SetActive(false);
     }
-#endregion
+    #endregion
 
-#region Radiator
+    #region Radiator
 
     void RadiatorEvent()
     {
@@ -167,16 +70,16 @@ public class RandomEventTrigger : MonoBehaviour
                 break;
             }
         }
-    
-        if(foundBroken == false)
+
+        if (foundBroken == false)
         {
             TriggerRandomEvent();
         }
     }
 
-#endregion
+    #endregion
 
-#region Aliens
+    #region Aliens
 
     void AlienEvent()
     {
@@ -193,8 +96,6 @@ public class RandomEventTrigger : MonoBehaviour
         }
 
         Invoke("DisableSpaceship", 6);
-
-
     }
 
     private void DisableSpaceship()
@@ -202,18 +103,88 @@ public class RandomEventTrigger : MonoBehaviour
         spaceship.SetActive(false);
     }
 
+    #endregion
 
-#endregion
-
-#region Toilet
+    #region Toilet
     void ToiletBreaksEvent()
     {
         DAS.ToiletSystem.s_myInstance.ToiletBreakEvent();
     }
 
-#endregion
-    
-    public void IncreaseDifficulty()
+    #endregion
+    #endregion
+
+    //Train Stuff
+    [Range(1, 20)]
+    [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
+    public int shakeDuration = 6;
+    //TrainPrefab
+    [SerializeField]
+    //[Tooltip("Put TrainEventPrefab here")]
+    Animator m_trainTrack;
+    [SerializeField]
+    Animator m_train;
+    private List<float> motivationList = new List<float>();
+    private int motivationLossDuration;
+
+    private static float timeTilNextEvent = 0;
+
+    //Radiator stuff
+    private Radiator[] radiators;
+
+    //Spaceship stuff
+    private GameObject spaceship;
+    int alienCount;
+
+    AudioManager audioManager;
+    int eventDelayEasy;
+    int eventDelayMedium;
+    int eventDelayHard;
+
+    void Start ()
+    {
+        //Train Stuff
+        m_trainTrack.gameObject.SetActive(false);
+        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
+
+        //Spaceship stuff
+        spaceship = GameObject.FindGameObjectWithTag("Spaceship");
+        spaceship.SetActive(false);
+        alienCount = 8;
+
+        //Radiator stuff
+        radiators = FindObjectsOfType<Radiator>();
+
+        eventDelayEasy = 50;
+        eventDelayMedium = 40;
+        eventDelayHard = 30;
+
+        if(DifficultyManager.difficultyScalingEnabled)
+        {
+            randomEvents.Add(RadiatorEvent);
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(ToiletBreaksEvent);
+            InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
+        }
+        else
+        {
+            randomEvents.Add(AlienEvent);
+            randomEvents.Add(TrainEvent);
+            randomEvents.Add(RadiatorEvent);
+            randomEvents.Add(ToiletBreaksEvent);
+            StartCoroutine(StartInvokeRepeatingWhen());
+        }
+
+        audioManager = FindObjectOfType<AudioManager>();
+        Debug.Assert(audioManager, "No audiomanager exists!!!");
+    }
+
+    void TriggerRandomEvent()
+    {
+        EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
+    }
+
+    public void WhenDifficultyIncreases()
     {
         //Medium Difficulty
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
@@ -221,7 +192,6 @@ public class RandomEventTrigger : MonoBehaviour
             CancelInvoke("TriggerRandomEvent");
             randomEvents.Add(TrainEvent);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);
-
         }
 
         //Hard difficulty
@@ -232,7 +202,7 @@ public class RandomEventTrigger : MonoBehaviour
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayHard);
         }
     }
-    
+
     //Makes sure to start the random events after all npcs have spawned
     IEnumerator StartInvokeRepeatingWhen()
     {
@@ -247,6 +217,5 @@ public class RandomEventTrigger : MonoBehaviour
                 break;
             }
         }
-        //Debug.Log("coroutine end");
     }
 }

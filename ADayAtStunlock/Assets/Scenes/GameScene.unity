@@ -16872,6 +16872,8 @@ GameObject:
   - component: {fileID: 1168330436}
   - component: {fileID: 1168330431}
   - component: {fileID: 1168330437}
+  - component: {fileID: 1168330438}
+  - component: {fileID: 1168330439}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17041,6 +17043,39 @@ MonoBehaviour:
   - prefabObject: {fileID: 1865597750475982, guid: 1d2353d4734337049ba69de3084fc13a,
       type: 2}
     key: 2D-Particle
+--- !u!114 &1168330438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b664b03fda07574aa3ce6d12a2885b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+--- !u!114 &1168330439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f00cccb74c786943a1a41928292765d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSpriteHappy: {fileID: 21300000, guid: 16bb24d6141d85b469e5c6e88e057c3b, type: 3}
+  iconSpriteSad: {fileID: 21300000, guid: bacd2aaf29eec2245aff4adfa4f90ab3, type: 3}
+  iconSpriteMiserable: {fileID: 21300000, guid: 7a4c0ed702b0a034297b74169357a505,
+    type: 3}
+  iconSpriteConfused: {fileID: 21300000, guid: 85b088d9637b9fd45b87b3f63fde37a7, type: 3}
+  iconSpriteDemotivated: {fileID: 21300000, guid: 08ed912b67d4e994ca574f3886666234,
+    type: 3}
+  iconSpriteAlien: {fileID: 21300000, guid: c584879138f31c146b14346109310c1d, type: 3}
+  iconSpriteCold: {fileID: 21300000, guid: c584879138f31c146b14346109310c1d, type: 3}
+  iconSpriteShaky: {fileID: 21300000, guid: c584879138f31c146b14346109310c1d, type: 3}
 --- !u!1001 &1170073839
 Prefab:
   m_ObjectHideFlags: 0

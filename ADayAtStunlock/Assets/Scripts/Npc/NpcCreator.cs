@@ -57,6 +57,8 @@ namespace DAS
 
         public static float s_happyAverage, s_motivationAverage;
 
+        private float myHappinessDecay, myMotivationDecay;
+
         private Slider happySlider, motivationSlider;
 
         public Slider HappySlider
@@ -78,6 +80,7 @@ namespace DAS
         private Material moneyMaterial;
         private ModelChanger modelChanger;
 
+        public MoodVisualizer moodVisualizerRef;
         public Feelings myFeelings;
         private GameObject nameHolder;
         private TextMesh myNameDisplay;
@@ -98,10 +101,14 @@ namespace DAS
             s_npcList.Add(this);
 
             /// Assign Values
-            if(Random.Range(0f, 1f) > 0.5f)
-                myFeelings = new Feelings(1.0f, 1.0f);
-            else
-                myFeelings = new Feelings(1.0f, 1.0f);
+            myFeelings = new Feelings(1.0f, 1.0f);
+
+            Random.State oldState = Random.state;
+            Random.InitState(name.Length);
+            myHappinessDecay = Random.Range(150, 250);
+            myMotivationDecay = Random.Range(140, 240);
+            Debug.Log(name.Length + ": mhd->" + myHappinessDecay + " mmd->" + myMotivationDecay);
+            Random.state = oldState;
 
             /// Get Components
             foreach (var item in GetComponentsInChildren<Slider>())
@@ -162,8 +169,8 @@ namespace DAS
             }
             else
             {
-                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 200);
-                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / 180);
+                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / myHappinessDecay);
+                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / myMotivationDecay);
             }
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
