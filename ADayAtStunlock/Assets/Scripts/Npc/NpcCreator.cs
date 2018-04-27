@@ -78,6 +78,7 @@ namespace DAS
         private Material moneyMaterial;
         private ModelChanger modelChanger;
 
+        public MoodVisualizer moodVisualizerRef;
         public Feelings myFeelings;
         private GameObject nameHolder;
         private TextMesh myNameDisplay;

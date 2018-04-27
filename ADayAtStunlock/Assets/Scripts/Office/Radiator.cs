@@ -48,10 +48,14 @@ public class Radiator : MonoBehaviour
             {
                 npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
                 npc.buttonRef.particle.SetActive(true);
+                npc.moodVisualizerRef.ColdMood();
             }
         else
             foreach (var npc in nearbyNpcs)
+            {
                 npc.buttonRef.particle.SetActive(false);
+                npc.moodVisualizerRef.EndStatusEffect();
+            }
 	}
 
     public void RadiatorStart()
@@ -88,8 +92,11 @@ public class Radiator : MonoBehaviour
         }
 
         foreach (var npc in nearbyNpcs)
+        {
+            npc.moodVisualizerRef.EndStatusEffect();
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
+        }
 
         ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
 
@@ -107,6 +114,7 @@ public class Radiator : MonoBehaviour
                 foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                     material.color = Color.blue;
                 other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(true);
+                other.GetComponent<DAS.NPC>().moodVisualizerRef.ColdMood();
             }
         }
     }
@@ -120,6 +128,7 @@ public class Radiator : MonoBehaviour
             foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
             other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(false);
+            other.GetComponent<DAS.NPC>().moodVisualizerRef.EndStatusEffect();
         }
     }
 }
