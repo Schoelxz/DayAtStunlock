@@ -8,6 +8,8 @@ public class DifficultyManager : MonoBehaviour {
 
     static public Difficulty currentDifficulty;
 
+    public static DifficultyManager s_myInstance;
+
     // !!!
     // Make a singleton of the class instead of making this variable public. This should be an inspector variable.
     static public bool difficultyScalingEnabled = true;
@@ -15,11 +17,44 @@ public class DifficultyManager : MonoBehaviour {
     int mediumDifficultyDelay;
     int hardDifficultyDelay;
 
+    public int timeAtNextDifficulty
+    {
+        get
+        {
+            if (DAS.TimeSystem.TimePassedSeconds <= mediumDifficultyDelay)
+                return mediumDifficultyDelay;
+            else if (DAS.TimeSystem.TimePassedSeconds <= hardDifficultyDelay)
+                return hardDifficultyDelay;
+            else
+                return 0;
+        }
+    }
+    public int timeTilNextDifficulty
+    {
+        get
+        {
+            if (DAS.TimeSystem.TimePassedSeconds <= mediumDifficultyDelay)
+                return mediumDifficultyDelay - (int)DAS.TimeSystem.TimePassedSeconds;
+            else if (DAS.TimeSystem.TimePassedSeconds <= hardDifficultyDelay)
+                return hardDifficultyDelay - (int)DAS.TimeSystem.TimePassedSeconds;
+            else
+                return 0;
+        }
+    }
+
     DAS.NpcCreator npcCreator;
     RandomEventTrigger randomEvent;
 
-	// Use this for initialization
-	void Start ()
+    private void Awake()
+    {
+        if (s_myInstance == null)
+            s_myInstance = this;
+        else
+            Destroy(this);
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         mediumDifficultyDelay = 100;
         hardDifficultyDelay = mediumDifficultyDelay + 240;
@@ -42,14 +77,14 @@ public class DifficultyManager : MonoBehaviour {
                 if (DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count) //When all npcs have spawned, we can increase the difficulty and move on
                 {
                     currentDifficulty = Difficulty.Medium;
-                    randomEvent.IncreaseDifficulty();
+                    randomEvent.WhenDifficultyIncreases();
                 }
             }
 
             if (DAS.TimeSystem.TimePassedSeconds > hardDifficultyDelay && currentDifficulty == Difficulty.Medium)
             {
                 currentDifficulty = Difficulty.Hard;
-                randomEvent.IncreaseDifficulty();
+                randomEvent.WhenDifficultyIncreases();
             }
         }
         
