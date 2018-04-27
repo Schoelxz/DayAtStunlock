@@ -41,22 +41,17 @@ public class NpcButtons : MonoBehaviour
     {
         npcButton = gameObject.GetComponentInChildren<Button>();
         npcButton.gameObject.AddComponent<ClickableObject>();
-
-        //m_particleHolder = new GameObject("ParticleEffectHandle");
-
-
-        //m_particleHolder.transform.parent = m_sliderHolder.GetChild(0);
-        //m_particleHolder.transform.position = m_sliderHolder.GetChild(0).transform.position;
-
-        //particle = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-ParticleSliderBurn"]);
-        //particle.transform.SetParent(m_particleHolder.transform);
-        //particle.transform.localPosition = Vector3.zero;
-        //particle.SetActive(false);
+        //Burning Particle
+        m_particleHolder = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
+        m_particleHolder.transform.SetParent(m_sliderHolder.GetChild(0));
+        m_particleHolder.transform.localEulerAngles = new Vector3(0,0,0);
+        m_particleHolder.transform.localPosition = new Vector3(m_sliderHolder.sizeDelta.x / 2, -m_sliderHolder.sizeDelta.y / 2, 0);
+        
     }
 
     private void Update()
     {
-        //m_particleHolder.transform.eulerAngles = new Vector3(m_particleHolder.transform.rotation.x, m_particleHolder.transform.rotation.y, m_npcRef.HappySlider.value * 360);
+        m_particleHolder.transform.localEulerAngles = new Vector3(0,0, m_npcRef.HappySlider.value * -360);
 
         if (Time.timeScale == 0)
             m_buttonCanvas.enabled = false;
