@@ -43,6 +43,7 @@ public class NpcButtons : MonoBehaviour
         npcButton.gameObject.AddComponent<ClickableObject>();
         //Burning Particle
         m_particleHolder = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
+        particle = m_particleHolder.transform.GetChild(0).gameObject;
         m_particleHolder.transform.SetParent(m_sliderHolder.GetChild(0));
         m_particleHolder.transform.localEulerAngles = new Vector3(0,0,0);
         m_particleHolder.transform.localPosition = new Vector3(m_sliderHolder.sizeDelta.x / 2, -m_sliderHolder.sizeDelta.y / 2, 0);
