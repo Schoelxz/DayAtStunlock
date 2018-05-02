@@ -35,7 +35,7 @@ namespace DAS
             public void RepairMe()
             {
                 broken = false;
-                myObjects.canvas.SetActive(false);
+                myObjects.button.SetActive(false);
                 ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
             }
         }
@@ -45,7 +45,7 @@ namespace DAS
         {
             public GameObject parent;
             public GameObject queue;
-            public GameObject canvas;
+            public GameObject button;
         }
 
         public class ClickableObject : MonoBehaviour, IPointerDownHandler
@@ -60,6 +60,8 @@ namespace DAS
         #endregion
 
         #region Variables
+        public Canvas twoDCanvasRef;
+
         /// <summary>
         /// Singleton class variable.
         /// </summary>
@@ -98,17 +100,23 @@ namespace DAS
             s_toiletPoints[0].myObjects = toiletObject2;
             s_toiletPoints[1].myObjects = toiletObject1;
 
-            toiletObject2.canvas.GetComponentInChildren<Button>().gameObject.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[0];
-            toiletObject1.canvas.GetComponentInChildren<Button>().gameObject.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[1];
-            toiletObject1.canvas.SetActive(false);
-            toiletObject2.canvas.SetActive(false);
+            toiletObject2.button.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[0];
+            toiletObject1.button.AddComponent<ClickableObject>().toiletRef = s_toiletPoints[1];
+            toiletObject1.button.SetActive(false);
+            toiletObject2.button.SetActive(false);
+
+            foreach (var toilet in s_toiletPoints)
+            {
+                PositionToiletButtons(toilet.gameObject, toilet.myObjects.button);
+            }
         }
         #endregion
 
-#if UNITY_EDITOR
+
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 EveryoneNeedsToiletEvent();
             }
@@ -116,8 +124,13 @@ namespace DAS
             {
                 ToiletBreakEvent();
             }
-        }
 #endif
+
+            foreach (var toilet in s_toiletPoints)
+                if(toilet.broken)
+                    PositionToiletButtons(toilet.gameObject, toilet.myObjects.button);
+        }
+
 
         #region Functions
         #region Toilet
@@ -268,6 +281,22 @@ namespace DAS
         }
         #endregion
 
+        private void PositionToiletButtons(GameObject worldPositionObject, GameObject button)
+        {
+            Vector2 twoDPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle
+            (
+                twoDCanvasRef.transform as RectTransform,
+                Camera.main.WorldToScreenPoint(worldPositionObject.transform.position),
+                twoDCanvasRef.worldCamera,
+                out twoDPos
+            );
+
+            twoDPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset.;
+
+            button.transform.position = twoDPos;
+        }
+
         #region Event
         /// <summary>
         /// Makes all npcs go to the toilet.
@@ -289,7 +318,7 @@ namespace DAS
             foreach (var toilet in s_toiletPoints)
             {
                 toilet.broken = true;
-                toilet.myObjects.canvas.SetActive(true);
+                toilet.myObjects.button.SetActive(true);
                 ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject);
             }
         }
@@ -302,7 +331,7 @@ namespace DAS
             foreach (var toilet in s_toiletPoints)
             {
                 toilet.broken = false;
-                toilet.myObjects.canvas.SetActive(false);
+                toilet.myObjects.button.SetActive(false);
                 ArrowPointer.MyInstance.RemoveObjectToPointAt(toilet.gameObject);
             }
         }

@@ -17,7 +17,7 @@ public class DirLightIntro : MonoBehaviour
 	void Update ()
     {
         if (dirLight.intensity < 1)
-            dirLight.intensity += DAS.TimeSystem.DeltaTime / 10;
+            dirLight.intensity += DAS.TimeSystem.DeltaTime / 3;
         else
             Destroy(this);
 		
