@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //[RequireComponent(typeof(ScoreDisplay))]
 public class MoneyManager : MonoBehaviour
@@ -27,6 +26,7 @@ public class MoneyManager : MonoBehaviour
     
     float timer;
     bool run;
+    
 
 
 	void Start ()
@@ -41,6 +41,7 @@ public class MoneyManager : MonoBehaviour
         scoreDisplay = FindObjectOfType<ScoreDisplay>();
 
         //InvokeRepeating("DeductSalary", 1, 0.2f);
+        
 	}
 
     void Update ()
@@ -105,11 +106,8 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
-        
-        Highscore.AddHighscore("Name", (int)moneyEarned);
-        Highscore.SortHighscore();
-        Highscore.SaveHighscore();
-        EndGameCanvas.GameOver();
+        DAS.TimeSystem.PauseTime();
+        HighscoreListScreen.DisplayHighscoreScreen();
+        HighscoreListScreen.DisplayScores();
     }
-
 }
