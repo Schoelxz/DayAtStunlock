@@ -37,6 +37,9 @@ namespace DAS
                 broken = false;
                 myObjects.button.SetActive(false);
                 ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
+
+                foreach (var particleSystem in gameObject.GetComponentsInChildren<ParticleSystem>())
+                    particleSystem.Stop();
             }
         }
 
@@ -320,6 +323,11 @@ namespace DAS
                 toilet.broken = true;
                 toilet.myObjects.button.SetActive(true);
                 ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject);
+
+                foreach (var particleSystem in toilet.gameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particleSystem.Play();
+                }
             }
         }
 
@@ -333,6 +341,11 @@ namespace DAS
                 toilet.broken = false;
                 toilet.myObjects.button.SetActive(false);
                 ArrowPointer.MyInstance.RemoveObjectToPointAt(toilet.gameObject);
+
+                foreach (var particleSystem in toilet.gameObject.GetComponentsInChildren<ParticleSystem>())
+                {
+                    particleSystem.Stop();
+                }
             }
         }
         #endregion
