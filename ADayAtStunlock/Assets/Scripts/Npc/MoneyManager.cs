@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //[RequireComponent(typeof(ScoreDisplay))]
 public class MoneyManager : MonoBehaviour
@@ -109,13 +108,12 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
-        
         Highscore.AddHighscore("Name", (int)moneyEarned);
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
         highscoreScreen[0].gameObject.SetActive(true);
         HighscoreListScreen.DisplayScores();
-        EndGameCanvas.GameOver();
+        //EndGameCanvas.GameOver();
     }
 
 }

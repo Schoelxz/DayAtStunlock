@@ -13,6 +13,8 @@ public class HighscoreListScreen : MonoBehaviour {
 
     static GameObject thisInstance;
 
+    static InputField inputField;
+    static Text nameText;
 
     private void Awake()
     {
@@ -22,16 +24,11 @@ public class HighscoreListScreen : MonoBehaviour {
 
         scoresObject = gameObject.transform.GetChild(1).gameObject;
         scores = scoresObject.GetComponentsInChildren<Text>(true);
-    }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            this.gameObject.SetActive(true);
-        }
-    }
+        inputField = gameObject.GetComponentInChildren<InputField>();
+        inputField.contentType = InputField.ContentType.Alphanumeric;
 
+    }
 
     static public void DisplayScores()
     {
@@ -42,7 +39,7 @@ public class HighscoreListScreen : MonoBehaviour {
         }
     }
 
-    static public void DisplayScreen()
+    static public void DisplayHighscoreScreen()
     {
         thisInstance.SetActive(true);
     }
