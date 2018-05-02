@@ -106,9 +106,8 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
+        DAS.TimeSystem.PauseTime();
         HighscoreListScreen.DisplayHighscoreScreen();
         HighscoreListScreen.DisplayScores();
-        //EndGameCanvas.GameOver();
     }
-
 }

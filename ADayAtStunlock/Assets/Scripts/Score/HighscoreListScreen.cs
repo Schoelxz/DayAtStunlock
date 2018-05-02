@@ -69,8 +69,7 @@ public class HighscoreListScreen : MonoBehaviour {
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
         DisplayScores();
-
-        inputField.gameObject.SetActive(false);
+        inputField.readOnly = true;
     }
     
 }
