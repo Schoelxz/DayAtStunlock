@@ -36,7 +36,7 @@ public class Highscore : MonoBehaviour {
     {
         filePath = Application.persistentDataPath + "/Highscore.txt"; // "Assets /Resources/Score/Highscore.txt";
 
-        //Debug.Log("filepath: " + filePath);
+        Debug.Log("filepath: " + filePath);
 
         if (!File.Exists(filePath))
             File.CreateText(filePath).Dispose();

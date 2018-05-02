@@ -14,11 +14,13 @@ public class HighscoreListScreen : MonoBehaviour {
     static GameObject thisInstance;
 
     static InputField inputField;
-    static Text nameText;
+
+    static Text playerScoreText;
 
     private void Awake()
     {
         thisInstance = gameObject;
+
         namesObject = gameObject.transform.GetChild(0).gameObject;
         names = namesObject.GetComponentsInChildren<Text>(true);
 
@@ -27,8 +29,17 @@ public class HighscoreListScreen : MonoBehaviour {
 
         inputField = gameObject.GetComponentInChildren<InputField>();
         inputField.contentType = InputField.ContentType.Alphanumeric;
+        inputField.onEndEdit.AddListener(delegate { SaveName(); });
 
+        playerScoreText = gameObject.transform.GetChild(4).gameObject.GetComponentInChildren<Text>();
+
+        
     }
+
+    private void Update()
+    {
+    }
+
 
     static public void DisplayScores()
     {
@@ -42,5 +53,24 @@ public class HighscoreListScreen : MonoBehaviour {
     static public void DisplayHighscoreScreen()
     {
         thisInstance.SetActive(true);
+        playerScoreText.text = MoneyManager.moneyEarned.ToString("n0");
     }
+
+    static void SaveName()
+    {
+        if(inputField.text.Length > 0)
+        {
+            Highscore.AddHighscore(inputField.text, (int)MoneyManager.moneyEarned);
+        }
+        else
+        {
+            Highscore.AddHighscore("Noname", (int)MoneyManager.moneyEarned);
+        }
+        Highscore.SortHighscore();
+        Highscore.SaveHighscore();
+        DisplayScores();
+
+        inputField.gameObject.SetActive(false);
+    }
+    
 }
