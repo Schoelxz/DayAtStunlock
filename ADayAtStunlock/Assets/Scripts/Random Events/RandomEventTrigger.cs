@@ -143,6 +143,9 @@ public class RandomEventTrigger : MonoBehaviour
 
     void Start ()
     {
+        //Clear the list of events on Start (to avoid filling the list on restarts)
+        randomEvents.Clear();
+
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
         motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
