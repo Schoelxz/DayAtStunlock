@@ -27,7 +27,7 @@ public class NpcButtons : MonoBehaviour
     private RectTransform m_sliderHolder;
     private Vector2 m_holderPos;
 
-    private GameObject test;
+    private GameObject m_particleHolder;
     public GameObject particle;
 
     private Button npcButton;
@@ -41,22 +41,18 @@ public class NpcButtons : MonoBehaviour
     {
         npcButton = gameObject.GetComponentInChildren<Button>();
         npcButton.gameObject.AddComponent<ClickableObject>();
-
-        test = new GameObject("test");
+        //Burning Particle
+        m_particleHolder = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
+        particle = m_particleHolder.transform.GetChild(0).gameObject;
+        m_particleHolder.transform.SetParent(m_sliderHolder.GetChild(0));
+        m_particleHolder.transform.localEulerAngles = new Vector3(0,0,0);
+        m_particleHolder.transform.localPosition = new Vector3(m_sliderHolder.sizeDelta.x / 2, -m_sliderHolder.sizeDelta.y / 2, 0);
         
-
-        test.transform.parent = m_sliderHolder.GetChild(0);
-        test.transform.position = m_sliderHolder.GetChild(0).transform.position;
-
-        particle = Instantiate(PrefabHolder.MyInstance.PrefabDictionary["2D-Particle"]);
-        particle.transform.SetParent(test.transform);
-        particle.transform.localPosition = Vector3.zero;
-        particle.SetActive(false);
     }
 
     private void Update()
     {
-        test.transform.localPosition = new Vector3(m_npcRef.HappySlider.value * 66, -10, 0);
+        m_particleHolder.transform.localEulerAngles = new Vector3(0,0, m_npcRef.HappySlider.value * -360);
 
         if (Time.timeScale == 0)
             m_buttonCanvas.enabled = false;
@@ -71,7 +67,7 @@ public class NpcButtons : MonoBehaviour
                 m_buttonCanvas.worldCamera,
                 out m_holderPos);
 
-            m_holderPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset to the buttons position.
+            m_holderPos += new Vector2(Screen.width / 2f, Screen.height / 2f + 100f); // add some fixing offset to the buttons position.
         }
     }
 
@@ -81,8 +77,9 @@ public class NpcButtons : MonoBehaviour
         if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
             m_buttonHolder.position = m_holderPos;
-            m_sliderHolder.position = m_holderPos;
-            m_sliderHolder.position -= new Vector3(0, 60);
+            //m_sliderHolder.position = m_holderPos;
+            //m_sliderHolder.position -= new Vector3(0, 60);
+            //m_sliderHolder.GetComponent<Material>().renderQueue = 0;
         }
 	}
     #endregion
@@ -95,13 +92,13 @@ public class NpcButtons : MonoBehaviour
         // get npc reference
         m_npcRef = GetComponent<DAS.NPC>();
         // get canvas holding buttons
-        m_buttonCanvas = transform.GetChild(1).GetComponent<Canvas>();
+        m_buttonCanvas = transform.GetChild(2).GetComponent<Canvas>();
         // get button holder UI object.
         m_buttonHolder = m_buttonCanvas.transform.GetChild(0).GetComponent<RectTransform>();
         // get slider holder UI object.
-        m_sliderHolder = m_buttonCanvas.transform.GetChild(1).GetComponent<RectTransform>();
+        m_sliderHolder = transform.GetChild(3).GetComponent<RectTransform>();
         // find and get effects manager reference.
-        effectsManager = GameObject.FindObjectOfType<EffectsManager>();
+        effectsManager = FindObjectOfType<EffectsManager>();
     }
 
     protected void MoodButtonPressed()

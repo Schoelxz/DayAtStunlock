@@ -47,11 +47,18 @@ public class Radiator : MonoBehaviour
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)
             {
                 npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
-                npc.buttonRef.particle.SetActive(true);
+
+                if (!npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
+                    npc.buttonRef.particle.GetComponent<ParticleSystem>().Play();
+                npc.moodVisualizerRef.ColdMood();
             }
         else
             foreach (var npc in nearbyNpcs)
-                npc.buttonRef.particle.SetActive(false);
+            {
+                if(npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
+                    npc.buttonRef.particle.GetComponent<ParticleSystem>().Stop();
+                npc.moodVisualizerRef.EndStatusEffect();
+            }
 	}
 
     public void RadiatorStart()
@@ -88,8 +95,11 @@ public class Radiator : MonoBehaviour
         }
 
         foreach (var npc in nearbyNpcs)
+        {
+            npc.moodVisualizerRef.EndStatusEffect();
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
+        }
 
         ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
 
@@ -106,7 +116,9 @@ public class Radiator : MonoBehaviour
             {
                 foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                     material.color = Color.blue;
-                other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(true);
+                
+                other.GetComponent<DAS.NPC>().buttonRef.particle.GetComponent<ParticleSystem>().Play();
+                other.GetComponent<DAS.NPC>().moodVisualizerRef.ColdMood();
             }
         }
     }
@@ -119,7 +131,10 @@ public class Radiator : MonoBehaviour
 
             foreach (var material in other.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.white;
-            other.GetComponent<DAS.NPC>().buttonRef.particle.SetActive(false);
+
+
+            other.GetComponent<DAS.NPC>().buttonRef.particle.GetComponent<ParticleSystem>().Stop();
+            other.GetComponent<DAS.NPC>().moodVisualizerRef.EndStatusEffect();
         }
     }
 }
