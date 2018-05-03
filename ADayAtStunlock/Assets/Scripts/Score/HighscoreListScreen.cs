@@ -21,23 +21,17 @@ public class HighscoreListScreen : MonoBehaviour {
     {
         thisInstance = gameObject;
 
-        namesObject = gameObject.transform.GetChild(0).gameObject;
-        names = namesObject.GetComponentsInChildren<Text>(true);
+        names = gameObject.transform.Find("LeftPanel").transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
 
-        scoresObject = gameObject.transform.GetChild(1).gameObject;
-        scores = scoresObject.GetComponentsInChildren<Text>(true);
+        scores = gameObject.transform.Find("LeftPanel").transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
 
         inputField = gameObject.GetComponentInChildren<InputField>();
         inputField.contentType = InputField.ContentType.Alphanumeric;
         inputField.onEndEdit.AddListener(delegate { SaveName(); });
 
-        playerScoreText = gameObject.transform.GetChild(4).gameObject.GetComponentInChildren<Text>();
+        playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>();
 
         
-    }
-
-    private void Update()
-    {
     }
 
 
@@ -53,6 +47,8 @@ public class HighscoreListScreen : MonoBehaviour {
     static public void DisplayHighscoreScreen()
     {
         thisInstance.SetActive(true);
+        inputField.readOnly = false;
+        inputField.text = "";
         playerScoreText.text = MoneyManager.moneyEarned.ToString("n0");
     }
 
