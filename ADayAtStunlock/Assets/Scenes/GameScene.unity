@@ -3906,11 +3906,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7555152c399f0bd47bc81c6247a4a7d4, type: 2}
   m_IsPrefabParent: 0
---- !u!95 &421666545 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 95476517315477548, guid: 1f56eb19982b1f046913982f279d7cce,
-    type: 2}
-  m_PrefabInternal: {fileID: 2034360186}
 --- !u!1001 &431305997
 Prefab:
   m_ObjectHideFlags: 0
@@ -15531,6 +15526,16 @@ Prefab:
       propertyPath: randomSeed
       value: -33251627
       objectReference: {fileID: 0}
+    - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
+        type: 2}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
+        type: 2}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5599595a2371c9439b771918965d77b, type: 2}
   m_IsPrefabParent: 0
@@ -17170,8 +17175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 10
-  m_trainTrack: {fileID: 421666545}
-  m_train: {fileID: 1846518403}
+  m_trainTrack: {fileID: 0}
+  m_train: {fileID: 0}
 --- !u!114 &1168330431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26349,11 +26354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerName: Max
---- !u!95 &1846518403 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 95882398343521714, guid: 1f56eb19982b1f046913982f279d7cce,
-    type: 2}
-  m_PrefabInternal: {fileID: 2034360186}
 --- !u!1001 &1855840160
 Prefab:
   m_ObjectHideFlags: 0

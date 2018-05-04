@@ -118,17 +118,6 @@ namespace DAS
 
         private void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                EveryoneNeedsToiletEvent();
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                ToiletBreakEvent();
-            }
-#endif
-
             foreach (var toilet in s_toiletPoints)
                 if(toilet.broken)
                     PositionToiletButtons(toilet.gameObject, toilet.myObjects.button);
