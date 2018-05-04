@@ -44,34 +44,34 @@ public class WorkstationPlayer : MonoBehaviour
     private void Update()
     {
         //Cheats start
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-            {
-                npc.myFeelings.Happiness = 1f;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-            {
-                npc.myFeelings.Motivation = 1f;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-            {
-                npc.myFeelings.Happiness = 0f;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-            {
-                npc.myFeelings.Motivation = 0f;
-            }
-        }
+        //if(Input.GetKeyDown(KeyCode.H))
+        //{
+        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
+        //    {
+        //        npc.myFeelings.Happiness = 1f;
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
+        //    {
+        //        npc.myFeelings.Motivation = 1f;
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
+        //    {
+        //        npc.myFeelings.Happiness = 0f;
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
+        //    {
+        //        npc.myFeelings.Motivation = 0f;
+        //    }
+        //}
         //Cheats end
     }
     
