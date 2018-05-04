@@ -108,14 +108,14 @@ namespace DAS
 #if UNITY_EDITOR
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                EveryoneNeedsToiletEvent();
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                ToiletBreakEvent();
-            }
+            //if(Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    EveryoneNeedsToiletEvent();
+            //}
+            //if (Input.GetKeyDown(KeyCode.V))
+            //{
+            //    ToiletBreakEvent();
+            //}
         }
 #endif
 

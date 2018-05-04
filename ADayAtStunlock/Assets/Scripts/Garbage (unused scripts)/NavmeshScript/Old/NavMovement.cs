@@ -20,11 +20,11 @@ public class NavMovement : MonoBehaviour
 
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            navAgent.isStopped = !navAgent.isStopped;
-            Debug.Log(navAgent.isStopped);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    navAgent.isStopped = !navAgent.isStopped;
+        //    Debug.Log(navAgent.isStopped);
+        //}
 
         dt += Time.deltaTime;
         if (dt < 0.1f)
