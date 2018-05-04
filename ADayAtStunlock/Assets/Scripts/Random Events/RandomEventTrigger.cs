@@ -127,8 +127,6 @@ public class RandomEventTrigger : MonoBehaviour
     private List<float> motivationList = new List<float>();
     private int motivationLossDuration;
 
-    private static float timeTilNextEvent = 0;
-
     //Radiator stuff
     private Radiator[] radiators;
 
