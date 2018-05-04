@@ -12,26 +12,26 @@ public class EndGameCanvas : MonoBehaviour
 
     private void Awake()
     {
-        myInstance = MenuNavigator.s_menuHolder.transform.GetChild(5).gameObject;
+        //myInstance = MenuNavigator.s_menuHolder.transform.GetChild(5).gameObject;
     }
 
     // Use this for initialization
     void Start ()
     {
-        highscorePanel = myInstance.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
+        //highscorePanel = myInstance.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
 
-        highscore = highscorePanel.GetChild(0).GetComponent<Text>();
+        //highscore = highscorePanel.GetChild(0).GetComponent<Text>();
     }
 
     public static void GameOver()
     {
-        if (myInstance != null)
-        {
-            myInstance.SetActive(true);
-            DAS.TimeSystem.PauseTime();
-            highscore.text = MoneyManager.moneyEarned.ToString("C0");
-        }
-        else
-            Debug.LogWarning("EndGameCanvas probably missing");
+        //if (myInstance != null)
+        //{
+        //    myInstance.SetActive(true);
+        //    DAS.TimeSystem.PauseTime();
+        //    highscore.text = MoneyManager.moneyEarned.ToString("C0");
+        //}
+        //else
+        //    Debug.LogWarning("EndGameCanvas probably missing");
     }
 }
