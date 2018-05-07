@@ -8,13 +8,21 @@ public class ArrowPointer : MonoBehaviour
     [System.Serializable]
     public class ObjectPointer
     {
+        [Tooltip("Editor window only")]
+        public bool removeMe = false;
+        public int secondsTilRemoval = 30;
+
+        [Tooltip("Object which the arrow will follow and point at.")]
         public GameObject targetObject;
         //2D canvas-positioning of a 3D object-world
         [HideInInspector]
         public Vector2 convertedTargetObjectPosition;
         [HideInInspector]
         public GameObject arrowPointer;
-
+        public Sprite arrowSprite = null;
+        public Color colorOfArrow = Vector4.zero;
+        
+        [Header("Extra:")]
         public bool extraFunction = false;
         [HideInInspector]
         public GameObject exclamationMark;
@@ -24,6 +32,14 @@ public class ArrowPointer : MonoBehaviour
         public bool coroutineRunning = false;
         [HideInInspector]
         public Coroutine coroutine;
+        public string textDisplay = string.Empty;
+        public Color colorOfText = Vector4.zero;
+
+        public IEnumerator RemoveMe(int secondsUntilRemoved)
+        {
+            yield return new WaitForSeconds(secondsUntilRemoved);
+            listOfStuffToRemove.Add(this);
+        }
     }
 
     #region Variables
@@ -34,12 +50,12 @@ public class ArrowPointer : MonoBehaviour
     }
 
     public List<ObjectPointer> listOfPointingAt = new List<ObjectPointer>();
-    private List<ObjectPointer> listOfStuffToRemove = new List<ObjectPointer>();
+    protected static List<ObjectPointer> listOfStuffToRemove = new List<ObjectPointer>();
     private Canvas m_myCanvas;
     private Vector3 m_middlePoint;
-    public Sprite typeOfSprite;
-    public Font textFont;
-    public Material textMaterial;
+    public Sprite defaultTypeOfSprite;
+    public Font defaultTextFont;
+    public Material defaultTextMaterial;
     #endregion
 
     private void Awake()
@@ -85,8 +101,14 @@ public class ArrowPointer : MonoBehaviour
         Image tempImage;
         item.arrowPointer.AddComponent<RectTransform>();
         tempImage = item.arrowPointer.AddComponent<Image>();
-        tempImage.sprite = typeOfSprite;
-        tempImage.color = Color.yellow;
+        if (item.arrowSprite == null)
+            tempImage.sprite = defaultTypeOfSprite;
+        else
+            tempImage.sprite = item.arrowSprite;
+        if (item.colorOfArrow == new Color(0, 0, 0, 0))
+            tempImage.color = Color.yellow;
+        else
+            tempImage.color = item.colorOfArrow;
     }
 
     private void ExtraInitObjectPointer(ObjectPointer item)
@@ -96,23 +118,29 @@ public class ArrowPointer : MonoBehaviour
             item.exclamationMark = new GameObject("Exclamation Mark");
             item.exclamationMark.transform.parent = gameObject.transform;
             TextMesh tempTextMesh = item.exclamationMark.AddComponent<TextMesh>();
-            tempTextMesh.text = "!";
+            if (item.textDisplay == string.Empty)
+                tempTextMesh.text = "!";
+            else
+                tempTextMesh.text = item.textDisplay;
 
             if (item.textMaterial != null)
                 item.exclamationMark.GetComponent<MeshRenderer>().material = item.textMaterial;
             else
-                item.exclamationMark.GetComponent<MeshRenderer>().material = textMaterial;
+                item.exclamationMark.GetComponent<MeshRenderer>().material = defaultTextMaterial;
             
             if (item.textFont != null)
                 tempTextMesh.font = item.textFont;
             else
-                tempTextMesh.font = textFont;
+                tempTextMesh.font = defaultTextFont;
 
             tempTextMesh.alignment = TextAlignment.Center;
             tempTextMesh.anchor = TextAnchor.MiddleCenter;
             tempTextMesh.characterSize = 0.06f;
             tempTextMesh.fontSize = 500;
-            tempTextMesh.color = Color.yellow;
+            if (item.colorOfText == new Color(0, 0, 0, 0))
+                tempTextMesh.color = Color.yellow;
+            else
+                tempTextMesh.color = item.colorOfText;
 
             item.exclamationMark.SetActive(false);
         }
@@ -124,7 +152,11 @@ public class ArrowPointer : MonoBehaviour
         {
             foreach (var item in listOfStuffToRemove)
             {
+                //Destroy gameobject which holds ArrowRelated stuff
                 Destroy(item.arrowPointer);
+                //Destroy gameobject which holds TextMesh stuff
+                Destroy(item.exclamationMark);
+                //Remove item from list
                 listOfPointingAt.Remove(item);
             }
             //listOfStuffToRemove.Clear();
@@ -161,6 +193,14 @@ public class ArrowPointer : MonoBehaviour
             else
                 item.arrowPointer.gameObject.SetActive(true);
         }
+
+        foreach (var item in listOfPointingAt)
+        {
+            if(item.removeMe)
+            {
+                StartCoroutine(item.RemoveMe(item.secondsTilRemoval));
+            }
+        }
     }
 
     private void RotateArrowTowardsTarget(Vector2 targetPos, RectTransform arrow)
@@ -179,9 +219,11 @@ public class ArrowPointer : MonoBehaviour
     {
         objectToBlink.SetActive(true);
 
-        while (true)
+        while (true && objectToBlink != null)
         {
             yield return new WaitForSeconds(0.5f);
+            if (objectToBlink == null)
+                break;
 
             if (objectToBlink.activeSelf)
                 objectToBlink.SetActive(false);
@@ -212,6 +254,12 @@ public class ArrowPointer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds an arrow to point at the "targetToPoint", extra function true will give exclamation mark and more on the arrow aswell.
+    /// This will have all default values.
+    /// </summary>
+    /// <param name="targetToPoint"></param>
+    /// <param name="extraFunction"></param>
     public void AddObjectToPointAt(GameObject targetToPoint, bool extraFunction)
     {
         ObjectPointer temp = new ObjectPointer();
@@ -225,6 +273,22 @@ public class ArrowPointer : MonoBehaviour
         }
 
         listOfPointingAt.Add(temp);
+    }
+    /// <summary>
+    /// Potential for customizing your arrow and its visuals, but untested so be careful.
+    /// With this you can change values to not be the defaults.
+    /// </summary>
+    /// <param name="targetToPoint"></param>
+    /// <param name="customData"></param>
+    public void AddObjectToPointAt(GameObject targetToPoint, ObjectPointer customData)
+    {
+        customData.targetObject = targetToPoint;
+        StandardInitObjectPointer(customData);
+
+        //Does not need to check if extra function, the parameter, since custom data can set this to either true or false. Then the function under here checks wether it is false or true before initializing it.
+        ExtraInitObjectPointer(customData);
+
+        listOfPointingAt.Add(customData);
     }
     public void RemoveObjectToPointAt(GameObject targetToRemove)
     {
