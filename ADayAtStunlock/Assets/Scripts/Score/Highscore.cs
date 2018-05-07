@@ -83,8 +83,14 @@ public class Highscore : MonoBehaviour {
         while((line = reader.ReadLine()) != null)
         {
             string[] parts = line.Split();
-            //print(parts.Length);
-            scores.Add(new Score(int.Parse(parts[0]), parts[1]));
+
+            if (parts[0] == "")
+                continue;
+            int asdfgh;
+            if (int.TryParse(parts[0], out asdfgh))
+                scores.Add(new Score(int.Parse(parts[0]), parts[1]));
+            else
+                Debug.LogWarning("Highscore tried parsing an string as int, but failed. String was: " + parts[0]);
         }
 
         reader.Close();
