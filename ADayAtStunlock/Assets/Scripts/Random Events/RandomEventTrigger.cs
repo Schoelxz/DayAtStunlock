@@ -158,7 +158,7 @@ public class RandomEventTrigger : MonoBehaviour
 
         eventDelayEasy = 50;
         eventDelayMedium = 40;
-        eventDelayHard = 30;
+        eventDelayHard = 20;
 
         if(DifficultyManager.difficultyScalingEnabled)
         {
@@ -200,6 +200,9 @@ public class RandomEventTrigger : MonoBehaviour
         {
             CancelInvoke("TriggerRandomEvent");
             //Add events to randomevents list here if we have any new ones.
+            randomEvents.Add(TrainEvent);
+            randomEvents.Add(ToiletBreaksEvent);
+            randomEvents.Add(RadiatorEvent);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayHard);
         }
     }
