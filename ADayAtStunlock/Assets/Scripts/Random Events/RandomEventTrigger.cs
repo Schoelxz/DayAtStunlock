@@ -85,23 +85,17 @@ public class RandomEventTrigger : MonoBehaviour
     {
         DAS.NPC npc;
 
-        spaceship.SetActive(true);
-
         for (int i = 0; i < alienCount; i++)
         {
-            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
+            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false && !aliens.Contains(npc))
             {
-                npc.GetComponent<ModelChanger>().ToggleModel();
+                
+                aliens.Add(npc);
             }
         }
-
-        Invoke("DisableSpaceship", 6);
+        
     }
-
-    private void DisableSpaceship()
-    {
-        spaceship.SetActive(false);
-    }
+    
 
     #endregion
 
@@ -139,6 +133,8 @@ public class RandomEventTrigger : MonoBehaviour
     int eventDelayMedium;
     int eventDelayHard;
 
+    public List<DAS.NPC> aliens = new List<DAS.NPC>();
+
     void Start ()
     {
         //Clear the list of events on Start (to avoid filling the list on restarts)
@@ -150,7 +146,7 @@ public class RandomEventTrigger : MonoBehaviour
 
         //Spaceship stuff
         spaceship = GameObject.FindGameObjectWithTag("Spaceship");
-        spaceship.SetActive(false);
+        //spaceship.SetActive(false);
         alienCount = 8;
 
         //Radiator stuff
