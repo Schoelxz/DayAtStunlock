@@ -35,9 +35,11 @@ public class ArrowPointer : MonoBehaviour
 
     public List<ObjectPointer> listOfPointingAt = new List<ObjectPointer>();
     private List<ObjectPointer> listOfStuffToRemove = new List<ObjectPointer>();
-    public Sprite typeOfSprite;
     private Canvas m_myCanvas;
     private Vector3 m_middlePoint;
+    public Sprite typeOfSprite;
+    public Font textFont;
+    public Material textMaterial;
     #endregion
 
     private void Awake()
@@ -94,9 +96,18 @@ public class ArrowPointer : MonoBehaviour
             item.exclamationMark = new GameObject("Exclamation Mark");
             item.exclamationMark.transform.parent = gameObject.transform;
             TextMesh tempTextMesh = item.exclamationMark.AddComponent<TextMesh>();
-            item.exclamationMark.GetComponent<MeshRenderer>().material = item.textMaterial;
             tempTextMesh.text = "!";
-            tempTextMesh.font = item.textFont;
+
+            if (item.textMaterial != null)
+                item.exclamationMark.GetComponent<MeshRenderer>().material = item.textMaterial;
+            else
+                item.exclamationMark.GetComponent<MeshRenderer>().material = textMaterial;
+            
+            if (item.textFont != null)
+                tempTextMesh.font = item.textFont;
+            else
+                tempTextMesh.font = textFont;
+
             tempTextMesh.alignment = TextAlignment.Center;
             tempTextMesh.anchor = TextAnchor.MiddleCenter;
             tempTextMesh.characterSize = 0.06f;
@@ -201,11 +212,17 @@ public class ArrowPointer : MonoBehaviour
         }
     }
 
-    public void AddObjectToPointAt(GameObject targetToPoint)
+    public void AddObjectToPointAt(GameObject targetToPoint, bool extraFunction)
     {
         ObjectPointer temp = new ObjectPointer();
         temp.targetObject = targetToPoint;
         StandardInitObjectPointer(temp);
+
+        if (extraFunction)
+        {
+            temp.extraFunction = true;
+            ExtraInitObjectPointer(temp);
+        }
 
         listOfPointingAt.Add(temp);
     }

@@ -1218,6 +1218,8 @@ MonoBehaviour:
     textMaterial: {fileID: 2100000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
     coroutineRunning: 0
   typeOfSprite: {fileID: 21300000, guid: 8a3801af337a8204d93a6a2350663c0b, type: 3}
+  textFont: {fileID: 12800000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
+  textMaterial: {fileID: 2100000, guid: ffe3458510b4c334c816eff1a60ec2c8, type: 3}
 --- !u!1001 &111153037
 Prefab:
   m_ObjectHideFlags: 0
@@ -9583,7 +9585,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &641875674
 MonoBehaviour:
@@ -14975,7 +14977,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &960677660
 MonoBehaviour:
@@ -17192,11 +17194,11 @@ MonoBehaviour:
   toiletObject1:
     parent: {fileID: 1339814203}
     queue: {fileID: 1339814202}
-    button: {fileID: 641875672}
+    button: {fileID: 960677658}
   toiletObject2:
     parent: {fileID: 1432445230}
     queue: {fileID: 1432445229}
-    button: {fileID: 960677658}
+    button: {fileID: 641875672}
 --- !u!114 &1168330432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17276,12 +17278,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168330425}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b664b03fda07574aa3ce6d12a2885b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showGUI: 0
+  showGUI: 1
 --- !u!114 &1168330439
 MonoBehaviour:
   m_ObjectHideFlags: 0
