@@ -16,6 +16,10 @@ public class Sound
 
     public bool loop;
 
+    [Tooltip("2D -> 3D Sound")]
+    [Range(0f, 1f)]
+    public float spatialBlend;
+
     //Not currently in use
     //public enum SoundType { music, soundEffect, test };
     //public SoundType soundType;

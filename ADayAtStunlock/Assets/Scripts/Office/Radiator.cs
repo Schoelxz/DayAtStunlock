@@ -69,7 +69,7 @@ public class Radiator : MonoBehaviour
         //Play radiator sound here
         if(audioManager != null)
             //print("Trying to play broken radiator sound");
-            audioManager.Play("RadiatorBroken");
+            audioManager.PlaySound("RadiatorBroken", gameObject);
 
         foreach (var npc in nearbyNpcs)
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
@@ -90,8 +90,8 @@ public class Radiator : MonoBehaviour
         if (audioManager != null)
         {
             //print("Trying to stop broken radiator sound");
-            audioManager.Stop("RadiatorBroken");
-            audioManager.Play("RadiatorRepair");
+            audioManager.StopSound("RadiatorBroken", gameObject);
+            audioManager.PlaySound("RadiatorRepair", gameObject);
         }
 
         foreach (var npc in nearbyNpcs)

@@ -51,34 +51,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da861d5a8f7a6af45ac77f9f9e0a3fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listOfAudioHelpers: []
   sounds:
   - name: Train
     clip: {fileID: 8300000, guid: fcb7c16a3303efe47a7b7944723d9f84, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
+    spatialBlend: 0
     source: {fileID: 0}
   - name: Theme
     clip: {fileID: 8300000, guid: e23258a3943a6c24b990285fd91ba624, type: 3}
     volume: 0.2
     pitch: 1
     loop: 1
+    spatialBlend: 0
     source: {fileID: 0}
   - name: RadiatorBroken
     clip: {fileID: 8300000, guid: d1ae2cb28c8f6bb4a8bf2c466a5c7c5b, type: 3}
     volume: 0.4
     pitch: 1
     loop: 1
+    spatialBlend: 0
     source: {fileID: 0}
   - name: RadiatorRepair
     clip: {fileID: 8300000, guid: 3c0d974b4b1ad93458369ce0a6902f32, type: 3}
     volume: 1
     pitch: 1
     loop: 0
+    spatialBlend: 0
     source: {fileID: 0}
   - name: MoneyEarned
     clip: {fileID: 0}
     volume: 0
     pitch: 0
     loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
+  - name: NPCWorking
+    clip: {fileID: 8300000, guid: c2f25945856b65346bacaf91fa97c230, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    spatialBlend: 0
     source: {fileID: 0}

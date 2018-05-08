@@ -48,6 +48,8 @@ namespace DAS
         public bool isAtToilet = false;
         public bool isQueued = false;
 
+        AudioManager audioManager;
+
         // Delta time
         private float dt;
 
@@ -58,6 +60,8 @@ namespace DAS
 
         void Start()
         {
+            //Find AudioManager
+            audioManager = FindObjectOfType<AudioManager>();
             // All getcomponent functions are called inside this function, returning false if it fails.
             if (!SetAllGetComponents())
                 Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
@@ -97,11 +101,28 @@ namespace DAS
 
         void Update()
         {
-           //Animate work
-           if(IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
+            //Animate work
+            if (IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
+            {
+                //Animate work on
                 currentAnimator.SetBool("Pickup 0", true);
-           else
+                //Work sound on
+                if(!audioManager.isPlaying("NPCWorking", gameObject))
+                {
+                    audioManager.PlaySound("NPCWorking", gameObject);
+                }
+            }
+            else
+            {
+                //Animate work off
                 currentAnimator.SetBool("Pickup 0", false);
+                //Work sound off
+                if (audioManager.isPlaying("NPCWorking", gameObject))
+                {
+                    audioManager.StopSound("NPCWorking", gameObject);
+                }
+            }
+
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
