@@ -107,7 +107,7 @@ namespace DAS
             Random.InitState(name.Length);
             myHappinessDecay = Random.Range(150, 250);
             myMotivationDecay = Random.Range(140, 240);
-            Debug.Log(name.Length + ": mhd->" + myHappinessDecay + " mmd->" + myMotivationDecay);
+            //Debug.Log(name.Length + ": mhd->" + myHappinessDecay + " mmd->" + myMotivationDecay);
             Random.state = oldState;
 
             /// Get Components

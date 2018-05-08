@@ -5,10 +5,8 @@ using UnityEngine.AI;
 
 public class WorkstationPlayer : MonoBehaviour
 {
-    GameObject player;
-    //Never used?
-    //BoxCollider myBoxCollider;
-    NavMeshAgent agentRef;
+    private GameObject player;
+    private NavMeshAgent agentRef;
     [SerializeField]
     private ParticleSystem particleSystemMoneyGained;
     [SerializeField]
@@ -21,8 +19,6 @@ public class WorkstationPlayer : MonoBehaviour
         //myBoxCollider = GetComponentInChildren<BoxCollider>();
         player      = GameObject.FindGameObjectWithTag("Player");
         agentRef    = player.GetComponent<NavMeshAgent>();
-        
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -40,83 +36,23 @@ public class WorkstationPlayer : MonoBehaviour
             isWorking = false;
         }
     }
-
-    private void Update()
-    {
-        //Cheats start
-        //if(Input.GetKeyDown(KeyCode.H))
-        //{
-        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-        //    {
-        //        npc.myFeelings.Happiness = 1f;
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-        //    {
-        //        npc.myFeelings.Motivation = 1f;
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-        //    {
-        //        npc.myFeelings.Happiness = 0f;
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    foreach (DAS.NPC npc in DAS.NPC.s_npcList)
-        //    {
-        //        npc.myFeelings.Motivation = 0f;
-        //    }
-        //}
-        //Cheats end
-    }
     
     void FixedUpdate()
     {
         if (isWorking)
         {
-            
+            PullPlayer();
+
             MoneyManager.GenerateMoney();
             //Unhide particle emission
-            particleSystemMoneyGained.gameObject.SetActive(true);
-            
-            
-
-            // Stop our agent from fidgeting in his seat.
-            //agentRef.isStopped = true;
-            // targetDir is our work seats position + forward its own direction (roughly our desk's position)
-            Vector3 targetDir = (transform.position + (transform.forward) - transform.position);
-            // How fast we turn every frame.
-            float step = 1.2f * Time.fixedDeltaTime;
-            // Our complete rotate towards direction.
-            Vector3 newDir = Vector3.RotateTowards(player.transform.forward, targetDir, step, 0.0F);
-
-            // Draw ray towards the position we're rotating towards.
-            //Debug.DrawRay(transform.position, newDir, Color.red, 3);
-
-            // Apply the rotate towards.
-            player.transform.rotation = Quaternion.LookRotation(newDir);
-
-            if (Input.GetMouseButton(0))
-            {
-                agentRef.isStopped = false;
-            }
-            else
-            {
-                agentRef.isStopped = true;
-                agentRef.velocity = Vector3.zero;
-                player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.fixedDeltaTime * 3);
-            }
-
+            if(!particleSystemMoneyGained.isPlaying)
+                particleSystemMoneyGained.Play();
         }
         else
         {
             //Hide particle emission
-            particleSystemMoneyGained.gameObject.SetActive(false);
+            if (particleSystemMoneyGained.isPlaying)
+                particleSystemMoneyGained.Stop();
         }
 
         //Update particle emission based on how many workers are working and how motivated they are.
@@ -136,10 +72,9 @@ public class WorkstationPlayer : MonoBehaviour
                 totalHappiness += npc.myFeelings.Happiness;
             }
             else
-            {
                 totalHappiness += npc.myFeelings.Happiness;
-            }
         }
+
         float resultMotivation;
         float resultHappiness;
 
@@ -148,7 +83,33 @@ public class WorkstationPlayer : MonoBehaviour
         
         emissionMoneyGained.rateOverTime = new ParticleSystem.MinMaxCurve(resultMotivation * 4f);
         emissionMoneyLost.rateOverTime = new ParticleSystem.MinMaxCurve(resultHappiness * 4f);
-
     }
-    
+
+    private void PullPlayer()
+    {
+        // targetDir is our work seats position + forward its own direction (roughly our desk's position)
+        Vector3 targetDir = (transform.position + (transform.forward) - transform.position);
+        // How fast we turn every frame.
+        float step = 1.2f * Time.fixedDeltaTime;
+        // Our complete rotate towards direction.
+        Vector3 newDir = Vector3.RotateTowards(player.transform.forward, targetDir, step, 0.0F);
+
+        // Apply the rotate towards.
+        player.transform.rotation = Quaternion.LookRotation(newDir);
+
+        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            agentRef.isStopped = false;
+        }
+        else //if the player is not trying to move.
+        {
+            // Stop our agent from fidgeting in his seat and smoothly pulls the player towards the workbench.
+            agentRef.isStopped = true;
+            agentRef.velocity = Vector3.zero;
+            player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.fixedDeltaTime * 3);
+        }
+
+        // Draw ray towards the position we're rotating towards.
+        //Debug.DrawRay(transform.position, newDir, Color.red, 3);
+    }
 }
