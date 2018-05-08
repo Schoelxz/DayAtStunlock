@@ -26,54 +26,27 @@ namespace DAS
             }
         }
 
-        void Start()
+        private void Start()
         {
             playerRaycast = gameObject.AddComponent<PlayerRaycast>();
             m_agentRef = GetComponent<NavMeshAgent>();
         }
 
-        void Update()
+        private void Update()
         {
             if (Input.anyKey || Input.GetMouseButtonUp(0))
                 CheckInput();
         }
 
-        void CheckInput()
+        private void CheckInput()
         {
-            Vector3 value = new Vector3();
-            bool keyboardPressed = false;
-            if(Input.GetKey(KeyCode.W))
-            {
-                value += Camera.main.transform.forward.normalized;
-                keyboardPressed = true;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                value -= Camera.main.transform.right.normalized;
-                keyboardPressed = true;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                value -= Camera.main.transform.forward.normalized;
-                keyboardPressed = true;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                value += Camera.main.transform.right.normalized;
-                keyboardPressed = true;
-            }
+            KeyboardMovement();
 
-            value = new Vector3(value.x, 0, value.z);
-            value *= 2;
+            MouseMovement();
+        }
 
-            if(keyboardPressed)
-            {
-                m_agentRef.isStopped = false;
-                m_agentRef.destination = value + transform.position;
-            }
-
-            Debug.Log(value);
-
+        private void MouseMovement()
+        {
             //Goto where we clicked
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -93,42 +66,79 @@ namespace DAS
             }
         }
 
-        void StopMovement()
+        private void KeyboardMovement()
         {
-            m_agentRef.destination = transform.position;
+            Vector3 movementValue = new Vector3();
+            bool keyboardPressed = false;
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                movementValue += Camera.main.transform.forward.normalized;
+                keyboardPressed = true;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                movementValue -= Camera.main.transform.right.normalized;
+                keyboardPressed = true;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movementValue -= Camera.main.transform.forward.normalized;
+                keyboardPressed = true;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                movementValue += Camera.main.transform.right.normalized;
+                keyboardPressed = true;
+            }
+
+            movementValue = new Vector3(movementValue.x, 0, movementValue.z);
+            movementValue.Normalize();
+            movementValue *= 2;
+
+            Debug.Log(movementValue.magnitude);
+
+            if (keyboardPressed)
+            {
+                m_agentRef.isStopped = false;
+                m_agentRef.destination = movementValue + transform.position;
+            }
         }
 
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (playerRaycast == null)
+                return;
+            //Draw player clicked location
             Gizmos.color = Color.blue;
             Gizmos.DrawCube(playerRaycast.hit.point, new Vector3(1, 1, 1));
+            //Draw player clicked direction location
             Gizmos.color = Color.black;
             Gizmos.DrawCube(playerRaycast.DirectionVector(transform.position, playerRaycast.hit.point) + transform.position, new Vector3(1, 1, 1));
-            
         }
         #endif
     }
 
     public class PlayerRaycast : MonoBehaviour
     {
-        int layerMask;
+        private int layerMask;
         public RaycastHit hit;
         public Ray ray;
 
-        void Start()
+        private void Start()
         {
             layerMask = LayerMask.GetMask("Floor");
             hit = new RaycastHit();
         }
 
-        void Update()
+        private void Update()
         {
             if (Input.anyKey || Input.GetMouseButtonUp(0))
                 CheckInput();
         }
 
-        void CheckInput()
+        private void CheckInput()
         {
             if (Input.GetMouseButton(0))
             {
