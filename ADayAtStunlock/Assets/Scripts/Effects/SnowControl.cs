@@ -7,43 +7,43 @@ public class SnowControl : MonoBehaviour
 {
     public Vector3 snowBoxSize = Vector3.one;
 
-    private ParticleSystem myParticleSystem;
-    public ParticleSystem MyParticleSystem
+    private new ParticleSystem particleSystem;
+    public ParticleSystem ParticleSystem
     {
         get
         {
-            return myParticleSystem;
+            return particleSystem;
         }
 
         set
         {
-            myParticleSystem = value;
+            particleSystem = value;
         }
     }
 
     private void OnDrawGizmos()
     {
-        if(MyParticleSystem != null)
+        if(ParticleSystem != null)
         {
 
             Gizmos.color = Color.gray/2;
 
-            Gizmos.DrawCube(transform.position, MyParticleSystem.shape.scale);
+            Gizmos.DrawCube(transform.position, ParticleSystem.shape.scale);
 
         }
     }
 
     private void Awake()
     {
-        MyParticleSystem = GetComponent<ParticleSystem>();
+        ParticleSystem = GetComponent<ParticleSystem>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (MyParticleSystem != null)
+        if (ParticleSystem != null)
         {
-            var psShape = MyParticleSystem.shape;
+            var psShape = ParticleSystem.shape;
             psShape.scale = snowBoxSize;
         }
 
