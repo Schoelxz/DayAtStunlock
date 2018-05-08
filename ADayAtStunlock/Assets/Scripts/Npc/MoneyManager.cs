@@ -12,6 +12,7 @@ public class MoneyManager : MonoBehaviour
     int npcIncome;
     int startMoney;
 
+    HighscoreListScreen highscoreListScreen;
     ScoreDisplay scoreDisplay;
 
     //Use this as a display while playing
@@ -31,6 +32,8 @@ public class MoneyManager : MonoBehaviour
 
 	void Start ()
     {
+
+        highscoreListScreen = HighscoreListScreen.thisInstance;
         moneyLost = 0;
         moneyEarned = 0;
         startMoney = 12500;
@@ -107,7 +110,7 @@ public class MoneyManager : MonoBehaviour
     void LoseGame()
     {
         DAS.TimeSystem.PauseTime();
-        HighscoreListScreen.DisplayHighscoreScreen();
-        HighscoreListScreen.DisplayScores();
+        highscoreListScreen.DisplayHighscoreScreen();
+        highscoreListScreen.DisplayScores();
     }
 }

@@ -4,22 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HighscoreListScreen : MonoBehaviour {
+   
+    Text[] names;
+    
+    Text[] scores;
 
-    GameObject namesObject;
-    static Text[] names;
+    public static HighscoreListScreen thisInstance;
 
-    GameObject scoresObject;
-    static Text[] scores;
+    InputField inputField;
 
-    static GameObject thisInstance;
-
-    static InputField inputField;
-
-    static Text playerScoreText;
+    Text playerScoreText;
 
     private void Awake()
     {
-        thisInstance = gameObject;
+
+        if(thisInstance == null)
+        {
+            thisInstance = this;
+        }
+        else if(thisInstance != this)
+        {
+            Destroy(gameObject);
+        }
 
         names = gameObject.transform.Find("LeftPanel").transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
 
@@ -29,13 +35,22 @@ public class HighscoreListScreen : MonoBehaviour {
         inputField.contentType = InputField.ContentType.Alphanumeric;
         inputField.onEndEdit.AddListener(delegate { SaveName(); });
 
-        playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>();
+        playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>(true);
 
-        
+        foreach (var item in names)
+        {
+            item.text = "";
+        }
+
+        foreach (var item in scores)
+        {
+            item.text = "";
+        }
+
     }
+    
 
-
-    static public void DisplayScores()
+    public void DisplayScores()
     {
         for (int i = 0; i < Highscore.scores.Count; i++)
         {
@@ -44,15 +59,15 @@ public class HighscoreListScreen : MonoBehaviour {
         }
     }
 
-    static public void DisplayHighscoreScreen()
+    public void DisplayHighscoreScreen()
     {
-        thisInstance.SetActive(true);
+        thisInstance.gameObject.SetActive(true);
         inputField.readOnly = false;
         inputField.text = "";
         playerScoreText.text = MoneyManager.moneyEarned.ToString("n0");
     }
 
-    static void SaveName()
+    void SaveName()
     {
         if(inputField.text.Length > 0)
         {
