@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EventDisplay : MonoBehaviour
 {
     public bool showGUI = true;
@@ -20,7 +19,7 @@ public class EventDisplay : MonoBehaviour
             string result = "All events inside RandomEvents: ";
             int amountOfEvents = 0;
 
-            foreach (var events in RandomEventTrigger.randomEvents)
+            foreach (var events in RandomEventTrigger.s_allEvents)
             {
                 amountOfEvents++;
                 result += "\n" + events.Method.Name;
@@ -32,6 +31,9 @@ public class EventDisplay : MonoBehaviour
 
     private void OnGUI()
     {
+        if (!DAS.DBUG.CheatsToCheat.CheatsEnabled)
+            return;
+
         if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 50), "Toggle GUI"))
         {
             showGUI = !showGUI;
@@ -45,10 +47,10 @@ public class EventDisplay : MonoBehaviour
         GUI.Box(new Rect(Screen.width - 300, 50, 300, 42), currentMethodPlayed);
 
         int amountOfEvents = 0;
-        foreach (var item in RandomEventTrigger.randomEvents)
+        foreach (var item in RandomEventTrigger.s_allEvents)
         {
             eventNamesLength = (50 * amountOfEvents) + 50;
-            if (GUI.Button(new Rect(Screen.width - 450, eventNamesLength, 150, 50), item.Method.Name))
+            if (GUI.Button(new Rect(Screen.width - 240, Screen.height - (25 + 25*amountOfEvents), 120, 25), item.Method.Name))
             {
                 FunctionTriggered(item);
             }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomEventTrigger : MonoBehaviour
 {
     public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
+    public static List<System.Action> s_allEvents = new List<System.Action>(); //All events that exists.
 
     /// <summary>
     /// All the events which gets added to the random event list.
@@ -143,6 +144,10 @@ public class RandomEventTrigger : MonoBehaviour
     {
         //Clear the list of events on Start (to avoid filling the list on restarts)
         randomEvents.Clear();
+        s_allEvents.Clear();
+
+        //As name implies
+        AddAllEventsToAllEventsList();
 
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
@@ -178,6 +183,14 @@ public class RandomEventTrigger : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         Debug.Assert(audioManager, "No audiomanager exists!!!");
+    }
+
+    private void AddAllEventsToAllEventsList()
+    {
+        s_allEvents.Add(AlienEvent);
+        s_allEvents.Add(TrainEvent);
+        s_allEvents.Add(RadiatorEvent);
+        s_allEvents.Add(ToiletBreaksEvent);
     }
 
     void TriggerRandomEvent()
