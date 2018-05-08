@@ -77,7 +77,7 @@ public class Radiator : MonoBehaviour
 
         ArrowPointer.MyInstance.AddObjectToPointAt(gameObject, true);
 
-        snowControl.ParticleSystem.Play();
+        snowControl.MyParticleSystem.Play();
     }
 
     void RadiatorEnd()
@@ -103,7 +103,7 @@ public class Radiator : MonoBehaviour
 
         ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
 
-        snowControl.ParticleSystem.Stop();
+        snowControl.MyParticleSystem.Stop();
     }
 
     private void OnTriggerEnter(Collider other)

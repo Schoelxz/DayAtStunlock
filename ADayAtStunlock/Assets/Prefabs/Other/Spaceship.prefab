@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135169222571316696}
   - component: {fileID: 23367272012814602}
   - component: {fileID: 95292335258817506}
+  - component: {fileID: 114268370016848154}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Spaceship
@@ -240,6 +241,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114268370016848154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114949527320346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d5190aebd86884689944a7ff92bc4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateSpaceship: 0
 --- !u!135 &135169222571316696
 SphereCollider:
   m_ObjectHideFlags: 1

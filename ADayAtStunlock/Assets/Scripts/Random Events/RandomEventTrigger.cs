@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomEventTrigger : MonoBehaviour
 {
     public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
+    public static List<System.Action> s_allEvents = new List<System.Action>(); //All events that exists.
 
     /// <summary>
     /// All the events which gets added to the random event list.
@@ -85,23 +86,16 @@ public class RandomEventTrigger : MonoBehaviour
     {
         DAS.NPC npc;
 
-        spaceship.SetActive(true);
-
         for (int i = 0; i < alienCount; i++)
         {
-            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false)
+            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false && !aliens.Contains(npc))
             {
-                npc.GetComponent<ModelChanger>().ToggleModel();
+                aliens.Add(npc);
             }
         }
-
-        Invoke("DisableSpaceship", 6);
+        spaceshipMovement.updateSpaceship = true;
     }
-
-    private void DisableSpaceship()
-    {
-        spaceship.SetActive(false);
-    }
+    
 
     #endregion
 
@@ -131,26 +125,32 @@ public class RandomEventTrigger : MonoBehaviour
     private Radiator[] radiators;
 
     //Spaceship stuff
-    private GameObject spaceship;
     int alienCount;
+    public List<DAS.NPC> aliens = new List<DAS.NPC>();
+    SpaceshipMovement spaceshipMovement;
 
     //AudioManager.instance AudioManager.instance;
     int eventDelayEasy;
     int eventDelayMedium;
     int eventDelayHard;
 
+
+
     void Start ()
     {
         //Clear the list of events on Start (to avoid filling the list on restarts)
         randomEvents.Clear();
+        s_allEvents.Clear();
+
+        //As name implies
+        AddAllEventsToAllEventsList();
 
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
         motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
 
         //Spaceship stuff
-        spaceship = GameObject.FindGameObjectWithTag("Spaceship");
-        spaceship.SetActive(false);
+        spaceshipMovement = GameObject.FindObjectOfType<SpaceshipMovement>();
         alienCount = 8;
 
         //Radiator stuff
@@ -178,6 +178,14 @@ public class RandomEventTrigger : MonoBehaviour
 
         //AudioManager.instance = FindObjectOfType<AudioManager.instance>();
         Debug.Assert(AudioManager.instance, "No AudioManager.instance exists!!!");
+    }
+
+    private void AddAllEventsToAllEventsList()
+    {
+        s_allEvents.Add(AlienEvent);
+        s_allEvents.Add(TrainEvent);
+        s_allEvents.Add(RadiatorEvent);
+        s_allEvents.Add(ToiletBreaksEvent);
     }
 
     void TriggerRandomEvent()

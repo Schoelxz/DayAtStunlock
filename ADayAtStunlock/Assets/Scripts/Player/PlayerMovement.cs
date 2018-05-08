@@ -15,6 +15,8 @@ namespace DAS
 
         private NavMeshAgent m_agentRef;
 
+        private Vector3 movementValue = new Vector3();
+
         private void Awake()
         {
             if (s_myInstance == null)
@@ -68,8 +70,8 @@ namespace DAS
 
         private void KeyboardMovement()
         {
-            Vector3 movementValue = new Vector3();
             bool keyboardPressed = false;
+            movementValue = Vector3.zero;
 
             if (Input.GetKey(KeyCode.W))
             {
@@ -116,6 +118,9 @@ namespace DAS
             //Draw player clicked direction location
             Gizmos.color = Color.black;
             Gizmos.DrawCube(playerRaycast.DirectionVector(transform.position, playerRaycast.hit.point) + transform.position, new Vector3(1, 1, 1));
+            //Draw player keyboard movement location
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(movementValue + transform.position, new Vector3(1, 1, 1));
         }
         #endif
     }

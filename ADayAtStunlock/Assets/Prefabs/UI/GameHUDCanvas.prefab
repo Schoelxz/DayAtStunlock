@@ -1138,7 +1138,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: tutorial
+            m_StringArgument: Opens tutorial.
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -1218,9 +1218,9 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: motevation says how mutch money you earn from an employe,
-              the hier your employe motivation the more money you get. this meter
-              show you the average motivation of all your employes in the office.
+            m_StringArgument: Motivation decides how much money you earn from an employee.
+              This meter shows you the average motivation of all the employees in
+              the office.
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 1712708722016786}
@@ -1562,7 +1562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Average Motivation
+  m_Text: Motivation
 --- !u!114 &114553885836108338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1752,7 +1752,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: toggel speed. you can use control
+            m_StringArgument: Toggles game speed. [CTRL]
             m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -1952,9 +1952,9 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: mutch says how mutch money you lose from an employe,
-              the hier the happines the less you lose. this meter show you the average
-              happines of all your employes in the office
+            m_StringArgument: Happiness tells you how much money you lose from an
+              employee. This meter shows you the average happiness of all your employees
+              in the office.
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 1712708722016786}
@@ -2077,7 +2077,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: options
+            m_StringArgument: Opens menu. [ESC]
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -2176,7 +2176,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Average Happiness
+  m_Text: Happiness
 --- !u!114 &114983170247960998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2390,7 +2390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1321, y: -494}
+  m_AnchoredPosition: {x: 1159, y: -568}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224061778273567830
@@ -2615,7 +2615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1321, y: -419}
+  m_AnchoredPosition: {x: 1159, y: -493}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224467546502465790
@@ -2636,7 +2636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -489}
+  m_AnchoredPosition: {x: 100, y: -563}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224472084437504340
@@ -2733,7 +2733,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -395.97}
+  m_AnchoredPosition: {x: 100, y: -469.97}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224655022557493758

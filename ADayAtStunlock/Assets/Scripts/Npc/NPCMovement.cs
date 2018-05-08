@@ -41,7 +41,7 @@ namespace DAS
         private Animator[] m_animator;
         private Animator currentAnimator;
         public DAS.NPC m_myNpcRef;
-
+        public bool abducted;
         public float timeInsideDestination;
         public float workTimeStreak;
 
@@ -138,7 +138,7 @@ namespace DAS
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
                 RotateTowardsDesk();
             // else we should not be stopped in our movement
-            else
+            else if(!abducted)
                 m_agentRef.isStopped = false;
 
             #region dt call reducer

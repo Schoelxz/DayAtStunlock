@@ -24,26 +24,24 @@ public class WorkstationPlayer : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == player)
-        {
             isWorking = true;
-        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject == player)
-        {
             isWorking = false;
-        }
     }
     
     void FixedUpdate()
     {
         if (isWorking)
         {
+            //Pulls the player towards the workstation.
             PullPlayer();
 
             MoneyManager.GenerateMoney();
+
             //Unhide particle emission
             if(!particleSystemMoneyGained.isPlaying)
                 particleSystemMoneyGained.Play();
