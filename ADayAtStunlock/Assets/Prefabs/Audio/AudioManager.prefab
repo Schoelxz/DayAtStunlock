@@ -72,7 +72,7 @@ MonoBehaviour:
     volume: 0.4
     pitch: 1
     loop: 1
-    spatialBlend: 0
+    spatialBlend: 0.8
     source: {fileID: 0}
   - name: RadiatorRepair
     clip: {fileID: 8300000, guid: 3c0d974b4b1ad93458369ce0a6902f32, type: 3}
@@ -90,8 +90,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: NPCWorking
     clip: {fileID: 8300000, guid: c2f25945856b65346bacaf91fa97c230, type: 3}
-    volume: 0.1
+    volume: 0.4
     pitch: 1
     loop: 1
-    spatialBlend: 0
+    spatialBlend: 1
+    source: {fileID: 0}
+  - name: NPCWalking
+    clip: {fileID: 8300000, guid: 0980162400d365e4a9b5295fda27f95c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    spatialBlend: 1
     source: {fileID: 0}

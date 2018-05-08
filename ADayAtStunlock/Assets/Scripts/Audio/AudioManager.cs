@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class AudioManager : MonoBehaviour {
     
     [Range(0f, 1f)]
     static public float masterVolume = 1f;
     public List<AudioHelper> listOfAudioHelpers = new List<AudioHelper>();
-    //public ArrayList listOfAudioSourcesInScene;
     public Sound[] sounds;
     public static AudioManager instance;
 
@@ -25,20 +26,22 @@ public class AudioManager : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
-
-
-        //      foreach (Sound s in sounds)
-        //      {
-        //          s.source = gameObject.AddComponent<AudioSource>();
-        //          s.source.clip   = s.clip;
-        //          s.source.volume = s.volume * masterVolume;
-        //          s.source.pitch  = s.pitch;
-        //          s.source.loop   = s.loop;
-        //          s.source.spatialBlend = s.spatialBlend;
-        //      }
-
         listOfAudioHelpers.Clear();
+    }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ClearAudioHelperList();
     }
 
     void Start()
@@ -46,78 +49,127 @@ public class AudioManager : MonoBehaviour {
         PlaySound("Theme", gameObject);
     }
 
-    public void PlaySound(string name, GameObject self) {
-        if(self.GetComponent<AudioHelper>() == null)
-        {
-            self.AddComponent<AudioHelper>();
-        }
-        AudioHelper myHelper = self.GetComponent<AudioHelper>();
-        Sound s = Array.Find(sounds, sound => sound.name == name);
 
+
+    public void PlaySound(string name, GameObject self) {
+
+        ////
+        //Getting Helper
+        ////
+
+        //Get the values of the requested sound effect
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Debug.Log(self.name);
         if (s == null)
         {
             Debug.LogWarning("Sounds: " + name + "not found!");
             return;
         }
+
+        //Check for existing audiohelper, if there is none, create one.
+        
+        if (self.GetComponent<AudioHelper>() == null)
+        {
+            CreateNewAudioHelper(self);
+        }
+        //Find the Audiohelper from the audiohelper list.
+        AudioHelper myHelper = null;
+        myHelper = FindAudioHelper(self.GetComponent<AudioHelper>());
+        if(myHelper == null)
+        {
+            Debug.LogWarning("No helper found, something broke!");
+            return;
+        }
+
+        ////
+        //Getting AudioSource
+        ////
 
         AudioSource source = null;
         //Check for an audiosource, if it has none, add and play the one that was requested.
-        if (myHelper.listOfAudioSourcesOnObject == null)
+        if (myHelper.FindAudioSourceByName(s.clip.name) == null)
         {
-            source = myHelper.CreateNewAudioSource();
-        }
-        else if (myHelper.FindAudioSourceByName(name) == null)
-        {
-            source = myHelper.CreateNewAudioSource();
+            source = myHelper.CreateNewAudioSource(s);
         }
         else
         {
-            source = myHelper.FindAudioSourceByName(name);
+            source = myHelper.FindAudioSourceByName(s.clip.name);
         }
-        source.clip = s.clip;
-        source.volume = s.volume * masterVolume;
-        source.pitch = s.pitch;
-        source.loop = s.loop;
-        source.spatialBlend = s.spatialBlend;
         source.Play();
-	}
+    }
 
     public void StopSound(string name, GameObject self)
     {
-        if (self.GetComponent<AudioHelper>() == null)
-        {
-            Debug.LogWarning("Warning, couldn't find audioHelper in " + self + ", can't stop it");
-            return;
-        }
-        AudioHelper myHelper = self.GetComponent<AudioHelper>();
+        //Get the values of the requested sound effect
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sounds: " + name + "not found!");
             return;
         }
-        if (myHelper.FindAudioSourceByName(name) == null)
+        //Find the Audiohelper from the audiohelper list.
+        AudioHelper myHelper = null;
+        myHelper = FindAudioHelper(self.GetComponent<AudioHelper>());
+        if (myHelper == null)
+        {
+            Debug.LogWarning("No helper found, something broke!");
+            return;
+        }
+        
+        if (myHelper.FindAudioSourceByName(s.clip.name) == null)
         {
             Debug.LogWarning("Correct AudioSource not found!");
             return;
         }
-            myHelper.FindAudioSourceByName(name).Stop();
+            myHelper.FindAudioSourceByName(s.clip.name).Stop();
 
     }
-    public bool isPlaying(string name, GameObject self)
+    private Sound FindSoundReference(string nameOfSound)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == nameOfSound);
         if (s == null)
         {
-            Debug.LogWarning("Sounds: " + name + "not found!");
+            Debug.LogWarning("Sounds: " + nameOfSound + "not found!");
+            return null;
+        }
+        return s;
+    }
+    //public bool DoIHaveAnAudioSource(string name, GameObject self)
+    //{
+    //    AudioHelper audioHelper = self.GetComponent<AudioHelper>();
+    //    if (audioHelper == null)
+    //        return false;
+    //    if (audioHelper.FindAudioSourceByName(name) == null)
+    //        return false;
+    //    else
+    //        return true;
+    //}
+    public bool IsSoundPlayingOnSelf(string name, GameObject self)
+    {
+        //Get the values of the requested sound effect or return if unavailable
+        Sound sound = FindSoundReference(name);
+        if(sound == null)
+        {
+            Debug.Log("Sound " + name + ", doesn't exist");
+            return false;
+        }
+        //Find the Audiohelper from the audiohelper list.
+        AudioHelper myHelper = null;
+        myHelper = FindAudioHelper(self.GetComponent<AudioHelper>());
+        if (myHelper == null)
+        {
+            Debug.LogWarning("Missing helper");
             return false;
         }
 
-        bool response = self.GetComponent<AudioHelper>().FindAudioSourceByName(name).isPlaying;
-        
-        return response;
+        if (myHelper.FindAudioSourceByName(sound.clip.name) == null)
+        {
+            Debug.LogWarning("Correct AudioSource not found!(In playingOnSelf)");
+            return false;
+        }
+        return myHelper.FindAudioSourceByName(sound.clip.name).isPlaying;
     }
-
+    #region VolumeControl
     public void SetVolume(Slider slider)
     {
         masterVolume = slider.value;
@@ -127,10 +179,7 @@ public class AudioManager : MonoBehaviour {
         UpdateSoundVolumeAll();
 
     }
-    //public float GetVolume()
-    //{
-    //    return masterVolume;
-    //}
+
     public void UpdateSoundVolumeAll()
     {
         foreach (Sound s in sounds)
@@ -138,8 +187,50 @@ public class AudioManager : MonoBehaviour {
             s.source.volume = s.volume * masterVolume;
         }
     }
-    public void AddToHelperList(AudioHelper targetToAdd)
+    #endregion
+
+
+    #region Helper
+
+    public void CreateNewAudioHelper(GameObject targetInNeedOfHelper)
+    {
+        AudioHelper tempHelp = null;
+        tempHelp = targetInNeedOfHelper.AddComponent<AudioHelper>();
+        AddToHelperList(tempHelp);
+    }
+
+    private void AddToHelperList(AudioHelper targetToAdd)
     {
         listOfAudioHelpers.Add(targetToAdd);
     }
+
+    private AudioHelper FindAudioHelper(AudioHelper findMe)
+    {
+        AudioHelper tempHelp = null;
+        foreach (AudioHelper audioHelper in listOfAudioHelpers)
+        {
+            if (audioHelper == findMe)
+            {
+                tempHelp = audioHelper;
+                return tempHelp;
+            }
+        }
+        return null;
+    }
+
+    //Clear out missing helpers after transitioning into a different scene
+    public void ClearAudioHelperList()
+    {
+        List<AudioHelper> temp = new List<AudioHelper>();
+        foreach (AudioHelper helper in listOfAudioHelpers)
+        {
+            if (helper == null)
+                temp.Add(helper);
+        }
+        foreach (var item in temp)
+        {
+            listOfAudioHelpers.Remove(item);
+        }
+    }
+    #endregion
 }

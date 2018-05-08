@@ -48,7 +48,7 @@ namespace DAS
         public bool isAtToilet = false;
         public bool isQueued = false;
 
-        AudioManager audioManager;
+        //AudioManager audioManager;
 
         // Delta time
         private float dt;
@@ -61,7 +61,7 @@ namespace DAS
         void Start()
         {
             //Find AudioManager
-            audioManager = FindObjectOfType<AudioManager>();
+            //audioManager = FindObjectOfType<AudioManager>();
             // All getcomponent functions are called inside this function, returning false if it fails.
             if (!SetAllGetComponents())
                 Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
@@ -97,6 +97,8 @@ namespace DAS
 
             // Our NPC starts by going to its work seat.
             m_agentRef.destination = m_myWorkSeat.position;
+
+            AudioManager.instance.CreateNewAudioHelper(gameObject);
         }
 
         void Update()
@@ -107,20 +109,28 @@ namespace DAS
                 //Animate work on
                 currentAnimator.SetBool("Pickup 0", true);
                 //Work sound on
-                if(!audioManager.isPlaying("NPCWorking", gameObject))
-                {
-                    audioManager.PlaySound("NPCWorking", gameObject);
-                }
+                //if(AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
+                //{
+                //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
+                //    {
+                //        AudioManager.instance.PlaySound("NPCWorking", gameObject);
+                //    }
+                //}
+                
             }
             else
             {
                 //Animate work off
                 currentAnimator.SetBool("Pickup 0", false);
                 //Work sound off
-                if (audioManager.isPlaying("NPCWorking", gameObject))
-                {
-                    audioManager.StopSound("NPCWorking", gameObject);
-                }
+                //if (AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
+                //{
+                //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
+                //    {
+                //        print("Trying to stop sound");
+                //        AudioManager.instance.StopSound("NPCWorking", gameObject);
+                //    }
+                //}
             }
 
 
@@ -163,6 +173,23 @@ namespace DAS
 
             //Movement Animation
             currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
+            //Movement Sound
+            //if(m_agentRef.velocity.magnitude > 0)
+            //{
+            //    //Walk sound on
+            //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
+            //    {
+            //        AudioManager.instance.PlaySound("NPCWalking", gameObject);
+            //    }
+            //}
+            //else
+            //{
+            //    //Walk sound off
+            //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
+            //    {
+            //        AudioManager.instance.StopSound("NPCWalking", gameObject);
+            //    }
+            //}
         }
 
         private void OnDestroy()
