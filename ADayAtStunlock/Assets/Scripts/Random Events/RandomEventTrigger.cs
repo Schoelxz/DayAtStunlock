@@ -89,11 +89,10 @@ public class RandomEventTrigger : MonoBehaviour
         {
             if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false && !aliens.Contains(npc))
             {
-                
                 aliens.Add(npc);
             }
         }
-        
+        spaceshipMovement.updateSpaceship = true;
     }
     
 
@@ -125,15 +124,16 @@ public class RandomEventTrigger : MonoBehaviour
     private Radiator[] radiators;
 
     //Spaceship stuff
-    private GameObject spaceship;
     int alienCount;
+    public List<DAS.NPC> aliens = new List<DAS.NPC>();
+    SpaceshipMovement spaceshipMovement;
 
     AudioManager audioManager;
     int eventDelayEasy;
     int eventDelayMedium;
     int eventDelayHard;
 
-    public List<DAS.NPC> aliens = new List<DAS.NPC>();
+
 
     void Start ()
     {
@@ -145,8 +145,7 @@ public class RandomEventTrigger : MonoBehaviour
         motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
 
         //Spaceship stuff
-        spaceship = GameObject.FindGameObjectWithTag("Spaceship");
-        //spaceship.SetActive(false);
+        spaceshipMovement = GameObject.FindObjectOfType<SpaceshipMovement>();
         alienCount = 8;
 
         //Radiator stuff
