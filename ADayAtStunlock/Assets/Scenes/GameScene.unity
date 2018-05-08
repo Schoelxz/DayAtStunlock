@@ -1290,7 +1290,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4448665982283802, guid: 79dff2aefbd4d644c89813b3554e99b2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -40.94
+      value: -80.7
       objectReference: {fileID: 0}
     - target: {fileID: 4448665982283802, guid: 79dff2aefbd4d644c89813b3554e99b2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1320,26 +1320,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114268370016848154, guid: 79dff2aefbd4d644c89813b3554e99b2,
+        type: 2}
+      propertyPath: updateSpaceship
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114268370016848154, guid: 79dff2aefbd4d644c89813b3554e99b2,
+        type: 2}
+      propertyPath: pauseTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114268370016848154, guid: 79dff2aefbd4d644c89813b3554e99b2,
+        type: 2}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 95292335258817506, guid: 79dff2aefbd4d644c89813b3554e99b2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 79dff2aefbd4d644c89813b3554e99b2, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &123367802 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1114949527320346, guid: 79dff2aefbd4d644c89813b3554e99b2,
-    type: 2}
-  m_PrefabInternal: {fileID: 123367801}
---- !u!114 &123367803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 123367802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d5190aebd86884689944a7ff92bc4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &151298803
 Prefab:
   m_ObjectHideFlags: 0
@@ -15854,6 +15853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleObjects:
   - {fileID: 1419362928474564, guid: 4a08f3dfcfa4fa44497aacd7d518c2b6, type: 2}
+  - {fileID: 1668911976110598, guid: 676788ad7060a5d42b1db49c1fe7bc27, type: 2}
 --- !u!114 &1168330434
 MonoBehaviour:
   m_ObjectHideFlags: 0

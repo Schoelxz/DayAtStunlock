@@ -3,46 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SpaceshipMovement : MonoBehaviour {
-
+public class SpaceshipMovement : MonoBehaviour
+{
+    public static SpaceshipMovement myInstance;
 
     DAS.NPC[] aliens;
-    float speed;
 
-    Vector3 endPoint;
-    Vector3 startPoint;
+    [Range(1f, 50f)]
+    public float speed = 10f;
+    [Range(0f, 5f)]
+    public float pauseTime = 1f;
 
-    RandomEventTrigger random;
+    [HideInInspector]
     public bool updateSpaceship;
-    bool waited;
-    bool invoked;
-    float pauseTime;
 
-    EffectsManager effects;
+    private Vector3 endPoint;
+    private Vector3 startPoint;
 
-    int index;
+    private bool waited;
+    private bool invoked;
 
-    // Use this for initialization
-    void Start () {
+    private RandomEventTrigger random;
+    private EffectsManager effects;
+
+    private int index;
+
+    private void Awake()
+    {
+        if (myInstance == null)
+            myInstance = this;
+        else
+        {
+            Debug.LogWarning("Singleton: More than one SpaceshipMovement exists, removing late one.");
+            Destroy(this);
+        }
+    }
+
+    void Start ()
+    {
         effects = GameObject.FindObjectOfType<EffectsManager>();
-        speed = 10;
         endPoint = new Vector3(50, 10, 0);
         startPoint = transform.position;
         random = FindObjectOfType<RandomEventTrigger>();
         index = 0;
         waited = false;
         invoked = false;
-        pauseTime = 2;
     }
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if(updateSpaceship)//Updatespaceship is controlled by the RandomEventTrigger script.
         {
             MoveSpaceship();
         }
     }
-
 
     public void MoveSpaceship()
     {

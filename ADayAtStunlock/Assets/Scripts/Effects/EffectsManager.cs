@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectsManager : MonoBehaviour {
-
+public class EffectsManager : MonoBehaviour
+{
     public GameObject[] particleObjects;
 
     public void PlayEffectAt(Vector3 effectPosition, string effectName)
@@ -27,6 +27,4 @@ public class EffectsManager : MonoBehaviour {
             }
         }
     }
-
-    
 }
