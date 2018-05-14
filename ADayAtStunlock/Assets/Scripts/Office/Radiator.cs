@@ -27,7 +27,7 @@ public class Radiator : MonoBehaviour
     public bool isBroken = false;
     private Button fixButton;
     private Image fixButtonImage;
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
 
     void Start ()
     {
@@ -37,7 +37,7 @@ public class Radiator : MonoBehaviour
         fixButtonImage = gameObject.GetComponentInChildren<Image>();
         fixButtonImage.enabled = false;
 
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
+        //audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
 	
 	void Update ()
@@ -67,9 +67,9 @@ public class Radiator : MonoBehaviour
         fixButtonImage.enabled = true;
 
         //Play radiator sound here
-        if(audioManager != null)
+        if(AudioManager.instance != null)
             //print("Trying to play broken radiator sound");
-            audioManager.Play("RadiatorBroken");
+            AudioManager.instance.PlaySound("RadiatorBroken", gameObject);
 
         foreach (var npc in nearbyNpcs)
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
@@ -87,11 +87,11 @@ public class Radiator : MonoBehaviour
 
         //Pause radiator sound here
         //Play fix radiator sound here
-        if (audioManager != null)
+        if (AudioManager.instance != null)
         {
             //print("Trying to stop broken radiator sound");
-            audioManager.Stop("RadiatorBroken");
-            audioManager.Play("RadiatorRepair");
+            AudioManager.instance.StopSound("RadiatorBroken", gameObject);
+            AudioManager.instance.PlaySound("RadiatorRepair", gameObject);
         }
 
         foreach (var npc in nearbyNpcs)
