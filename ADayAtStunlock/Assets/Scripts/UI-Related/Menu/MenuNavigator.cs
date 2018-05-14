@@ -77,6 +77,7 @@ public class MenuNavigator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainMenu")
         {
+            //StartCoroutine(ToggleInGameMenu(0.07f));
             ToggleInGameMenu();
         }
     }
@@ -177,6 +178,26 @@ public class MenuNavigator : MonoBehaviour
         {
             DAS.TimeSystem.PauseTime();
         }
+    }
+    /// <summary>
+    /// Opens or Closes the Game Menu but with a delay if coroutined.
+    /// </summary>
+    public IEnumerator ToggleInGameMenu(float waitTime)
+    {
+        if(Time.timeScale != 0)
+            yield return new WaitForSeconds(waitTime);
+
+        m_InGameMenu.gameObject.SetActive(!m_InGameMenu.gameObject.activeSelf);
+        if (!m_InGameMenu.gameObject.activeSelf)
+        {
+            DAS.TimeSystem.ResumeTime();
+        }
+        else
+        {
+            DAS.TimeSystem.PauseTime();
+        }
+
+        yield return new WaitForSeconds(waitTime);
     }
     #endregion
 
