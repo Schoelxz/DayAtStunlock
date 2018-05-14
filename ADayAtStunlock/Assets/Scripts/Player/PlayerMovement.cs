@@ -56,16 +56,10 @@ namespace DAS
                 m_agentRef.destination = playerRaycast.DirectionVector(transform.position, playerRaycast.hit.point) + transform.position;
                 if (m_agentRef.path.corners.Length > 6)
                     m_agentRef.isStopped = true;
-                //if(m_agentRef.path.corners)
-                if (IsInvoking("StopMovement"))
-                    CancelInvoke("StopMovement");
             }
             //For smooth movement stops
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
                 m_agentRef.destination = transform.position + (playerRaycast.hit.point - transform.position).normalized * 2;
-                Invoke("StopMovement", 0.3f);
-            }
         }
 
         private void KeyboardMovement()
