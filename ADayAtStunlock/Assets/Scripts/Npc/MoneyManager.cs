@@ -109,8 +109,13 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void LoseGame()
     {
-        DAS.TimeSystem.PauseTime();
-        highscoreListScreen.DisplayHighscoreScreen();
-        highscoreListScreen.DisplayScores();
+        if (highscoreListScreen != null)
+        {
+            DAS.TimeSystem.PauseTime();
+            highscoreListScreen.DisplayHighscoreScreen();
+            highscoreListScreen.DisplayScores();
+        }
+        else
+            Debug.LogWarning("LoseGame was called with a null HighscoreList");
     }
 }
