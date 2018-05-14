@@ -134,6 +134,7 @@ public class AudioManager : MonoBehaviour {
         }
         return s;
     }
+    #region Broken
     //public bool DoIHaveAnAudioSource(string name, GameObject self)
     //{
     //    AudioHelper audioHelper = self.GetComponent<AudioHelper>();
@@ -144,6 +145,7 @@ public class AudioManager : MonoBehaviour {
     //    else
     //        return true;
     //}
+    /*
     public bool IsSoundPlayingOnSelf(string name, GameObject self)
     {
         //Get the values of the requested sound effect or return if unavailable
@@ -169,6 +171,9 @@ public class AudioManager : MonoBehaviour {
         }
         return myHelper.FindAudioSourceByName(sound.clip.name).isPlaying;
     }
+    */
+    #endregion
+
     #region VolumeControl
     public void SetVolume(Slider slider)
     {
@@ -182,10 +187,26 @@ public class AudioManager : MonoBehaviour {
 
     public void UpdateSoundVolumeAll()
     {
-        foreach (Sound s in sounds)
+        foreach (AudioHelper audioHelper in listOfAudioHelpers)
         {
-            s.source.volume = s.volume * masterVolume;
+            foreach(AudioSource soundSource in audioHelper.listOfAudioSourcesOnObject)
+            {
+                soundSource.volume = FindSoundVolumeByName(soundSource.clip.name) * masterVolume;
+            }
         }
+    }
+
+    private float FindSoundVolumeByName(string compareName)
+    {
+        foreach (Sound sound in sounds)
+        {
+            if(sound.clip.name == compareName)
+            {
+                return sound.volume;
+            }
+        }
+        Debug.Log("Don't pls");
+        return 0;
     }
     #endregion
 
