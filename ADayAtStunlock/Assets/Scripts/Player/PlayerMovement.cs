@@ -92,8 +92,6 @@ namespace DAS
             movementValue.Normalize();
             movementValue *= 2;
 
-            Debug.Log(movementValue.magnitude);
-
             if (keyboardPressed)
             {
                 m_agentRef.isStopped = false;
