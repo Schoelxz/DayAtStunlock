@@ -205,7 +205,6 @@ public class AudioManager : MonoBehaviour {
                 return sound.volume;
             }
         }
-        Debug.Log("Don't pls");
         return 0;
     }
     #endregion
