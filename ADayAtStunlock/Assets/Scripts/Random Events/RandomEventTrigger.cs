@@ -25,7 +25,7 @@ public class RandomEventTrigger : MonoBehaviour
         m_trainTrack.SetBool("IsActive", true);
         m_train.SetBool("IsMoving", true);
         //Train sound
-        //audioManager.Play("Train");
+        //AudioManager.instance.Play("Train");
         hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {
@@ -129,7 +129,7 @@ public class RandomEventTrigger : MonoBehaviour
     public List<DAS.NPC> aliens = new List<DAS.NPC>();
     SpaceshipMovement spaceshipMovement;
 
-    AudioManager audioManager;
+    //AudioManager.instance AudioManager.instance;
     int eventDelayEasy;
     int eventDelayMedium;
     int eventDelayHard;
@@ -176,8 +176,8 @@ public class RandomEventTrigger : MonoBehaviour
             StartCoroutine(StartInvokeRepeatingWhen());
         }
 
-        audioManager = FindObjectOfType<AudioManager>();
-        Debug.Assert(audioManager, "No audiomanager exists!!!");
+        //AudioManager.instance = FindObjectOfType<AudioManager.instance>();
+        Debug.Assert(AudioManager.instance, "No AudioManager.instance exists!!!");
     }
 
     private void AddAllEventsToAllEventsList()

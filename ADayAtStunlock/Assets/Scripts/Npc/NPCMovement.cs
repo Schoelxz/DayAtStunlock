@@ -48,6 +48,8 @@ namespace DAS
         public bool isAtToilet = false;
         public bool isQueued = false;
 
+        //AudioManager audioManager;
+
         // Delta time
         private float dt;
 
@@ -58,6 +60,8 @@ namespace DAS
 
         void Start()
         {
+            //Find AudioManager
+            //audioManager = FindObjectOfType<AudioManager>();
             // All getcomponent functions are called inside this function, returning false if it fails.
             if (!SetAllGetComponents())
                 Debug.LogAssertion("GetComponent Failed inside SetAllGetComponents function.");
@@ -93,15 +97,42 @@ namespace DAS
 
             // Our NPC starts by going to its work seat.
             m_agentRef.destination = m_myWorkSeat.position;
+
+            AudioManager.instance.CreateNewAudioHelper(gameObject);
         }
 
         void Update()
         {
-           //Animate work
-           if(IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
+            //Animate work
+            if (IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
+            {
+                //Animate work on
                 currentAnimator.SetBool("Pickup 0", true);
-           else
+                //Work sound on
+                //if(AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
+                //{
+                //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
+                //    {
+                //        AudioManager.instance.PlaySound("NPCWorking", gameObject);
+                //    }
+                //}
+                
+            }
+            else
+            {
+                //Animate work off
                 currentAnimator.SetBool("Pickup 0", false);
+                //Work sound off
+                //if (AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
+                //{
+                //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
+                //    {
+                //        print("Trying to stop sound");
+                //        AudioManager.instance.StopSound("NPCWorking", gameObject);
+                //    }
+                //}
+            }
+
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
@@ -142,6 +173,23 @@ namespace DAS
 
             //Movement Animation
             currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
+            //Movement Sound
+            //if(m_agentRef.velocity.magnitude > 0)
+            //{
+            //    //Walk sound on
+            //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
+            //    {
+            //        AudioManager.instance.PlaySound("NPCWalking", gameObject);
+            //    }
+            //}
+            //else
+            //{
+            //    //Walk sound off
+            //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
+            //    {
+            //        AudioManager.instance.StopSound("NPCWalking", gameObject);
+            //    }
+            //}
         }
 
         private void OnDestroy()
