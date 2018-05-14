@@ -18,6 +18,9 @@ public class TooltipMover : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (Input.GetKey(KeyCode.Escape))
+            gameObject.SetActive(false);
+
         m_tempOffset = m_offset;
         cerserPos = Input.mousePosition;
         //top right
