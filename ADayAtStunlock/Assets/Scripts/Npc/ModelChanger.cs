@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ModelChanger : MonoBehaviour
 {
@@ -39,5 +40,8 @@ public class ModelChanger : MonoBehaviour
         alienModel.SetActive(false);
         personModel.SetActive(true);
         npcMovement.ToggleAnimator();
+        gameObject.GetComponent<NavMeshAgent>().speed -= 3;
+        gameObject.GetComponent<NavMeshAgent>().acceleration -= 8;
+        gameObject.GetComponent<NavMeshAgent>().angularSpeed -= 80;
     }
 }
