@@ -57,6 +57,11 @@ public class Radiator : MonoBehaviour
             //Make all npcs in the nearbyNpcs list sad. The list gets updated by the triggerbox on the radiator.
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)
             {
+                if (npc == null)
+                {
+                    Debug.LogWarning("Npc went null: ", npc);
+                    continue;
+                }
                 npc.myFeelings.Happiness -= 0.03f * DAS.TimeSystem.DeltaTime;
 
                 if (!npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
@@ -67,6 +72,11 @@ public class Radiator : MonoBehaviour
         else
             foreach (var npc in nearbyNpcs)
             {
+                if(npc == null)
+                {
+                    Debug.LogWarning("Npc went null: ", npc);
+                    continue;
+                }
                 if (npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
                     npc.buttonRef.particle.GetComponent<ParticleSystem>().Stop();
                 npc.moodVisualizerRef.EndStatusEffect();
@@ -87,8 +97,16 @@ public class Radiator : MonoBehaviour
             AudioManager.instance.PlaySound("RadiatorBroken", gameObject);
 
         foreach (var npc in nearbyNpcs)
+        {
+            if (npc == null)
+            {
+                Debug.LogWarning("Npc went null: ", npc);
+                continue;
+            }
+
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.blue;
+        }
 
         ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer
         {

@@ -186,6 +186,8 @@ public class RandomEventTrigger : MonoBehaviour
         s_allEvents.Add(TrainEvent);
         s_allEvents.Add(RadiatorEvent);
         s_allEvents.Add(ToiletBreaksEvent);
+        s_allEvents.Add(DAS.ToiletSystem.s_myInstance.EveryoneNeedsToiletEvent);
+        s_allEvents.Add(DAS.NpcCreator.ToggleGUICheat);
     }
 
     void TriggerRandomEvent()

@@ -9019,6 +9019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pulseColor: {r: 1, g: 1, b: 1, a: 0.5}
   pulseSpeed: 2
+  pulseLength: 5
 --- !u!1 &650315857
 GameObject:
   m_ObjectHideFlags: 0
@@ -14295,6 +14296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pulseColor: {r: 1, g: 1, b: 1, a: 0.5}
   pulseSpeed: 2
+  pulseLength: 5
 --- !u!1 &971038997
 GameObject:
   m_ObjectHideFlags: 0
@@ -24973,6 +24975,34 @@ Prefab:
     - target: {fileID: 1623396703753308, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
       propertyPath: m_Name
       value: ToiletPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -2.0699997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259805146675348, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 643ed9efa322cce45af614a4186bbcbc, type: 2}
