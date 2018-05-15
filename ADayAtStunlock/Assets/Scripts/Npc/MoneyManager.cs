@@ -19,7 +19,7 @@ public class MoneyManager : MonoBehaviour
     static public float currentMoney;
 
     //Use this for highscore
-    static public float moneyEarned;
+    static public float highscorePoints;
 
     static public float moneyLost;
 
@@ -35,7 +35,7 @@ public class MoneyManager : MonoBehaviour
 
         highscoreListScreen = HighscoreListScreen.thisInstance;
         moneyLost = 0;
-        moneyEarned = 0;
+        highscorePoints = 0;
         startMoney = 12500;
         currentMoney = startMoney;
         m_moneyChangeLastFrame = startMoney;
@@ -49,6 +49,9 @@ public class MoneyManager : MonoBehaviour
 
     void Update ()
     {
+        //Earn points for staying alive.
+        highscorePoints += 10 * Time.deltaTime;
+
         if(scoreDisplay != null)
         scoreDisplay.SetScore(currentMoney, m_moneyChangeLastFrame);
 
@@ -85,12 +88,12 @@ public class MoneyManager : MonoBehaviour
             if (npc.moveRef.IsCurrentlyWorking)
             {
                 currentMoney += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
-                moneyEarned  += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
+                highscorePoints  += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
             }
         }
 
         currentMoney +=     1f/2;
-        moneyEarned  +=     1f/2;
+        highscorePoints  +=     1f/2;
     }
     /// <summary>
     /// Invoked. Removes money, more if NPCs are unhappy.
