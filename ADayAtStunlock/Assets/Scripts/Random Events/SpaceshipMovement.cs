@@ -71,10 +71,15 @@ public class SpaceshipMovement : MonoBehaviour
             else if(!invoked)
             {
                 Invoke("Waited", pauseTime);
+                invoked = true;
+
                 random.aliens[index].GetComponent<ModelChanger>().ToggleModel();
                 random.aliens[index].GetComponent<DAS.NPCMovement>().abducted = true;
                 random.aliens[index].GetComponent<NavMeshAgent>().isStopped = true;
-                invoked = true;
+                random.aliens[index].GetComponent<NavMeshAgent>().speed += 3;
+                random.aliens[index].GetComponent<NavMeshAgent>().acceleration += 8;
+                random.aliens[index].GetComponent<NavMeshAgent>().angularSpeed += 80;
+
                 effects.PlayEffectAt(transform.position,"SpaceshipLight");
                 //Play sound effect here Tomas
             }
