@@ -90,10 +90,12 @@ public class Radiator : MonoBehaviour
             foreach (var material in npc.transform.GetChild(0).GetComponentInChildren<SkinnedMeshRenderer>().materials)
                 material.color = Color.blue;
 
-        ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer();
-        data.colorOfArrow = Color.cyan;
-        data.colorOfText = Color.cyan;
-        data.extraFunction = true;
+        ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer
+        {
+            colorOfArrow = Color.cyan,
+            colorOfText = Color.cyan,
+            extraFunction = true
+        };
         ArrowPointer.MyInstance.AddObjectToPointAt(gameObject, data);
 
         snowControl.MyParticleSystem.Play();

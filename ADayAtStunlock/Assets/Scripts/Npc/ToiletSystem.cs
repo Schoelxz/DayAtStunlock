@@ -312,10 +312,12 @@ namespace DAS
                 toilet.broken = true;
                 toilet.myObjects.button.SetActive(true);
 
-                ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer();
-                data.colorOfArrow = Color.blue;
-                data.colorOfText = Color.blue;
-                data.extraFunction = true;
+                ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer
+                {
+                    colorOfArrow = Color.blue,
+                    colorOfText = Color.blue,
+                    extraFunction = true
+                };
                 ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject, data);
 
                 foreach (var particleSystem in toilet.gameObject.GetComponentsInChildren<ParticleSystem>())
