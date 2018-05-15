@@ -27,25 +27,15 @@ public class Radiator : MonoBehaviour
     public bool isBroken = false;
     public Button fixButton;
     private RectTransform buttonRectTransform;
-
     private Canvas fixCanvas;
-    //private Image fixButtonImage;
-    //private AudioManager audioManager;
 
     void Start ()
     {
-        //fixButton = gameObject.GetComponentInChildren<Button>();
         fixButton.gameObject.AddComponent<ClickableObject>();
         fixCanvas = fixButton.transform.parent.GetComponent<Canvas>();
         buttonRectTransform = fixButton.GetComponent<RectTransform>();
 
         fixButton.gameObject.SetActive(false);
-
-
-        //fixButtonImage = gameObject.GetComponentInChildren<Image>();
-        //fixButtonImage.enabled = false;
-
-        //audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
 	
 	void Update ()
@@ -61,7 +51,6 @@ public class Radiator : MonoBehaviour
 
             m_fixPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset to the buttons position.
             Vector2 extraOffset = new Vector2(-75, 110);
-
 
             buttonRectTransform.position = m_fixPos + extraOffset;
 
