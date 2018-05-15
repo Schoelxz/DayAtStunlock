@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class PulseEffect : MonoBehaviour
 {
     public Color pulseColor = new Color(1, 1, 1, 0.5f);
+    [Range(1f, 40f)]
     public float pulseSpeed = 2;
+    [Range(1, 40)]
+    public int pulseLength = 5;
 
     private Image myImage;
     private Image myChildImage;
@@ -45,25 +48,16 @@ public class PulseEffect : MonoBehaviour
             timeForther += Time.deltaTime * pulseSpeed;
 
         if (timeForther >= 1f)
-            timeForthed = !timeForthed;
+            timeForthed = true;
         else if (timeForther <= 0f)
-            timeForthed = !timeForthed;
+            timeForthed = false;
 
         myChildImage.sprite = myImage.sprite;
 
         timer += Time.deltaTime;
-        /*if(timer % 2f < 1f)
-            myChildImage.rectTransform.sizeDelta += pulseSpeed * Time.deltaTime;
-        else
-            myChildImage.rectTransform.sizeDelta -= pulseSpeed * Time.deltaTime;*/
 
         myChildImage.rectTransform.sizeDelta = new Vector2(
-            Mathf.Lerp(orgSize.x - 5, orgSize.x + 5, timeForther),
-            Mathf.Lerp(orgSize.y - 5, orgSize.y + 5, timeForther));
+            Mathf.Lerp(orgSize.x - pulseLength, orgSize.x + pulseLength, timeForther),
+            Mathf.Lerp(orgSize.y - pulseLength, orgSize.y + pulseLength, timeForther));
     }
-
-    //private void OnDisable()
-    //{
-    //    myImage.rectTransform.sizeDelta = orgSize;
-    //}
 }
