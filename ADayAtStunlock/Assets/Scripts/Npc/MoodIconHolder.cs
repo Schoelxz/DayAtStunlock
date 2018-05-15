@@ -19,9 +19,9 @@ public class MoodIconHolder : MonoBehaviour
     public Sprite iconSpriteMiserable;
     public Sprite iconSpriteConfused;
     public Sprite iconSpriteDemotivated;
+    public Sprite iconSpriteAlien;
 
     [Header("potential?: ")]
-    public Sprite iconSpriteAlien;
     public Sprite iconSpriteCold;
     public Sprite iconSpriteShaky;
 
