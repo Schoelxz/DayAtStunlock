@@ -34,6 +34,8 @@ public class PulseEffect : MonoBehaviour
         myChildImage.transform.position = myImage.transform.position;
         myChildImage.color = pulseColor;
         orgSize = new Vector2(myImage.rectTransform.sizeDelta.x, myImage.rectTransform.sizeDelta.y);
+        myChildImage.rectTransform.sizeDelta = orgSize;
+        myChildImage.transform.rotation = Quaternion.identity;
     }
 	
 	// Update is called once per frame

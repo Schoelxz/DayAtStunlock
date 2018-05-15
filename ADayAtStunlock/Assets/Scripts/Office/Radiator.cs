@@ -25,17 +25,25 @@ public class Radiator : MonoBehaviour
 
     private List<DAS.NPC> nearbyNpcs = new List<DAS.NPC>();
     public bool isBroken = false;
-    private Button fixButton;
-    private Image fixButtonImage;
+    public Button fixButton;
+    private RectTransform buttonRectTransform;
+
+    private Canvas fixCanvas;
+    //private Image fixButtonImage;
     //private AudioManager audioManager;
 
     void Start ()
     {
-        fixButton = gameObject.GetComponentInChildren<Button>();
+        //fixButton = gameObject.GetComponentInChildren<Button>();
         fixButton.gameObject.AddComponent<ClickableObject>();
+        fixCanvas = fixButton.transform.parent.GetComponent<Canvas>();
+        buttonRectTransform = fixButton.GetComponent<RectTransform>();
 
-        fixButtonImage = gameObject.GetComponentInChildren<Image>();
-        fixButtonImage.enabled = false;
+        fixButton.gameObject.SetActive(false);
+
+
+        //fixButtonImage = gameObject.GetComponentInChildren<Image>();
+        //fixButtonImage.enabled = false;
 
         //audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
@@ -43,6 +51,20 @@ public class Radiator : MonoBehaviour
 	void Update ()
     {
         if (isBroken)
+        {
+            Vector2 m_fixPos = new Vector2(0, 0);
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(fixCanvas.transform as RectTransform,
+                Camera.main.WorldToScreenPoint(gameObject.transform.position),
+                fixCanvas.worldCamera,
+                out m_fixPos);
+
+            m_fixPos += new Vector2(Screen.width / 2f, Screen.height / 2f); // add some fixing offset to the buttons position.
+            Vector2 extraOffset = new Vector2(-75, 110);
+
+
+            buttonRectTransform.position = m_fixPos + extraOffset;
+
             //Make all npcs in the nearbyNpcs list sad. The list gets updated by the triggerbox on the radiator.
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)
             {
@@ -52,22 +74,26 @@ public class Radiator : MonoBehaviour
                     npc.buttonRef.particle.GetComponent<ParticleSystem>().Play();
                 npc.moodVisualizerRef.ColdMood();
             }
+        }
         else
             foreach (var npc in nearbyNpcs)
             {
-                if(npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
+                if (npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
                     npc.buttonRef.particle.GetComponent<ParticleSystem>().Stop();
                 npc.moodVisualizerRef.EndStatusEffect();
             }
+        
 	}
 
     public void RadiatorStart()
     {
-        isBroken = true; 
-        fixButtonImage.enabled = true;
+        isBroken = true;
+        //fixButtonImage.enabled = true;
+
+        fixButton.gameObject.SetActive(true);
 
         //Play radiator sound here
-        if(AudioManager.instance != null)
+        if (AudioManager.instance != null)
             //print("Trying to play broken radiator sound");
             AudioManager.instance.PlaySound("RadiatorBroken", gameObject);
 
@@ -82,8 +108,10 @@ public class Radiator : MonoBehaviour
 
     void RadiatorEnd()
     {   
-        fixButtonImage.enabled = false;
+        //fixButtonImage.enabled = false;
         isBroken = false;
+
+        fixButton.gameObject.SetActive(false);
 
         //Pause radiator sound here
         //Play fix radiator sound here
