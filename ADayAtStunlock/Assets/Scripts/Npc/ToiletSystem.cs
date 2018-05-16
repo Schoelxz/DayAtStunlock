@@ -316,6 +316,7 @@ namespace DAS
                 {
                     colorOfArrow = Color.blue,
                     colorOfText = Color.blue,
+                    extraSprite = MoodIconHolder.MyInstance.iconSpriteRepair,
                     extraFunction = true
                 };
                 ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject, data);
