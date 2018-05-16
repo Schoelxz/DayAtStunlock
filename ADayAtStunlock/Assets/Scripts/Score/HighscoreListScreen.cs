@@ -15,6 +15,8 @@ public class HighscoreListScreen : MonoBehaviour {
 
     Text playerScoreText;
 
+    Button[] buttons;
+
     private void Awake()
     {
 
@@ -37,6 +39,8 @@ public class HighscoreListScreen : MonoBehaviour {
 
         playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>(true);
 
+        buttons = gameObject.transform.Find("RightPanel").GetComponentsInChildren<Button>(true);
+
         foreach (var item in names)
         {
             item.text = "";
@@ -47,6 +51,10 @@ public class HighscoreListScreen : MonoBehaviour {
             item.text = "";
         }
 
+        foreach(var item in buttons)
+        {
+            item.gameObject.SetActive(false);
+        }
     }
     
 
@@ -65,6 +73,10 @@ public class HighscoreListScreen : MonoBehaviour {
         inputField.readOnly = false;
         inputField.text = "";
         playerScoreText.text = MoneyManager.moneyEarned.ToString("n0");
+        foreach (var item in buttons)
+        {
+            item.gameObject.SetActive(false);
+        }
     }
 
     void SaveName()
@@ -81,6 +93,11 @@ public class HighscoreListScreen : MonoBehaviour {
         Highscore.SaveHighscore();
         DisplayScores();
         inputField.readOnly = true;
+
+        foreach(var item in buttons)
+        {
+            item.gameObject.SetActive(true);
+        }
     }
     
 }
