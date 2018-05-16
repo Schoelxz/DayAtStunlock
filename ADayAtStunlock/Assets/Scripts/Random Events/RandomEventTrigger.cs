@@ -125,16 +125,16 @@ public class RandomEventTrigger : MonoBehaviour
     private Radiator[] radiators;
 
     //Spaceship stuff
-    int alienCount;
+    private int alienCount;
     public List<DAS.NPC> aliens = new List<DAS.NPC>();
-    SpaceshipMovement spaceshipMovement;
+    private SpaceshipMovement spaceshipMovement;
 
     //AudioManager.instance AudioManager.instance;
-    int eventDelayEasy;
-    int eventDelayMedium;
-    int eventDelayHard;
+    private int eventDelayEasy;
+    private int eventDelayMedium;
+    private int eventDelayHard;
 
-
+    private int eventCounter = 0;
 
     void Start ()
     {
@@ -186,11 +186,17 @@ public class RandomEventTrigger : MonoBehaviour
         s_allEvents.Add(TrainEvent);
         s_allEvents.Add(RadiatorEvent);
         s_allEvents.Add(ToiletBreaksEvent);
+        s_allEvents.Add(DAS.ToiletSystem.s_myInstance.EveryoneNeedsToiletEvent);
+        s_allEvents.Add(DAS.NpcCreator.ToggleGUICheat);
     }
 
     void TriggerRandomEvent()
     {
+        Random.State oldState = Random.state;
+        Random.InitState(eventCounter);
         EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
+        eventCounter++;
+        Random.state = oldState;
     }
 
     public void WhenDifficultyIncreases()

@@ -33,7 +33,9 @@ public class MoodVisualizer : MonoBehaviour
             return;
 
         //Sets npc mood image to an image representing their mood.
-        if (npcRef.myFeelings.TotalFeelings < 0.1f)
+        if (npcRef.GetComponent<ModelChanger>().isAlien)
+            myMoodImage.sprite = spriteRef.iconSpriteAlien;
+        else if (npcRef.myFeelings.TotalFeelings < 0.1f)
             myMoodImage.sprite = spriteRef.iconSpriteMiserable;
         else if (npcRef.myFeelings.Happiness < 0.45f)
             myMoodImage.sprite = spriteRef.iconSpriteSad;

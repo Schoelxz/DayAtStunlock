@@ -64,18 +64,18 @@ public class HighscoreListScreen : MonoBehaviour {
         thisInstance.gameObject.SetActive(true);
         inputField.readOnly = false;
         inputField.text = "";
-        playerScoreText.text = MoneyManager.moneyEarned.ToString("n0");
+        playerScoreText.text = MoneyManager.highscorePoints.ToString("n0");
     }
 
     void SaveName()
     {
         if(inputField.text.Length > 0)
         {
-            Highscore.AddHighscore(inputField.text, (int)MoneyManager.moneyEarned);
+            Highscore.AddHighscore(inputField.text, (int)MoneyManager.highscorePoints);
         }
         else
         {
-            Highscore.AddHighscore("Noname", (int)MoneyManager.moneyEarned);
+            Highscore.AddHighscore("Noname", (int)MoneyManager.highscorePoints);
         }
         Highscore.SortHighscore();
         Highscore.SaveHighscore();

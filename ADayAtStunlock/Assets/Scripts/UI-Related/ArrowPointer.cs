@@ -8,6 +8,13 @@ public class ArrowPointer : MonoBehaviour
     [System.Serializable]
     public class ObjectPointer
     {
+        /*
+         Class too much public.
+         Should be changed with properties to control usage
+         and making data controlling easier/clearer.
+            -J.Å
+        */
+
         [Tooltip("Editor window only")]
         public bool removeMe = false;
         public int secondsTilRemoval = 30;

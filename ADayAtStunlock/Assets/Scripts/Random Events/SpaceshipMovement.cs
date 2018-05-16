@@ -64,6 +64,13 @@ public class SpaceshipMovement : MonoBehaviour
         
         if (index < random.aliens.Count)
         {
+            if(random.aliens[index] == null)
+            {
+                Debug.LogWarning("Npc went null: ", random.aliens[index]);
+                index++;
+                return;
+            }
+
             if (Vector3.Distance(transform.position, (random.aliens[index].transform.position + offset)) > 0.1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, (random.aliens[index].transform.position + offset), speed * DAS.TimeSystem.DeltaTime);
@@ -71,10 +78,15 @@ public class SpaceshipMovement : MonoBehaviour
             else if(!invoked)
             {
                 Invoke("Waited", pauseTime);
+                invoked = true;
+
                 random.aliens[index].GetComponent<ModelChanger>().ToggleModel();
                 random.aliens[index].GetComponent<DAS.NPCMovement>().abducted = true;
                 random.aliens[index].GetComponent<NavMeshAgent>().isStopped = true;
-                invoked = true;
+                random.aliens[index].GetComponent<NavMeshAgent>().speed += 3;
+                random.aliens[index].GetComponent<NavMeshAgent>().acceleration += 8;
+                random.aliens[index].GetComponent<NavMeshAgent>().angularSpeed += 80;
+
                 effects.PlayEffectAt(transform.position,"SpaceshipLight");
                 //Play sound effect here Tomas
             }
