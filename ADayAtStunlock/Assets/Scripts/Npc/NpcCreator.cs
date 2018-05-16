@@ -193,6 +193,8 @@ namespace DAS
 
     public class NpcCreator : MonoBehaviour
     {
+        public static NpcCreator myInstance;
+
         #region Variables
         [SerializeField]
         private GameObject NPCPrefab;
@@ -307,6 +309,19 @@ namespace DAS
         float dt, dt2;
         #endregion
 
+        public static void ToggleGUICheat()
+        {
+            myInstance.toggleGUI = !myInstance.toggleGUI;
+        }
+
+        private void Awake()
+        {
+            if (myInstance == null)
+                myInstance = this;
+            else
+                Destroy(this);
+        }
+
         private void Start()
         {
             AssignNamesToArray();
@@ -314,7 +329,7 @@ namespace DAS
             npcFolder = GameObject.Find("NPC Folder");
         }
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         
         private void OnGUI()
         {
@@ -329,7 +344,7 @@ namespace DAS
             // Shows the amount of NPCs
             GUI.Box(new Rect(35, 130, 35, 25), secondsTilNpcSpawn.ToString("00.0"));
         }
-#endif
+//#endif
 
         void Update()
         {

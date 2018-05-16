@@ -61,38 +61,44 @@ namespace DAS
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
                 m_agentRef.destination = transform.position + (playerRaycast.hit.point - transform.position).normalized * 2;
         }
-
+        private GameObject tempCam;
         private void KeyboardMovement()
         {
             bool keyboardPressed = false;
             movementValue = Vector3.zero;
 
+            if(tempCam == null)
+                tempCam = new GameObject("CameraTransformTemp");
+
+            tempCam.transform.position = Camera.main.transform.position;
+            tempCam.transform.localScale = Camera.main.transform.localScale;
+            tempCam.transform.rotation = Camera.main.transform.rotation;
+            tempCam.transform.rotation = Quaternion.Euler(0, tempCam.transform.rotation.eulerAngles.y, tempCam.transform.rotation.eulerAngles.z);
+
             if (Input.GetKey(KeyCode.W))
             {
-                movementValue += Camera.main.transform.forward.normalized;
+                movementValue += tempCam.transform.forward.normalized;
                 keyboardPressed = true;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                movementValue -= Camera.main.transform.right.normalized;
+                movementValue -= tempCam.transform.right.normalized;
                 keyboardPressed = true;
             }
             if (Input.GetKey(KeyCode.S))
             {
-                movementValue -= Camera.main.transform.forward.normalized;
+                movementValue -= tempCam.transform.forward.normalized;
                 keyboardPressed = true;
             }
             if (Input.GetKey(KeyCode.D))
             {
-                movementValue += Camera.main.transform.right.normalized;
+                movementValue += tempCam.transform.right.normalized;
                 keyboardPressed = true;
             }
 
-            movementValue = new Vector3(movementValue.x, 0, movementValue.z);
+            //movementValue = new Vector3(movementValue.x, 0, movementValue.z);
             movementValue.Normalize();
             movementValue *= 2;
-
-            Debug.Log(movementValue.magnitude);
 
             if (keyboardPressed)
             {

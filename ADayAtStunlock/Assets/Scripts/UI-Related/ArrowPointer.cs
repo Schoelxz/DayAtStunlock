@@ -8,6 +8,13 @@ public class ArrowPointer : MonoBehaviour
     [System.Serializable]
     public class ObjectPointer
     {
+        /*
+         Class too much public.
+         Should be changed with properties to control usage
+         and making data controlling easier/clearer.
+            -J.Å
+        */
+
         [Tooltip("Editor window only")]
         public bool removeMe = false;
         public int secondsTilRemoval = 30;
@@ -19,7 +26,9 @@ public class ArrowPointer : MonoBehaviour
         public Vector2 convertedTargetObjectPosition;
         [HideInInspector]
         public GameObject arrowPointer;
+        public GameObject extraSpritePointer;
         public Sprite arrowSprite = null;
+        public Sprite extraSprite = null;
         public Color colorOfArrow = Vector4.zero;
         
         [Header("Extra:")]
@@ -98,6 +107,7 @@ public class ArrowPointer : MonoBehaviour
             return;
         item.arrowPointer = new GameObject("Arrow Pointer for: " + item.targetObject.name);
         item.arrowPointer.transform.parent = gameObject.transform;
+
         Image tempImage;
         item.arrowPointer.AddComponent<RectTransform>();
         tempImage = item.arrowPointer.AddComponent<Image>();
@@ -109,6 +119,18 @@ public class ArrowPointer : MonoBehaviour
             tempImage.color = Color.yellow;
         else
             tempImage.color = item.colorOfArrow;
+
+        //If an extra sprite is wanted.
+        if (item.extraSprite != null)
+        {
+            item.extraSpritePointer = new GameObject("Extra Sprite");
+            item.extraSpritePointer.transform.SetParent(item.arrowPointer.transform);
+            item.extraSpritePointer.AddComponent<RectTransform>();
+            Image tempImageEX = item.extraSpritePointer.AddComponent<Image>();
+            tempImageEX.sprite = item.extraSprite;
+            tempImageEX.color = new Color(1, 1, 1, 0.7f);
+        }
+
     }
 
     private void ExtraInitObjectPointer(ObjectPointer item)
@@ -182,6 +204,12 @@ public class ArrowPointer : MonoBehaviour
 
             //Rotate the arrow towards the object it follows
             RotateArrowTowardsTarget(item.convertedTargetObjectPosition, item.arrowPointer.transform as RectTransform);
+
+            if (item.extraSpritePointer != null)
+            {
+                item.extraSpritePointer.transform.localPosition = new Vector3(0, -100, 0);
+                item.extraSpritePointer.transform.rotation = Quaternion.identity;
+            }
 
             if (item.extraFunction)
             {

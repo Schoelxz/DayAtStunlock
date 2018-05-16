@@ -14,6 +14,6 @@ public class UIScore : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        score.text = MoneyManager.moneyEarned.ToString("n0");
+        score.text = MoneyManager.highscorePoints.ToString("n0");
 	}
 }

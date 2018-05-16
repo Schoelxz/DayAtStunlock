@@ -311,7 +311,15 @@ namespace DAS
             {
                 toilet.broken = true;
                 toilet.myObjects.button.SetActive(true);
-                ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject, true);
+
+                ArrowPointer.ObjectPointer data = new ArrowPointer.ObjectPointer
+                {
+                    colorOfArrow = Color.blue,
+                    colorOfText = Color.blue,
+                    extraSprite = MoodIconHolder.MyInstance.iconSpriteRepair,
+                    extraFunction = true
+                };
+                ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject, data);
 
                 foreach (var particleSystem in toilet.gameObject.GetComponentsInChildren<ParticleSystem>())
                 {

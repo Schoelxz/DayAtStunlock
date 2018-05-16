@@ -50,7 +50,7 @@ public class EventDisplay : MonoBehaviour
         foreach (var item in RandomEventTrigger.s_allEvents)
         {
             eventNamesLength = (50 * amountOfEvents) + 50;
-            if (GUI.Button(new Rect(Screen.width - 240, Screen.height - (25 + 25*amountOfEvents), 120, 25), item.Method.Name))
+            if (GUI.Button(new Rect(Screen.width - 360, Screen.height - (25 + 25*amountOfEvents), 240, 25), item.Method.Name))
             {
                 FunctionTriggered(item);
             }
