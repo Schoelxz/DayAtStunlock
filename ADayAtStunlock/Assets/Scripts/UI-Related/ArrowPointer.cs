@@ -43,6 +43,7 @@ public class ArrowPointer : MonoBehaviour
         public Coroutine coroutine;
         public string textDisplay = string.Empty;
         public Color colorOfText = Vector4.zero;
+        public int fontSize = 500;
 
         public IEnumerator RemoveMe(int secondsUntilRemoved)
         {
@@ -158,7 +159,10 @@ public class ArrowPointer : MonoBehaviour
             tempTextMesh.alignment = TextAlignment.Center;
             tempTextMesh.anchor = TextAnchor.MiddleCenter;
             tempTextMesh.characterSize = 0.06f;
-            tempTextMesh.fontSize = 500;
+            if (item.fontSize == 500)
+                tempTextMesh.fontSize = 500;
+            else
+                tempTextMesh.fontSize = item.fontSize;
             if (item.colorOfText == new Color(0, 0, 0, 0))
                 tempTextMesh.color = Color.yellow;
             else
