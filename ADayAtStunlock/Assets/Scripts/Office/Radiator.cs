@@ -81,7 +81,6 @@ public class Radiator : MonoBehaviour
                     npc.buttonRef.particle.GetComponent<ParticleSystem>().Stop();
                 npc.moodVisualizerRef.EndStatusEffect();
             }
-        
 	}
 
     public void RadiatorStart()
@@ -112,6 +111,7 @@ public class Radiator : MonoBehaviour
         {
             colorOfArrow = Color.cyan,
             colorOfText = Color.cyan,
+            extraSprite = MoodIconHolder.MyInstance.iconSpriteCold,
             extraFunction = true
         };
         ArrowPointer.MyInstance.AddObjectToPointAt(gameObject, data);

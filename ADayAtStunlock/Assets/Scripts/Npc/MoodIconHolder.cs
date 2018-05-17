@@ -21,7 +21,8 @@ public class MoodIconHolder : MonoBehaviour
     public Sprite iconSpriteDemotivated;
     public Sprite iconSpriteAlien;
 
-    [Header("potential?: ")]
+    [Header("Other Images")]
+    public Sprite iconSpriteRepair;
     public Sprite iconSpriteCold;
     public Sprite iconSpriteShaky;
 

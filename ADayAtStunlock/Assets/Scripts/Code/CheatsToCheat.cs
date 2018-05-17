@@ -13,6 +13,11 @@ namespace DAS
 
             private bool j, o, e, l;
 
+            private void Start()
+            {
+                cheatsEnabled = false;
+            }
+
             public static bool CheatsEnabled
             {
                 get { return cheatsEnabled; }
