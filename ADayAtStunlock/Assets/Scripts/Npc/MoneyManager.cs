@@ -102,7 +102,12 @@ public class MoneyManager : MonoBehaviour
     {
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+            if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Easy)
+                currentMoney -= (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+            else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
+                currentMoney -= (1.0f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+            else if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+                currentMoney -= (1.4f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
             //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }

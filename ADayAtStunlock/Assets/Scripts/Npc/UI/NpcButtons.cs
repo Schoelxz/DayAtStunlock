@@ -76,7 +76,7 @@ public class NpcButtons : MonoBehaviour
         // Make buttons follow NPCs in the screen overlay canvas.
         if (m_npcRef != null && m_buttonCanvas.enabled == true)
         {
-            Vector2 newOffset = new Vector2(m_buttonHolder.sizeDelta.x/1.5f, -50);
+            Vector2 newOffset = new Vector2(m_buttonHolder.sizeDelta.x/1.2f, -50);
             m_buttonHolder.position = m_holderPos + newOffset;
             //m_sliderHolder.position = m_holderPos;
             //m_sliderHolder.position -= new Vector3(0, 60);
