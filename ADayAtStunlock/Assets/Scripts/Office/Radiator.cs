@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Radiator : MonoBehaviour
 {
-    public class ClickableObject : MonoBehaviour, IPointerDownHandler
+    public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Radiator radiator;
 
@@ -17,7 +17,23 @@ public class Radiator : MonoBehaviour
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairPressed;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
             radiator.RadiatorEnd();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairHighlighted;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
         }
     }
 
@@ -77,6 +93,9 @@ public class Radiator : MonoBehaviour
                     Debug.LogWarning("Npc went null: ", npc);
                     continue;
                 }
+                else if(npc.moodVisualizerRef == null)
+                    continue;
+
                 if (npc.buttonRef.particle.GetComponent<ParticleSystem>().isPlaying)
                     npc.buttonRef.particle.GetComponent<ParticleSystem>().Stop();
                 npc.moodVisualizerRef.EndStatusEffect();
@@ -111,7 +130,7 @@ public class Radiator : MonoBehaviour
         {
             colorOfArrow = Color.cyan,
             colorOfText = Color.cyan,
-            extraSprite = MoodIconHolder.MyInstance.iconSpriteCold,
+            extraSprite = MoodIconHolder.MyInstance.iconSpriteRepairNoBackground,
             extraFunction = true
         };
         ArrowPointer.MyInstance.AddObjectToPointAt(gameObject, data);

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class NpcButtons : MonoBehaviour
 {
-    public class ClickableObject : MonoBehaviour, IPointerDownHandler
+    public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler
     {
         private NpcButtons npcButtonsRef;
 
@@ -18,7 +18,53 @@ public class NpcButtons : MonoBehaviour
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            npcButtonsRef.MoodButtonPressed();
+
+            npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappyPressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.sadSprite = MoodIconHolder.MyInstance.iconSpriteSadPressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.demotivatedSprite = MoodIconHolder.MyInstance.iconSpriteDemotivatedPressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.confusedSprite = MoodIconHolder.MyInstance.iconSpriteConfusedPressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.miserableSprite = MoodIconHolder.MyInstance.iconSpriteMiserablePressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.alienSprite = MoodIconHolder.MyInstance.iconSpriteAlienPressed;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.coldSprite = MoodIconHolder.MyInstance.iconSpriteColdPressed;
+
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappyHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.sadSprite = MoodIconHolder.MyInstance.iconSpriteSadHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.demotivatedSprite = MoodIconHolder.MyInstance.iconSpriteDemotivatedHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.confusedSprite = MoodIconHolder.MyInstance.iconSpriteConfusedHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.miserableSprite = MoodIconHolder.MyInstance.iconSpriteMiserableHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.alienSprite = MoodIconHolder.MyInstance.iconSpriteAlienHighlighted;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.coldSprite = MoodIconHolder.MyInstance.iconSpriteColdHighlighted;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappy;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.sadSprite = MoodIconHolder.MyInstance.iconSpriteSad;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.demotivatedSprite = MoodIconHolder.MyInstance.iconSpriteDemotivated;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.confusedSprite = MoodIconHolder.MyInstance.iconSpriteConfused;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.miserableSprite = MoodIconHolder.MyInstance.iconSpriteMiserable;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.alienSprite = MoodIconHolder.MyInstance.iconSpriteAlien;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.coldSprite = MoodIconHolder.MyInstance.iconSpriteCold;
+
+            //Debug.Log(eventData.pointerCurrentRaycast);
+
+           // if(eventData.pointerCurrentRaycast.gameObject == npcButtonsRef.npcButton.gameObject)
+                npcButtonsRef.MoodButtonPressed();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappy;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.sadSprite = MoodIconHolder.MyInstance.iconSpriteSad;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.demotivatedSprite = MoodIconHolder.MyInstance.iconSpriteDemotivated;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.confusedSprite = MoodIconHolder.MyInstance.iconSpriteConfused;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.miserableSprite = MoodIconHolder.MyInstance.iconSpriteMiserable;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.alienSprite = MoodIconHolder.MyInstance.iconSpriteAlien;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.coldSprite = MoodIconHolder.MyInstance.iconSpriteCold;
         }
     }
     private Canvas m_buttonCanvas;

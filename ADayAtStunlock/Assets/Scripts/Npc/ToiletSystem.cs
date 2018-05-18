@@ -51,13 +51,29 @@ namespace DAS
             public GameObject button;
         }
 
-        public class ClickableObject : MonoBehaviour, IPointerDownHandler
+        public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
         {
             public Toilet toiletRef;
 
             public void OnPointerDown(PointerEventData eventData)
             {
+                toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairPressed;
+            }
+
+            public void OnPointerUp(PointerEventData eventData)
+            {
+                toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
                 toiletRef.RepairMe();
+            }
+
+            public void OnPointerEnter(PointerEventData eventData)
+            {
+                toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairHighlighted;
+            }
+
+            public void OnPointerExit(PointerEventData eventData)
+            {
+                toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
             }
         }
         #endregion
@@ -316,7 +332,7 @@ namespace DAS
                 {
                     colorOfArrow = Color.blue,
                     colorOfText = Color.blue,
-                    extraSprite = MoodIconHolder.MyInstance.iconSpriteRepair,
+                    extraSprite = MoodIconHolder.MyInstance.iconSpriteRepairNoBackground,
                     extraFunction = true
                 };
                 ArrowPointer.MyInstance.AddObjectToPointAt(toilet.gameObject, data);

@@ -2220,7 +2220,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081936269471256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1020.288, y: 938.05725, z: -895.71436}
+  m_LocalPosition: {x: -11.956559, y: 0.0000014901161, z: -3.749219}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4881844846846236}
@@ -2766,6 +2766,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05eb06373d14e0b48acc7261540cb17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  happySprite: {fileID: 0}
+  confusedSprite: {fileID: 0}
+  sadSprite: {fileID: 0}
+  miserableSprite: {fileID: 0}
+  demotivatedSprite: {fileID: 0}
+  alienSprite: {fileID: 0}
 --- !u!114 &114473575168926170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2846,9 +2852,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-    m_PressedColor: {r: 0.259, g: 0.266, b: 0.266, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

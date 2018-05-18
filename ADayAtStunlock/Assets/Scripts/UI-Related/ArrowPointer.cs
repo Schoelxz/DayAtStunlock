@@ -211,7 +211,7 @@ public class ArrowPointer : MonoBehaviour
 
             if (item.extraSpritePointer != null)
             {
-                item.extraSpritePointer.transform.localPosition = new Vector3(0, -100, 0);
+                item.extraSpritePointer.transform.localPosition = new Vector3(0, -80, 0);
                 item.extraSpritePointer.transform.rotation = Quaternion.identity;
             }
 
