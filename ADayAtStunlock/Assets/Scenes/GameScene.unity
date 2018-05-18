@@ -22762,7 +22762,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1614126806}
   - component: {fileID: 1614126805}
-  - component: {fileID: 1614126804}
   - component: {fileID: 1614126803}
   m_Layer: 0
   m_Name: NPC-OnlyBathroom
@@ -22778,12 +22777,12 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1614126802}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 61799a1e5d74b5e4cb98243ab25bd0f9, type: 2}
   m_StaticBatchInfo:
@@ -22805,18 +22804,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1614126804
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614126802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1614126805
 MeshFilter:
   m_ObjectHideFlags: 0
