@@ -7604,6 +7604,23 @@ Transform:
   m_PrefabParentObject: {fileID: 4109786725920672, guid: 9c213c5c3ac43ed40bb07067e84ecc3f,
     type: 2}
   m_PrefabInternal: {fileID: 458909273}
+--- !u!1 &459986509 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1449806422384072, guid: 1f56eb19982b1f046913982f279d7cce,
+    type: 2}
+  m_PrefabInternal: {fileID: 2034360186}
+--- !u!65 &459986513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 459986509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9572985, y: 23.000004, z: 5.3823404}
+  m_Center: {x: -0.00000014199827, y: 0.0000073681867, z: 2.1911678}
 --- !u!1001 &464529103
 Prefab:
   m_ObjectHideFlags: 0
@@ -14507,7 +14524,7 @@ Prefab:
     - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
       propertyPath: randomSeed
-      value: 536046123
+      value: 1185956004
       objectReference: {fileID: 0}
     - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
@@ -15056,6 +15073,8 @@ GameObject:
   - component: {fileID: 1062883703}
   - component: {fileID: 1062883702}
   - component: {fileID: 1062883701}
+  - component: {fileID: 1062883705}
+  - component: {fileID: 1062883704}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -15117,6 +15136,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1062883704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062883700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0141e58c65a9f741be1505a74a46623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1062883705
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062883700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1093264329
 Prefab:
   m_ObjectHideFlags: 0
@@ -15690,6 +15732,7 @@ GameObject:
   - component: {fileID: 1168330437}
   - component: {fileID: 1168330438}
   - component: {fileID: 1168330439}
+  - component: {fileID: 1168330440}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -15946,6 +15989,18 @@ MonoBehaviour:
   iconSpriteRepairNoBackground: {fileID: 21300000, guid: 15d93f0e4c34e7746a7cf9dd513dd5b7,
     type: 3}
   iconSpriteShaky: {fileID: 21300000, guid: c584879138f31c146b14346109310c1d, type: 3}
+--- !u!114 &1168330440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2aa32004d3ebac4f9fabe442b1e73cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bollPrefab: {fileID: 1900424786016214, guid: b617be99470be424bbc7cd7dc862457f, type: 2}
 --- !u!1001 &1170073839
 Prefab:
   m_ObjectHideFlags: 0

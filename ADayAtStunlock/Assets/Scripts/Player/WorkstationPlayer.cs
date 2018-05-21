@@ -48,8 +48,10 @@ public class WorkstationPlayer : MonoBehaviour
             MoneyManager.GenerateMoney();
 
             //Unhide particle emission
-            if(!particleSystemMoneyGained.isPlaying && MoneyManager.IsEarningMoney)
+            if (!particleSystemMoneyGained.isPlaying && MoneyManager.IsEarningMoney)
                 particleSystemMoneyGained.Play();
+            else if (!MoneyManager.IsEarningMoney)
+                particleSystemMoneyGained.Stop();
         }
         else
         {
