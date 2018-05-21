@@ -9,7 +9,8 @@ public class Radiator : MonoBehaviour
     public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Radiator radiator;
-        
+        public int distanceToPlayer = 5;
+
 
         private void Awake()
         {
@@ -28,7 +29,7 @@ public class Radiator : MonoBehaviour
             if (!radiator.fixButton.interactable)
                 return;
             radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
-            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < distanceToPlayer)
             {
                 radiator.RadiatorEnd();
             }
@@ -52,13 +53,13 @@ public class Radiator : MonoBehaviour
         private void Update()
         {
             //Check distance from player and disable button if player is too far away
-            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > 5 &&
+            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > distanceToPlayer &&
                 radiator.fixButton.image.sprite != MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
             {
                 radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairDisabled;
                 radiator.fixButton.interactable = false;
             }
-            else if(Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+            else if(Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < distanceToPlayer)
             {
                 if(radiator.fixButton.image.sprite == MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
                     radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;

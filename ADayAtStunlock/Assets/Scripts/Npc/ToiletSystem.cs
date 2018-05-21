@@ -54,6 +54,7 @@ namespace DAS
         public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
         {
             public Toilet toiletRef;
+            public int distanceToPlayer = 5;
 
             public void OnPointerDown(PointerEventData eventData)
             {
@@ -65,7 +66,7 @@ namespace DAS
                 if (!toiletRef.myObjects.button.GetComponent<Button>().interactable)
                     return;
                 toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
-                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < distanceToPlayer)
                 {
                     toiletRef.RepairMe();
                 }
@@ -87,13 +88,13 @@ namespace DAS
             private void Update()
             {
                 //Check distance from player and disable button if player is too far away
-                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > 5 &&
+                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > distanceToPlayer &&
                     toiletRef.myObjects.button.GetComponent<Button>().image.sprite != MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
                 {
                     toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairDisabled;
                     toiletRef.myObjects.button.GetComponent<Button>().interactable = false;
                 }
-                else if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+                else if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < distanceToPlayer)
                 {
                     if (toiletRef.myObjects.button.GetComponent<Button>().image.sprite == MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
                         toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
