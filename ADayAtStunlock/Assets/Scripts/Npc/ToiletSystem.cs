@@ -35,7 +35,7 @@ namespace DAS
             public void RepairMe()
             {
                 broken = false;
-                myObjects.button.SetActive(false);
+                myObjects.button.gameObject.SetActive(false);
                 ArrowPointer.MyInstance.RemoveObjectToPointAt(gameObject);
 
                 foreach (var particleSystem in gameObject.GetComponentsInChildren<ParticleSystem>())
@@ -62,18 +62,43 @@ namespace DAS
 
             public void OnPointerUp(PointerEventData eventData)
             {
+                if (!toiletRef.myObjects.button.GetComponent<Button>().interactable)
+                    return;
                 toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
-                toiletRef.RepairMe();
+                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+                {
+                    toiletRef.RepairMe();
+                }
             }
 
             public void OnPointerEnter(PointerEventData eventData)
             {
+                if (!toiletRef.myObjects.button.GetComponent<Button>().interactable)
+                    return;
                 toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairHighlighted;
             }
 
             public void OnPointerExit(PointerEventData eventData)
             {
+                if (!toiletRef.myObjects.button.GetComponent<Button>().interactable)
+                    return;
                 toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
+            }
+            private void Update()
+            {
+                //Check distance from player and disable button if player is too far away
+                if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > 5 &&
+                    toiletRef.myObjects.button.GetComponent<Button>().image.sprite != MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
+                {
+                    toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairDisabled;
+                    toiletRef.myObjects.button.GetComponent<Button>().interactable = false;
+                }
+                else if (Vector3.Distance(toiletRef.gameObject.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+                {
+                    if (toiletRef.myObjects.button.GetComponent<Button>().image.sprite == MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
+                        toiletRef.myObjects.button.GetComponent<Button>().image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
+                        toiletRef.myObjects.button.GetComponent<Button>().interactable = true;
+                }
             }
         }
         #endregion

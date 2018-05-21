@@ -9,6 +9,7 @@ public class Radiator : MonoBehaviour
     public class ClickableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Radiator radiator;
+        
 
         private void Awake()
         {
@@ -17,23 +18,52 @@ public class Radiator : MonoBehaviour
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!radiator.fixButton.interactable)
+                return;
             radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairPressed;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (!radiator.fixButton.interactable)
+                return;
             radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
-            radiator.RadiatorEnd();
+            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+            {
+                radiator.RadiatorEnd();
+            }
+            
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (!radiator.fixButton.interactable)
+                return;
             radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairHighlighted;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (!radiator.fixButton.interactable)
+                return;
             radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
+        }
+
+        private void Update()
+        {
+            //Check distance from player and disable button if player is too far away
+            if (Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) > 5 &&
+                radiator.fixButton.image.sprite != MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
+            {
+                radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepairDisabled;
+                radiator.fixButton.interactable = false;
+            }
+            else if(Vector3.Distance(radiator.transform.position, DAS.PlayerMovement.s_myInstance.transform.position) < 5)
+            {
+                if(radiator.fixButton.image.sprite == MoodIconHolder.MyInstance.iconSpriteRepairDisabled)
+                    radiator.fixButton.image.sprite = MoodIconHolder.MyInstance.iconSpriteRepair;
+                radiator.fixButton.interactable = true;
+            }
         }
     }
 
@@ -44,12 +74,17 @@ public class Radiator : MonoBehaviour
     public Button fixButton;
     private RectTransform buttonRectTransform;
     private Canvas fixCanvas;
+    private Radiator m_radiator;
+    private DAS.PlayerMovement m_playerMovement;
+
 
     void Start ()
     {
         fixButton.gameObject.AddComponent<ClickableObject>();
         fixCanvas = fixButton.transform.parent.GetComponent<Canvas>();
         buttonRectTransform = fixButton.GetComponent<RectTransform>();
+        m_radiator = GetComponent<Radiator>();
+        m_playerMovement = FindObjectOfType<DAS.PlayerMovement>();
 
         fixButton.gameObject.SetActive(false);
     }
@@ -69,6 +104,7 @@ public class Radiator : MonoBehaviour
             Vector2 extraOffset = new Vector2(-75, 110);
 
             buttonRectTransform.position = m_fixPos + extraOffset;
+            
 
             //Make all npcs in the nearbyNpcs list sad. The list gets updated by the triggerbox on the radiator.
             foreach (var npc in nearbyNpcs)//(var npc in nearbyNpcs)

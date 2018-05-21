@@ -2158,6 +2158,51 @@ Prefab:
       propertyPath: snowControl
       value: 
       objectReference: {fileID: 1432620210}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1448970366}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
   m_IsPrefabParent: 0
@@ -15783,11 +15828,11 @@ MonoBehaviour:
   toiletObject1:
     parent: {fileID: 1339814203}
     queue: {fileID: 1339814202}
-    button: {fileID: 960677658}
+    button: {fileID: 641875672}
   toiletObject2:
     parent: {fileID: 1432445230}
     queue: {fileID: 1432445229}
-    button: {fileID: 641875672}
+    button: {fileID: 960677658}
 --- !u!114 &1168330432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22039,6 +22084,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4070735397021362, guid: daaba6808d0e62f40b179210dccd8cdc,
     type: 2}
   m_PrefabInternal: {fileID: 1444942299}
+--- !u!114 &1448970366 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114054082575305624, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+    type: 2}
+  m_PrefabInternal: {fileID: 215546162}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1449828460
 Prefab:
   m_ObjectHideFlags: 0
@@ -24146,41 +24197,6 @@ Prefab:
     - target: {fileID: 1529159282542520, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
       propertyPath: m_Name
       value: Radiator (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Transition
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_PressedColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_PressedColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_PressedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_DisabledColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_DisabledColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
-        type: 2}
-      propertyPath: m_Colors.m_DisabledColor.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
@@ -30628,6 +30644,11 @@ Prefab:
       propertyPath: snowControl
       value: 
       objectReference: {fileID: 2107811958}
+    - target: {fileID: 114647698302453658, guid: 167fb50c1b72bd248b16a56e8b1d2346,
+        type: 2}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
   m_IsPrefabParent: 0
