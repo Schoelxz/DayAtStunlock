@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d7bb755c8f1eda74b8bfe60121911856
-timeCreated: 1526654485
+guid: 14d13e15aafb9b4419f008f2a71257ee
+timeCreated: 1526890886
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -85,14 +85,13 @@ ModelImporter:
     400074: Bip001 R Finger2Nub
     400076: Bip001 R Toe0Nub
     400078: C_man_1_FBX2013
-    2100000: Body
-    2100002: Face
+    2100000: 01 - Default
     4300000: C_man_1_FBX2013
     9500000: //RootNode
     13700000: C_man_1_FBX2013
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -123,10 +122,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -134,7 +133,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
-    indexFormat: 1
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -142,10 +141,10 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
-  importAnimation: 0
+    normalCalculationMode: 4
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -358,22 +357,14 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: basic_rig Spine1
-      humanName: Chest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     skeleton:
-    - name: Alien_001(Clone)
+    - name: Alien_003(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Alienbasic_rig
-      parentName: Alien_001(Clone)
+      parentName: Alien_003(Clone)
       position: {x: -5.9604643e-10, y: 0.27992854, z: -0.003742392}
       rotation: {x: -0.50000036, y: 0.49999964, z: 0.49999964, w: 0.50000036}
       scale: {x: 0.39370075, y: 0.39370075, z: 0.39370078}
@@ -565,7 +556,7 @@ ModelImporter:
       rotation: {x: 5.684342e-14, y: -9.515166e-14, z: -1.1368685e-13, w: 1}
       scale: {x: 0.9999998, y: 0.99999994, z: 0.9999999}
     - name: C_man_1_FBX2013
-      parentName: Alien_001(Clone)
+      parentName: Alien_003(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 0.39370078, y: 0.39370078, z: 0.39370078}
@@ -581,8 +572,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 45d480461bbdc704587e117329ce8e69,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
