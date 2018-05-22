@@ -11,7 +11,7 @@ namespace DAS
             private static bool cheatsEnabled = false;
             private float timer;
 
-            private bool j, o, e, l;
+            private bool g,l,u,p,s,k,a;
 
             private void Start()
             {
@@ -37,37 +37,55 @@ namespace DAS
             {
                 if (timer <= 0)
                 {
-                    j = false;
-                    o = false;
-                    e = false;
+                    g = false;
                     l = false;
+                    u = false;
+                    p = false;
+                    s = false;
+                    k = false;
+                    a = false;
                 }
 
-                if (Input.GetKey(KeyCode.J))
+                if (Input.GetKey(KeyCode.G))
                 {
-                    timer = 1;
-                    j = true;
+                    timer = 2;
+                    g = true;
                 }
-                else if (Input.GetKey(KeyCode.O) && j)
-                {
-                    o = true;
-                }
-                else if (Input.GetKey(KeyCode.E) && j && o)
-                {
-                    e = true;
-                }
-                else if(Input.GetKey(KeyCode.L) && j && o && e)
+                else if (Input.GetKey(KeyCode.L) && g)
                 {
                     l = true;
                 }
+                else if (Input.GetKey(KeyCode.U) && g && l)
+                {
+                    u = true;
+                }
+                else if(Input.GetKey(KeyCode.P) && g && l && u)
+                {
+                    p = true;
+                }
+                else if (Input.GetKey(KeyCode.S) && g && l && u && p)
+                {
+                    s = true;
+                }
+                else if (Input.GetKey(KeyCode.K) && g && l && u && p && s)
+                {
+                    k = true;
+                }
+                else if (Input.GetKey(KeyCode.A) && g && l && u && p && s && k)
+                {
+                    a = true;
+                }
                 else
                 {
-                    j = false;
-                    o = false;
-                    e = false;
+                    g = false;
                     l = false;
+                    u = false;
+                    p = false;
+                    s = false;
+                    k = false;
+                    a = false;
                 }
-                if(l && e && o && j)
+                if(a && k && s && p && u && l && g)
                     cheatsEnabled = true;
             }
 
