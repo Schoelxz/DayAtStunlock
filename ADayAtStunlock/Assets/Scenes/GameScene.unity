@@ -8810,6 +8810,7 @@ GameObject:
   - component: {fileID: 1168330437}
   - component: {fileID: 1168330438}
   - component: {fileID: 1168330439}
+  - component: {fileID: 1168330440}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9066,6 +9067,18 @@ MonoBehaviour:
   iconSpriteRepairNoBackground: {fileID: 21300000, guid: 15d93f0e4c34e7746a7cf9dd513dd5b7,
     type: 3}
   iconSpriteShaky: {fileID: 21300000, guid: c584879138f31c146b14346109310c1d, type: 3}
+--- !u!114 &1168330440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2aa32004d3ebac4f9fabe442b1e73cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bollPrefab: {fileID: 1900424786016214, guid: b617be99470be424bbc7cd7dc862457f, type: 2}
 --- !u!1001 &1170073839
 Prefab:
   m_ObjectHideFlags: 0
