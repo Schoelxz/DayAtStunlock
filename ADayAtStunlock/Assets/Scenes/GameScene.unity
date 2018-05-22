@@ -3495,6 +3495,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fcc4b772179515a44aa74634c4a920aa, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &408952719 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114341448985823040, guid: a5599595a2371c9439b771918965d77b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1738015320}
+  m_Script: {fileID: 11500000, guid: ffe6d05e84edf9d45b8d243451da74a4, type: 3}
 --- !u!1001 &409154208
 Prefab:
   m_ObjectHideFlags: 0
@@ -7623,6 +7629,15 @@ Prefab:
     - target: {fileID: 4043259474324848, guid: a5599595a2371c9439b771918965d77b, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
+        type: 2}
+      propertyPath: randomSeed
+      value: -217003880
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509263091804028, guid: a5599595a2371c9439b771918965d77b, type: 2}
+      propertyPath: m_Name
+      value: SnowParticles (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5599595a2371c9439b771918965d77b, type: 2}
@@ -13787,11 +13802,11 @@ Prefab:
     - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
       propertyPath: randomSeed
-      value: -350768373
+      value: 1445002109
       objectReference: {fileID: 0}
     - target: {fileID: 1509263091804028, guid: a5599595a2371c9439b771918965d77b, type: 2}
       propertyPath: m_Name
-      value: SnowParticles (1)
+      value: SnowParticles (2)
       objectReference: {fileID: 0}
     - target: {fileID: 198444936622319564, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
@@ -13848,7 +13863,7 @@ Prefab:
         type: 2}
       propertyPath: snowControl
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 408952719}
     - target: {fileID: 1529159282542520, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
       propertyPath: m_Name
       value: Radiator (2)
@@ -13891,6 +13906,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1758113461 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114341448985823040, guid: a5599595a2371c9439b771918965d77b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1960590557}
+  m_Script: {fileID: 11500000, guid: ffe6d05e84edf9d45b8d243451da74a4, type: 3}
 --- !u!1 &1766322254 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1286641746594060, guid: a8fb1c3e08ed06f43877b5a8d1fe1e19,
@@ -15557,11 +15578,11 @@ Prefab:
     - target: {fileID: 198465049496058290, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
       propertyPath: randomSeed
-      value: -833563343
+      value: -440202369
       objectReference: {fileID: 0}
     - target: {fileID: 1509263091804028, guid: a5599595a2371c9439b771918965d77b, type: 2}
       propertyPath: m_Name
-      value: SnowParticles (2)
+      value: SnowParticles
       objectReference: {fileID: 0}
     - target: {fileID: 198444936622319564, guid: a5599595a2371c9439b771918965d77b,
         type: 2}
@@ -16930,7 +16951,7 @@ Prefab:
         type: 2}
       propertyPath: snowControl
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1758113461}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 167fb50c1b72bd248b16a56e8b1d2346, type: 2}
   m_IsPrefabParent: 0
