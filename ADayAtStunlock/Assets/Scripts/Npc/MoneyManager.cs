@@ -23,7 +23,7 @@ public class MoneyManager : MonoBehaviour
 
     static public float moneyLost;
 
-    private float m_moneyChangeLastFrame;
+    private static float m_moneyChangeLastFrame;
     
     float timer;
     bool run;
@@ -36,7 +36,7 @@ public class MoneyManager : MonoBehaviour
         highscoreListScreen = HighscoreListScreen.thisInstance;
         moneyLost = 0;
         highscorePoints = 0;
-        startMoney = 12500;
+        startMoney = 20000;
         currentMoney = startMoney;
         m_moneyChangeLastFrame = startMoney;
         run = false;
@@ -125,5 +125,16 @@ public class MoneyManager : MonoBehaviour
         }
         else
             Debug.LogWarning("LoseGame was called with a null HighscoreList");
+    }
+
+    public static bool IsEarningMoney
+    {
+        get
+        {
+            if (currentMoney > m_moneyChangeLastFrame)
+                return true;
+            else
+                return false;
+        }
     }
 }

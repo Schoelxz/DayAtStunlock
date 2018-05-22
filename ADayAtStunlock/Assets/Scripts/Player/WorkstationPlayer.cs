@@ -35,6 +35,11 @@ public class WorkstationPlayer : MonoBehaviour
     
     void FixedUpdate()
     {
+        if (!MoneyManager.IsEarningMoney && !particleSystemMoneyLost.isPlaying)
+            particleSystemMoneyLost.Play();
+        else if (MoneyManager.IsEarningMoney)
+            particleSystemMoneyLost.Stop();
+
         if (isWorking)
         {
             //Pulls the player towards the workstation.
@@ -43,8 +48,10 @@ public class WorkstationPlayer : MonoBehaviour
             MoneyManager.GenerateMoney();
 
             //Unhide particle emission
-            if(!particleSystemMoneyGained.isPlaying)
+            if (!particleSystemMoneyGained.isPlaying && MoneyManager.IsEarningMoney)
                 particleSystemMoneyGained.Play();
+            else if (!MoneyManager.IsEarningMoney)
+                particleSystemMoneyGained.Stop();
         }
         else
         {

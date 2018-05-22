@@ -184,6 +184,10 @@ public class AudioManager : MonoBehaviour {
         UpdateSoundVolumeAll();
 
     }
+    public float GetMasterVolume()
+    {
+        return masterVolume;
+    }
 
     public void UpdateSoundVolumeAll()
     {

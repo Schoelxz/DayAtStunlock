@@ -101,7 +101,10 @@ namespace DAS
             s_npcList.Add(this);
 
             /// Assign Values
-            myFeelings = new Feelings(1.0f, 1.0f);
+            if(NPC.s_npcList.Count % 4 == 3)
+                myFeelings = new Feelings(0.2f, 0.2f);
+            else
+                myFeelings = new Feelings(1f, 1f);
 
             Random.State oldState = Random.state;
             Random.InitState(name.Length);
@@ -205,6 +208,10 @@ namespace DAS
         public Transform[] spawnLocations = new Transform[2];
         // Wether to show/use GUI or not.
         public bool toggleGUI = true;
+
+        //NPC Materials
+        public Material[] headMaterial;
+        public Material[] bodyMaterial;
 
         // Keeps track of NPCs.
         List<GameObject> npcList = new List<GameObject>();
@@ -432,7 +439,19 @@ namespace DAS
             tempNPC.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
             tempNPC.myWorkSeat = new WorkSeat(WorkSeatManager.myInstance.gameobjectSeats[tempNPC.name].gameObject, tempNPC);
             tempNPC.gameObject.transform.parent = npcFolder.transform;
+
+            //Assign Material
+            //tempNPC.GetComponentInChildren<ModelChanger>().GetComponent<SkinnedMeshRenderer>().materials[0] = bodyMaterial[npcList.Count % headMaterial.Length];
+            //tempNPC.GetComponentInChildren<ModelChanger>().GetComponent<SkinnedMeshRenderer>().materials[1] = headMaterial[npcList.Count % bodyMaterial.Length];
+            //Debug.Log(npcList.Count % headMaterial.Length);
+            // Debug.Log(tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().gameObject.name);
+            Debug.Log(tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().materials[0] == tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().material);
+            Debug.Log(bodyMaterial[npcList.Count % headMaterial.Length]);
+            Material[] myMaterials = { bodyMaterial[npcList.Count % headMaterial.Length], headMaterial[npcList.Count % bodyMaterial.Length] };
+            tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().materials = myMaterials;
+            
         }
+
 
         /// <summary>
         /// Sets average values of all NPCs feelings.

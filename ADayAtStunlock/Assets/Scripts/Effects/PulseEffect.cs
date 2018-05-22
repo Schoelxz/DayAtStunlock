@@ -25,8 +25,8 @@ public class PulseEffect : MonoBehaviour
     private float timeForther;
     private bool timeForthed = false;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    private void Awake()
     {
         myButton = GetComponent<Button>();
         myButtonRectTransform = myButton.transform as RectTransform;

@@ -121,6 +121,8 @@ public class RandomEventTrigger : MonoBehaviour
     private List<float> motivationList = new List<float>();
     private int motivationLossDuration;
 
+    private System.Action lastEvent;
+
     //Radiator stuff
     private Radiator[] radiators;
 
@@ -134,7 +136,10 @@ public class RandomEventTrigger : MonoBehaviour
     private int eventDelayMedium;
     private int eventDelayHard;
 
+    //Amount of events that have been called.
     private int eventCounter = 0;
+    //Amount trigger function has been called.
+    private int eventTrigger = 0;
 
     void Start ()
     {
@@ -163,7 +168,6 @@ public class RandomEventTrigger : MonoBehaviour
         if(DifficultyManager.difficultyScalingEnabled)
         {
             randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(AlienEvent);
             randomEvents.Add(ToiletBreaksEvent);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
         }
@@ -188,13 +192,23 @@ public class RandomEventTrigger : MonoBehaviour
         s_allEvents.Add(ToiletBreaksEvent);
         s_allEvents.Add(DAS.ToiletSystem.s_myInstance.EveryoneNeedsToiletEvent);
         s_allEvents.Add(DAS.NpcCreator.ToggleGUICheat);
+        s_allEvents.Add(BollHav.MyInstance.StartBollHav);
     }
 
     void TriggerRandomEvent()
     {
+        eventTrigger++;
         Random.State oldState = Random.state;
-        Random.InitState(eventCounter);
-        EventDisplay.FunctionTriggered(randomEvents[Random.Range(0, randomEvents.Count)]);
+        Random.InitState(eventCounter + eventTrigger);
+        int eventToTrigger = Random.Range(0, randomEvents.Count);
+
+        if (lastEvent == randomEvents[eventToTrigger])
+        {
+            TriggerRandomEvent();
+            return;
+        }
+        else
+            lastEvent = EventDisplay.FunctionTriggered(randomEvents[eventToTrigger]);
         eventCounter++;
         Random.state = oldState;
     }
@@ -205,7 +219,9 @@ public class RandomEventTrigger : MonoBehaviour
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
             CancelInvoke("TriggerRandomEvent");
+            randomEvents.Add(AlienEvent);
             randomEvents.Add(TrainEvent);
+            randomEvents.Add(BollHav.MyInstance.StartBollHav);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);
         }
 
@@ -217,6 +233,7 @@ public class RandomEventTrigger : MonoBehaviour
             randomEvents.Add(TrainEvent);
             randomEvents.Add(ToiletBreaksEvent);
             randomEvents.Add(RadiatorEvent);
+            randomEvents.Add(BollHav.MyInstance.StartBollHav);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayHard);
         }
     }
