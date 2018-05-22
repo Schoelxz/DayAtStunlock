@@ -42,8 +42,8 @@ public class DifficultyManager : MonoBehaviour {
         }
     }
 
-    DAS.NpcCreator npcCreator;
-    RandomEventTrigger randomEvent;
+    //private DAS.NpcCreator npcCreator;
+    private RandomEventTrigger m_randomEvent;
 
     private void Awake()
     {
@@ -61,8 +61,8 @@ public class DifficultyManager : MonoBehaviour {
 
         currentDifficulty = Difficulty.Easy;
 
-        npcCreator = GameObject.FindObjectOfType<DAS.NpcCreator>();
-        randomEvent = GameObject.FindObjectOfType<RandomEventTrigger>();
+        //npcCreator = GameObject.FindObjectOfType<DAS.NpcCreator>();
+        m_randomEvent = GameObject.FindObjectOfType<RandomEventTrigger>();
 	}
 	
 	// Update is called once per frame
@@ -72,19 +72,20 @@ public class DifficultyManager : MonoBehaviour {
         {
             if (DAS.TimeSystem.TimePassedSeconds > mediumDifficultyDelay && currentDifficulty == Difficulty.Easy)
             {
-                npcCreator.MaxAllowedNpcs = DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount;
+                //Unused
+                //npcCreator.MaxAllowedNpcs = DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount;
 
                 if (DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count) //When all npcs have spawned, we can increase the difficulty and move on
                 {
                     currentDifficulty = Difficulty.Medium;
-                    randomEvent.WhenDifficultyIncreases();
+                    m_randomEvent.WhenDifficultyIncreases();
                 }
             }
 
             if (DAS.TimeSystem.TimePassedSeconds > hardDifficultyDelay && currentDifficulty == Difficulty.Medium)
             {
                 currentDifficulty = Difficulty.Hard;
-                randomEvent.WhenDifficultyIncreases();
+                m_randomEvent.WhenDifficultyIncreases();
             }
         }
         
