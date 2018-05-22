@@ -168,7 +168,6 @@ public class RandomEventTrigger : MonoBehaviour
         if(DifficultyManager.difficultyScalingEnabled)
         {
             randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(AlienEvent);
             randomEvents.Add(ToiletBreaksEvent);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
         }
@@ -220,6 +219,7 @@ public class RandomEventTrigger : MonoBehaviour
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
             CancelInvoke("TriggerRandomEvent");
+            randomEvents.Add(AlienEvent);
             randomEvents.Add(TrainEvent);
             randomEvents.Add(BollHav.MyInstance.StartBollHav);
             InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);

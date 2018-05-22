@@ -143,7 +143,7 @@ namespace DAS
                 if (m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef == null)
                     m_icons[DAS.NPC.s_npcList.IndexOf(npc)].myNpcRef = npc;
 
-                if (npc.myFeelings.TotalFeelings >= 0.1f)
+                if (npc.myFeelings.TotalFeelings >= 0.4f)
                     continue;
 
                 Vector2 pos;
@@ -181,7 +181,7 @@ namespace DAS
                 if (icon.myNpcRef == null)
                     continue;
 
-                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0.1f)
+                if (icon.myNpcRef.myFeelings.TotalFeelings <= 0.4f)
                     icon.MyGameObject.SetActive(true);
                 else
                     continue;

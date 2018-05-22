@@ -101,7 +101,10 @@ namespace DAS
             s_npcList.Add(this);
 
             /// Assign Values
-            myFeelings = new Feelings(1.0f, 1.0f);
+            if(NPC.s_npcList.Count % 4 == 3)
+                myFeelings = new Feelings(0.2f, 0.2f);
+            else
+                myFeelings = new Feelings(1f, 1f);
 
             Random.State oldState = Random.state;
             Random.InitState(name.Length);
