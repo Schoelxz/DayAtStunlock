@@ -64,6 +64,7 @@ public class MenuNavigator : MonoBehaviour
             DAS.TimeSystem.TimePassedSeconds = 0;
             GotoGameCanvas();
             splashScreen.SetActive(true);
+            DAS.TimeSystem.PauseTime();
         }
 
 
