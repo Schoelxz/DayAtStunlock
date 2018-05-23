@@ -26,6 +26,8 @@ public class MenuNavigator : MonoBehaviour
     private GameObject m_InGameMenu;
     private Canvas m_DefaultCanvas;
 
+    public GameObject splashScreen;
+
     private void Awake()
     {
         // if copies of this script is created, destroy the copy (aswell as the gameobject it sits on).
@@ -61,6 +63,7 @@ public class MenuNavigator : MonoBehaviour
         {
             DAS.TimeSystem.TimePassedSeconds = 0;
             GotoGameCanvas();
+            splashScreen.SetActive(true);
         }
 
 
