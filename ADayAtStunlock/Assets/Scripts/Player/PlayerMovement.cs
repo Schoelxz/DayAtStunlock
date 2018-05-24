@@ -44,7 +44,8 @@ namespace DAS
         {
             KeyboardMovement();
 
-            MouseMovement();
+            //No more mouse movement.
+            //MouseMovement();
         }
 
         private void MouseMovement()
