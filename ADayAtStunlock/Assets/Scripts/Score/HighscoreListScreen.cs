@@ -9,6 +9,8 @@ public class HighscoreListScreen : MonoBehaviour {
     
     Text[] scores;
 
+    Text[] times;
+
     public static HighscoreListScreen thisInstance;
 
     InputField inputField;
@@ -33,6 +35,8 @@ public class HighscoreListScreen : MonoBehaviour {
 
         scores = gameObject.transform.Find("LeftPanel").transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
 
+        times = gameObject.transform.Find("LeftPanel").transform.Find("Times").gameObject.GetComponentsInChildren<Text>(true);
+
         inputField = gameObject.GetComponentInChildren<InputField>();
         inputField.contentType = InputField.ContentType.Alphanumeric;
         inputField.onEndEdit.AddListener(delegate { SaveName(); });
@@ -43,15 +47,20 @@ public class HighscoreListScreen : MonoBehaviour {
 
         foreach (var item in names)
         {
-            item.text = "";
+            item.text = "-";
         }
 
         foreach (var item in scores)
         {
-            item.text = "";
+            item.text = "-";
         }
 
-        foreach(var item in buttons)
+        foreach (var item in times)
+        {
+            item.text = "-";
+        }
+
+        foreach (var item in buttons)
         {
             item.gameObject.SetActive(false);
         }
@@ -64,6 +73,7 @@ public class HighscoreListScreen : MonoBehaviour {
         {
             names[i].text = Highscore.scores[i].Name;
             scores[i].text = Highscore.scores[i].Amount.ToString("n0");
+            times[i].text = Highscore.scores[i].Time.ToString("n0");
         }
     }
 
@@ -83,11 +93,11 @@ public class HighscoreListScreen : MonoBehaviour {
     {
         if(inputField.text.Length > 0)
         {
-            Highscore.AddHighscore(inputField.text, (int)MoneyManager.highscorePoints);
+            Highscore.AddHighscore(inputField.text, (int)MoneyManager.highscorePoints, (int)DAS.TimeSystem.TimePassedSeconds);
         }
         else
         {
-            Highscore.AddHighscore("Noname", (int)MoneyManager.highscorePoints);
+            Highscore.AddHighscore("Noname", (int)MoneyManager.highscorePoints, (int)DAS.TimeSystem.TimePassedSeconds);
         }
         Highscore.SortHighscore();
         Highscore.SaveHighscore();

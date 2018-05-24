@@ -24,11 +24,13 @@ public class Highscore : MonoBehaviour {
     {
         public string Name { get; set; }
         public int Amount { get; set; }
+        public int Time { get; set; }
 
-        public Score(int amount, string name)
+        public Score(int amount, string name, int time)
         {
             Amount = amount;
             Name = name;
+            Time = time;
         }
     }
 
@@ -48,17 +50,17 @@ public class Highscore : MonoBehaviour {
  
         for (int i = 0; i < scores.Count; i++)
         {
-            writer.WriteLine(scores[i].Amount + " " + scores[i].Name);
+            writer.WriteLine(scores[i].Amount + " " + scores[i].Name + " " + scores[i].Time);
         }
 
         writer.Close();
     }
 
-    static public void AddHighscore(string name, int score)
+    static public void AddHighscore(string name, int score, int time)
     {
         if(CheckIfAdded(name,score) == false)
         {
-            scores.Add(new Score(score, name));
+            scores.Add(new Score(score, name, time));
         }
     }
 
@@ -88,7 +90,7 @@ public class Highscore : MonoBehaviour {
                 continue;
             int asdfgh;
             if (int.TryParse(parts[0], out asdfgh))
-                scores.Add(new Score(int.Parse(parts[0]), parts[1]));
+                scores.Add(new Score(int.Parse(parts[0]), parts[1], int.Parse(parts[2])));
             else
                 Debug.LogWarning("Highscore tried parsing an string as int, but failed. String was: " + parts[0]);
         }
