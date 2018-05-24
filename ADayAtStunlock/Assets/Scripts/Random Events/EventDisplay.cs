@@ -72,7 +72,7 @@ public class EventDisplay : MonoBehaviour
         //Calls the function (so it actually happens)
         function();
 
-        Debug.Log(function.Method.Name);
+       // Debug.Log(function.Method.Name);
 
         currentMethodPlayed = "Current Event: \n" + function.Method.Name;
 
