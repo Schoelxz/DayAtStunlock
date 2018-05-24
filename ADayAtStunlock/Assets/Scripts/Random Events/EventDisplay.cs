@@ -58,9 +58,9 @@ public class EventDisplay : MonoBehaviour
         }
 
         GUI.Box(new Rect(Screen.width - 540, 25, 240, 25), "Event history:");
-        foreach (var item in RandomEventTrigger.eventHistory)
+        foreach (var item in RandomEventTrigger.s_eventHistory)
         {
-            GUI.Box(new Rect(Screen.width - 540, 50 + (25 * RandomEventTrigger.eventHistory.IndexOf(item)), 240, 25), item);
+            GUI.Box(new Rect(Screen.width - 540, 50 + (25 * RandomEventTrigger.s_eventHistory.IndexOf(item)), 240, 25), item);
         }
 
         GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 50, 120, 38), "Current Difficulty: \n" + DifficultyManager.currentDifficulty.ToString());
