@@ -209,6 +209,8 @@ public class RandomEventTrigger : MonoBehaviour
     /// </summary>
     public void WhenDifficultyIncreases()
     {
+        BollHav.MyInstance.StartBollHav();
+
         //Medium Difficulty
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
