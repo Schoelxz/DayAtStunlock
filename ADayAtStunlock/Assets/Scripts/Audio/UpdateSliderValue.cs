@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class UpdateSliderValue : MonoBehaviour {
 
-    //Slider audioSlider;
+    Slider audioSlider;
     Text audioVolumeText;
 
     private void Start()
     {
-       // audioSlider = GetComponent<Slider>();
+        audioSlider = GetComponent<Slider>();
         audioVolumeText = GetComponentInChildren<Text>();
     }
     // Update is called once per frame
     void Update ()
     {
         audioVolumeText.text = (AudioManager.instance.GetMasterVolume() * 100).ToString();
+        audioSlider.value = AudioManager.instance.GetMasterVolume();
     }
 }
