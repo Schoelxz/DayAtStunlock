@@ -87,7 +87,7 @@ public class SpaceshipMovement : MonoBehaviour
                 random.aliens[index].GetComponent<NavMeshAgent>().acceleration += 8;
                 random.aliens[index].GetComponent<NavMeshAgent>().angularSpeed += 80;
 
-                effects.PlayEffectAt(transform.position,"SpaceshipLight");
+                effects.PlayEffectAt(transform.position, new Vector3(0,-1,0),"SpaceshipLight");
                 //Play sound effect here Tomas
             }
             else if(waited == true)
