@@ -42,8 +42,8 @@ public class DisplayScoreList : MonoBehaviour {
         for (int i = 0; i < Highscore.scores.Count; i++)
         {
             names[i].text = Highscore.scores[i].Name;
-            scores[i].text = Highscore.scores[i].Amount.ToString("n0");
-            times[i].text = Highscore.scores[i].Time.ToString("n0");
+            scores[i].text = Highscore.scores[i].Amount.ToString("n0") + " PTS";
+            times[i].text = Highscore.scores[i].Time.ToString("n0") + " s";
         }
     }
 }
