@@ -6,15 +6,18 @@ namespace DAS
 {
     public class CameraMovement : MonoBehaviour
     {
-        [SerializeField] private GameObject m_playerRef;
+        [SerializeField]
+        private GameObject m_playerRef;
         private Quaternion m_targetRotation;
+
         [Header("Camera rotation speed")]
         [Range(0.01f, 1f)]
-        [SerializeField]
+        //[SerializeField]
         private float speed = 0.1f;
+
         [Header("Indicates how far the camera will rotate")]
         [Range(20f, 90f)]
-        [SerializeField]
+        //[SerializeField]
         private float m_rotationStep = 45f;
         private float m_destinationRotation;
 
@@ -37,6 +40,15 @@ namespace DAS
             // sets the posison of the of the script user to that of the object in  m_playerRef
             this.transform.position = new Vector3(m_playerRef.transform.position.x, m_playerRef.transform.position.y, m_playerRef.transform.position.z);
 
+            //if (Input.anyKey)
+               // CheckInput();
+
+            //the acual change that is happening over time
+            transform.rotation = Quaternion.Lerp(transform.rotation, m_targetRotation, speed);
+        }
+
+        private void CheckInput()
+        {
             //when you press down Q you turn the camra to the left
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -51,9 +63,6 @@ namespace DAS
                 m_targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, m_destinationRotation - m_rotationStep, transform.rotation.eulerAngles.z);
                 m_destinationRotation -= m_rotationStep;
             }
-
-            //the acual change that is happening over time
-            transform.rotation = Quaternion.Lerp(transform.rotation, m_targetRotation, speed);
         }
     }
 }
