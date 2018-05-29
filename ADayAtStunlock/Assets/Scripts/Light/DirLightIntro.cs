@@ -11,7 +11,9 @@ public class DirLightIntro : MonoBehaviour
 	void Start ()
     {
         dirLight = GetComponent<Light>();
-	}
+        dirLight.intensity = 0;
+
+    }
 	
 	// Update is called once per frame
 	void Update ()

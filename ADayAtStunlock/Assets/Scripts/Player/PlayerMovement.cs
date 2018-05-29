@@ -38,13 +38,16 @@ namespace DAS
         {
             if (Input.anyKey || Input.GetMouseButtonUp(0))
                 CheckInput();
+
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+            {
+               m_agentRef.isStopped = true;
+            }
         }
 
         private void CheckInput()
         {
             KeyboardMovement();
-
-            MouseMovement();
         }
 
         private void MouseMovement()

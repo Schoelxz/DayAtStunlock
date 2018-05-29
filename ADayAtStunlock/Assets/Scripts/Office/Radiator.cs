@@ -76,7 +76,7 @@ public class Radiator : MonoBehaviour
     private RectTransform buttonRectTransform;
     private Canvas fixCanvas;
     private Radiator m_radiator;
-    private DAS.PlayerMovement m_playerMovement;
+   // private DAS.PlayerMovement m_playerMovement;
 
 
     void Start ()
@@ -85,7 +85,7 @@ public class Radiator : MonoBehaviour
         fixCanvas = fixButton.transform.parent.GetComponent<Canvas>();
         buttonRectTransform = fixButton.GetComponent<RectTransform>();
         m_radiator = GetComponent<Radiator>();
-        m_playerMovement = FindObjectOfType<DAS.PlayerMovement>();
+       // m_playerMovement = FindObjectOfType<DAS.PlayerMovement>();
 
         fixButton.gameObject.SetActive(false);
     }

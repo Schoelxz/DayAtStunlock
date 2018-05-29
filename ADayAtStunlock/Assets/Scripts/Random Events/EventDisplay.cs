@@ -31,8 +31,8 @@ public class EventDisplay : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!DAS.DBUG.CheatsToCheat.CheatsEnabled)
-            return;
+        //if (!DAS.DBUG.CheatsToCheat.CheatsEnabled)
+        //    return;
 
         if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 50), "Toggle GUI"))
         {
@@ -57,6 +57,12 @@ public class EventDisplay : MonoBehaviour
             amountOfEvents++;
         }
 
+        GUI.Box(new Rect(Screen.width - 540, 25, 240, 25), "Event history:");
+        foreach (var item in RandomEventTrigger.s_eventHistory)
+        {
+            GUI.Box(new Rect(Screen.width - 540, 50 + (25 * RandomEventTrigger.s_eventHistory.IndexOf(item)), 240, 25), item);
+        }
+
         GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 50, 120, 38), "Current Difficulty: \n" + DifficultyManager.currentDifficulty.ToString());
         GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 100, 120, 75), "Next difficulty in: \n" + DifficultyManager.s_myInstance.timeTilNextDifficulty + "\n at timestamp: \n" + DifficultyManager.s_myInstance.timeAtNextDifficulty);
     }
@@ -66,7 +72,7 @@ public class EventDisplay : MonoBehaviour
         //Calls the function (so it actually happens)
         function();
 
-        Debug.Log(function.Method.Name);
+       // Debug.Log(function.Method.Name);
 
         currentMethodPlayed = "Current Event: \n" + function.Method.Name;
 

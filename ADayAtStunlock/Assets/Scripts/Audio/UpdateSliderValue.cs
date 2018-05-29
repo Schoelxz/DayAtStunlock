@@ -14,8 +14,9 @@ public class UpdateSliderValue : MonoBehaviour {
         audioVolumeText = GetComponentInChildren<Text>();
     }
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         audioVolumeText.text = (AudioManager.instance.GetMasterVolume() * 100).ToString();
-
+        audioSlider.value = AudioManager.instance.GetMasterVolume();
     }
 }

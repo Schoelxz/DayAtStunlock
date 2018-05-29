@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class RandomEventTrigger : MonoBehaviour
 {
-    public static List<System.Action> randomEvents = new List<System.Action>(); //Add random event functions here
-    public static List<System.Action> s_allEvents = new List<System.Action>(); //All events that exists.
-
-    /// <summary>
-    /// All the events which gets added to the random event list.
-    /// </summary>
+    // Some of the events which gets added to the random event list.
     #region Events:
     #region Train
     private bool hasMotivationReset = true;
@@ -17,7 +12,7 @@ public class RandomEventTrigger : MonoBehaviour
     {
         if (!hasMotivationReset)
             return;
-        motivationList.Clear();
+        m_motivationList.Clear();
         ScreenShake.shakeDuration = shakeDuration;
 
         //Turn on trains
@@ -29,18 +24,18 @@ public class RandomEventTrigger : MonoBehaviour
         hasMotivationReset = false;
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            motivationList.Add(npc.myFeelings.Motivation);
+            m_motivationList.Add(npc.myFeelings.Motivation);
             npc.myFeelings.Motivation = 0;
         }
 
-        Invoke("ResetMotivation", motivationLossDuration);
+        Invoke("ResetMotivation", m_motivationLossDuration);
     }
 
     void ResetMotivation()
     {
-        for (int i = 0; i < motivationList.Count - 1; i++)
+        for (int i = 0; i < m_motivationList.Count - 1; i++)
         {
-            DAS.NPC.s_npcList[i].myFeelings.Motivation += motivationList[i];
+            DAS.NPC.s_npcList[i].myFeelings.Motivation += m_motivationList[i];
         }
         hasMotivationReset = true;
         //Turn off trains
@@ -57,46 +52,34 @@ public class RandomEventTrigger : MonoBehaviour
     #endregion
 
     #region Radiator
-
     void RadiatorEvent()
     {
-        bool foundBroken = false;
         for (int i = 0; i < 8; i++)
         {
             Radiator radiator;
-            if ((radiator = radiators[Random.Range(0, radiators.Length)]).isBroken == false)//Checks if the random radiator is broken, if not, it makes it broken and hops out of the loop.
+            if ((radiator = radiators[UnityEngine.Random.Range(0, radiators.Length)]).isBroken == false)//Checks if the random radiator is broken, if not, it makes it broken and hops out of the loop.
             {
                 radiator.RadiatorStart();
-                foundBroken = true;
                 break;
             }
         }
-
-        if (foundBroken == false)
-        {
-            TriggerRandomEvent();
-        }
     }
-
     #endregion
 
     #region Aliens
-
     void AlienEvent()
     {
         DAS.NPC npc;
 
-        for (int i = 0; i < alienCount; i++)
+        for (int i = 0; i < m_alienCount; i++)
         {
-            if ((npc = DAS.NPC.s_npcList[Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false && !aliens.Contains(npc))
+            if ((npc = DAS.NPC.s_npcList[UnityEngine.Random.Range(0, DAS.NPC.s_npcList.Count)]).GetComponent<ModelChanger>().isAlien == false && !aliens.Contains(npc))
             {
                 aliens.Add(npc);
             }
         }
-        spaceshipMovement.updateSpaceship = true;
+        m_spaceshipMovement.updateSpaceship = true;
     }
-    
-
     #endregion
 
     #region Toilet
@@ -108,80 +91,92 @@ public class RandomEventTrigger : MonoBehaviour
     #endregion
     #endregion
 
-    //Train Stuff
+    #region Variables
+    /// <summary>
+    /// List of events that are played in order of the list.
+    /// </summary>
+    private static List<System.Action> s_orderedEventList = new List<System.Action>();
+    /// <summary>
+    /// List of names of events that has been played, ordered from first played event to last played event.
+    /// </summary>
+    public static List<string> s_eventHistory = new List<string>();
+    /// <summary>
+    /// All events that exists (used for cheats).
+    /// </summary>
+    public static List<System.Action> s_allEvents = new List<System.Action>(); 
+    /// <summary>
+    /// Most recent event that was played.
+    /// </summary>
+    private System.Action m_lastEvent;
+
     [Range(1, 20)]
     [Tooltip("Determines for how long it will shake when event is triggered. Also determines how long NPCs motivation is lost (shake duration + 5 = motivation loss duration)!")]
     public int shakeDuration = 6;
-    //TrainPrefab
     [SerializeField]
-    //[Tooltip("Put TrainEventPrefab here")]
-    Animator m_trainTrack;
+    private Animator m_trainTrack;
     [SerializeField]
-    Animator m_train;
-    private List<float> motivationList = new List<float>();
-    private int motivationLossDuration;
+    private Animator m_train;
+    private List<float> m_motivationList = new List<float>();
+    private int m_motivationLossDuration;
 
-    private System.Action lastEvent;
-
-    //Radiator stuff
     private Radiator[] radiators;
 
-    //Spaceship stuff
-    private int alienCount;
     public List<DAS.NPC> aliens = new List<DAS.NPC>();
-    private SpaceshipMovement spaceshipMovement;
+    private int m_alienCount;
+    private SpaceshipMovement m_spaceshipMovement;
 
-    //AudioManager.instance AudioManager.instance;
-    private int eventDelayEasy;
-    private int eventDelayMedium;
-    private int eventDelayHard;
+    private int m_eventDelayEasy, m_eventDelayMedium, m_eventDelayHard;
 
     //Amount of events that have been called.
-    private int eventCounter = 0;
-    //Amount trigger function has been called.
-    private int eventTrigger = 0;
+    private int m_eventCounter = 0;
+    #endregion
 
     void Start ()
     {
         //Clear the list of events on Start (to avoid filling the list on restarts)
-        randomEvents.Clear();
+        s_orderedEventList.Clear();
         s_allEvents.Clear();
-
-        //As name implies
-        AddAllEventsToAllEventsList();
+        s_eventHistory.Clear();
 
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
-        motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
+        m_motivationLossDuration = Mathf.Clamp(shakeDuration + 3, 0, 25);
 
         //Spaceship stuff
-        spaceshipMovement = GameObject.FindObjectOfType<SpaceshipMovement>();
-        alienCount = 8;
+        m_spaceshipMovement = GameObject.FindObjectOfType<SpaceshipMovement>();
+        m_alienCount = 8;
 
         //Radiator stuff
         radiators = FindObjectsOfType<Radiator>();
 
-        eventDelayEasy = 50;
-        eventDelayMedium = 40;
-        eventDelayHard = 20;
+        m_eventDelayEasy = 50;
+        m_eventDelayMedium = 30;
+        m_eventDelayHard = 15;
 
-        if(DifficultyManager.difficultyScalingEnabled)
-        {
-            randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(ToiletBreaksEvent);
-            InvokeRepeating("TriggerRandomEvent", 20, eventDelayEasy);
-        }
-        else
-        {
-            randomEvents.Add(AlienEvent);
-            randomEvents.Add(TrainEvent);
-            randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(ToiletBreaksEvent);
-            StartCoroutine(StartInvokeRepeatingWhen());
-        }
+        //Event order
+        AddEventOrder();
 
-        //AudioManager.instance = FindObjectOfType<AudioManager.instance>();
+        //Start events
+        StartCoroutine(TriggerEventsInOrder(m_eventDelayEasy, m_eventDelayEasy));
+
+        AddAllEventsToAllEventsList();
+
         Debug.Assert(AudioManager.instance, "No AudioManager.instance exists!!!");
+    }
+
+    private void AddEventOrder()
+    { 
+        s_orderedEventList.Add(RadiatorEvent);
+        s_orderedEventList.Add(ToiletBreaksEvent);
+        s_orderedEventList.Add(AlienEvent);
+        s_orderedEventList.Add(RadiatorEvent);
+        s_orderedEventList.Add(TrainEvent);
+        s_orderedEventList.Add(BollHav.MyInstance.StartBollHav);
+        s_orderedEventList.Add(RadiatorEvent);
+        s_orderedEventList.Add(BollHav.MyInstance.StartBollHav);
+        s_orderedEventList.Add(ToiletBreaksEvent);
+        s_orderedEventList.Add(TrainEvent);
+        s_orderedEventList.Add(BollHav.MyInstance.StartBollHav);
     }
 
     private void AddAllEventsToAllEventsList()
@@ -195,62 +190,39 @@ public class RandomEventTrigger : MonoBehaviour
         s_allEvents.Add(BollHav.MyInstance.StartBollHav);
     }
 
-    void TriggerRandomEvent()
+    private IEnumerator TriggerEventsInOrder(float startWaitTime, float loopWaitTime)
     {
-        eventTrigger++;
-        Random.State oldState = Random.state;
-        Random.InitState(eventCounter + eventTrigger);
-        int eventToTrigger = Random.Range(0, randomEvents.Count);
+        yield return new WaitForSeconds(startWaitTime);
 
-        if (lastEvent == randomEvents[eventToTrigger])
+        while (true)
         {
-            TriggerRandomEvent();
-            return;
+            m_lastEvent = EventDisplay.FunctionTriggered(s_orderedEventList[m_eventCounter++ % s_orderedEventList.Count]);
+
+            s_eventHistory.Add(m_lastEvent.Method.Name + " " + m_eventCounter);
+
+            yield return new WaitForSeconds(loopWaitTime);
         }
-        else
-            lastEvent = EventDisplay.FunctionTriggered(randomEvents[eventToTrigger]);
-        eventCounter++;
-        Random.state = oldState;
     }
 
+    /// <summary>
+    /// Called from DifficultyManager when difficulty is bumped up.
+    /// </summary>
     public void WhenDifficultyIncreases()
     {
+        BollHav.MyInstance.StartBollHav();
+
         //Medium Difficulty
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
         {
-            CancelInvoke("TriggerRandomEvent");
-            randomEvents.Add(AlienEvent);
-            randomEvents.Add(TrainEvent);
-            randomEvents.Add(BollHav.MyInstance.StartBollHav);
-            InvokeRepeating("TriggerRandomEvent", 20, eventDelayMedium);
+            StopAllCoroutines();
+            StartCoroutine(TriggerEventsInOrder(20, m_eventDelayMedium));
         }
 
         //Hard difficulty
         if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
         {
-            CancelInvoke("TriggerRandomEvent");
-            //Add events to randomevents list here if we have any new ones.
-            randomEvents.Add(TrainEvent);
-            randomEvents.Add(ToiletBreaksEvent);
-            randomEvents.Add(RadiatorEvent);
-            randomEvents.Add(BollHav.MyInstance.StartBollHav);
-            InvokeRepeating("TriggerRandomEvent", 20, eventDelayHard);
-        }
-    }
-
-    //Makes sure to start the random events after all npcs have spawned
-    IEnumerator StartInvokeRepeatingWhen()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.1f);
-
-            // Starts InvokeRepeating when All Npcs has been created.
-            if (DAS.NpcCreator.MaxNumberOfNPCsByWorkseatAmount == DAS.NPC.s_npcList.Count)
-            {
-                InvokeRepeating("TriggerRandomEvent", 2, 60);
-                break;
-            }
+            StopAllCoroutines();
+            StartCoroutine(TriggerEventsInOrder(15, m_eventDelayHard));
         }
     }
 }
