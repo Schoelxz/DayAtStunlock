@@ -21,8 +21,6 @@ public class HighscoreListScreen : MonoBehaviour {
 
     GameObject lists;
 
-    string recentScore;
-
     private void Awake()
     {
 
@@ -74,12 +72,12 @@ public class HighscoreListScreen : MonoBehaviour {
 
     public void DisplayScores()
     {
-        for (int i = 0; i < Highscore.scores.Count; i++)
-        {
-            names[i].text = Highscore.scores[i].Name;
-            scores[i].text = Highscore.scores[i].Amount.ToString("n0");
-            times[i].text = Highscore.scores[i].Time.ToString("n0");
-        }
+        //for (int i = 0; i < Highscore.scores.Count; i++)
+        //{
+        //    names[i].text = Highscore.scores[i].Name;
+        //    scores[i].text = Highscore.scores[i].Amount.ToString("n0");
+        //    times[i].text = Highscore.scores[i].Time.ToString("n0");
+        //}
     }
 
     public void DisplayHighscoreScreen()

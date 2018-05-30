@@ -12,7 +12,7 @@ public class DisplayScoreList : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //AnimateHighscoreList();
+        AnimateHighscoreList();
 
     }
     private void OnEnable()
@@ -22,7 +22,7 @@ public class DisplayScoreList : MonoBehaviour {
 
     private void OnDisable()
     {
-        //ClearDisplayedHighscoreList();
+        ClearDisplayedHighscoreList();
     }
 
     // Update is called once per frame
@@ -37,19 +37,7 @@ public class DisplayScoreList : MonoBehaviour {
         highscoreNames = gameObject.transform.Find("Names").gameObject.GetComponentsInChildren<Text>();
         highscoreScores = gameObject.transform.Find("Scores").gameObject.GetComponentsInChildren<Text>();
         highscoreTimes = gameObject.transform.Find("Times").gameObject.GetComponentsInChildren<Text>();
-
-        foreach (var item in highscoreNames)
-        {
-            item.text = "-";
-        }
-        foreach (var item in highscoreScores)
-        {
-            item.text = "-";
-        }
-        foreach (var item in highscoreTimes)
-        {
-            item.text = "-";
-        }
+        ClearDisplayedHighscoreList();
     }
 
     public void DisplayScores()
@@ -63,9 +51,9 @@ public class DisplayScoreList : MonoBehaviour {
     }
     public void AnimateHighscoreList()
     {
+        StopAllCoroutines();
         InitializeLists();
         ClearDisplayedHighscoreList();
-        StopAllCoroutines();
         StartCoroutine(TypeText());
     }
 
@@ -74,6 +62,7 @@ public class DisplayScoreList : MonoBehaviour {
         float speed = 0.02f;
         for (int i = 0; i < Highscore.scores.Count; i++)
         {
+            //Set colour
             if(Highscore.scores[i] == Highscore.latestAddedScore)
             {
                 highscoreNames[i].color = Color.yellow;
@@ -86,19 +75,22 @@ public class DisplayScoreList : MonoBehaviour {
                 highscoreScores[i].color = Color.white;
                 highscoreTimes[i].color = Color.white;
             }
-
+            //Type text
             foreach (char letter in Highscore.scores[i].Name.ToCharArray())
             {
                 highscoreNames[i].text += letter;
                 yield return new WaitForSecondsRealtime(speed);
             }
+
             string score = Highscore.scores[i].Amount.ToString("n0") + " PTS";
             foreach (char letter in score.ToCharArray())
             {
                 highscoreScores[i].text += letter;
                 yield return new WaitForSecondsRealtime(speed);
             }
+
             string time = Highscore.scores[i].Time.ToString("n0") + " s";
+            //highscoreTimes[i].text = Highscore.scores[i].Time.ToString("n0");
             foreach (char letter in time.ToCharArray())
             {
                 highscoreTimes[i].text += letter;
@@ -110,17 +102,18 @@ public class DisplayScoreList : MonoBehaviour {
     private void ClearDisplayedHighscoreList()
     {
 
-        foreach (Text name in highscoreNames)
+        foreach (var item in highscoreNames)
         {
-            name.text = " ";
+            item.text = "";
         }
-        foreach (Text score in highscoreScores)
+        foreach (var item in highscoreScores)
         {
-            score.text = " ";
+            item.text = "";
         }
-        foreach (Text time in highscoreTimes)
+        foreach (var item in highscoreTimes)
         {
-            time.text = " ";
+            item.text = "";
         }
+
     }
 }

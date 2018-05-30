@@ -445,8 +445,8 @@ namespace DAS
             //tempNPC.GetComponentInChildren<ModelChanger>().GetComponent<SkinnedMeshRenderer>().materials[1] = headMaterial[npcList.Count % bodyMaterial.Length];
             //Debug.Log(npcList.Count % headMaterial.Length);
             // Debug.Log(tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().gameObject.name);
-            Debug.Log(tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().materials[0] == tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().material);
-            Debug.Log(bodyMaterial[npcList.Count % headMaterial.Length]);
+            //Debug.Log(tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().materials[0] == tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().material);
+            //Debug.Log(bodyMaterial[npcList.Count % headMaterial.Length]);
             Material[] myMaterials = { bodyMaterial[npcList.Count % headMaterial.Length], headMaterial[npcList.Count % bodyMaterial.Length] };
             tempNPC.GetComponentInChildren<SkinnedMeshRenderer>().materials = myMaterials;
             

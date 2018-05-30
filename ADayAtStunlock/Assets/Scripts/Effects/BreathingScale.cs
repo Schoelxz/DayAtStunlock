@@ -15,7 +15,7 @@ public class BreathingScale : MonoBehaviour
 
     void Update ()
     {
-        Debug.Log(x + " " + y + " " + z);
+        //Debug.Log(x + " " + y + " " + z);
         gameObject.transform.localScale = new Vector3((Mathf.Cos(Time.time*3) / 20) + x, Mathf.Cos(Time.time * 3) / 20 + y, Mathf.Cos(Time.time * 3) / 20 + z);
 	}
 }
