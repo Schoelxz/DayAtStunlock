@@ -8,11 +8,11 @@ public class EventDisplay : MonoBehaviour
 
     private static Rect m_methodNamesPosition = new Rect(200, 50, 300, 50);
 
-    static string currentMethodPlayed = "Current Event: \n";
+    private static string currentMethodPlayed = "Current Event: \n";
 
-    static int eventNamesLength = 0;
+    private static int eventNamesLength = 0;
 
-    static string AllMethodNames
+    private static string AllMethodNames
     {
         get
         {
@@ -29,10 +29,20 @@ public class EventDisplay : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// List of names of events that has been played, ordered from first played event to last played event.
+    /// </summary>
+    private static List<string> eventHistory = new List<string>();
+
+    private void Start()
+    {
+        eventHistory.Clear();
+    }
+
     private void OnGUI()
     {
-        //if (!DAS.DBUG.CheatsToCheat.CheatsEnabled)
-        //    return;
+        if (!DAS.DBUG.CheatsToCheat.CheatsEnabled)
+            return;
 
         if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 50), "Toggle GUI"))
         {
@@ -58,9 +68,9 @@ public class EventDisplay : MonoBehaviour
         }
 
         GUI.Box(new Rect(Screen.width - 540, 25, 240, 25), "Event history:");
-        foreach (var item in RandomEventTrigger.s_eventHistory)
+        for (int i = 0; i < eventHistory.Count; i++)
         {
-            GUI.Box(new Rect(Screen.width - 540, 50 + (25 * RandomEventTrigger.s_eventHistory.IndexOf(item)), 240, 25), item);
+            GUI.Box(new Rect(Screen.width - 540, 50 + (25 * i), 240, 25), eventHistory[i]);
         }
 
         GUI.Box(new Rect(Screen.width - 120, eventNamesLength + 50, 120, 38), "Current Difficulty: \n" + DifficultyManager.currentDifficulty.ToString());
@@ -72,7 +82,9 @@ public class EventDisplay : MonoBehaviour
         //Calls the function (so it actually happens)
         function();
 
-       // Debug.Log(function.Method.Name);
+        eventHistory.Add(function.Method.Name + " at: " + DAS.TimeSystem.TimePassedSeconds.ToString("0.00"));
+
+        // Debug.Log(function.Method.Name);
 
         currentMethodPlayed = "Current Event: \n" + function.Method.Name;
 

@@ -101,8 +101,109 @@ namespace DAS
             AudioManager.instance.CreateNewAudioHelper(gameObject);
         }
 
+        float health = 15;
+
+        private void OnDrawGizmos()
+        {
+            List<Vector3> waysToGo = new List<Vector3>();
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(m_agentRef.destination, Vector3.one);
+            //waysToGo.Add(m_agentRef.destination);
+
+            Gizmos.color = Color.blue;
+            foreach (var item in m_agentRef.path.corners)
+            {
+                Gizmos.DrawCube(item, Vector3.one / 2);
+                waysToGo.Add(item);
+            }
+
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < waysToGo.Count; i++)
+            {
+                if (i - 1 < 0 || i - 1 == waysToGo.Count)
+                    continue;
+                Gizmos.DrawLine(waysToGo[i - 1], waysToGo[i]);
+            }
+           
+            if (m_agentRef.hasPath)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 2, Vector3.one);
+            }
+            else
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 2, Vector3.one);
+            }
+
+            if (m_agentRef.path.corners.Length > 0)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 3, Vector3.one);
+            }
+            else
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 3, Vector3.one);
+            }
+
+            if (health >= 15 / 2)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 4, Vector3.one);
+            }                                                                
+            else if (health > 3)                                             
+            {                                                                
+                Gizmos.color = Color.yellow;                                 
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 4, Vector3.one);
+            }                                                                
+            else                                                             
+            {                                                                
+                Gizmos.color = Color.red;                                    
+                Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 4, Vector3.one);
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            List<Vector3> waysToGo = new List<Vector3>();
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(m_agentRef.destination, Vector3.one * 1.1f);
+            //waysToGo.Add(m_agentRef.destination);
+
+            Gizmos.color = Color.red;
+            foreach (var item in m_agentRef.path.corners)
+            {
+                Gizmos.DrawCube(item, Vector3.one * 1.1f / 2);
+                waysToGo.Add(item);
+            }
+
+            Gizmos.color = Color.red;
+            for (int i = 0; i < waysToGo.Count; i++)
+            {
+                if (i - 1 < 0 || i - 1 == waysToGo.Count)
+                    continue;
+                Gizmos.DrawLine(waysToGo[i - 1], waysToGo[i]);
+            }
+        }
+
         void Update()
         {
+            if (m_agentRef.path.corners.Length == 0)
+            {
+                health -= Time.deltaTime;
+            }
+            else
+                health = 15;
+
+            if(health <= 0f && Vector3.Distance(m_agentRef.destination, m_agentRef.transform.position) > 0.5f)
+            {
+                health = 15;
+                m_agentRef.Warp(m_agentRef.destination);
+            }
+
             //Animate work
             if (IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
             {

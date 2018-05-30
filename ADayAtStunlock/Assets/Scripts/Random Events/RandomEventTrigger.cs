@@ -97,10 +97,6 @@ public class RandomEventTrigger : MonoBehaviour
     /// </summary>
     private static List<System.Action> s_orderedEventList = new List<System.Action>();
     /// <summary>
-    /// List of names of events that has been played, ordered from first played event to last played event.
-    /// </summary>
-    public static List<string> s_eventHistory = new List<string>();
-    /// <summary>
     /// All events that exists (used for cheats).
     /// </summary>
     public static List<System.Action> s_allEvents = new List<System.Action>(); 
@@ -136,7 +132,6 @@ public class RandomEventTrigger : MonoBehaviour
         //Clear the list of events on Start (to avoid filling the list on restarts)
         s_orderedEventList.Clear();
         s_allEvents.Clear();
-        s_eventHistory.Clear();
 
         //Train Stuff
         m_trainTrack.gameObject.SetActive(false);
@@ -197,8 +192,6 @@ public class RandomEventTrigger : MonoBehaviour
         while (true)
         {
             m_lastEvent = EventDisplay.FunctionTriggered(s_orderedEventList[m_eventCounter++ % s_orderedEventList.Count]);
-
-            s_eventHistory.Add(m_lastEvent.Method.Name + " " + m_eventCounter);
 
             yield return new WaitForSeconds(loopWaitTime);
         }
