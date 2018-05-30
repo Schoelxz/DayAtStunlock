@@ -28,6 +28,8 @@ public class MenuNavigator : MonoBehaviour
 
     public GameObject splashScreen;
 
+    private ControlTime controlTime;
+
     private void Awake()
     {
         // if copies of this script is created, destroy the copy (aswell as the gameobject it sits on).
@@ -39,6 +41,7 @@ public class MenuNavigator : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         InitializeCanvases();
+        controlTime = gameObject.GetComponentInChildren<ControlTime>(true);
     }
 
     private void OnEnable()
@@ -54,6 +57,7 @@ public class MenuNavigator : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         DAS.TimeSystem.ResumeTime();
+        controlTime.fastForward.isOn = false;
         if (scene.name == "MainMenu")
         {
             DAS.TimeSystem.TimePassedSeconds = 0;
