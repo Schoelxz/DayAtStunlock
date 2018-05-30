@@ -19,6 +19,10 @@ public class HighscoreListScreen : MonoBehaviour {
 
     Button[] buttons;
 
+    GameObject lists;
+
+    string recentScore;
+
     private void Awake()
     {
 
@@ -30,12 +34,13 @@ public class HighscoreListScreen : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+        //Get  highscore list
+        lists = gameObject.transform.Find("LeftPanel").transform.Find("HighscoreList (1)").transform.Find("Lists").gameObject;
+        names = lists.transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
 
-        names = gameObject.transform.Find("LeftPanel").transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
+        scores = lists.transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
 
-        scores = gameObject.transform.Find("LeftPanel").transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
-
-        times = gameObject.transform.Find("LeftPanel").transform.Find("Times").gameObject.GetComponentsInChildren<Text>(true);
+        times = lists.transform.Find("Times").gameObject.GetComponentsInChildren<Text>(true);
 
         inputField = gameObject.GetComponentInChildren<InputField>();
         inputField.contentType = InputField.ContentType.Alphanumeric;
@@ -101,7 +106,7 @@ public class HighscoreListScreen : MonoBehaviour {
         }
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
-        DisplayScores();
+        lists.GetComponent<DisplayScoreList>().AnimateHighscoreList();
         inputField.readOnly = true;
 
         foreach(var item in buttons)

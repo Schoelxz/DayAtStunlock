@@ -9,6 +9,7 @@ public class Highscore : MonoBehaviour {
     static string filePath;
     static public List<Score> scores = new List<Score>();
     static int maxListSize;
+    public static Score latestAddedScore;
 
     // Use this for initialization
     void Start()
@@ -61,6 +62,7 @@ public class Highscore : MonoBehaviour {
         if(CheckIfAdded(name,score) == false)
         {
             scores.Add(new Score(score, name, time));
+            latestAddedScore = scores[scores.Count - 1];
         }
     }
 
