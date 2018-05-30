@@ -36,7 +36,7 @@ public class MoneyManager : MonoBehaviour
         highscoreListScreen = HighscoreListScreen.thisInstance;
         moneyLost = 0;
         highscorePoints = 0;
-        startMoney = 20000;
+        startMoney = 40000;
         currentMoney = startMoney;
         m_moneyChangeLastFrame = startMoney;
         run = false;
