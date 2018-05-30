@@ -3912,6 +3912,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 195628272985572028, guid: 7555152c399f0bd47bc81c6247a4a7d4,
+        type: 2}
+      propertyPath: m_AngularSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 195628272985572028, guid: 7555152c399f0bd47bc81c6247a4a7d4,
+        type: 2}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 195628272985572028, guid: 7555152c399f0bd47bc81c6247a4a7d4,
+        type: 2}
+      propertyPath: m_Acceleration
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7555152c399f0bd47bc81c6247a4a7d4, type: 2}
   m_IsPrefabParent: 0
@@ -9347,7 +9362,6 @@ GameObject:
   - component: {fileID: 1168330433}
   - component: {fileID: 1168330434}
   - component: {fileID: 1168330435}
-  - component: {fileID: 1168330436}
   - component: {fileID: 1168330431}
   - component: {fileID: 1168330437}
   - component: {fileID: 1168330438}
@@ -9507,17 +9521,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5de7ee134e78f254295c0f823028be09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1168330436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1168330425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e919b476cbf9247b26a3bc2337f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1168330437

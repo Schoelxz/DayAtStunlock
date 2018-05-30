@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour {
 
         //Get the values of the requested sound effect
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        Debug.Log(self.name);
+        //Debug.Log(self.name);
         if (s == null)
         {
             Debug.LogWarning("Sounds: " + name + "not found!");
