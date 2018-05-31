@@ -28,6 +28,17 @@ public class MoneyManager : MonoBehaviour
     private HighscoreListScreen m_highscoreListScreen;
     private static ScoreDisplay s_scoreDisplay;
 
+    private float fakeMoneyGen, fakeMoneyDed;
+
+    private static float potentialMoneyDifference;
+    public static float PotentialMoneyDifference
+    {
+        get
+        {
+            return potentialMoneyDifference;
+        }
+    }
+
     private static float moneyDifferenceLastGenerate;
     public static float MoneyDifferenceLastGenerate
     {
@@ -138,6 +149,21 @@ public class MoneyManager : MonoBehaviour
         moneyDifferenceLastGenerate = GeneratedMoney + DeductedMoney;
         GeneratedMoney = 0;
         DeductedMoney = 0;
+
+        //Counts how many npcs are working
+        foreach (var npc in DAS.NPC.s_npcList)
+            if (npc.moveRef.IsCurrentlyWorking)
+            {
+                fakeMoneyGen += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation) / 2;
+                highscorePoints += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation) / 2;
+            }
+
+        fakeMoneyGen += 1f / 2;
+        
+        potentialMoneyDifference = fakeMoneyGen + fakeMoneyDed;
+
+        fakeMoneyGen = 0;
+        fakeMoneyDed = 0;
     }
 
     /// <summary>
@@ -167,15 +193,19 @@ public class MoneyManager : MonoBehaviour
         {
             if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Easy)
             {
-                //if (float.IsNaN((0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2))
-                    DeductedMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
-                //else
-                    //DeductedMoney = 0;
+                DeductedMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                fakeMoneyDed -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
             }
             else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
+            {
                 DeductedMoney -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                fakeMoneyDed -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+            }
             else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+            {
                 DeductedMoney -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                fakeMoneyDed -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+            }
             //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }
