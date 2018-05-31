@@ -6,72 +6,91 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject endScreen;
+    private GameObject m_endScreen;
 
     public float npcSalary;
-    int npcIncome;
-    int startMoney;
+    private int m_npcIncome;
+    private int m_startMoney;
 
-    HighscoreListScreen highscoreListScreen;
-    ScoreDisplay scoreDisplay;
+    private HighscoreListScreen m_highscoreListScreen;
+    private static ScoreDisplay s_scoreDisplay;
 
     //Use this as a display while playing
-    static public float currentMoney;
+    private static float currentMoney;
+    public static float CurrentMoney
+    {
+        get
+        {
+            return currentMoney;
+        }
+        set
+        {
+            m_moneyChangeLastFrame = currentMoney;
+            currentMoney = value;
+        }
+    }
 
     //Use this for highscore
-    static public float highscorePoints;
+    public static float highscorePoints;
 
-    static public float moneyLost;
+    public static float moneyLost;
 
     private static float m_moneyChangeLastFrame;
     
-    float timer;
-    bool run;
-    
+    private float timer;
+    private bool run;
 
+    public int AmountOfCurrentlyWorkingNpcs
+    {
+        get;
+        set;
+    }
 
 	void Start ()
     {
-
-        highscoreListScreen = HighscoreListScreen.thisInstance;
+        m_highscoreListScreen = HighscoreListScreen.s_thisInstance;
         moneyLost = 0;
         highscorePoints = 0;
-        startMoney = 40000;
-        currentMoney = startMoney;
-        m_moneyChangeLastFrame = startMoney;
+        m_startMoney = 40000;
+        currentMoney = m_startMoney;
+        CurrentMoney = m_startMoney;
         run = false;
 
-        scoreDisplay = FindObjectOfType<ScoreDisplay>();
-
-        //InvokeRepeating("DeductSalary", 1, 0.2f);
-        
-	}
+        s_scoreDisplay = FindObjectOfType<ScoreDisplay>();
+        if (s_scoreDisplay != null)
+            s_scoreDisplay.SetScore(CurrentMoney, m_moneyChangeLastFrame);
+    }
 
     void Update ()
     {
         //Earn points for staying alive.
         highscorePoints += 10 * Time.deltaTime;
 
-        if(scoreDisplay != null)
-        scoreDisplay.SetScore(currentMoney, m_moneyChangeLastFrame);
-
-        if (currentMoney <= 0 && !run)
+        if (CurrentMoney <= 0 && !run)
         {
             run = true;
             LoseGame();
         }
-        
-    }
-    private void LateUpdate()
-    {
-        m_moneyChangeLastFrame = currentMoney;
+        int currentlyWorking = 0;
+        foreach (var npc in DAS.NPC.s_npcList)
+        {
+
+            if (npc.moveRef.IsCurrentlyWorking)
+                currentlyWorking++;
+        }
+        AmountOfCurrentlyWorkingNpcs = currentlyWorking;
     }
 
     private void FixedUpdate()
     {
         timer += Time.fixedDeltaTime;
+        if (s_scoreDisplay != null)
+        {
+            s_scoreDisplay.SetScore(CurrentMoney, m_moneyChangeLastFrame);
+            m_moneyChangeLastFrame = currentMoney;
+        }
 
-        if (timer <= 2)
+        if (timer <= 50)
             return;
 
         DeductSalary();
@@ -87,27 +106,27 @@ public class MoneyManager : MonoBehaviour
         {
             if (npc.moveRef.IsCurrentlyWorking)
             {
-                currentMoney += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
+                CurrentMoney += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
                 highscorePoints  += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
             }
         }
 
-        currentMoney +=     1f/2;
-        highscorePoints  +=     1f/2;
+        CurrentMoney    += 1f/2;
+        highscorePoints += 1f/2;
     }
     /// <summary>
     /// Invoked. Removes money, more if NPCs are unhappy.
     /// </summary>
-    void DeductSalary()
+    private void DeductSalary()
     {
         foreach (var npc in DAS.NPC.s_npcList)
         {
             if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Easy)
-                currentMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+                CurrentMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
             else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
-                currentMoney -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                CurrentMoney -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
             else if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
-                currentMoney -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                CurrentMoney -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
             //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }
@@ -115,12 +134,12 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Called when there is no more money.
     /// </summary>
-    void LoseGame()
+    private void LoseGame()
     {
-        if (highscoreListScreen != null)
+        if (m_highscoreListScreen != null)
         {
             DAS.TimeSystem.PauseTime();
-            highscoreListScreen.DisplayHighscoreScreen();
+            m_highscoreListScreen.DisplayHighscoreScreen();
             //highscoreListScreen.DisplayScores();
         }
         else
@@ -131,7 +150,7 @@ public class MoneyManager : MonoBehaviour
     {
         get
         {
-            if (currentMoney > m_moneyChangeLastFrame)
+            if (CurrentMoney > m_moneyChangeLastFrame)
                 return true;
             else
                 return false;

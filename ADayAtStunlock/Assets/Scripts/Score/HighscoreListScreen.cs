@@ -5,79 +5,79 @@ using UnityEngine.UI;
 
 public class HighscoreListScreen : MonoBehaviour {
    
-    private Text[] names, scores, times;
+    private Text[] m_names, m_scores, m_times;
 
-    public static HighscoreListScreen thisInstance;
+    public static HighscoreListScreen s_thisInstance;
 
-    private InputField inputField;
+    private InputField m_inputField;
 
-    private Text playerScoreText;
+    private Text m_playerScoreText;
 
-    private Button[] buttons;
+    private Button[] m_buttons;
 
-    private GameObject lists;
+    private GameObject m_lists;
 
     private void Awake()
     {
-        if(thisInstance == null)
-            thisInstance = this;
+        if(s_thisInstance == null)
+            s_thisInstance = this;
         else
             Destroy(gameObject);
 
         //Get  highscore list
-        lists = gameObject.transform.Find("LeftPanel").transform.Find("HighscoreList (1)").transform.Find("Lists").gameObject;
-        names = lists.transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
+        m_lists = gameObject.transform.Find("LeftPanel").transform.Find("HighscoreList (1)").transform.Find("Lists").gameObject;
+        m_names = m_lists.transform.Find("Names").gameObject.GetComponentsInChildren<Text>(true);
 
-        scores = lists.transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
+        m_scores = m_lists.transform.Find("Scores").gameObject.GetComponentsInChildren<Text>(true);
 
-        times = lists.transform.Find("Times").gameObject.GetComponentsInChildren<Text>(true);
+        m_times = m_lists.transform.Find("Times").gameObject.GetComponentsInChildren<Text>(true);
 
-        inputField = gameObject.GetComponentInChildren<InputField>();
-        inputField.contentType = InputField.ContentType.Alphanumeric;
-        inputField.onEndEdit.AddListener(delegate { SaveName(); });
+        m_inputField = gameObject.GetComponentInChildren<InputField>();
+        m_inputField.contentType = InputField.ContentType.Alphanumeric;
+        m_inputField.onEndEdit.AddListener(delegate { SaveName(); });
 
-        playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>(true);
+        m_playerScoreText = gameObject.transform.Find("RightPanel").transform.Find("PlayerScore").GetComponentInChildren<Text>(true);
 
-        buttons = gameObject.transform.Find("RightPanel").GetComponentsInChildren<Button>(true);
+        m_buttons = gameObject.transform.Find("RightPanel").GetComponentsInChildren<Button>(true);
 
-        foreach (var item in names)
+        foreach (var item in m_names)
             item.text = "-";
 
-        foreach (var item in scores)
+        foreach (var item in m_scores)
             item.text = "-";
 
-        foreach (var item in times)
+        foreach (var item in m_times)
             item.text = "-";
 
-        foreach (var item in buttons)
+        foreach (var item in m_buttons)
             item.gameObject.SetActive(false);
     }
 
     public void DisplayHighscoreScreen()
     {
-        thisInstance.gameObject.SetActive(true);
-        inputField.readOnly = false;
-        inputField.text = "";
+        s_thisInstance.gameObject.SetActive(true);
+        m_inputField.readOnly = false;
+        m_inputField.text = "";
 
-        foreach (var item in buttons)
+        foreach (var item in m_buttons)
             item.gameObject.SetActive(false);
 
-        playerScoreText.text = MoneyManager.highscorePoints.ToString("n0");
+        m_playerScoreText.text = MoneyManager.highscorePoints.ToString("n0");
     }
 
     private void SaveName()
     {
-        if(inputField.text.Length > 0)
-            Highscore.AddHighscore(inputField.text, (int)MoneyManager.highscorePoints, (int)DAS.TimeSystem.TimePassedSeconds);
+        if(m_inputField.text.Length > 0)
+            Highscore.AddHighscore(m_inputField.text, (int)MoneyManager.highscorePoints, (int)DAS.TimeSystem.TimePassedSeconds);
         else
             Highscore.AddHighscore("Noname", (int)MoneyManager.highscorePoints, (int)DAS.TimeSystem.TimePassedSeconds);
 
         Highscore.SortHighscore();
         Highscore.SaveHighscore();
-        lists.GetComponent<DisplayScoreList>().AnimateHighscoreList();
-        inputField.readOnly = true;
+        m_lists.GetComponent<DisplayScoreList>().AnimateHighscoreList();
+        m_inputField.readOnly = true;
 
-        foreach(var item in buttons)
+        foreach(var item in m_buttons)
             item.gameObject.SetActive(true);
     }
 }
