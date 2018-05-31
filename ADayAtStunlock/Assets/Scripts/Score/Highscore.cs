@@ -6,16 +6,17 @@ using System.Linq;
 
 public class Highscore : MonoBehaviour {
 
-    static string filePath;
-    static public List<Score> scores = new List<Score>();
-    static int maxListSize;
-    public static Score latestAddedScore;
+    private static string s_filePath;
+    private static int s_maxListSize;
+
+    public static List<Score> s_playerScoresList = new List<Score>();
+    public static Score s_latestAddedScore;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         InitFile(); //Creates Highscore.txt if it does not exist.
-        maxListSize = 10;
+        s_maxListSize = 10;
         BuildListsOnStartup();
         SortHighscore();
         SaveHighscore();
@@ -37,79 +38,89 @@ public class Highscore : MonoBehaviour {
 
     private void InitFile()
     {
-        filePath = Application.persistentDataPath + "/Highscore.txt"; // "Assets /Resources/Score/Highscore.txt";
+        s_filePath = Application.persistentDataPath + "/Highscore.txt"; // "Assets /Resources/Score/Highscore.txt";
 
-        Debug.Log("filepath: " + filePath);
+        Debug.Log("filepath: " + s_filePath);
 
-        if (!File.Exists(filePath))
-            File.CreateText(filePath).Dispose();
+        if (!File.Exists(s_filePath))
+            CreateEmptyFile(s_filePath);
     }
 
-    static public void SaveHighscore()
+    private void CreateEmptyFile(string filename)
     {
-        StreamWriter writer = new StreamWriter(filePath, false);
+        File.Create(filename).Dispose();
+    }
+
+    public static void SaveHighscore()
+    {
+        StreamWriter writer = new StreamWriter(s_filePath, false);
  
-        for (int i = 0; i < scores.Count; i++)
-        {
-            writer.WriteLine(scores[i].Amount + " " + scores[i].Name + " " + scores[i].Time);
-        }
+        for (int i = 0; i < s_playerScoresList.Count; i++)
+            writer.WriteLine(s_playerScoresList[i].Amount + " " + s_playerScoresList[i].Name + " " + s_playerScoresList[i].Time);
 
         writer.Close();
     }
 
-    static public void AddHighscore(string name, int score, int time)
+    public static void AddHighscore(string name, int score, int time)
     {
         if(CheckIfAdded(name,score) == false)
         {
-            scores.Add(new Score(score, name, time));
-            latestAddedScore = scores[scores.Count - 1];
+            s_playerScoresList.Add(new Score(score, name, time));
+            s_latestAddedScore = s_playerScoresList[s_playerScoresList.Count - 1];
         }
     }
 
-    static public void SortHighscore()
+    public static void SortHighscore()
     {
-        scores = scores.OrderBy(s => s.Amount).ToList();
-        scores.Reverse();
+        s_playerScoresList = s_playerScoresList.OrderBy(s => s.Amount).ToList();
+        s_playerScoresList.Reverse();
 
-        while(scores.Count > maxListSize)
-        {
-            scores.RemoveAt(scores.Count - 1);
-        }
-
+        while(s_playerScoresList.Count > s_maxListSize)
+            s_playerScoresList.RemoveAt(s_playerScoresList.Count - 1);
     }
 
-    void BuildListsOnStartup()
+    private void BuildListsOnStartup()
     {
-        scores.Clear();
+        s_playerScoresList.Clear();
         string line;
-        StreamReader reader = new StreamReader(filePath);
+        StreamReader reader = new StreamReader(s_filePath);
 
         while((line = reader.ReadLine()) != null)
         {
             string[] parts = line.Split();
+            if(parts.Length != 3)
+            {
+                Debug.LogWarning("Highscore.txt had not enough elements or too many elements, changed highscore with -1 in timeScore for those elements.");
+                string[] temp = { parts[0], parts[1], "-1"};
+                parts = temp;
+            }
 
             if (parts[0] == "")
                 continue;
-            int asdfgh;
-            if (int.TryParse(parts[0], out asdfgh))
-                scores.Add(new Score(int.Parse(parts[0]), parts[1], int.Parse(parts[2])));
+
+            int playerScore;
+            int playerTime;
+
+            if (int.TryParse(parts[0], out playerScore))
+                s_playerScoresList.Add(new Score(playerScore, parts[1], int.TryParse(parts[2], out playerTime) ? playerTime : -1));
             else
-                Debug.LogWarning("Highscore tried parsing an string as int, but failed. String was: " + parts[0]);
+            {
+                if (int.TryParse(parts[1], out playerScore))
+                    s_playerScoresList.Add(new Score(playerScore, parts[0], int.TryParse(parts[2], out playerTime) ? playerTime : -1));
+                else
+                    Debug.LogWarning("Highscore tried parsing a string as an int, but failed. String was: " + parts[0] + " or " + parts[1]);
+            }
         }
 
         reader.Close();
     }
 
-    static public bool CheckIfAdded(string name, int score)
+    public static bool CheckIfAdded(string name, int score)
     {
-        foreach (var item in scores)
-        {
-            if (item.Amount == score && item.Name == name)
-            {
+        foreach (var pScore in s_playerScoresList)
+            if (pScore.Amount == score && pScore.Name == name)
                 return(true);
-            }
-        }
-
+            
         return false;
     }
 }

@@ -35,10 +35,18 @@ public class WorkstationPlayer : MonoBehaviour
     
     void FixedUpdate()
     {
+        Debug.Log(MoneyManager.IsEarningMoney);
+
         if (!MoneyManager.IsEarningMoney && !particleSystemMoneyLost.isPlaying)
+        {
+            particleSystemMoneyGained.Stop();
             particleSystemMoneyLost.Play();
-        else if (MoneyManager.IsEarningMoney)
+        }
+        else if (MoneyManager.IsEarningMoney && !particleSystemMoneyGained.isPlaying)
+        {
             particleSystemMoneyLost.Stop();
+            particleSystemMoneyGained.Play();
+        }
 
         if (isWorking)
         {
@@ -46,12 +54,6 @@ public class WorkstationPlayer : MonoBehaviour
             PullPlayer();
 
             MoneyManager.GenerateMoney();
-
-            //Unhide particle emission
-            if (!particleSystemMoneyGained.isPlaying && MoneyManager.IsEarningMoney)
-                particleSystemMoneyGained.Play();
-            else if (!MoneyManager.IsEarningMoney)
-                particleSystemMoneyGained.Stop();
         }
         else
         {

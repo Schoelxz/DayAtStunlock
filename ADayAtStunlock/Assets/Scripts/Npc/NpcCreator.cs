@@ -57,10 +57,9 @@ namespace DAS
 
         public static float s_happyAverage, s_motivationAverage;
 
-        private float myHappinessDecay, myMotivationDecay;
+        private float m_myHappinessDecay, m_myMotivationDecay;
 
         private Slider happySlider, motivationSlider;
-
         public Slider HappySlider
         {
             get { return happySlider; }
@@ -76,14 +75,14 @@ namespace DAS
         public DAS.NPCMovement moveRef;
         public NpcButtons buttonRef;
         public ButtonToggler buttonTogglerRef;
-        private Material[] myMaterials;
-        private Material moneyMaterial;
-        private ModelChanger modelChanger;
+        private Material[] m_myMaterials;
+        private Material m_moneyMaterial;
+        private ModelChanger m_modelChanger;
 
         public MoodVisualizer moodVisualizerRef;
         public Feelings myFeelings;
-        private GameObject nameHolder;
-        private TextMesh myNameDisplay;
+        private GameObject m_nameHolder;
+        private TextMesh m_myNameDisplay;
 
         float dt;
 
@@ -92,7 +91,7 @@ namespace DAS
 
         public Material[] MyMaterials
         {
-            get { return myMaterials; }
+            get { return m_myMaterials; }
         }
 
         private void Start()
@@ -108,8 +107,8 @@ namespace DAS
 
             Random.State oldState = Random.state;
             Random.InitState(name.Length);
-            myHappinessDecay = Random.Range(150, 250);
-            myMotivationDecay = Random.Range(140, 240);
+            m_myHappinessDecay = Random.Range(150, 250);
+            m_myMotivationDecay = Random.Range(140, 240);
             //Debug.Log(name.Length + ": mhd->" + myHappinessDecay + " mmd->" + myMotivationDecay);
             Random.state = oldState;
 
@@ -124,34 +123,34 @@ namespace DAS
 
             /// Add Components
             moveRef = gameObject.AddComponent<DAS.NPCMovement>();
-            modelChanger = gameObject.AddComponent<ModelChanger>();
+            m_modelChanger = gameObject.AddComponent<ModelChanger>();
             buttonRef = gameObject.AddComponent<NpcButtons>();
             buttonRef.InitNpcButtons();
             buttonTogglerRef = gameObject.AddComponent<ButtonToggler>();
             buttonTogglerRef.InitButtonToggler();
 
-            nameHolder = new GameObject("Name Holder");
-            nameHolder.transform.parent = gameObject.transform;
-            myNameDisplay = nameHolder.AddComponent<TextMesh>();
+            m_nameHolder = new GameObject("Name Holder");
+            m_nameHolder.transform.parent = gameObject.transform;
+            m_myNameDisplay = m_nameHolder.AddComponent<TextMesh>();
 
             /// Text
-            if (myNameDisplay != null)
+            if (m_myNameDisplay != null)
             {
-                myNameDisplay.text = name;
-                myNameDisplay.alignment = TextAlignment.Center;
-                myNameDisplay.anchor = TextAnchor.MiddleCenter;
-                myNameDisplay.transform.position = transform.position;
-                myNameDisplay.transform.position += new Vector3(0, 3, 0);
-                myNameDisplay.transform.forward = Camera.main.transform.forward;
-                myNameDisplay.transform.Rotate(0, 180, 0);
-                myNameDisplay.characterSize = 0.03f;
-                myNameDisplay.fontSize = 155;
+                m_myNameDisplay.text = name;
+                m_myNameDisplay.alignment = TextAlignment.Center;
+                m_myNameDisplay.anchor = TextAnchor.MiddleCenter;
+                m_myNameDisplay.transform.position = transform.position;
+                m_myNameDisplay.transform.position += new Vector3(0, 3, 0);
+                m_myNameDisplay.transform.forward = Camera.main.transform.forward;
+                m_myNameDisplay.transform.Rotate(0, 180, 0);
+                m_myNameDisplay.characterSize = 0.03f;
+                m_myNameDisplay.fontSize = 155;
             }
 
             /// Material
-            myMaterials = GetComponentInChildren<MeshRenderer>().materials;
-            moneyMaterial = new Material(myMaterials[0]);
-            moneyMaterial.color = Color.green;
+            m_myMaterials = GetComponentInChildren<MeshRenderer>().materials;
+            m_moneyMaterial = new Material(m_myMaterials[0]);
+            m_moneyMaterial.color = Color.green;
         }
 
         private void OnDestroy()
@@ -165,15 +164,15 @@ namespace DAS
             // Feelings depletion;
             // example explaination: feeling -= (delta time / amount of seconds until 0)
 
-            if(modelChanger.isAlien)
+            if(m_modelChanger.isAlien)
             {
                 myFeelings.Happiness = 1;
                 myFeelings.Motivation = 1;
             }
             else
             {
-                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / myHappinessDecay);
-                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / myMotivationDecay);
+                myFeelings.Happiness -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / m_myHappinessDecay);
+                myFeelings.Motivation -= Mathf.Clamp01(DAS.TimeSystem.DeltaTime / m_myMotivationDecay);
             }
             happySlider.value      = Mathf.Clamp01(myFeelings.Happiness);
             motivationSlider.value = Mathf.Clamp01(myFeelings.Motivation);
@@ -182,7 +181,7 @@ namespace DAS
         }
         private void FixedUpdate()
         {
-            myNameDisplay.transform.forward = Camera.main.transform.forward;
+            m_myNameDisplay.transform.forward = Camera.main.transform.forward;
         }
 
         #region Functions

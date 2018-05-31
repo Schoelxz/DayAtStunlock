@@ -39,7 +39,7 @@ namespace DAS
         public NavMeshAgent m_agentRef;
         private AgentValues m_agentValues;
         private Animator[] m_animator;
-        private Animator currentAnimator;
+        private Animator m_currentAnimator;
         public DAS.NPC m_myNpcRef;
         public bool abducted;
         public float timeInsideDestination;
@@ -74,7 +74,7 @@ namespace DAS
             {
                 if(m_animator[i].gameObject.activeInHierarchy)
                 {
-                    currentAnimator = m_animator[i];
+                    m_currentAnimator = m_animator[i];
                 }
             }
             // Add this NPC to the static list of NPCs.
@@ -86,7 +86,7 @@ namespace DAS
             // Assert
             Debug.Assert(m_myWorkSeat);
             Debug.Assert(m_agentRef);
-            Debug.Assert(currentAnimator);
+            Debug.Assert(m_currentAnimator);
             Debug.Assert(m_myNpcRef);
 
             // NavMeshAgent starts disabled because Unity has a bug involving it and giving the wrong position.
@@ -208,7 +208,7 @@ namespace DAS
             if (IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
             {
                 //Animate work on
-                currentAnimator.SetBool("Pickup 0", true);
+                m_currentAnimator.SetBool("Pickup 0", true);
                 //Work sound on
                 //if(AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
                 //{
@@ -222,7 +222,7 @@ namespace DAS
             else
             {
                 //Animate work off
-                currentAnimator.SetBool("Pickup 0", false);
+                m_currentAnimator.SetBool("Pickup 0", false);
                 //Work sound off
                 //if (AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
                 //{
@@ -273,7 +273,7 @@ namespace DAS
             CheckAwayTimeTriggerReturn(25);
 
             //Movement Animation
-            currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
+            m_currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
             //Movement Sound
             //if(m_agentRef.velocity.magnitude > 0)
             //{
@@ -312,7 +312,7 @@ namespace DAS
             if (!(m_myNpcRef = gameObject.GetComponent<NPC>()))
                 return false;
 
-            if (!(currentAnimator = GetComponentInChildren<Animator>()))
+            if (!(m_currentAnimator = GetComponentInChildren<Animator>()))
                 return false;
 
             return true;
@@ -392,7 +392,7 @@ namespace DAS
             {
                 if(m_animator[i].gameObject.activeInHierarchy)
                 {
-                    currentAnimator = m_animator[i];
+                    m_currentAnimator = m_animator[i];
                 }
             }
         }

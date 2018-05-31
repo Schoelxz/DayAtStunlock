@@ -103,11 +103,11 @@ namespace DAS
 
                 if(GUI.Button(new Rect(Screen.width - 120, Screen.height - 50, 120, 25), "More Money"))
                 {
-                    MoneyManager.currentMoney += 9999f;
+                    MoneyManager.CurrentMoney += 9999f;
                 }
                 if (GUI.Button(new Rect(Screen.width - 120, Screen.height - 75, 120, 25), "Less Money"))
                 {
-                    MoneyManager.currentMoney -= 9999f;
+                    MoneyManager.CurrentMoney -= 9999f;
                 }
                 if (GUI.Button(new Rect(Screen.width - 120, Screen.height - 100, 120, 25), "Euphoria"))
                 {
