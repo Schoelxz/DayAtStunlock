@@ -45,6 +45,8 @@ namespace DAS
         public float timeInsideDestination;
         public float workTimeStreak;
 
+        private float timeDestinationIsWorkseat, timeDestinationIsNotWorkseat;
+
         public bool isAtToilet = false;
         public bool isQueued = false;
 
@@ -163,6 +165,10 @@ namespace DAS
                 Gizmos.color = Color.red;                                    
                 Gizmos.DrawCube(gameObject.transform.position + Vector3.up * 4, Vector3.one);
             }
+
+            Gizmos.color = new Color(Mathf.Lerp(0f, 1f, timeDestinationIsNotWorkseat / 200f), Mathf.Lerp(1f, 0f, timeDestinationIsNotWorkseat / 200f), 0);
+            Gizmos.DrawCube(gameObject.transform.position + Vector3.right + Vector3.up * 2, Vector3.one);
+
         }
 
         private void OnDrawGizmosSelected()
@@ -205,35 +211,12 @@ namespace DAS
             }
 
             //Animate work
+            //Animate work on
             if (IsCurrentlyWorking && m_myNpcRef.myFeelings.Motivation != 0)
-            {
-                //Animate work on
                 m_currentAnimator.SetBool("Pickup 0", true);
-                //Work sound on
-                //if(AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
-                //{
-                //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
-                //    {
-                //        AudioManager.instance.PlaySound("NPCWorking", gameObject);
-                //    }
-                //}
-                
-            }
+            //Animate work off
             else
-            {
-                //Animate work off
                 m_currentAnimator.SetBool("Pickup 0", false);
-                //Work sound off
-                //if (AudioManager.instance.DoIHaveAnAudioSource("NPCWorking", gameObject))
-                //{
-                //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWorking", gameObject))
-                //    {
-                //        print("Trying to stop sound");
-                //        AudioManager.instance.StopSound("NPCWorking", gameObject);
-                //    }
-                //}
-            }
-
 
             // Rotate towards our desk if we are basically on our chair in our work seat and working.
             if (IsCurrentlyWorking && Vector3.Distance(m_agentRef.destination, transform.position) < 0.1f)
@@ -269,28 +252,27 @@ namespace DAS
             else
                 workTimeStreak = 0;
 
+            if (IsDestinationMyWorkSeat && !isQueued && !isAtToilet)
+            {
+                timeDestinationIsWorkseat++;
+                timeDestinationIsNotWorkseat = 0;
+            }
+            else if(!IsDestinationMyWorkSeat && !isQueued && !isAtToilet)
+            {
+                timeDestinationIsNotWorkseat++;
+                timeDestinationIsWorkseat = 0;
+            }
+
+            if (timeDestinationIsNotWorkseat > 200)
+            {
+                m_agentRef.destination = m_myWorkSeat.position;
+            }
+
             // If our NPC has been at a destination for longer than (5) seconds, go back to work.
             CheckAwayTimeTriggerReturn(25);
 
             //Movement Animation
             m_currentAnimator.SetFloat("MoveSpeed", m_agentRef.velocity.magnitude);
-            //Movement Sound
-            //if(m_agentRef.velocity.magnitude > 0)
-            //{
-            //    //Walk sound on
-            //    if (!AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
-            //    {
-            //        AudioManager.instance.PlaySound("NPCWalking", gameObject);
-            //    }
-            //}
-            //else
-            //{
-            //    //Walk sound off
-            //    if (AudioManager.instance.IsSoundPlayingOnSelf("NPCWalking", gameObject))
-            //    {
-            //        AudioManager.instance.StopSound("NPCWalking", gameObject);
-            //    }
-            //}
         }
 
         private void OnDestroy()

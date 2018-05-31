@@ -35,8 +35,6 @@ public class WorkstationPlayer : MonoBehaviour
     
     void FixedUpdate()
     {
-        Debug.Log(MoneyManager.IsEarningMoney);
-
         if (!MoneyManager.IsEarningMoney && !particleSystemMoneyLost.isPlaying)
         {
             particleSystemMoneyGained.Stop();
@@ -85,11 +83,11 @@ public class WorkstationPlayer : MonoBehaviour
         float resultMotivation;
         float resultHappiness;
 
-        resultMotivation = (totalMotivation / DAS.NPC.s_npcList.Count);
-        resultHappiness  = 1 - (totalHappiness / DAS.NPC.s_npcList.Count);
+        resultMotivation = totalMotivation / DAS.NPC.s_npcList.Count;
+        resultHappiness = 1 - totalHappiness / DAS.NPC.s_npcList.Count;
         
-        emissionMoneyGained.rateOverTime = new ParticleSystem.MinMaxCurve(resultMotivation * 4f);
-        emissionMoneyLost.rateOverTime = new ParticleSystem.MinMaxCurve(resultHappiness * 4f);
+        emissionMoneyGained.rateOverTime = new ParticleSystem.MinMaxCurve(resultMotivation * 8f);
+        emissionMoneyLost.rateOverTime = new ParticleSystem.MinMaxCurve(resultHappiness * 8f);
     }
 
     private void PullPlayer()
@@ -104,7 +102,7 @@ public class WorkstationPlayer : MonoBehaviour
         // Apply the rotate towards.
         player.transform.rotation = Quaternion.LookRotation(newDir);
 
-        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             agentRef.isStopped = false;
         }

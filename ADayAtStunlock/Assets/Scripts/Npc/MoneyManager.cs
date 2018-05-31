@@ -8,12 +8,34 @@ public class MoneyManager : MonoBehaviour
     [SerializeField]
     private GameObject m_endScreen;
 
+    private static MoneyManager myInstance;
+
+    private float GeneratedMoney
+    {
+        get;
+        set;
+    }
+    private float DeductedMoney
+    {
+        get;
+        set;
+    }
+
     public float npcSalary;
     private int m_npcIncome;
     private int m_startMoney;
 
     private HighscoreListScreen m_highscoreListScreen;
     private static ScoreDisplay s_scoreDisplay;
+
+    private static float moneyDifferenceLastGenerate;
+    public static float MoneyDifferenceLastGenerate
+    {
+        get
+        {
+            return moneyDifferenceLastGenerate;
+        }
+    }
 
     //Use this as a display while playing
     private static float currentMoney;
@@ -38,15 +60,27 @@ public class MoneyManager : MonoBehaviour
     private static float m_moneyChangeLastFrame;
     
     private float timer;
+    private float timerGoal = 50;
     private bool run;
 
-    public int AmountOfCurrentlyWorkingNpcs
+    public static int AmountOfCurrentlyWorkingNpcs
     {
         get;
         set;
     }
 
-	void Start ()
+    private void Awake()
+    {
+        if (myInstance == null)
+            myInstance = this;
+        else
+        {
+            Debug.LogError("Copy of moneymanager!, destroying copy!");
+            Destroy(this);
+        }
+    }
+
+    private void Start ()
     {
         m_highscoreListScreen = HighscoreListScreen.s_thisInstance;
         moneyLost = 0;
@@ -56,12 +90,15 @@ public class MoneyManager : MonoBehaviour
         CurrentMoney = m_startMoney;
         run = false;
 
+        GeneratedMoney = 0;
+        DeductedMoney = 0;
+
         s_scoreDisplay = FindObjectOfType<ScoreDisplay>();
         if (s_scoreDisplay != null)
             s_scoreDisplay.SetScore(CurrentMoney, m_moneyChangeLastFrame);
     }
 
-    void Update ()
+    private void Update ()
     {
         //Earn points for staying alive.
         highscorePoints += 10 * Time.deltaTime;
@@ -83,17 +120,24 @@ public class MoneyManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        timer += Time.fixedDeltaTime;
+        if (timer <= timerGoal)
+            timer += Time.fixedDeltaTime;
+
         if (s_scoreDisplay != null)
         {
             s_scoreDisplay.SetScore(CurrentMoney, m_moneyChangeLastFrame);
             m_moneyChangeLastFrame = currentMoney;
         }
 
-        if (timer <= 50)
-            return;
+        if (timer >= timerGoal)
+            DeductSalary();
 
-        DeductSalary();
+        if (float.IsNaN(GeneratedMoney + DeductedMoney))
+            return;
+        CurrentMoney += GeneratedMoney + DeductedMoney;
+        moneyDifferenceLastGenerate = GeneratedMoney + DeductedMoney;
+        GeneratedMoney = 0;
+        DeductedMoney = 0;
     }
 
     /// <summary>
@@ -106,12 +150,12 @@ public class MoneyManager : MonoBehaviour
         {
             if (npc.moveRef.IsCurrentlyWorking)
             {
-                CurrentMoney += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
+                MoneyManager.myInstance.GeneratedMoney += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
                 highscorePoints  += (DAS.NPC.s_motivationAverage + npc.myFeelings.Motivation)/2;
             }
         }
 
-        CurrentMoney    += 1f/2;
+        MoneyManager.myInstance.GeneratedMoney += 1f/2;
         highscorePoints += 1f/2;
     }
     /// <summary>
@@ -121,12 +165,17 @@ public class MoneyManager : MonoBehaviour
     {
         foreach (var npc in DAS.NPC.s_npcList)
         {
-            if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Easy)
-                CurrentMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage)/4))/2;
+            if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Easy)
+            {
+                //if (float.IsNaN((0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2))
+                    DeductedMoney -= (0.7f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                //else
+                    //DeductedMoney = 0;
+            }
             else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Medium)
-                CurrentMoney -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
-            else if(DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
-                CurrentMoney -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+                DeductedMoney -= (0.9f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
+            else if (DifficultyManager.currentDifficulty == DifficultyManager.Difficulty.Hard)
+                DeductedMoney -= (1.2f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
             //moneyLost += (0.8f - ((npc.myFeelings.Happiness + DAS.NPC.s_happyAverage) / 4)) / 2;
         }
     }
