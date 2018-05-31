@@ -20,9 +20,15 @@ public class ScoreDisplay : MonoBehaviour
 
         m_scoreText.text = newScore.ToString("C000000000");
         if (newScore < moneyChangeLastFrame && m_scoreText.color != Color.red)
+        {
+            MoneyManager.IsEarningMoney = false;
             m_scoreText.color = Color.red;
+        }
         else if (newScore > moneyChangeLastFrame && m_scoreText.color != Color.green)
+        {
+            MoneyManager.IsEarningMoney = true;
             m_scoreText.color = Color.green;
+        }
         else if (newScore == moneyChangeLastFrame && m_scoreText.color != Color.black)
             m_scoreText.color = Color.black;
     }

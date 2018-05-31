@@ -146,14 +146,16 @@ public class MoneyManager : MonoBehaviour
             Debug.LogWarning("LoseGame was called with a null HighscoreList");
     }
 
+    private static bool isEarningMoney = false;
     public static bool IsEarningMoney
     {
         get
         {
-            if (CurrentMoney > m_moneyChangeLastFrame)
-                return true;
-            else
-                return false;
+            return isEarningMoney;
+        }
+        set
+        {
+            isEarningMoney = value;
         }
     }
 }
