@@ -16,6 +16,17 @@ public class NpcButtons : MonoBehaviour
             npcButtonsRef = transform.GetComponentInParent<NpcButtons>();
         }
 
+        private void OnEnable()
+        {
+            npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappy;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.sadSprite = MoodIconHolder.MyInstance.iconSpriteSad;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.demotivatedSprite = MoodIconHolder.MyInstance.iconSpriteDemotivated;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.confusedSprite = MoodIconHolder.MyInstance.iconSpriteConfused;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.miserableSprite = MoodIconHolder.MyInstance.iconSpriteMiserable;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.alienSprite = MoodIconHolder.MyInstance.iconSpriteAlien;
+            npcButtonsRef.m_npcRef.moodVisualizerRef.coldSprite = MoodIconHolder.MyInstance.iconSpriteCold;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             npcButtonsRef.m_npcRef.moodVisualizerRef.happySprite = MoodIconHolder.MyInstance.iconSpriteHappyPressed;
