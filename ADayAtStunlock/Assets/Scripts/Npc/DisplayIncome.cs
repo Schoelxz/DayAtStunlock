@@ -31,7 +31,7 @@ public class DisplayIncome : MonoBehaviour {
         const float negativeSmallAmount   = -6f;
         const float negativeMediumAmount  = -12f;                                
         //const float negativeBigAmount     = -18f;                               
-        print(MoneyManager.PotentialMoneyDifference);  
+
         if(MoneyManager.PotentialMoneyDifference > positiveMediumAmount)
         {
             //Display +$$$
