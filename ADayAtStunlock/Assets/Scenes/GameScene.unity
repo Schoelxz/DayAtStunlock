@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 110456205}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99aefe139d0cf844bad9ff57e85e10ef, type: 3}
   m_Name: 
@@ -2469,6 +2469,7 @@ GameObject:
   - component: {fileID: 230226602}
   - component: {fileID: 230226604}
   - component: {fileID: 230226603}
+  - component: {fileID: 230226605}
   m_Layer: 0
   m_Name: IncomeIndicatorText
   m_TagString: Untagged
@@ -2544,6 +2545,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &230226605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 230226601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90caf318139b89e4d8ab44fb6b2e80e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positiveColor: {r: 0.08235294, g: 0.91372555, b: 0.18823531, a: 1}
+  negativeColor: {r: 0.89705884, g: 0.10553633, b: 0.10553633, a: 1}
+  neutralColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &236469774
 Prefab:
   m_ObjectHideFlags: 0
@@ -14599,7 +14614,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -715447039
+  randomSeed: -405672169
   InitialModule:
     serializedVersion: 3
     enabled: 1
