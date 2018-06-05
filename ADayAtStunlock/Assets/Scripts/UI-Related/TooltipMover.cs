@@ -29,8 +29,12 @@ public class TooltipMover : MonoBehaviour {
     {
         tooltipTransform.pivot = new Vector2(Mathf.Clamp(Mathf.Sign((Screen.width / 2 - Input.mousePosition.x)* -1), 0, 1), Mathf.Clamp(Mathf.Sign((Screen.height / 2 - Input.mousePosition.y) * -1), 0, 1));
 
-        //if (Input.GetKey(KeyCode.Escape))
-        //    gameObject.SetActive(false);
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            tooltipText.GetComponent<Text>().text = "";
+
+        }
 
         //m_tempOffset = m_offset;
         //cursorPos = Input.mousePosition;
