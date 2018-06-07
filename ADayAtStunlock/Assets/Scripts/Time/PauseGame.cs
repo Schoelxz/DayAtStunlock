@@ -6,11 +6,13 @@ public class PauseGame : MonoBehaviour {
 
     List<GameObject> pauseMenus = new List<GameObject>();
     bool shouldBePaused;
+    bool timeResumed;
+
 
 
 	// Use this for initialization
 	void Awake () {
-
+        
         pauseMenus.Add(GameObject.Find("IngameMenu"));
         pauseMenus.Add(GameObject.Find("HighscoreCanvas"));
         pauseMenus.Add(GameObject.Find("TutorialCanvas"));
@@ -31,10 +33,15 @@ public class PauseGame : MonoBehaviour {
         if(shouldBePaused)
         {
             DAS.TimeSystem.PauseTime();
+            timeResumed = false;
         }
         else
         {
-            DAS.TimeSystem.ResumeTime();
+            if(!timeResumed)
+            {
+                timeResumed = true;
+                DAS.TimeSystem.ResumeTime();
+            }
         }
 	}
 }
