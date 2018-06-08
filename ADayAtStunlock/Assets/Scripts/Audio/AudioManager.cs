@@ -98,6 +98,20 @@ public class AudioManager : MonoBehaviour {
         source.Play();
     }
 
+    public void StopAllSoundEffects()
+    {
+        foreach (var helper in listOfAudioHelpers)
+        {
+            foreach (var sound in helper.listOfAudioSourcesOnObject)
+            {
+                if(sound.clip.name != "Backbay Lounge")
+                {
+                    sound.Stop();
+                }
+            }
+        }
+    }
+
     public void StopSound(string name, GameObject self)
     {
         //Get the values of the requested sound effect
