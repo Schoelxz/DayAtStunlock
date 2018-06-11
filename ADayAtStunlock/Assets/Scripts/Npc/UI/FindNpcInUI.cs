@@ -97,7 +97,7 @@ namespace DAS
         [Header("Artist Variables")]
         [Range(1f, 5f)]
         [SerializeField]
-        private float screenClampMultiplier = 1.1f;
+        private float screenClampMultiplier = 1.5f;
         [SerializeField]
         private bool showArrowWhenClose = true;
 
