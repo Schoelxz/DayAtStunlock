@@ -215,8 +215,11 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     private void LoseGame()
     {
+
         if (m_highscoreListScreen != null)
         {
+
+            AudioManager.instance.StopAllSoundEffects();
             DAS.TimeSystem.PauseTime();
             m_highscoreListScreen.DisplayHighscoreScreen();
             //highscoreListScreen.DisplayScores();
