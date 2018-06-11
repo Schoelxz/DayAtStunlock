@@ -10879,6 +10879,7 @@ GameObject:
   - component: {fileID: 1168330438}
   - component: {fileID: 1168330439}
   - component: {fileID: 1168330440}
+  - component: {fileID: 1168330436}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11035,6 +11036,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de7ee134e78f254295c0f823028be09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1168330436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168330425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7354c498a25faeb44a2048b545b907d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bananaPrefab: {fileID: 1060157288196870, guid: 8e2b5aa2a1608b3479ec08754d3541a7,
+    type: 2}
+  spawnAreas:
+  - size: {x: 13.13, y: 1, z: 10.58}
+    positon: {x: -8.17, y: 0, z: 5.89}
+  - size: {x: 5.5, y: 1, z: 20.44}
+    positon: {x: 11.82, y: 0, z: 1.11}
+  - size: {x: 6.46, y: 1, z: 8.55}
+    positon: {x: 3.78, y: 0, z: 2.85}
+  bananaAmount: 3
 --- !u!114 &1168330437
 MonoBehaviour:
   m_ObjectHideFlags: 0
