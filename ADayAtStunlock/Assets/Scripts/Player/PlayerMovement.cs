@@ -17,6 +17,8 @@ namespace DAS
 
         private Vector3 movementValue = new Vector3();
 
+        private bool hitByBanana = false;
+
         private void Awake()
         {
             if (s_myInstance == null)
@@ -36,6 +38,9 @@ namespace DAS
 
         private void Update()
         {
+            if (hitByBanana)
+                return;
+
             if (Input.anyKey || Input.GetMouseButtonUp(0))
                 CheckInput();
 
@@ -108,6 +113,39 @@ namespace DAS
                 m_agentRef.isStopped = false;
                 m_agentRef.destination = movementValue + transform.position;
             }
+        }
+
+        private int bananaTimer = 0;
+
+        public void OnBananaHit()
+        {
+            if (!hitByBanana)
+                StartCoroutine(BananaSlide());
+            else
+                bananaTimer += 10;
+        }
+
+        private IEnumerator BananaSlide()
+        {
+            Vector3 speedWhenHit = m_agentRef.velocity;
+            m_agentRef.isStopped = true;
+            hitByBanana = true;
+            yield return new WaitForSeconds(0);
+
+            bananaTimer = 100;
+
+            while (bananaTimer > 0)
+            {
+                bananaTimer--;
+
+                transform.position += speedWhenHit/100;
+                speedWhenHit += new Vector3(Mathf.Clamp(Mathf.Cos(Time.time), 0, 0.05f), 0, Mathf.Clamp(Mathf.Sin(Time.time), 0, 0.05f));
+                transform.Rotate(new Vector3(0, 40f, 0));
+
+                yield return new WaitForSeconds(0.01f);
+            }
+            
+            hitByBanana = false;
         }
 
         #if UNITY_EDITOR
