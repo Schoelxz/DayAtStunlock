@@ -136,9 +136,9 @@ namespace DAS
 
             while (bananaTimer > 0)
             {
-                bananaTimer--;
+                bananaTimer -= (int)Time.timeScale;
 
-                transform.position += speedWhenHit/100;
+                transform.position += speedWhenHit/(100/(0.01f+(int)Time.timeScale));
                 speedWhenHit += new Vector3(Mathf.Clamp(Mathf.Cos(Time.time), 0, 0.05f), 0, Mathf.Clamp(Mathf.Sin(Time.time), 0, 0.05f));
                 transform.Rotate(new Vector3(0, 40f, 0));
 

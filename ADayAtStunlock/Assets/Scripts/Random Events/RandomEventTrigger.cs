@@ -163,6 +163,7 @@ public class RandomEventTrigger : MonoBehaviour
     { 
         s_orderedEventList.Add(RadiatorEvent);
         s_orderedEventList.Add(ToiletBreaksEvent);
+        s_orderedEventList.Add(BananaEvent.myInstance.StartBananaEvent);
         s_orderedEventList.Add(AlienEvent);
         s_orderedEventList.Add(RadiatorEvent);
         s_orderedEventList.Add(TrainEvent);
@@ -171,6 +172,7 @@ public class RandomEventTrigger : MonoBehaviour
         s_orderedEventList.Add(BollHav.MyInstance.StartBollHav);
         s_orderedEventList.Add(ToiletBreaksEvent);
         s_orderedEventList.Add(TrainEvent);
+        s_orderedEventList.Add(BananaEvent.myInstance.StartBananaEvent);
         s_orderedEventList.Add(BollHav.MyInstance.StartBollHav);
     }
 
@@ -183,6 +185,7 @@ public class RandomEventTrigger : MonoBehaviour
         s_allEvents.Add(DAS.ToiletSystem.s_myInstance.EveryoneNeedsToiletEvent);
         s_allEvents.Add(DAS.NpcCreator.ToggleGUICheat);
         s_allEvents.Add(BollHav.MyInstance.StartBollHav);
+        s_allEvents.Add(BananaEvent.myInstance.StartBananaEvent);
     }
 
     private IEnumerator TriggerEventsInOrder(float startWaitTime, float loopWaitTime)

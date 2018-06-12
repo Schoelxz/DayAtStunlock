@@ -11,8 +11,6 @@ public class BananaEvent : MonoBehaviour
 
     public Rect3D[] spawnAreas;
 
-    public int bananaAmount = 30;
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow/1.2f;
@@ -25,29 +23,30 @@ public class BananaEvent : MonoBehaviour
         myInstance = this;
     }
 
-    private void Start()
+    public void StartBananaEvent()
     {
-        if(Application.isPlaying)
-            StartBananaEvent();
+        StartCoroutine(SpawnBananas());
     }
 
-    public void StartBananaEvent()
+    private IEnumerator SpawnBananas()
     {
         //Spawn bananas
         foreach (var area in spawnAreas)
-            for (int i = 0; i < bananaAmount; i++)
+            for (int i = 0; i < (area.size.x + area.size.y + area.size.z)/2; i++)
             {
+                yield return new WaitForEndOfFrame();
                 GameObject banana = Instantiate(bananaPrefab);
                 banana.AddComponent<Banana>();
                 banana.transform.position = area.RandomPointInBox;
+                banana.transform.Rotate(new Vector3(0, 0, Random.Range(0, 1000)));
             }
     }
-
-
 }
 
 public class Banana : MonoBehaviour
 {
+    float lifeTime = 25;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
@@ -63,6 +62,14 @@ public class Banana : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Update()
+    {
+        lifeTime -= Time.deltaTime;
+
+        if (lifeTime < 0)
+            Destroy(gameObject);
+    }
 }
 
 [System.Serializable]
@@ -76,6 +83,9 @@ public class Rect3D
         positon = pPosition;
     }
 
+    /// <summary>
+    /// ...except y coords.
+    /// </summary>
     public Vector3 RandomPointInBox
     {
         get

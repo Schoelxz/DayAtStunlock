@@ -115,6 +115,6 @@ public class WorkstationPlayer : MonoBehaviour
         }
 
         // Draw ray towards the position we're rotating towards.
-        //Debug.DrawRay(transform.position, newDir, Color.red, 3);
+        Debug.DrawRay(transform.position, newDir, Color.red, 3);
     }
 }
