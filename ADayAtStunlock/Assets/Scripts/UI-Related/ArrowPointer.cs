@@ -201,7 +201,7 @@ public class ArrowPointer : MonoBehaviour
 
             //Set allowed position to keep inside
             Vector3 allowedPos = (Vector3)item.convertedTargetObjectPosition - m_middlePoint;
-            allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height / (2f * 1.1f));
+            allowedPos = Vector3.ClampMagnitude(allowedPos, Screen.height / (2f * 1.6f));
 
             //Set arrow position to the Vector2 Position it should have but clamping it within a .
             item.arrowPointer.transform.position = m_middlePoint + allowedPos;
